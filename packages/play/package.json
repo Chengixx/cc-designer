@@ -1,9 +1,10 @@
 {
-  "name": "cgx-designer",
+  "name": "@cgx-designer/play",
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
   "scripts": {
+    "dev": "vite --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

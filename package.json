@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "dev": "pnpm --filter cgx-designer dev",
+    "dev": "pnpm --filter @cgx-designer/play dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -12,6 +12,7 @@
     "@cgx-designer/hooks": "workspace:*",
     "@cgx-designer/ui": "workspace:*",
     "@cgx-designer/utils": "workspace:*",
+    "@cgx-designer/play": "workspace:*",
     "@vitejs/plugin-vue-jsx": "^4.0.0",
     "element-plus": "^2.8.0",
     "lodash": "^4.17.21",
