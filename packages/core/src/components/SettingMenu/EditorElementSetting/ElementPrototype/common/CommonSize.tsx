@@ -1,0 +1,33 @@
+import useFocus from "@/hook/useFocus";
+import { ElFormItem, ElInput, ElOption, ElSelect } from "element-plus";
+import { defineComponent } from "vue";
+
+const CommonSize = defineComponent({
+  setup() {
+    const { getFocusElement } = useFocus();
+    const optionList = [
+      { label: "大", value: "large" },
+      { label: "中", value: "medium" },
+      { label: "小", value: "small" },
+    ];
+    return () => {
+      return (
+        <ElFormItem label="尺寸">
+          <ElSelect
+            v-model={getFocusElement()!.props.size}
+            placeholder="请选择"
+          >
+            {optionList.map((item) => (
+              <ElOption
+                key={item.value}
+                label={item.label}
+                value={item.value}
+              />
+            ))}
+          </ElSelect>
+        </ElFormItem>
+      );
+    };
+  },
+});
+export default CommonSize;

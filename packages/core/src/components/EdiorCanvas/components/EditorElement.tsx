@@ -1,0 +1,71 @@
+import { inject, ref, defineComponent, h, onMounted, onBeforeUnmount } from "vue";
+import { ElementConfig } from "../../../config/elementCreator";
+import { IEditorElement, useElementStore } from "../../../store/modules/element";
+import useFocus from "../../../hook/useFocus";
+import { ElFormItem, ElRow } from "element-plus";
+import ButtonTool from "./ButtonTool";
+import { usehoverStore } from "@/store/modules/hover";
+
+const EditorElement = defineComponent({
+  props: {
+    element: { type: Object },
+  },
+  setup(props) {
+    onMounted(() => {
+      useElementStore().addElementInstance(props.element!.id, elementRef.value!)
+      // console.log(useElementStore().elementInstanceList);
+    })
+    //!一定要用onBeforeUnmount,用onUnmounted不行,顺序会出问题
+    onBeforeUnmount(() => {
+      useElementStore().deleteElementInstance(props.element!.id)
+    })
+    const { handleElementClick } = useFocus();
+    const elementRef = ref<HTMLBaseElement | null>(null);
+    const handleClick = (e: MouseEvent) => {
+      handleElementClick(props.element as IEditorElement, e);
+    };
+    const { handleCancelHover, handleHover } = usehoverStore()
+    return () => {
+      //先从元素配置那里拿到
+      const elementConfig = inject<ElementConfig>("elementConfig");
+      //渲染出来的组件
+      const elementRender = elementConfig?.elementRenderMap[props.element!.key]
+      return (
+        <div
+          onMouseover={e => handleHover(e, props.element!.id)}
+          onMouseout={e => handleCancelHover(e)}
+          id={props.element!.id}
+          class={[
+            props.element!.focus ? "border border-dashed border-blue-500 bg-[#f4f8fe]" : "",
+            "h-full flex items-center relative",
+          ]}
+          ref={elementRef}
+          onClick={(e: MouseEvent) => handleClick(e)}
+        >
+          {/* //!当前选中的元素不是row 就普通元素 然后如果是有默认值 */}
+          {/* //!也就是表单元素的 就要加ElFormItem 为了更好的体验而已 */}
+          {Object.keys(props.element!.props).includes("defaultValue") ? (
+            <ElFormItem
+              // !这里我知道没有click 但是必须加这个 不能有默认的事件的
+              //@ts-expect-error
+              onClick={(e: MouseEvent) => e.preventDefault()}
+              label={!!props.element!.props.label ? props.element!.props.label : props.element!.key}
+              class="w-full"
+              labelPosition={props.element!.props.labelPosition}
+              style={{ marginBottom: "0px !important" }}
+            >
+              {h(elementRender, props.element!)}
+            </ElFormItem>
+          ) : (
+            <>
+              {h(elementRender, props.element!)}
+            </>
+          )}
+          {props.element!.focus && <ButtonTool />}
+        </div>
+      );
+    };
+  },
+});
+
+export default EditorElement;

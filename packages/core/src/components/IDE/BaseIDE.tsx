@@ -1,0 +1,99 @@
+import { defineComponent, onMounted, ref, watch } from "vue";
+import ace from 'ace-builds'
+import workerJavascriptUrl from "ace-builds/src-noconflict/worker-javascript?url";
+import { js_beautify } from "js-beautify";
+
+import 'ace-builds/src-min-noconflict/theme-monokai' // 默认设置的主题
+import 'ace-builds/src-min-noconflict/theme-dracula' // 默认设置的主题
+import 'ace-builds/src-min-noconflict/theme-sqlserver' // 新设主题
+import 'ace-builds/src-min-noconflict/mode-javascript' // 默认设置的语言模式
+import 'ace-builds/src-min-noconflict/mode-json' //
+import 'ace-builds/src-min-noconflict/mode-css' //
+import 'ace-builds/src-min-noconflict/ext-language_tools'
+import "ace-builds/src-noconflict/snippets/javascript"
+import "ace-builds/src-noconflict/snippets/json"
+import "ace-builds/src-noconflict/snippets/css"
+import { ElButton } from "element-plus";
+
+const BaseIDE = defineComponent({
+  props: {
+    modelValue: {
+      type: String,
+      default: "manba"
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    theme: {
+      type: String,
+      default: "monokai"
+    }
+  },
+  emits: ['update:modelValue'],
+  setup(props, { emit, expose }) {
+    const aceEditor = ref<ace.Ace.Editor | null>(null);
+    ace.config.setModuleUrl('ace/mode/javascript_worker', workerJavascriptUrl);
+    const initEditor = () => {
+      aceEditor.value = ace.edit("aceRef", {
+        maxLines: 20, // 最大行数，超过会自动出现滚动条
+        minLines: 5, // 最小行数，还未到最大行数时，编辑器会自动伸缩大小
+        fontSize: 18, // 编辑器内字体大小
+        theme: `ace/theme/${props.theme}`, // 默认设置的主题
+        mode: 'ace/mode/javascript', // 默认设置的语言模式
+        tabSize: 2, // 制表符设置为2个空格大小
+        readOnly: props.readonly,
+        highlightActiveLine: true,
+        value: props.modelValue
+      });
+      aceEditor.value.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true // 启用实时自动完成
+      })
+      aceEditor.value.getSession().on("change", () => {
+        emit('update:modelValue', aceEditor.value!.getValue())
+      });
+    }
+    const formatCode = () => {
+      if (aceEditor.value) {
+        const formattedCode = js_beautify(aceEditor.value.getValue(), {
+          indent_size: 2,
+          space_in_empty_paren: true
+        });
+        aceEditor.value.setValue(formattedCode, -1);
+      }
+    };
+    const setEditorValue = (value: string) => {
+      if (aceEditor.value) {
+        aceEditor.value.setValue(value, -1);
+        formatCode()
+      }
+    }
+    expose({
+      setEditorValue
+    })
+    onMounted(() => {
+      initEditor()
+      formatCode()
+    })
+    //初始化之后没法改 只能在这里监听去改
+    watch(
+      () => props.theme,
+      () => {
+        aceEditor.value?.setTheme(`ace/theme/${props.theme}`)
+      }
+    )
+    return () => {
+      return (
+        <div>
+          <div id="aceRef" class="min-h-80" />
+          <div class="mt-2">
+            <ElButton onClick={formatCode}>formatCode</ElButton>
+          </div>
+        </div>
+      );
+    };
+  },
+});
+export default BaseIDE;
