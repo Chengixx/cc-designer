@@ -1,5 +1,5 @@
 import { defineComponent, provide } from "vue";
-import { elementConfig } from "./config/elementCreator";
+import { elementConfig } from "@cgx-designer/utils";
 import Editor from "./pages/Editor";
 
 const App = defineComponent({

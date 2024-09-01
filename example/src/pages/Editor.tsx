@@ -1,17 +1,18 @@
 import { defineComponent, provide } from "vue";
-import useCommand from "../hook/useCommand";
-import ElementMenu from "@/components/ElementMenu";
-import SettingMenu from "@/components/SettingMenu";
-import CGXLogo from "@/components/CGXLogo";
-import EdiorCanvas from "@/components/EdiorCanvas";
-import OperationMenu from "@/components/OperationMenu";
-import useForm from "@/hook/useForm";
-import useHover from "@/hook/useHover";
-import useElement from "@/hook/useElement";
-import useFocus from "@/hook/useFocus";
+import useCommand from "@cgx-designer/hooks/src/useCommand";
+import ElementMenu from "cgx-designer/components/ElementMenu";
+import SettingMenu from "cgx-designer/components/SettingMenu";
+import CGXLogo from "cgx-designer/components/CGXLogo";
+import EdiorCanvas from "cgx-designer/components/EdiorCanvas";
+import OperationMenu from "cgx-designer/components/OperationMenu";
+import useForm from "@cgx-designer/hooks/src/useForm";
+import useHover from "@cgx-designer/hooks/src/useHover";
+import useElement from "@cgx-designer/hooks/src/useElement";
+import useFocus from "@cgx-designer/hooks/src/useFocus";
 //主要画布
 const Editor = defineComponent({
   setup() {
+    console.log("用的是解耦的");
     const formManage = useForm()
     const hoverManage = useHover()
     const elementManage = useElement()
