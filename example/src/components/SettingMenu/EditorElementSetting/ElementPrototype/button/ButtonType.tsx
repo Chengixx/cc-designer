@@ -1,10 +1,10 @@
-import useFocus from "@/hook/useFocus";
+import { FocusManage } from "@/hook/useFocus";
 import { ElFormItem, ElOption, ElSelect } from "element-plus";
-import { defineComponent } from "vue";
+import { defineComponent, inject } from "vue";
 
 const ButtonType = defineComponent({
   setup() {
-    const { getFocusElement } = useFocus();
+    const focusManage = inject("focusManage") as FocusManage
     const buttonTypeList = [
       { label: "主要", value: "primary" },
       { label: "成功", value: "success" },
@@ -18,7 +18,7 @@ const ButtonType = defineComponent({
       return (
         <ElFormItem label="按钮类型">
           <ElSelect
-            v-model={getFocusElement()!.props.type}
+            v-model={focusManage.getFocusElement()!.props.type}
             placeholder="请选择"
           >
             {buttonTypeList.map((item) => (

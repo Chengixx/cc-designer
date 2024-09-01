@@ -1,7 +1,7 @@
 import { ElDrawer, ElTree } from "element-plus";
-import { createVNode, defineComponent, ref, render, nextTick } from "vue";
-import { TreeNode, useElementStore } from "@/store/modules/element";
-import useFocus from "@/hook/useFocus";
+import { createVNode, defineComponent, ref, render, nextTick, inject } from "vue";
+import { FocusManage } from "@/hook/useFocus";
+import { ElementManage, TreeNode } from "@/hook/useElement";
 interface TreeDrawerExpose {
   showDrawer: Function;
 }
@@ -10,15 +10,16 @@ const TreeDrawerDom = defineComponent({
   props: {},
   setup(_, ctx) {
     const nodeTree = ref<InstanceType<typeof ElTree>>();
-    const { getTree, findElementById } = useElementStore();
-    const { handleElementClick, getFocusElement } = useFocus();
+    const focusManage = inject("focusManage") as FocusManage
     const isShow = ref<boolean>(false);
     const treeData = ref<TreeNode[]>([]);
-    const showDrawer = () => {
+    const IElementManage = ref<ElementManage>();
+    const showDrawer = (elementManage: ElementManage) => {
       isShow.value = true;
-      treeData.value = getTree();
+      treeData.value = elementManage.getTree();
+      IElementManage.value = elementManage
       //进来一瞬间要先高亮起来
-      const focusElement = getFocusElement();
+      const focusElement = focusManage.getFocusElement();
       if (focusElement) {
         // console.log(focusElement);
         nextTick(() => {
@@ -27,10 +28,10 @@ const TreeDrawerDom = defineComponent({
       }
     };
     const handleNodeClick = (data: TreeNode) => {
-      const element = findElementById(data.id);
+      const element = IElementManage.value!.findElementById(data.id);
       // console.log("点击了", element);
       if (!element?.focus) {
-        handleElementClick(element!);
+        focusManage.handleElementClick(element!);
       }
     };
     ctx.expose({
@@ -61,10 +62,10 @@ const TreeDrawerDom = defineComponent({
   },
 });
 
-export const TreeDrawer = () => {
+export const TreeDrawer = (elementManage: ElementManage) => {
   let el = document.createElement("div");
   let VDom = createVNode(TreeDrawerDom);
   document.body.appendChild((render(VDom, el), el));
   let { showDrawer } = VDom.component!.exposed as TreeDrawerExpose;
-  showDrawer();
+  showDrawer(elementManage);
 };

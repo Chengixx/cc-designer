@@ -1,10 +1,10 @@
-import useFocus from "@/hook/useFocus";
+import { FocusManage } from "@/hook/useFocus";
 import { ElFormItem, ElInputNumber } from "element-plus";
-import { defineComponent } from "vue";
+import { defineComponent, inject } from "vue";
 
 const ColSpan = defineComponent({
   setup() {
-    const { getFocusElement } = useFocus();
+    const focusManage = inject("focusManage") as FocusManage
 
     return () => {
       return (
@@ -12,7 +12,7 @@ const ColSpan = defineComponent({
           <ElInputNumber
             min={1}
             max={24}
-            v-model={getFocusElement()!.props.span}
+            v-model={focusManage.getFocusElement()!.props.span}
             placeholder="请输入"
           />
         </ElFormItem>

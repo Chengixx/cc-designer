@@ -1,15 +1,15 @@
 import { ElFormItem, ElInput } from "element-plus";
-import { defineComponent } from "vue";
-import useFocus from "@/hook/useFocus";
+import { defineComponent, inject } from "vue";
+import { FocusManage } from "@/hook/useFocus";
 
 const CommonDefaultValue = defineComponent({
   setup() {
-    const { getFocusElement } = useFocus();
+    const focusManage = inject("focusManage") as FocusManage
 
     return () => {
       return (
         <ElFormItem label="默认值">
-          <ElInput v-model={getFocusElement()!.props.defaultValue} />
+          <ElInput v-model={focusManage.getFocusElement()!.props.defaultValue} />
         </ElFormItem>
       );
     };

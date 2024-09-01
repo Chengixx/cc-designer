@@ -5,7 +5,8 @@ import { inject } from "vue";
 import { ElementConfig, IElementBaseSetting } from "@/config/elementCreator";
 import { v4 as uuid } from "uuid";
 import useDrag from "@/hook/useDrag";
-
+import { HoverManage } from "@/hook/useHover";
+const hoverManage = inject("hoverManage") as HoverManage;
 const elementConfig = inject<ElementConfig>("elementConfig");
 const commands: Record<string, Function> | undefined = inject("commands");
 const handleClick = (element: IElementBaseSetting) => {
@@ -27,8 +28,8 @@ const handleClone = (e: any) => {
       animation: 180,
       ghostClass: 'moving',
     }"
-    @start="handleDropStart"
-    @end="handleDropEnd"
+    @start="(e) => handleDropStart(e, hoverManage)"
+    @end="(e) => handleDropEnd(e, hoverManage)"
     :clone="(e:any) => handleClone(e)"
     item-key="id"
     class="grid grid-cols-[auto_auto] px-[10px] gap-2"

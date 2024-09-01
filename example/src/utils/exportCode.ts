@@ -1,9 +1,3 @@
-import { useFormStoreHook } from "@/store/modules/form";
-import { useElementStoreHook } from "@/store/modules/element";
-
-const { formSetting } = useFormStoreHook();
-const { elementList } = useElementStoreHook();
-
 const createHTMLCode = () => {
   //form的代码
   const FormCode = `

@@ -1,11 +1,11 @@
 import { InputDialog } from "@/components/InputDialog";
 import { TreeDrawer } from "@/components/TreeDrawer";
-import { useElementStore, useElementStoreHook } from "@/store/modules/element";
 import { isFormWithEditorElements } from "@/utils";
 import { ElNotification } from "element-plus";
-import useFocus from "../hook/useFocus";
-import { useFormStoreHook } from "@/store/modules/form";
+import { FocusManage } from "../hook/useFocus";
 import exportCode from "@/utils/exportCode";
+import { FormManage } from "@/hook/useForm";
+import { ElementManage } from "@/hook/useElement";
 
 interface OperationButtonSetting {
   label: string;
@@ -13,29 +13,32 @@ interface OperationButtonSetting {
 }
 
 const createOperationButtonSetting = (
+  formManage: FormManage,
+  elementManage: ElementManage,
+  focusManange: FocusManage,
   commands: Record<string, Function>
 ): OperationButtonSetting[] => {
   const btnList = [
     {
       label: "查看日志",
       handler: () => {
-        console.log("总体元素列表", useElementStoreHook().elementList);
-        console.log("当前选中的元素", useFocus().getFocusElement());
-        console.log("树", useElementStoreHook().getTree());
+        console.log("总体元素列表", elementManage.elementList);
+        console.log("当前选中的元素", focusManange.getFocusElement());
+        console.log("树", elementManage.getTree());
         console.log("导出的vue项目文件", exportCode());
-        console.log("组件对象实例Map", useElementStore().elementInstanceList);
+        console.log("组件对象实例Map", elementManage.elementInstanceList);
       },
     },
     {
       label: "树状图",
       handler: () => {
-        TreeDrawer();
+        TreeDrawer(elementManage);
       },
     },
     {
       label: "清空",
       handler: () => {
-        if (useElementStoreHook().elementList.length === 0) {
+        if (elementManage.elementList.value.length === 0) {
           ElNotification.warning("已经是空的啦!");
           return;
         }
@@ -58,8 +61,8 @@ const createOperationButtonSetting = (
       label: "导出",
       handler: () => {
         const tempObj = {
-          formSetting: useFormStoreHook().formSetting,
-          elementList: useElementStoreHook().elementList,
+          formSetting: formManage.formSetting,
+          elementList: elementManage.elementList.value,
         };
         InputDialog({
           title: "导出",
@@ -83,7 +86,7 @@ const createOperationButtonSetting = (
             try {
               if (value && isFormWithEditorElements(JSON.parse(value))) {
                 commands.import(JSON.parse(value).elementList);
-                useFormStoreHook().setFormSetting(
+                formManage.setFormSetting(
                   JSON.parse(value).formSetting
                 );
                 ElNotification.success("导入成功");

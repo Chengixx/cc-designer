@@ -5,23 +5,23 @@ import {
   ElInput,
   ElPopconfirm,
 } from "element-plus";
-import { defineComponent } from "vue";
-import useFocus from "@/hook/useFocus";
+import { defineComponent, inject } from "vue";
+import { FocusManage } from "@/hook/useFocus";
 import { GroupOption } from "@/config/template/Select";
 import { Delete } from "@element-plus/icons-vue";
 
 const SelectOptions = defineComponent({
   setup() {
-    const { getFocusElement } = useFocus();
+    const focusManage = inject("focusManage") as FocusManage
     const handleAddOption = () => {
-      const options = getFocusElement()?.props.options;
-      getFocusElement()?.props.options.push({
+      const options = focusManage.getFocusElement()?.props.options;
+      focusManage.getFocusElement()?.props.options.push({
         label: `label${options.length + 1}`,
         value: `${options.length + 1}`,
       });
     };
     const handleDeleteOption = (index: number) => {
-      getFocusElement()?.props.options.splice(index, 1);
+      focusManage.getFocusElement()?.props.options.splice(index, 1);
     };
     return () => {
       return (
@@ -30,7 +30,7 @@ const SelectOptions = defineComponent({
           <ElButton text type="primary" onClick={() => handleAddOption()}>
             新增选项
           </ElButton>
-          {getFocusElement()?.props.options.map(
+          {focusManage.getFocusElement()?.props.options.map(
             (option: GroupOption, index: number) => {
               return (
                 <div class="flex justify-center items-center my-2">

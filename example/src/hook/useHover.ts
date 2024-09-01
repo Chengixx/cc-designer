@@ -1,9 +1,23 @@
-import { defineStore } from "pinia";
-import store from "../index";
-import { ref, watch } from "vue";
-import { useElementStoreHook } from "./element";
+import { ref, watch, Ref } from "vue";
+import { ElementManage } from "./useElement";
 
-export const usehoverStore = defineStore("hover", () => {
+export interface HoverManage {
+  setDisableHoverStatus: (status?: boolean) => void;
+  hoverWidgetRef: Ref<HTMLDivElement | null>;
+  sethoverWidgetRef: (el: HTMLDivElement) => void;
+  hoverElementId: Ref<string>;
+  setHoverElementId: (id?: string) => void;
+  showHoverBox: Ref<boolean>;
+  setShowHoverBox: (status?: boolean) => void;
+  handleHover: (
+    e: MouseEvent,
+    hoverId: string,
+    elementManage: ElementManage
+  ) => void;
+  handleCancelHover: (e: MouseEvent) => void;
+}
+
+const useHover = (): HoverManage => {
   //是否可以进行hover，因为拖拽的时候不要显示
   const disableHover = ref<boolean>(false);
   const setDisableHoverStatus = (status: boolean = true) => {
@@ -24,11 +38,15 @@ export const usehoverStore = defineStore("hover", () => {
   const setShowHoverBox = (status: boolean = false) => {
     showHoverBox.value = status;
   };
-  const handleHover = (e: MouseEvent, hoverId: string) => {
+  const handleHover = (
+    e: MouseEvent,
+    hoverId: string,
+    elementManage: ElementManage
+  ) => {
     if (disableHover.value) return;
     e.stopPropagation();
     hoverElementId.value = hoverId;
-    const hoverDom = useElementStoreHook().elementInstanceList[hoverId];
+    const hoverDom = elementManage.elementInstanceList.value[hoverId];
     // console.log(hoverDom, "最外层的元素是哪个");
     const rect = hoverDom.getBoundingClientRect();
     //!还有一个滚动条的长度
@@ -65,9 +83,6 @@ export const usehoverStore = defineStore("hover", () => {
     handleHover,
     handleCancelHover,
   };
-});
+};
 
-/** 在 setup 外使用 */
-export function usehoverStoreHook() {
-  return usehoverStore(store);
-}
+export default useHover;

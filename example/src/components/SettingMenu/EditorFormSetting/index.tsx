@@ -6,12 +6,13 @@ import {
   ElRadioButton,
   ElRadioGroup,
 } from "element-plus";
-import { defineComponent } from "vue";
-import { useFormStore } from "@/store/modules/form";
+import { defineComponent, inject } from "vue";
+import { FormManage } from "@/hook/useForm";
 
 const EditFormSetting = defineComponent({
   setup() {
-    const { formSetting } = useFormStore();
+    const formManage = inject("formManage") as FormManage
+
     const labelPositionList = [
       { label: "左", value: "left" },
       { label: "右", value: "right" },
@@ -27,27 +28,27 @@ const EditFormSetting = defineComponent({
         <div class="h-full overflow-y-auto">
           <ElForm label-width="auto">
             <ElFormItem label="表单名称">
-              <ElInput placeholder="表单名称" v-model={formSetting.modelName} />
+              <ElInput placeholder="表单名称" v-model={formManage.formSetting.modelName} />
             </ElFormItem>
             <ElFormItem label="引用名称">
-              <ElInput placeholder="表单引用" v-model={formSetting.refName} />
+              <ElInput placeholder="表单引用" v-model={formManage.formSetting.refName} />
             </ElFormItem>
             <ElFormItem label="规则名称">
               <ElInput
                 placeholder="表单规则名称"
-                v-model={formSetting.rulesName}
+                v-model={formManage.formSetting.rulesName}
               />
             </ElFormItem>
             <ElFormItem label="标签宽度">
               <ElInputNumber
                 placeholder="标签宽度"
-                v-model={formSetting.labelWidth}
+                v-model={formManage.formSetting.labelWidth}
               />
             </ElFormItem>
             <ElFormItem label="表单大小">
               <ElRadioGroup
                 size="small"
-                v-model={formSetting.size}
+                v-model={formManage.formSetting.size}
                 aria-label="表单标签位置"
               >
                 {sizeList.map((item) => (
@@ -58,7 +59,7 @@ const EditFormSetting = defineComponent({
             <ElFormItem label="标签位置">
               <ElRadioGroup
                 size="small"
-                v-model={formSetting.labelPosition}
+                v-model={formManage.formSetting.labelPosition}
                 aria-label="表单标签位置"
               >
                 {labelPositionList.map((item) => (

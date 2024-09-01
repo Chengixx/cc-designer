@@ -1,30 +1,31 @@
 import { inject, ref, defineComponent, h, onMounted, onBeforeUnmount } from "vue";
 import { ElementConfig } from "../../../config/elementCreator";
-import { IEditorElement, useElementStore } from "../../../store/modules/element";
-import useFocus from "../../../hook/useFocus";
-import { ElFormItem, ElRow } from "element-plus";
+import { FocusManage } from "../../../hook/useFocus";
+import { ElFormItem} from "element-plus";
 import ButtonTool from "./ButtonTool";
-import { usehoverStore } from "@/store/modules/hover";
+import { HoverManage } from "@/hook/useHover";
+import { ElementManage, IEditorElement } from "@/hook/useElement";
 
 const EditorElement = defineComponent({
   props: {
     element: { type: Object },
   },
   setup(props) {
+    const hoverManage = inject("hoverManage") as HoverManage
+    const elementManage = inject("elementManage") as ElementManage
+
     onMounted(() => {
-      useElementStore().addElementInstance(props.element!.id, elementRef.value!)
-      // console.log(useElementStore().elementInstanceList);
+      elementManage.addElementInstance(props.element!.id, elementRef.value!)
     })
     //!一定要用onBeforeUnmount,用onUnmounted不行,顺序会出问题
     onBeforeUnmount(() => {
-      useElementStore().deleteElementInstance(props.element!.id)
+      elementManage.deleteElementInstance(props.element!.id)
     })
-    const { handleElementClick } = useFocus();
+    const focusManage = inject("focusManage") as FocusManage
     const elementRef = ref<HTMLBaseElement | null>(null);
     const handleClick = (e: MouseEvent) => {
-      handleElementClick(props.element as IEditorElement, e);
+      focusManage.handleElementClick(props.element as IEditorElement, e);
     };
-    const { handleCancelHover, handleHover } = usehoverStore()
     return () => {
       //先从元素配置那里拿到
       const elementConfig = inject<ElementConfig>("elementConfig");
@@ -32,8 +33,8 @@ const EditorElement = defineComponent({
       const elementRender = elementConfig?.elementRenderMap[props.element!.key]
       return (
         <div
-          onMouseover={e => handleHover(e, props.element!.id)}
-          onMouseout={e => handleCancelHover(e)}
+          onMouseover={e => hoverManage.handleHover(e, props.element!.id, elementManage)}
+          onMouseout={e => hoverManage.handleCancelHover(e)}
           id={props.element!.id}
           class={[
             props.element!.focus ? "border border-dashed border-blue-500 bg-[#f4f8fe]" : "",

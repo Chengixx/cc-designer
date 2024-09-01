@@ -1,5 +1,3 @@
-import { defineStore } from "pinia";
-import store from "../index";
 import { reactive } from "vue";
 
 export interface FormSetting {
@@ -11,7 +9,12 @@ export interface FormSetting {
   size: "default" | "small" | "large";
 }
 
-export const useFormStore = defineStore("form", () => {
+export interface FormManage {
+  formSetting: FormSetting;
+  setFormSetting: (newSetting: FormSetting) => void;
+}
+
+const useForm = () => {
   const formSetting: FormSetting = reactive({
     modelName: "formData",
     refName: "formRef",
@@ -34,9 +37,6 @@ export const useFormStore = defineStore("form", () => {
     formSetting,
     setFormSetting,
   };
-});
+};
 
-/** 在 setup 外使用 */
-export function useFormStoreHook() {
-  return useFormStore(store);
-}
+export default useForm;

@@ -1,10 +1,30 @@
-import { ref } from "vue";
-import { defineStore } from "pinia";
-import store from "../index";
+import { Ref, ref } from "vue";
 import { v4 as uuid } from "uuid";
 import { IElementBaseSetting, elementConfig } from "@/config/elementCreator";
 import { deepClone } from "@/utils";
-import useFocus from "@/hook/useFocus";
+
+export interface ElementManage {
+  elementList: Ref<IEditorElement[]>;
+  setElementList: (newElements: IEditorElement[]) => void;
+  elementInstanceList: Ref<Record<string, HTMLBaseElement>>;
+  addElementInstance: (id: string, dom: HTMLBaseElement) => void;
+  deleteElementInstance: (id: string) => void;
+  deleteElementById: (
+    id: string | number,
+    elements?: IEditorElement[],
+    rowParent?: IEditorElement
+  ) => IEditorElement[] | null;
+  addElementFromLast: (
+    newElement: IElementBaseSetting
+  ) => IEditorElement[] | null;
+  getTree: () => TreeNode[];
+  findElementById: (
+    id: string | number,
+    elements?: IEditorElement[]
+  ) => IEditorElement | null;
+  addColForRow: () => IEditorElement[] | null;
+  deleteAllElements: () => IEditorElement[] | null;
+}
 
 export interface IEditorElement {
   focus: boolean;
@@ -19,7 +39,7 @@ export interface TreeNode {
   key: string;
   children?: TreeNode[];
 }
-export const useElementStore = defineStore("element", () => {
+export const useElement = (): ElementManage => {
   const elementTemplate = elementConfig.elementTemplate;
   const elementList = ref<IEditorElement[]>([]);
   const elementInstanceList = ref<Record<string, HTMLBaseElement>>({});
@@ -90,21 +110,36 @@ export const useElementStore = defineStore("element", () => {
     }
     return result;
   };
-  const addNewElement = (
-    newElement: IElementBaseSetting,
-    index: number,
-    list: IEditorElement[]
-  ) => {
-    list.splice(index as number, 0, elementTemplate[newElement.key](uuid));
-  };
   const addElementFromLast = (newElement: IElementBaseSetting) => {
     elementList.value.push(elementTemplate[newElement.key](uuid));
     const result = deepClone(elementList.value);
     return result;
   };
+  const _getFocusElement = (
+    elements: IEditorElement[] = elementList.value
+  ): IEditorElement | null => {
+    for (let item of elements) {
+      if (item.focus === true) {
+        return item;
+      }
+      if (item.cols) {
+        const found = _getFocusElement(item.cols);
+        if (found) {
+          return found;
+        }
+      }
+      if (item.elementList) {
+        const found = _getFocusElement(item.elementList);
+        if (found) {
+          return found;
+        }
+      }
+    }
+    return null;
+  };
   const addColForRow = (): IEditorElement[] | null => {
-    if (useFocus().getFocusElement()) {
-      useFocus().getFocusElement()!.cols!.push(elementTemplate["col"](uuid));
+    if (_getFocusElement()) {
+      _getFocusElement()!.cols!.push(elementTemplate["col"](uuid));
     }
     const result = deepClone(elementList.value);
     return result;
@@ -140,15 +175,13 @@ export const useElementStore = defineStore("element", () => {
   };
   const getTree = (): TreeNode[] => {
     tree.value = [];
-    useElementStore().elementList.forEach((element) =>
-      listToTree(element, tree.value)
-    );
+    elementList.value.forEach((element) => listToTree(element, tree.value));
 
     return tree.value;
   };
   return {
     elementList,
-    addNewElement,
+    elementInstanceList,
     setElementList,
     deleteElementInstance,
     deleteElementById,
@@ -157,12 +190,8 @@ export const useElementStore = defineStore("element", () => {
     findElementById,
     addColForRow,
     deleteAllElements,
-    elementInstanceList,
     addElementInstance,
   };
-});
+};
 
-/** 在 setup 外使用 */
-export function useElementStoreHook() {
-  return useElementStore(store);
-}
+export default useElement;

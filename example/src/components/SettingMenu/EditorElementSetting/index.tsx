@@ -9,7 +9,7 @@ import {
 } from "element-plus";
 import { defineComponent, inject, ref, watch, h, resolveComponent } from "vue";
 import { ElementConfig } from "@/config/elementCreator";
-import useFocus from "@/hook/useFocus";
+import { FocusManage } from "@/hook/useFocus";
 import { IEditorElement } from "@/store/modules/element";
 import componentList from "./ElementPrototype";
 import { stringFirstBigger } from "./../../../utils/index";
@@ -29,8 +29,8 @@ const EditElementSetting = defineComponent({
   },
   setup() {
     const formData = ref<any>({});
-    const { getFocusElement } = useFocus();
     const elementConfig = inject<ElementConfig>("elementConfig")?.elementMap;
+    const focusManage = inject("focusManage") as FocusManage
     const commands: Record<string, Function> | undefined = inject("commands");
     const component = ref<any>();
     const currentFocusElement = ref<IEditorElement | null>(null);
@@ -51,7 +51,7 @@ const EditElementSetting = defineComponent({
       return h(resolveComponent(componentName));
     };
     watch(
-      () => getFocusElement(),
+      () => focusManage.getFocusElement(),
       (nv, ov) => {
         //这种情况一般是选中之后又点一下 就是取消了
         if (!nv) {

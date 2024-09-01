@@ -1,10 +1,10 @@
 import { events } from "@/config/events";
-import { IEditorElement, useElementStoreHook } from "@/store/modules/element";
 import { deepClone } from "@/utils";
 import { onMounted, onUnmounted, reactive } from "vue";
 import { ElNotification } from "element-plus";
-import useFocus from "./useFocus";
+import useFocus, { FocusManage } from "./useFocus";
 import { IElementBaseSetting } from "@/config/elementCreator";
+import { ElementManage, IEditorElement } from "./useElement";
 interface ICommand {
   name: string;
   keyboard?: string;
@@ -28,10 +28,7 @@ interface ICommandState {
   destoryArray: Function[];
 }
 
-const useCommand = () => {
-  const { getFocusElement, resetAllElementsUnFocus } = useFocus();
-  const { setElementList, deleteElementById, addColForRow, deleteAllElements } =
-    useElementStoreHook();
+const useCommand = (elementManage: ElementManage, focusManage: FocusManage) => {
   const state: ICommandState = reactive({
     current: -1, //索引
     queue: [], //命令
@@ -73,7 +70,7 @@ const useCommand = () => {
               item.redo && item.redo();
               state.current++;
               ElNotification.success("重做成功！");
-              resetAllElementsUnFocus();
+              focusManage.resetAllElementsUnFocus();
             } else {
               ElNotification.warning("已经是最后面啦！");
             }
@@ -97,7 +94,7 @@ const useCommand = () => {
               item.undo && item.undo();
               state.current--;
               ElNotification.success("撤销成功！");
-              resetAllElementsUnFocus();
+              focusManage.resetAllElementsUnFocus();
             }
           },
         };
@@ -111,7 +108,7 @@ const useCommand = () => {
       init() {
         this.before = null;
         const start = () =>
-          (this.before = deepClone(useElementStoreHook().elementList));
+          (this.before = deepClone(elementManage.elementList.value));
         const end = () => state.commands.drag();
         events.on("start", start);
         events.on("end", end);
@@ -123,7 +120,7 @@ const useCommand = () => {
       },
       execute() {
         let before = this.before;
-        let after = useElementStoreHook().elementList;
+        let after = elementManage.elementList.value;
         // console.log("before", before);
         // console.log("after", after);
         return {
@@ -131,12 +128,12 @@ const useCommand = () => {
             //默认的
             // console.log("重做会触发这个事件", after);
             //要深拷贝一份 因为是响应式的 妈的一直更新,我服了操阿草草草草草草
-            setElementList(deepClone(after));
+            elementManage.setElementList(deepClone(after));
           },
           undo() {
             //前一次的
             // console.log("撤销会触发这个事件", before);
-            setElementList(before);
+            elementManage.setElementList(before);
           },
         };
       },
@@ -146,14 +143,14 @@ const useCommand = () => {
       name: "import",
       pushQueue: true,
       execute(newValue: IEditorElement[]) {
-        let before = deepClone(useElementStoreHook().elementList);
+        let before = deepClone(elementManage.elementList.value);
         let after = newValue;
         return {
           redo: () => {
-            setElementList(after);
+            elementManage.setElementList(after);
           },
           undo: () => {
-            setElementList(before);
+            elementManage.setElementList(before);
           },
         };
       },
@@ -163,14 +160,14 @@ const useCommand = () => {
       name: "addFromLast",
       pushQueue: true,
       execute(element: IElementBaseSetting) {
-        let before = deepClone(useElementStoreHook().elementList);
-        let after = useElementStoreHook().addElementFromLast(element);
+        let before = deepClone(elementManage.elementList.value);
+        let after = elementManage.addElementFromLast(element);
         return {
           redo: () => {
-            setElementList(deepClone(after));
+            elementManage.setElementList(deepClone(after)!);
           },
           undo: () => {
-            setElementList(before);
+            elementManage.setElementList(before);
           },
         };
       },
@@ -180,14 +177,14 @@ const useCommand = () => {
       name: "addColForRow",
       pushQueue: true,
       execute() {
-        let before = deepClone(useElementStoreHook().elementList);
-        let after = addColForRow();
+        let before = deepClone(elementManage.elementList.value);
+        let after = elementManage.addColForRow();
         return {
           redo: () => {
-            setElementList(deepClone(after!));
+            elementManage.setElementList(deepClone(after!));
           },
           undo: () => {
-            setElementList(before);
+            elementManage.setElementList(before);
           },
         };
       },
@@ -197,14 +194,16 @@ const useCommand = () => {
       name: "delete",
       pushQueue: true,
       execute() {
-        let before = deepClone(useElementStoreHook().elementList);
-        let after = deleteElementById(getFocusElement()!.id);
+        let before = deepClone(elementManage.elementList.value);
+        let after = elementManage.deleteElementById(
+          focusManage.getFocusElement()!.id
+        );
         return {
           redo: () => {
-            setElementList(deepClone(after!));
+            elementManage.setElementList(deepClone(after!));
           },
           undo: () => {
-            setElementList(before);
+            elementManage.setElementList(before);
           },
         };
       },
@@ -214,14 +213,14 @@ const useCommand = () => {
       name: "clear",
       pushQueue: true,
       execute() {
-        let before = deepClone(useElementStoreHook().elementList);
-        let after = deleteAllElements();
+        let before = deepClone(elementManage.elementList.value);
+        let after = elementManage.deleteAllElements();
         return {
           redo: () => {
-            setElementList(after!);
+            elementManage.setElementList(after!);
           },
           undo: () => {
-            setElementList(before);
+            elementManage.setElementList(before);
           },
         };
       },

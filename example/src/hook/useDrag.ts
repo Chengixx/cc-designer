@@ -1,15 +1,15 @@
 import { events } from "@/config/events";
-import { usehoverStoreHook } from "@/store/modules/hover";
+import { HoverManage } from "./useHover";
 
 const useDrag = () => {
-  const handleDropStart = (event: DragEvent) => {
-    usehoverStoreHook().setDisableHoverStatus();
-    usehoverStoreHook().setShowHoverBox();
-    usehoverStoreHook().setHoverElementId();
+  const handleDropStart = (event: DragEvent, hoverManager: HoverManage) => {
+    hoverManager.setDisableHoverStatus();
+    hoverManager.setShowHoverBox();
+    hoverManager.setHoverElementId();
     events.emit("start");
   };
-  const handleDropEnd = (event: DragEvent) => {
-    usehoverStoreHook().setDisableHoverStatus(false);
+  const handleDropEnd = (event: DragEvent, hoverManager: HoverManage) => {
+    hoverManager.setDisableHoverStatus(false);
     events.emit("end");
   };
   return { handleDropStart, handleDropEnd };

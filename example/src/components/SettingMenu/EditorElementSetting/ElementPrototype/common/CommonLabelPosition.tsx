@@ -1,10 +1,10 @@
-import { ElFormItem, ElInput, ElOption, ElRadioButton, ElRadioGroup, ElSelect } from "element-plus";
-import { defineComponent } from "vue";
-import useFocus from "@/hook/useFocus";
+import { ElFormItem, ElRadioButton, ElRadioGroup } from "element-plus";
+import { defineComponent, inject } from "vue";
+import { FocusManage } from "@/hook/useFocus";
 
 const CommonLabelPosition = defineComponent({
   setup() {
-    const { getFocusElement } = useFocus();
+    const focusManage = inject("focusManage") as FocusManage
     const labelPositionList = [
       { label: "左", value: "left" },
       { label: "右", value: "right" },
@@ -15,7 +15,7 @@ const CommonLabelPosition = defineComponent({
         <ElFormItem label="对齐方式">
           <ElRadioGroup
             size="small"
-            v-model={getFocusElement()!.props.labelPosition}
+            v-model={focusManage.getFocusElement()!.props.labelPosition}
             aria-label="标签位置"
           >
             {labelPositionList.map((item) => (

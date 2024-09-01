@@ -1,5 +1,13 @@
-import { IEditorElement, useElementStoreHook } from "../store/modules/element";
-const useFocus = () => {
+import { ElementManage, IEditorElement } from "./useElement";
+
+export interface FocusManage {
+  handleElementClick: (element: IEditorElement, e?: MouseEvent) => void;
+  handleCanvasClick: (e: MouseEvent) => void;
+  getFocusElement: (elements?: IEditorElement[]) => IEditorElement | null;
+  resetAllElementsUnFocus: (elements?: IEditorElement[]) => void;
+}
+
+const useFocus = (elementManage: ElementManage): FocusManage => {
   const handleCanvasClick = (e: MouseEvent) => {
     e.preventDefault();
     resetAllElementsUnFocus();
@@ -21,7 +29,7 @@ const useFocus = () => {
   };
 
   const resetAllElementsUnFocus = (
-    elementList: IEditorElement[] = useElementStoreHook().elementList
+    elementList: IEditorElement[] = elementManage.elementList.value
   ) => {
     elementList.forEach((element) => {
       element.focus = false;
@@ -42,7 +50,7 @@ const useFocus = () => {
   };
 
   const getFocusElement = (
-    elements: IEditorElement[] = useElementStoreHook().elementList
+    elements: IEditorElement[] = elementManage.elementList.value
   ): IEditorElement | null => {
     for (let item of elements) {
       if (item.focus === true) {

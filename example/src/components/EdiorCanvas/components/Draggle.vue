@@ -8,7 +8,9 @@ import draggable from "vuedraggable";
 import { IEditorElement } from "@/store/modules/element";
 import EditorElement from "./EditorElement";
 import useDrag from "@/hook/useDrag";
-
+import { inject } from "vue";
+import { HoverManage } from "@/hook/useHover";
+const hoverManage = inject("hoverManage") as HoverManage;
 const props = defineProps<{
   list: IEditorElement[];
   isNested: boolean;
@@ -25,8 +27,8 @@ const { handleDropStart, handleDropEnd } = useDrag();
     item-key="id"
     :class="props.isNested ? 'min-h-[60px]' : 'draggable bg-white'"
     ghost-class="ghost"
-    @start="handleDropStart"
-    @end="handleDropEnd"
+    @start="(e) => handleDropStart(e, hoverManage)"
+    @end="(e) => handleDropEnd(e, hoverManage)"
     animation="300"
     @dragover.prevent
   >
