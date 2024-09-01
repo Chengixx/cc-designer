@@ -1,7 +1,6 @@
 import { ElDrawer, ElTree } from "element-plus";
 import { createVNode, defineComponent, ref, render, nextTick, inject } from "vue";
-import { FocusManage } from "@cgx-designer/hooks";
-import { ElementManage, TreeNode } from "@cgx-designer/hooks";
+import { ElementManage, FocusManage, TreeNode } from "@cgx-designer/hooks";
 interface TreeDrawerExpose {
   showDrawer: Function;
 }
@@ -10,14 +9,15 @@ const TreeDrawerDom = defineComponent({
   props: {},
   setup(_, ctx) {
     const nodeTree = ref<InstanceType<typeof ElTree>>();
-    const focusManage = inject("focusManage") as FocusManage
     const isShow = ref<boolean>(false);
     const treeData = ref<TreeNode[]>([]);
     const IElementManage = ref<ElementManage>();
-    const showDrawer = (elementManage: ElementManage) => {
+    const IFocusManage = ref<FocusManage>();
+    const showDrawer = (elementManage: ElementManage, focusManage: FocusManage) => {
       isShow.value = true;
       treeData.value = elementManage.getTree();
       IElementManage.value = elementManage
+      IFocusManage.value = focusManage
       //进来一瞬间要先高亮起来
       const focusElement = focusManage.getFocusElement();
       if (focusElement) {
@@ -31,7 +31,7 @@ const TreeDrawerDom = defineComponent({
       const element = IElementManage.value!.findElementById(data.id);
       // console.log("点击了", element);
       if (!element?.focus) {
-        focusManage.handleElementClick(element!);
+        IFocusManage.value!.handleElementClick(element!);
       }
     };
     ctx.expose({
@@ -62,10 +62,10 @@ const TreeDrawerDom = defineComponent({
   },
 });
 
-export const TreeDrawer = (elementManage: ElementManage) => {
+export const TreeDrawer = (elementManage: ElementManage, focusManage: FocusManage) => {
   let el = document.createElement("div");
   let VDom = createVNode(TreeDrawerDom);
   document.body.appendChild((render(VDom, el), el));
   let { showDrawer } = VDom.component!.exposed as TreeDrawerExpose;
-  showDrawer(elementManage);
+  showDrawer(elementManage, focusManage);
 };

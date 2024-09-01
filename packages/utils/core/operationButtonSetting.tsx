@@ -1,5 +1,5 @@
-// import { InputDialog } from "@/components/InputDialog";
-// import { TreeDrawer } from "@/components/TreeDrawer";
+import { InputDialog } from "cgx-designer/components/InputDialog";
+import { TreeDrawer } from "cgx-designer/components/TreeDrawer";
 import { isFormWithEditorElements } from "../common/index";
 import { ElNotification } from "element-plus";
 import { FocusManage } from "@cgx-designer/hooks/src/useFocus";
@@ -32,7 +32,7 @@ const createOperationButtonSetting = (
     {
       label: "树状图",
       handler: () => {
-        // TreeDrawer(elementManage);
+        TreeDrawer(elementManage, focusManange);
       },
     },
     {
@@ -64,40 +64,40 @@ const createOperationButtonSetting = (
           formSetting: formManage.formSetting,
           elementList: elementManage.elementList.value,
         };
-        // InputDialog({
-        //   title: "导出",
-        //   content: JSON.stringify(tempObj),
-        //   confirm: (value: string) => {
-        //     //复制到剪切板
-        //     navigator.clipboard.writeText(value).then(() => {
-        //       ElNotification.success("复制成功");
-        //     });
-        //   },
-        // });
+        InputDialog({
+          title: "导出",
+          content: JSON.stringify(tempObj),
+          confirm: (value: string) => {
+            //复制到剪切板
+            navigator.clipboard.writeText(value).then(() => {
+              ElNotification.success("复制成功");
+            });
+          },
+        });
       },
     },
     {
       label: "导入",
       handler: () => {
-        // InputDialog({
-        //   title: "导入",
-        //   content: "",
-        //   confirm: (value: string) => {
-        //     try {
-        //       if (value && isFormWithEditorElements(JSON.parse(value))) {
-        //         commands.import(JSON.parse(value).elementList);
-        //         formManage.setFormSetting(
-        //           JSON.parse(value).formSetting
-        //         );
-        //         ElNotification.success("导入成功");
-        //       } else {
-        //         ElNotification.warning("导入失败，请检查数据格式");
-        //       }
-        //     } catch (error) {
-        //       ElNotification.warning("导入失败，请检查数据格式");
-        //     }
-        //   },
-        // });
+        InputDialog({
+          title: "导入",
+          content: "",
+          confirm: (value: string) => {
+            try {
+              if (value && isFormWithEditorElements(JSON.parse(value))) {
+                commands.import(JSON.parse(value).elementList);
+                formManage.setFormSetting(
+                  JSON.parse(value).formSetting
+                );
+                ElNotification.success("导入成功");
+              } else {
+                ElNotification.warning("导入失败，请检查数据格式");
+              }
+            } catch (error) {
+              ElNotification.warning("导入失败，请检查数据格式");
+            }
+          },
+        });
       },
     },
   ];
