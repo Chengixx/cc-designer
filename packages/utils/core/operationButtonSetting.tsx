@@ -7,7 +7,7 @@ import exportCode from "../common/exportCode";
 import { FormManage } from "@cgx-designer/hooks/src/useForm";
 import { ElementManage } from "@cgx-designer/hooks/src/useElement";
 
-interface OperationButtonSetting {
+export interface OperationButtonSetting {
   label: string;
   handler: ((...args: any[]) => any) | undefined;
 }

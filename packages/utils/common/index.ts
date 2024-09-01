@@ -1,9 +1,9 @@
 import { IEditorElement } from "@cgx-designer/hooks/src/useElement";
 import { FormSetting } from "@cgx-designer/hooks/src/useForm";
 
-//深拷贝
 export * from "./exportCode";
 
+//深拷贝
 export const deepClone = <T>(obj: T): T => {
   if (!obj || typeof obj !== "object") {
     return obj;

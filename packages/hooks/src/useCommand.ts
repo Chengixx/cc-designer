@@ -5,6 +5,7 @@ import { FocusManage } from "./useFocus";
 import { IElementBaseSetting } from "@cgx-designer/utils";
 import { ElementManage, IEditorElement } from "./useElement";
 import { cloneDeep } from "lodash";
+
 export interface ICommand {
   name: string;
   keyboard?: string;
