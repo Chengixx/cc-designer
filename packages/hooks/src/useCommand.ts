@@ -5,7 +5,7 @@ import { FocusManage } from "./useFocus";
 import { IElementBaseSetting } from "@cgx-designer/utils";
 import { ElementManage, IEditorElement } from "./useElement";
 import { cloneDeep } from "lodash";
-interface ICommand {
+export interface ICommand {
   name: string;
   keyboard?: string;
   execute: Function;
@@ -15,12 +15,12 @@ interface ICommand {
   pushQueue?: boolean;
 }
 
-type Queue = {
+export type Queue = {
   redo: Function;
   undo: Function;
 };
 
-interface ICommandState {
+export interface ICommandState {
   current: number;
   queue: Array<Queue>;
   commands: Record<string, Function>;
@@ -28,7 +28,10 @@ interface ICommandState {
   destoryArray: Function[];
 }
 
-const useCommand = (elementManage: ElementManage, focusManage: FocusManage) => {
+export const useCommand = (
+  elementManage: ElementManage,
+  focusManage: FocusManage
+) => {
   const state: ICommandState = reactive({
     current: -1, //索引
     queue: [], //命令
@@ -274,5 +277,3 @@ const useCommand = (elementManage: ElementManage, focusManage: FocusManage) => {
   });
   return state;
 };
-
-export default useCommand;

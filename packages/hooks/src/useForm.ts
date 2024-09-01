@@ -14,7 +14,7 @@ export interface FormManage {
   setFormSetting: (newSetting: FormSetting) => void;
 }
 
-const useForm = () => {
+export const useForm = () => {
   const formSetting: FormSetting = reactive({
     modelName: "formData",
     refName: "formRef",
@@ -38,5 +38,3 @@ const useForm = () => {
     setFormSetting,
   };
 };
-
-export default useForm;

@@ -12,7 +12,7 @@ interface OperationButtonSetting {
   handler: ((...args: any[]) => any) | undefined;
 }
 
-const createOperationButtonSetting = (
+export const createOperationButtonSetting = (
   formManage: FormManage,
   elementManage: ElementManage,
   focusManange: FocusManage,
@@ -104,5 +104,3 @@ const createOperationButtonSetting = (
   console.log("操作栏按钮列表注册完成", btnList);
   return btnList;
 };
-
-export default createOperationButtonSetting;

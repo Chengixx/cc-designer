@@ -7,7 +7,7 @@ export interface FocusManage {
   resetAllElementsUnFocus: (elements?: IEditorElement[]) => void;
 }
 
-const useFocus = (elementManage: ElementManage): FocusManage => {
+export const useFocus = (elementManage: ElementManage): FocusManage => {
   const handleCanvasClick = (e: MouseEvent) => {
     e.preventDefault();
     resetAllElementsUnFocus();
@@ -79,5 +79,3 @@ const useFocus = (elementManage: ElementManage): FocusManage => {
     resetAllElementsUnFocus,
   };
 };
-
-export default useFocus;

@@ -4,7 +4,7 @@ import SvgIcon from "../../SvgIcon";
 import { inject } from "vue";
 import { ElementConfig, IElementBaseSetting } from "@cgx-designer/utils";
 import { v4 as uuid } from "uuid";
-import useDrag from "@cgx-designer/hooks/src/useDrag";
+import { useDrag } from "@cgx-designer/hooks";
 import { HoverManage } from "@cgx-designer/hooks";
 const hoverManage = inject("hoverManage") as HoverManage;
 const elementConfig = inject<ElementConfig>("elementConfig");

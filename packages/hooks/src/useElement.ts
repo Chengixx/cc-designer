@@ -39,7 +39,7 @@ export interface TreeNode {
   key: string;
   children?: TreeNode[];
 }
-const useElement = (): ElementManage => {
+export const useElement = (): ElementManage => {
   const elementTemplate = elementConfig.elementTemplate;
   const elementList = ref<IEditorElement[]>([]);
   const elementInstanceList = ref<Record<string, HTMLBaseElement>>({});
@@ -193,5 +193,3 @@ const useElement = (): ElementManage => {
     addElementInstance,
   };
 };
-
-export default useElement;

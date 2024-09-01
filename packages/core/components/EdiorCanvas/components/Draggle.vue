@@ -7,7 +7,7 @@ export default {
 import draggable from "vuedraggable";
 import { IEditorElement } from "@cgx-designer/hooks";
 import EditorElement from "./EditorElement";
-import useDrag from "@cgx-designer/hooks/src/useDrag";
+import { useDrag } from "@cgx-designer/hooks";
 import { inject } from "vue";
 import { HoverManage } from "@cgx-designer/hooks";
 const hoverManage = inject("hoverManage") as HoverManage;

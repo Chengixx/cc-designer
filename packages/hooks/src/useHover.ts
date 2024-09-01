@@ -17,7 +17,7 @@ export interface HoverManage {
   handleCancelHover: (e: MouseEvent) => void;
 }
 
-const useHover = (): HoverManage => {
+export const useHover = (): HoverManage => {
   //是否可以进行hover，因为拖拽的时候不要显示
   const disableHover = ref<boolean>(false);
   const setDisableHoverStatus = (status: boolean = true) => {
@@ -84,5 +84,3 @@ const useHover = (): HoverManage => {
     handleCancelHover,
   };
 };
-
-export default useHover;

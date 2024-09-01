@@ -1,14 +1,14 @@
 import { defineComponent, provide } from "vue";
-import useCommand from "@cgx-designer/hooks/src/useCommand";
 import ElementMenu from "cgx-designer/components/ElementMenu";
 import SettingMenu from "cgx-designer/components/SettingMenu";
 import CGXLogo from "cgx-designer/components/CGXLogo";
 import EdiorCanvas from "cgx-designer/components/EdiorCanvas";
 import OperationMenu from "cgx-designer/components/OperationMenu";
-import useForm from "@cgx-designer/hooks/src/useForm";
-import useHover from "@cgx-designer/hooks/src/useHover";
-import useElement from "@cgx-designer/hooks/src/useElement";
-import useFocus from "@cgx-designer/hooks/src/useFocus";
+import { useCommand } from "@cgx-designer/hooks";
+import { useForm } from "@cgx-designer/hooks";
+import { useHover } from "@cgx-designer/hooks";
+import { useElement } from "@cgx-designer/hooks";
+import { useFocus } from "@cgx-designer/hooks";
 //主要画布
 const Editor = defineComponent({
   setup() {

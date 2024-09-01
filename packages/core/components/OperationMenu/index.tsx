@@ -1,5 +1,5 @@
 import { defineComponent, inject } from "vue";
-import createOperationButtonSetting from "@cgx-designer/utils/core/operationButtonSetting";
+import { createOperationButtonSetting } from "@cgx-designer/utils";
 import CCButton from "../CCButton/CCButton"
 import { FormManage } from "@cgx-designer/hooks";
 import { ElementManage } from "@cgx-designer/hooks";
