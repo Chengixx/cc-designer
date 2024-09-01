@@ -34,14 +34,14 @@
     }
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
     "components/**/*.ts",
     "components/**/*.d.ts",
     "components/**/*.tsx",
     "components/**/*.vue",
+    "container/**/*.ts",
+    "container/**/*.d.ts",
+    "container/**/*.tsx",
+    "container/**/*.vue",
     "tests/**/*.ts",
     "types/**/*.d.ts",
     "vite.config.ts",

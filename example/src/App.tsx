@@ -1,10 +1,8 @@
 import { defineComponent, provide } from "vue";
-import { elementConfig } from "@cgx-designer/utils";
-import Editor from "./pages/Editor";
+import { Editor } from "cgx-designer"
 
 const App = defineComponent({
   setup() {
-    provide("elementConfig", elementConfig);
     return () => {
       return (
         <div class="app w-screen h-screen bg-gray-100 overflow-x-hidden">
