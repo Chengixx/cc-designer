@@ -1,6 +1,6 @@
 import { ElCard } from "element-plus";
 import { defineComponent } from "vue";
-import Draggle from "@/components/EdiorCanvas/components/Draggle.vue";
+import Draggle from "cgx-designer/components/EdiorCanvas/components/Draggle.vue";
 
 const Card = defineComponent({
   props: {

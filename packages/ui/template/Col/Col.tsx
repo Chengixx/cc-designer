@@ -1,10 +1,10 @@
-import { FocusManage } from "@/hook/useFocus";
+import { FocusManage } from "@cgx-designer/hooks";
 import { ElCol } from "element-plus";
 import { defineComponent, onMounted, onBeforeUnmount, ref, inject } from "vue";
-import Draggle from "@/components/EdiorCanvas/components/Draggle.vue";
-import ButtonTool from "@/components/EdiorCanvas/components/ButtonTool";
-import { HoverManage } from "@/hook/useHover";
-import { ElementManage } from "@/hook/useElement";
+import Draggle from "cgx-designer/components/EdiorCanvas/components/Draggle.vue";
+import ButtonTool from "cgx-designer/components/EdiorCanvas/components/ButtonTool";
+import { HoverManage } from "@cgx-designer/hooks";
+import { ElementManage } from "@cgx-designer/hooks";
 
 const Col = defineComponent({
   props: {
@@ -14,7 +14,6 @@ const Col = defineComponent({
     const hoverManage = inject("hoverManage") as HoverManage
     const elementManage = inject("elementManage") as ElementManage
     const focusManage = inject("focusManage") as FocusManage
-    
     onMounted(() => {
       elementManage.addElementInstance(props.col!.id, elementRef.value!)
     })

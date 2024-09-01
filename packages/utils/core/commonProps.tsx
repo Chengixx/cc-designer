@@ -1,4 +1,4 @@
-const commonProps: string[] = [
+export const commonProps: string[] = [
   "label",
   "size",
   "labelPosition",
@@ -7,5 +7,3 @@ const commonProps: string[] = [
   "placeHolder",
   "color",
 ];
-
-export default commonProps;

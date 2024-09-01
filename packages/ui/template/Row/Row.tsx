@@ -1,6 +1,6 @@
-import { IEditorElement } from "@/store/modules/element";
+import { IEditorElement } from "@cgx-designer/hooks";
 import { ElRow } from "element-plus";
-import { defineComponent, h } from "vue";
+import { defineComponent } from "vue";
 import Col from "../Col/Col";
 
 const Row = defineComponent({
