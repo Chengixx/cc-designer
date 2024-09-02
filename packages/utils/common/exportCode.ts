@@ -1,4 +1,4 @@
-const createHTMLCode = () => {
+export const createHTMLCode = () => {
   //form的代码
   const FormCode = `
   <el-form ref="form" :model="form" :rules="rules" label-width="120px">
@@ -7,10 +7,10 @@ const createHTMLCode = () => {
   return FormCode;
 };
 
-const createSciptCode = () => {};
-const createStyleCode = () => {};
+export const createSciptCode = () => {};
+export const createStyleCode = () => {};
 
-const exportCode = () => {
+export const exportCode = () => {
   //总和
   return `
   <tempate>
@@ -24,5 +24,3 @@ const exportCode = () => {
   </style>
   `;
 };
-
-export default exportCode;
