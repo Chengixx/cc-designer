@@ -22,7 +22,7 @@ export interface ElementManage {
     id: string | number,
     elements?: IEditorElement[]
   ) => IEditorElement | null;
-  addColForRow: () => IEditorElement[] | null;
+  addColForRow: (id: string) => IEditorElement[] | null;
   deleteAllElements: () => IEditorElement[] | null;
 }
 
@@ -115,31 +115,10 @@ export const useElement = (): ElementManage => {
     const result = cloneDeep(elementList.value);
     return result;
   };
-  const _getFocusElement = (
-    elements: IEditorElement[] = elementList.value
-  ): IEditorElement | null => {
-    for (let item of elements) {
-      if (item.focus === true) {
-        return item;
-      }
-      if (item.cols) {
-        const found = _getFocusElement(item.cols);
-        if (found) {
-          return found;
-        }
-      }
-      if (item.elementList) {
-        const found = _getFocusElement(item.elementList);
-        if (found) {
-          return found;
-        }
-      }
-    }
-    return null;
-  };
-  const addColForRow = (): IEditorElement[] | null => {
-    if (_getFocusElement()) {
-      _getFocusElement()!.cols!.push(elementTemplate["col"](uuid));
+  const addColForRow = (id: string): IEditorElement[] | null => {
+    const row = findElementById(id);
+    if (row) {
+      row.cols!.push(elementTemplate["col"](uuid));
     }
     const result = cloneDeep(elementList.value);
     return result;

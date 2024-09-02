@@ -97,7 +97,7 @@ const EditElementSetting = defineComponent({
             {/* 这是对row的单独处理 */}
             {component.value && component.value.key === "row" && (
               <ElFormItem label="操作">
-                <ElButton onClick={() => commands!.addColForRow()}>
+                <ElButton onClick={() => commands!.addColForRow(currentFocusElement.value?.id)}>
                   新增一个col
                 </ElButton>
               </ElFormItem>

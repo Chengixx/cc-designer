@@ -180,9 +180,9 @@ export const useCommand = (
     registry({
       name: "addColForRow",
       pushQueue: true,
-      execute() {
+      execute(id: string) {
         let before = cloneDeep(elementManage.elementList.value);
-        let after = elementManage.addColForRow();
+        let after = elementManage.addColForRow(id);
         return {
           redo: () => {
             elementManage.setElementList(cloneDeep(after!));
