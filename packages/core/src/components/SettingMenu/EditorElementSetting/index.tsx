@@ -8,7 +8,7 @@ import {
   ElEmpty
 } from "element-plus";
 import { defineComponent, inject, ref, watch, h, resolveComponent } from "vue";
-import { ElementConfig } from "@cgx-designer/utils";
+import { ElementConfig, IElementBaseSetting } from "@cgx-designer/utils";
 import { FocusManage } from "@cgx-designer/hooks";
 import { IEditorElement } from "@cgx-designer/hooks";
 import componentList from "./ElementPrototype";
@@ -28,11 +28,11 @@ const EditElementSetting = defineComponent({
     ...componentList,
   },
   setup() {
-    const formData = ref<any>({});
+    const formData = ref<any>(null);
     const elementConfig = inject<ElementConfig>("elementConfig")?.elementMap;
     const focusManage = inject("focusManage") as FocusManage
     const commands: Record<string, Function> | undefined = inject("commands");
-    const component = ref<any>();
+    const component = ref<IElementBaseSetting | null>(null);
     const currentFocusElement = ref<IEditorElement | null>(null);
     //创建动态组件
     const createComponent = (propName: string) => {
