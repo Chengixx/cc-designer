@@ -18,23 +18,24 @@ export interface HoverManage {
 }
 
 export const useHover = (): HoverManage => {
+  //初始化要展示的hover总容器
+  const hoverWidgetRef = ref<HTMLDivElement | null>(null);
   //是否可以进行hover，因为拖拽的时候不要显示
   const disableHover = ref<boolean>(false);
+  //当前选中的hover
+  const hoverElementId = ref<string>("");
+  //是否显示hoverBox
+  const showHoverBox = ref<boolean>(false);
   const setDisableHoverStatus = (status: boolean = true) => {
     disableHover.value = status;
   };
-  //初始化要展示的hover总容器
-  const hoverWidgetRef = ref<HTMLDivElement | null>(null);
   //初始化这个hover的物件ref
   const sethoverWidgetRef = (el: HTMLDivElement) => {
     hoverWidgetRef.value = el;
   };
-  //当前选中的hover
-  const hoverElementId = ref<string>("");
   const setHoverElementId = (id: string = "") => {
     hoverElementId.value = id;
   };
-  const showHoverBox = ref<boolean>(false);
   const setShowHoverBox = (status: boolean = false) => {
     showHoverBox.value = status;
   };

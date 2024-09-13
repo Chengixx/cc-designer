@@ -6,6 +6,7 @@ import { FocusManage } from "@cgx-designer/hooks";
 import { FormManage } from "@cgx-designer/hooks";
 import { HoverManage } from "@cgx-designer/hooks";
 import { ElementManage } from "@cgx-designer/hooks";
+import PanelWidget from "./components/PanelWidget";
 
 const Empty = () => {
   return (
@@ -18,27 +19,14 @@ const Empty = () => {
 const EdiorCanvas = defineComponent({
   setup() {
     const formManage = inject("formManage") as FormManage;
-    const hoverManage = inject("hoverManage") as HoverManage;
     const elementManage = inject("elementManage") as ElementManage;
-    const focusManage = inject("focusManage") as FocusManage;
-    const hoverWidgetRef = ref<HTMLDivElement | null>(null);
-    onMounted(() => {
-      hoverManage.sethoverWidgetRef(hoverWidgetRef.value!);
-    });
+
     return () => {
       return (
         <>
           {elementManage.elementList.value.length == 0 && <Empty />}
           {/* hover的盒子,选中的时候如果在这 */}
-          <div
-            v-show={
-              hoverManage.showHoverBox.value &&
-              hoverManage.hoverElementId.value !==
-                focusManage.focusedElement.value?.id
-            }
-            ref={hoverWidgetRef}
-            class="absolute z-50 border border-dashed border-blue-500 pointer-events-none transition-all"
-          />
+          <PanelWidget />
           <div class="mx-4 mt-2">
             <ElForm
               labelWidth={formManage.formSetting.labelWidth}
