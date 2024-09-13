@@ -38,7 +38,6 @@ export const isIEditorElementArray = (arr: any[]): arr is IEditorElement[] => {
     if (
       typeof obj !== "object" ||
       obj === null ||
-      typeof obj.focus !== "boolean" ||
       !obj.key ||
       typeof obj.key !== "string" ||
       !(typeof obj.id === "string" || typeof obj.id === "number")

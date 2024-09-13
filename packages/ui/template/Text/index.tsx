@@ -10,7 +10,6 @@ const Text: IElementBaseSetting = {
     return {
       id: uuid(),
       key: "text",
-      focus: false,
       props: { color: "#000000", size: "", label: "something..." },
     };
   },

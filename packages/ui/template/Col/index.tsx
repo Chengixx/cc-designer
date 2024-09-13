@@ -13,7 +13,6 @@ const Col: IElementBaseSetting = {
     return {
       id: uuid(),
       key: "col",
-      focus: false,
       props: {
         span: 12,
       },

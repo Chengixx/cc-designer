@@ -19,13 +19,11 @@ const Row: IElementBaseSetting = {
   template: (uuid: Function) => {
     return {
       id: uuid(),
-      focus: false,
       key: "row",
       props: {},
       cols: [
         {
           id: uuid(),
-          focus: false,
           key: "col",
           props: {
             span: 12,
@@ -34,7 +32,6 @@ const Row: IElementBaseSetting = {
         },
         {
           id: uuid(),
-          focus: false,
           key: "col",
           props: {
             span: 12,

@@ -11,7 +11,6 @@ const Textarea: IElementBaseSetting = {
     return {
       id: uuid(),
       key: "textarea",
-      focus: false,
       props: {
         label: "textarea",
         placeHolder: "placeHolder",

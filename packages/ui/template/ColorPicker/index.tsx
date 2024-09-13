@@ -11,7 +11,6 @@ const ColorPicker: IElementBaseSetting = {
     return {
       id: uuid(),
       key: "colorPicker",
-      focus: false,
       props: {
         label: "colorPicker",
         size: "",

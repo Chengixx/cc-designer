@@ -11,7 +11,6 @@ const Divider: IElementBaseSetting = {
     return {
       id: uuid(),
       key: "divider",
-      focus: false,
       props: {
         placeHolder: "我是分割线😊",
         size: "",

@@ -1,7 +1,5 @@
 import { ElCard } from "element-plus";
-import Draggle from "@/components/EdiorCanvas/components/Draggle.vue";
 import { IElementBaseSetting } from "@cgx-designer/utils";
-
 
 const Card: IElementBaseSetting = {
   key: "card",
@@ -12,11 +10,11 @@ const Card: IElementBaseSetting = {
     <ElCard class="w-full">
       {{
         header: () => {
-          return <div>title</div>
+          return <div>title</div>;
         },
         default: () => {
-          return <div class="min-h-colHeight">content</div>
-        }
+          return <div class="min-h-colHeight">content</div>;
+        },
       }}
     </ElCard>
   ),
@@ -24,9 +22,8 @@ const Card: IElementBaseSetting = {
     return {
       id: uuid(),
       key: "card",
-      focus: false,
       props: {
-        label: "卡片标题"
+        label: "卡片标题",
       },
       elementList: [],
     };

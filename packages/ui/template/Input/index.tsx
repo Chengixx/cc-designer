@@ -11,7 +11,6 @@ const Input: IElementBaseSetting = {
     return {
       id: uuid(),
       key: "input",
-      focus: false,
       props: {
         label: "input",
         placeHolder: "placeHolder",

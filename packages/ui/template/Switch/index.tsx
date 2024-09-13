@@ -11,7 +11,6 @@ const Switch: IElementBaseSetting = {
     return {
       id: uuid(),
       key: "switch",
-      focus: false,
       props: {
         label: "switch",
         size: "",

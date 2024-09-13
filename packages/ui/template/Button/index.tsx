@@ -11,7 +11,6 @@ const Button: IElementBaseSetting = {
     return {
       id: uuid(),
       key: "button",
-      focus: false,
       props: { type: "primary", size: "", label: "button" },
     };
   },

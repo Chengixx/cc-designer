@@ -16,7 +16,6 @@ const Select: IElementBaseSetting = {
     return {
       id: uuid(),
       key: "select",
-      focus: false,
       props: {
         label: "select",
         defaultValue: "",
