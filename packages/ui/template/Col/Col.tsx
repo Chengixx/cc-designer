@@ -26,7 +26,7 @@ const Col = defineComponent({
         <ElCol span={props.col.props.span} class="border-dashed border border-[#d9d9d9]">
           <div
             ref={elementRef}
-            onMouseover={e => hoverManage.handleHover(e, props.col.id as string, elementManage)}
+            onMouseover={e => hoverManage.handleHover(e, props.col, elementManage)}
             onMouseout={e => hoverManage.handleCancelHover(e)}
             id={props.col.id as string}
             class={[

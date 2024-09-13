@@ -33,7 +33,7 @@ const EditorElement = defineComponent({
       const elementRender = elementConfig?.elementRenderMap[props.element!.key]
       return (
         <div
-          onMouseover={e => hoverManage.handleHover(e, props.element!.id, elementManage)}
+          onMouseover={e => hoverManage.handleHover(e, props.element!, elementManage)}
           onMouseout={e => hoverManage.handleCancelHover(e)}
           id={props.element!.id}
           class={[

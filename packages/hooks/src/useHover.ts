@@ -11,7 +11,7 @@ export interface HoverManage {
   setShowHoverBox: (status?: boolean) => void;
   handleHover: (
     e: MouseEvent,
-    hoverId: string,
+    hoverInstanceSchema: Record<string, any>,
     elementManage: ElementManage
   ) => void;
   handleCancelHover: (e: MouseEvent) => void;
@@ -40,15 +40,17 @@ export const useHover = (): HoverManage => {
   };
   const handleHover = (
     e: MouseEvent,
-    hoverId: string,
+    hoverInstanceSchema: Record<string, any>,
     elementManage: ElementManage
   ) => {
     if (disableHover.value) return;
+    //元素会有重叠 所以这里需要防止冒泡
     e.stopPropagation();
-    hoverElementId.value = hoverId;
-    const hoverDom = elementManage.elementInstanceList.value[hoverId];
-    // console.log(hoverDom, "最外层的元素是哪个");
-    const rect = hoverDom.getBoundingClientRect();
+    hoverElementId.value = hoverInstanceSchema.id;
+    //拿到实例的dom
+    const hoverInstanceDom =
+      elementManage.elementInstanceList.value[hoverInstanceSchema.id];
+    const rect = hoverInstanceDom.getBoundingClientRect();
     //!还有一个滚动条的长度
     hoverWidgetRef.value!.style.left = rect.left - 280 + 4 + "px";
     hoverWidgetRef.value!.style.top = rect.top - 80 + "px";
