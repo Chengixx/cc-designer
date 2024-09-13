@@ -9,7 +9,7 @@ const CommonLabel = defineComponent({
     return () => {
       return (
         <ElFormItem label="标签">
-          <ElInput v-model={focusManage.getFocusElement()!.props.label} />
+          <ElInput v-model={focusManage.focusedElement.value!.props.label} />
         </ElFormItem>
       );
     };

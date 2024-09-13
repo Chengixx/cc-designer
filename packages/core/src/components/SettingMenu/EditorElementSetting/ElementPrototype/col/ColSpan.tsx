@@ -12,7 +12,7 @@ const ColSpan = defineComponent({
           <ElInputNumber
             min={1}
             max={24}
-            v-model={focusManage.getFocusElement()!.props.span}
+            v-model={focusManage.focusedElement.value!.props.span}
             placeholder="请输入"
           />
         </ElFormItem>

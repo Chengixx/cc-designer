@@ -5,7 +5,7 @@ import {
   ElInputNumber,
   ElButton,
   ElAlert,
-  ElEmpty
+  ElEmpty,
 } from "element-plus";
 import { defineComponent, inject, ref, watch, h, resolveComponent } from "vue";
 import { ElementConfig, IElementBaseSetting } from "@cgx-designer/utils";
@@ -30,7 +30,7 @@ const EditElementSetting = defineComponent({
   setup() {
     const formData = ref<any>(null);
     const elementConfig = inject<ElementConfig>("elementConfig")?.elementMap;
-    const focusManage = inject("focusManage") as FocusManage
+    const focusManage = inject("focusManage") as FocusManage;
     const commands: Record<string, Function> | undefined = inject("commands");
     const component = ref<IElementBaseSetting | null>(null);
     const currentFocusElement = ref<IEditorElement | null>(null);
@@ -51,7 +51,7 @@ const EditElementSetting = defineComponent({
       return h(resolveComponent(componentName));
     };
     watch(
-      () => focusManage.getFocusElement(),
+      () => focusManage.focusedElement.value,
       (nv, ov) => {
         //这种情况一般是选中之后又点一下 就是取消了
         if (!nv) {
@@ -97,7 +97,11 @@ const EditElementSetting = defineComponent({
             {/* 这是对row的单独处理 */}
             {component.value && component.value.key === "row" && (
               <ElFormItem label="操作">
-                <ElButton onClick={() => commands!.addColForRow(currentFocusElement.value?.id)}>
+                <ElButton
+                  onClick={() =>
+                    commands!.addColForRow(currentFocusElement.value?.id)
+                  }
+                >
                   新增一个col
                 </ElButton>
               </ElFormItem>

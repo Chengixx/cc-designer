@@ -74,7 +74,7 @@ export const useCommand = (
               item.redo && item.redo();
               state.current++;
               ElNotification.success("重做成功！");
-              focusManage.resetAllElementsUnFocus();
+              focusManage.resetFocus();
             } else {
               ElNotification.warning("已经是最后面啦！");
             }
@@ -98,7 +98,7 @@ export const useCommand = (
               item.undo && item.undo();
               state.current--;
               ElNotification.success("撤销成功！");
-              focusManage.resetAllElementsUnFocus();
+              focusManage.resetFocus();
             }
           },
         };
@@ -200,7 +200,7 @@ export const useCommand = (
       execute() {
         let before = cloneDeep(elementManage.elementList.value);
         let after = elementManage.deleteElementById(
-          focusManage.getFocusElement()!.id
+          focusManage.focusedElement.value!.id
         );
         return {
           redo: () => {

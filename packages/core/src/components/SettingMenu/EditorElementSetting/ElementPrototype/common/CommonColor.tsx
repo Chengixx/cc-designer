@@ -9,7 +9,7 @@ const CommonColor = defineComponent({
     return () => {
       return (
         <ElFormItem label="颜色">
-          <ElColorPicker v-model={focusManage.getFocusElement()!.props.color} />
+          <ElColorPicker v-model={focusManage.focusedElement.value!.props.color} />
         </ElFormItem>
       );
     };

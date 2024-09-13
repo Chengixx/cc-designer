@@ -23,7 +23,7 @@ export const createOperationButtonSetting = (
       label: "查看日志",
       handler: () => {
         console.log("总体元素列表", elementManage.elementList);
-        console.log("当前选中的元素", focusManange.getFocusElement());
+        console.log("当前选中的元素", focusManange.focusedElement.value);
         console.log("树", elementManage.getTree());
         console.log("导出的vue项目文件", exportCode());
         console.log("组件对象实例Map", elementManage.elementInstanceList);
@@ -86,9 +86,7 @@ export const createOperationButtonSetting = (
             try {
               if (value && isFormWithEditorElements(JSON.parse(value))) {
                 commands.import(JSON.parse(value).elementList);
-                formManage.setFormSetting(
-                  JSON.parse(value).formSetting
-                );
+                formManage.setFormSetting(JSON.parse(value).formSetting);
                 ElNotification.success("导入成功");
               } else {
                 ElNotification.warning("导入失败，请检查数据格式");

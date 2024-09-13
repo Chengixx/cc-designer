@@ -9,7 +9,7 @@ const CommonDefaultValue = defineComponent({
     return () => {
       return (
         <ElFormItem label="默认值">
-          <ElInput v-model={focusManage.getFocusElement()!.props.defaultValue} />
+          <ElInput v-model={focusManage.focusedElement.value!.props.defaultValue} />
         </ElFormItem>
       );
     };

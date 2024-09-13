@@ -1,81 +1,38 @@
-import { ElementManage, IEditorElement } from "./useElement";
+import { Ref, ref } from "vue";
+import { IEditorElement } from "./useElement";
+import { isEqual } from "lodash";
 
 export interface FocusManage {
-  handleElementClick: (element: IEditorElement, e?: MouseEvent) => void;
+  focusedElement: Ref<IEditorElement | null>;
+  handleFocus: (element: IEditorElement, e?: MouseEvent) => void;
   handleCanvasClick: (e: MouseEvent) => void;
-  getFocusElement: (elements?: IEditorElement[]) => IEditorElement | null;
-  resetAllElementsUnFocus: (elements?: IEditorElement[]) => void;
+  resetFocus: (elements?: IEditorElement[]) => void;
 }
 
-export const useFocus = (elementManage: ElementManage): FocusManage => {
+export const useFocus = (): FocusManage => {
+  const focusedElement = ref<IEditorElement | null>(null);
   const handleCanvasClick = (e: MouseEvent) => {
     e.preventDefault();
-    resetAllElementsUnFocus();
+    resetFocus();
   };
 
-  const handleElementClick = (element: IEditorElement, e?: MouseEvent) => {
-    // console.log("看一下传进来的元素", props.element);
-    //阻止冒泡
+  const handleFocus = (element: IEditorElement, e?: MouseEvent) => {
+    // console.log("看一下传进来的元素", element);
     e?.stopPropagation();
-    //先把原来的全部清空先
-    if (element!.focus) {
-      // console.log("已经点击的进这里");
-      element!.focus = false;
-    } else {
-      // console.log("没点击的进这里");
-      resetAllElementsUnFocus();
-      element!.focus = true;
+    //比较进来的 如果已经就是当前的 就不用动了
+    if (!isEqual(focusedElement.value, element)) {
+      focusedElement.value = element;
     }
   };
 
-  const resetAllElementsUnFocus = (
-    elementList: IEditorElement[] = elementManage.elementList.value
-  ) => {
-    elementList.forEach((element) => {
-      element.focus = false;
-      //是row的话要递归处理一下
-      if (element.key == "row") {
-        //先把里面的cols里面的col都给处理掉先
-        element.cols!.forEach((colsElement: IEditorElement) => {
-          colsElement.focus = false;
-          //再把儿子丢进去 递归处理
-          resetAllElementsUnFocus(colsElement.elementList);
-        });
-      }
-      //加入card之后要考虑的更多了
-      if (element.elementList) {
-        resetAllElementsUnFocus(element.elementList);
-      }
-    });
-  };
-
-  const getFocusElement = (
-    elements: IEditorElement[] = elementManage.elementList.value
-  ): IEditorElement | null => {
-    for (let item of elements) {
-      if (item.focus === true) {
-        return item;
-      }
-      if (item.cols) {
-        const found = getFocusElement(item.cols);
-        if (found) {
-          return found;
-        }
-      }
-      if (item.elementList) {
-        const found = getFocusElement(item.elementList);
-        if (found) {
-          return found;
-        }
-      }
-    }
-    return null;
+  const resetFocus = () => {
+    focusedElement.value = null;
   };
 
   return {
-    handleElementClick,
+    focusedElement,
+    handleFocus,
     handleCanvasClick,
-    getFocusElement,
-    resetAllElementsUnFocus,
+    resetFocus,
   };
 };

@@ -14,14 +14,14 @@ const SelectOptions = defineComponent({
   setup() {
     const focusManage = inject("focusManage") as FocusManage
     const handleAddOption = () => {
-      const options = focusManage.getFocusElement()?.props.options;
-      focusManage.getFocusElement()?.props.options.push({
+      const options = focusManage.focusedElement.value?.props.options;
+      focusManage.focusedElement.value?.props.options.push({
         label: `label${options.length + 1}`,
         value: `${options.length + 1}`,
       });
     };
     const handleDeleteOption = (index: number) => {
-      focusManage.getFocusElement()?.props.options.splice(index, 1);
+      focusManage.focusedElement.value?.props.options.splice(index, 1);
     };
     return () => {
       return (
@@ -30,7 +30,7 @@ const SelectOptions = defineComponent({
           <ElButton text type="primary" onClick={() => handleAddOption()}>
             新增选项
           </ElButton>
-          {focusManage.getFocusElement()?.props.options.map(
+          {focusManage.focusedElement.value?.props.options.map(
             (option: GroupOption, index: number) => {
               return (
                 <div class="flex justify-center items-center my-2">

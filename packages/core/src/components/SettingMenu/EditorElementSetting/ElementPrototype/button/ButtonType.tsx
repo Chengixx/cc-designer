@@ -4,7 +4,7 @@ import { defineComponent, inject } from "vue";
 
 const ButtonType = defineComponent({
   setup() {
-    const focusManage = inject("focusManage") as FocusManage
+    const focusManage = inject("focusManage") as FocusManage;
     const buttonTypeList = [
       { label: "主要", value: "primary" },
       { label: "成功", value: "success" },
@@ -18,7 +18,7 @@ const ButtonType = defineComponent({
       return (
         <ElFormItem label="按钮类型">
           <ElSelect
-            v-model={focusManage.getFocusElement()!.props.type}
+            v-model={focusManage.focusedElement.value!.props.type}
             placeholder="请选择"
           >
             {buttonTypeList.map((item) => (

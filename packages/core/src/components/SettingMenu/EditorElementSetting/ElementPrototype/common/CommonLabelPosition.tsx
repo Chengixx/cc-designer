@@ -15,7 +15,7 @@ const CommonLabelPosition = defineComponent({
         <ElFormItem label="对齐方式">
           <ElRadioGroup
             size="small"
-            v-model={focusManage.getFocusElement()!.props.labelPosition}
+            v-model={focusManage.focusedElement.value!.props.labelPosition}
             aria-label="标签位置"
           >
             {labelPositionList.map((item) => (

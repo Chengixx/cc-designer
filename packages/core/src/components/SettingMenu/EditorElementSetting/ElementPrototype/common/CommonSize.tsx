@@ -14,7 +14,7 @@ const CommonSize = defineComponent({
       return (
         <ElFormItem label="尺寸">
           <ElSelect
-            v-model={focusManage.getFocusElement()!.props.size}
+            v-model={focusManage.focusedElement.value!.props.size}
             placeholder="请选择"
           >
             {optionList.map((item) => (

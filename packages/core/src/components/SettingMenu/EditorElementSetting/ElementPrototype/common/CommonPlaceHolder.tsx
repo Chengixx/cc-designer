@@ -10,7 +10,7 @@ const CommonPlaceHolder = defineComponent({
       return (
         <ElFormItem label="占位字符">
           <ElInput
-            v-model={focusManage.getFocusElement()!.props.placeHolder}
+            v-model={focusManage.focusedElement.value!.props.placeHolder}
             placeholder="请输入占位字符"
           />
         </ElFormItem>
