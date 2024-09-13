@@ -1,6 +1,11 @@
 //!优雅的一笔 ~~ >.<
 import { computed, defineComponent, PropType } from "vue";
+import { vWaves } from "@cgx-designer/utils";
+
 const CCButtonV1 = defineComponent({
+  directives: {
+    wave: vWaves,
+  },
   props: {
     type: {
       type: String as PropType<"1" | "2" | "3" | "4">,
@@ -28,7 +33,7 @@ const CCButtonV1 = defineComponent({
       return (
         <div>
           <button
-            // v-wave
+            v-wave
             class={[
               // 基础按钮样式
               "rounded-lg border z-0 border-solid border-blue-500 py-2 px-5 text-base cursor-pointer duration-700 relative overflow-hidden",
