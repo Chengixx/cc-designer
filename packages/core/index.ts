@@ -1,3 +1,3 @@
-import Editor from "./src/container/Editor";
+import Editor from "./src/components/Container/Editor";
 
 export { Editor };
