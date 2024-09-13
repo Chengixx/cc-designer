@@ -1,10 +1,7 @@
 import { ElEmpty, ElForm } from "element-plus";
 import { defineComponent, inject } from "vue";
 import Draggle from "./components/Draggle.vue";
-import { onMounted, ref } from "vue";
-import { FocusManage } from "@cgx-designer/hooks";
 import { FormManage } from "@cgx-designer/hooks";
-import { HoverManage } from "@cgx-designer/hooks";
 import { ElementManage } from "@cgx-designer/hooks";
 import PanelWidget from "./components/PanelWidget";
 

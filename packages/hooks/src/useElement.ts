@@ -10,7 +10,7 @@ export interface ElementManage {
   addElementInstance: (id: string, dom: HTMLBaseElement) => void;
   deleteElementInstance: (id: string) => void;
   deleteElementById: (
-    id: string | number,
+    id: string,
     elements?: IEditorElement[],
     rowParent?: IEditorElement
   ) => IEditorElement[] | null;
@@ -19,7 +19,7 @@ export interface ElementManage {
   ) => IEditorElement[] | null;
   getTree: () => TreeNode[];
   findElementById: (
-    id: string | number,
+    id: string,
     elements?: IEditorElement[]
   ) => IEditorElement | null;
   addColForRow: (id: string) => IEditorElement[] | null;
@@ -27,8 +27,7 @@ export interface ElementManage {
 }
 
 export interface IEditorElement {
-  focus: boolean;
-  id: string | number;
+  id: string;
   key: string;
   cols?: IEditorElement[];
   elementList?: IEditorElement[] | [];

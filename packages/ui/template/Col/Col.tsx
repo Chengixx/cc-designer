@@ -34,15 +34,10 @@ const Col = defineComponent({
             }
             onMouseout={(e) => hoverManage.handleCancelHover(e)}
             id={props.col.id as string}
-            class={[
-              props.col!.id === focusManage.focusedElement.value?.id
-                ? "border border-dashed border-blue-500 bg-[#f4f8fe]"
-                : "",
-              "h-full relative",
-            ]}
+            class="h-full relative"
             onClick={(e: MouseEvent) => {
               e.stopPropagation();
-              focusManage.handleFocus(props.col, e);
+              focusManage.handleFocus(props.col, elementManage, e);
             }}
           >
             <Draggle
@@ -50,9 +45,6 @@ const Col = defineComponent({
               isNested={true}
               elementKey={props.col.key}
             />
-            {props.col!.id === focusManage.focusedElement.value?.id && (
-              <ButtonTool />
-            )}
           </div>
         </ElCol>
       );

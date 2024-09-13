@@ -1,5 +1,5 @@
 import { ref, watch, Ref } from "vue";
-import { ElementManage } from "./useElement";
+import { ElementManage, IEditorElement } from "./useElement";
 
 export interface HoverManage {
   setDisableHoverStatus: (status?: boolean) => void;
@@ -41,7 +41,7 @@ export const useHover = (): HoverManage => {
   };
   const handleHover = (
     e: MouseEvent,
-    hoverInstanceSchema: Record<string, any>,
+    hoverInstanceSchema: IEditorElement,
     elementManage: ElementManage
   ) => {
     if (disableHover.value) return;

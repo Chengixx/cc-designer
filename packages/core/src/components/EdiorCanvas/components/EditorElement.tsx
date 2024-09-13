@@ -31,7 +31,11 @@ const EditorElement = defineComponent({
     const focusManage = inject("focusManage") as FocusManage;
     const elementRef = ref<HTMLBaseElement | null>(null);
     const handleClick = (e: MouseEvent) => {
-      focusManage.handleFocus(props.element as IEditorElement, e);
+      focusManage.handleFocus(
+        props.element as IEditorElement,
+        elementManage,
+        e
+      );
     };
     return () => {
       //先从元素配置那里拿到
@@ -45,12 +49,7 @@ const EditorElement = defineComponent({
           }
           onMouseout={(e) => hoverManage.handleCancelHover(e)}
           id={props.element!.id}
-          class={[
-            props.element!.id === focusManage.focusedElement.value?.id
-              ? "border border-dashed border-blue-500 bg-[#f4f8fe]"
-              : "",
-            "h-full flex items-center relative",
-          ]}
+          class="h-full flex items-center relative"
           ref={elementRef}
           onClick={(e: MouseEvent) => handleClick(e)}
         >
@@ -75,9 +74,9 @@ const EditorElement = defineComponent({
           ) : (
             <>{h(elementRender, props.element!)}</>
           )}
-          {props.element!.id === focusManage.focusedElement.value?.id && (
+          {/* {props.element!.id === focusManage.focusedElement.value?.id && (
             <ButtonTool />
-          )}
+          )} */}
         </div>
       );
     };
