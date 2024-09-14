@@ -1,6 +1,7 @@
-import { Ref, ref } from "vue";
+import { nextTick, Ref, ref, watch } from "vue";
 import { ElementManage, IEditorElement } from "./useElement";
 import { isEqual } from "lodash";
+import useObserve from "./useObserve";
 
 export interface FocusManage {
   focusedElement: Ref<IEditorElement | null>;
@@ -19,6 +20,8 @@ export const useFocus = (): FocusManage => {
   const focusWidgetRef = ref<HTMLDivElement | null>(null);
   //当前focus的元素
   const focusedElement = ref<IEditorElement | null>(null);
+  //当前focus的元素的dom实例
+  const foucusedElementDom = ref<HTMLElement | null>(null);
   //画布的点击 取消所有的focus
   const handleCanvasClick = (e: MouseEvent) => {
     e.preventDefault();
@@ -30,6 +33,22 @@ export const useFocus = (): FocusManage => {
     focusWidgetRef.value = el;
   };
 
+  //修改这个hover物件的样式
+  const setFocusWidgetStyle = () => {
+    const rect =
+      foucusedElementDom.value?.getBoundingClientRect() ??
+      foucusedElementDom.value?.nextElementSibling?.getBoundingClientRect();
+    console.log(rect, "这里");
+    //!还有一个滚动条的长度
+    focusWidgetRef.value!.style.left = rect!.left - 280 + 4 + "px";
+    focusWidgetRef.value!.style.top = rect!.top - 80 + "px";
+    focusWidgetRef.value!.style.width = rect?.width + "px";
+    focusWidgetRef.value!.style.height = rect?.height + "px";
+  };
+
+  //初始化dom监听实例(拿到的是实例和config)
+  const { mutationObserver, observerConfig } = useObserve(setFocusWidgetStyle);
+
   const handleFocus = (
     focusInstanceSchema: IEditorElement,
     elementManage: ElementManage,
@@ -40,20 +59,25 @@ export const useFocus = (): FocusManage => {
     if (!isEqual(focusedElement.value, focusInstanceSchema)) {
       focusedElement.value = focusInstanceSchema;
       //拿到实例的dom
-      const hoverInstanceDom =
+      foucusedElementDom.value =
         elementManage.elementInstanceList.value[focusInstanceSchema.id];
-      const rect = hoverInstanceDom.getBoundingClientRect();
-      //!还有一个滚动条的长度
-      focusWidgetRef.value!.style.left = rect.left - 280 + 4 + "px";
-      focusWidgetRef.value!.style.top = rect.top - 80 + "px";
-      focusWidgetRef.value!.style.width = rect.width + "px";
-      focusWidgetRef.value!.style.height = rect.height + "px";
+      setFocusWidgetStyle();
     }
   };
 
   const resetFocus = () => {
     focusedElement.value = null;
   };
+
+  watch(
+    () => foucusedElementDom.value,
+    (currendFocusedElementDom, _) => {
+      //拿到了新的元素是要对其进行监听的，我写了一个hook
+      if (currendFocusedElementDom) {
+        mutationObserver.observe(currendFocusedElementDom, observerConfig);
+      }
+    }
+  );
 
   return {
     focusedElement,

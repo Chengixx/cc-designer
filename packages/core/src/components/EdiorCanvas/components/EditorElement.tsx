@@ -74,9 +74,6 @@ const EditorElement = defineComponent({
           ) : (
             <>{h(elementRender, props.element!)}</>
           )}
-          {/* {props.element!.id === focusManage.focusedElement.value?.id && (
-            <ButtonTool />
-          )} */}
         </div>
       );
     };
