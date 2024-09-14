@@ -20,7 +20,10 @@ const PanelWidget = defineComponent({
           <div
             v-show={focusManage.focusedElement.value !== null}
             ref={focusWidgetRef}
-            class="absolute z-20 border boreder-dashed border-blue-700 pointer-events-none transition-all bg-[#f4f8fe] opacity-50"
+            class={[
+              "absolute z-20 border boreder-dashed border-blue-700 pointer-events-none  bg-[#f4f8fe] opacity-50",
+              focusManage.focusTransition.value ? "transition-all" : "transition-none",
+            ]}
           >
             <ButtonTool />
           </div>

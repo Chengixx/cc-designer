@@ -6,6 +6,7 @@ import { useTimedQuery } from "./useTimedQuery";
 
 export interface FocusManage {
   focusedElement: Ref<IEditorElement | null>;
+  focusTransition: Ref<boolean>;
   handleFocus: (
     focusInstanceSchema: IEditorElement,
     elementManage: ElementManage,
@@ -19,6 +20,8 @@ export interface FocusManage {
 export const useFocus = (): FocusManage => {
   //初始化要展示的hover总容器
   const focusWidgetRef = ref<HTMLDivElement | null>(null);
+  //是否要动画
+  const focusTransition = ref<boolean>(true);
   //当前focus的元素
   const focusedElement = ref<IEditorElement | null>(null);
   //当前focus的元素的dom实例
@@ -83,18 +86,22 @@ export const useFocus = (): FocusManage => {
           currendFocusedElementDom.parentNode as HTMLBaseElement;
         if (parentNode) {
           parentNode.ondragstart = () => {
+            focusTransition.value = false;
             startTimedQuery();
           };
           parentNode.ondragend = () => {
+            focusTransition.value = true;
             stopTimedQuery();
           };
         }
+        setFocusWidgetStyle();
       }
     }
   );
 
   return {
     focusedElement,
+    focusTransition,
     handleFocus,
     setFocusWidgetRef,
     handleCanvasClick,
