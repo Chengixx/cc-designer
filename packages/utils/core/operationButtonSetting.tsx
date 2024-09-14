@@ -24,6 +24,12 @@ export const createOperationButtonSetting = (
       handler: () => {
         console.log("总体元素列表", elementManage.elementList);
         console.log("当前选中的元素", focusManange.focusedElement.value);
+        console.log(
+          "当前选中的元素外层实例",
+          elementManage.elementInstanceList.value[
+            focusManange.focusedElement.value?.id!
+          ].style.top
+        );
         console.log("树", elementManage.getTree());
         console.log("导出的vue项目文件", exportCode());
         console.log("组件对象实例Map", elementManage.elementInstanceList);

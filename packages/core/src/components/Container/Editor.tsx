@@ -13,7 +13,6 @@ import { useFocus } from "@cgx-designer/hooks";
 //主要画布
 const Editor = defineComponent({
   setup() {
-    console.log("用的是解耦的");
     const formManage = useForm()
     const hoverManage = useHover()
     const elementManage = useElement()
