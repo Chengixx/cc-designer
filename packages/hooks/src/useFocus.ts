@@ -2,6 +2,7 @@ import { nextTick, Ref, ref, watch } from "vue";
 import { ElementManage, IEditorElement } from "./useElement";
 import { isEqual } from "lodash";
 import useObserve from "./useObserve";
+import { useTimedQuery } from "./useTimedQuery";
 
 export interface FocusManage {
   focusedElement: Ref<IEditorElement | null>;
@@ -48,6 +49,8 @@ export const useFocus = (): FocusManage => {
 
   //初始化dom监听实例(拿到的是实例和config)
   const { mutationObserver, observerConfig } = useObserve(setFocusWidgetStyle);
+  const { startTimedQuery, stopTimedQuery } =
+    useTimedQuery(setFocusWidgetStyle);
 
   const handleFocus = (
     focusInstanceSchema: IEditorElement,
@@ -75,6 +78,17 @@ export const useFocus = (): FocusManage => {
       //拿到了新的元素是要对其进行监听的，我写了一个hook
       if (currendFocusedElementDom) {
         mutationObserver.observe(currendFocusedElementDom, observerConfig);
+
+        const parentNode =
+          currendFocusedElementDom.parentNode as HTMLBaseElement;
+        if (parentNode) {
+          parentNode.ondragstart = () => {
+            startTimedQuery();
+          };
+          parentNode.ondragend = () => {
+            stopTimedQuery();
+          };
+        }
       }
     }
   );
