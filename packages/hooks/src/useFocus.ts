@@ -5,7 +5,7 @@ import { isEqual } from "lodash";
 export interface FocusManage {
   focusedElement: Ref<IEditorElement | null>;
   handleFocus: (
-    element: IEditorElement,
+    focusInstanceSchema: IEditorElement,
     elementManage: ElementManage,
     e?: MouseEvent
   ) => void;
@@ -31,17 +31,17 @@ export const useFocus = (): FocusManage => {
   };
 
   const handleFocus = (
-    element: IEditorElement,
+    focusInstanceSchema: IEditorElement,
     elementManage: ElementManage,
     e?: MouseEvent
   ) => {
     e?.stopPropagation();
     //比较进来的 如果已经就是当前的 就不用动了
-    if (!isEqual(focusedElement.value, element)) {
-      focusedElement.value = element;
+    if (!isEqual(focusedElement.value, focusInstanceSchema)) {
+      focusedElement.value = focusInstanceSchema;
       //拿到实例的dom
       const hoverInstanceDom =
-        elementManage.elementInstanceList.value[element.id];
+        elementManage.elementInstanceList.value[focusInstanceSchema.id];
       const rect = hoverInstanceDom.getBoundingClientRect();
       //!还有一个滚动条的长度
       focusWidgetRef.value!.style.left = rect.left - 280 + 4 + "px";
