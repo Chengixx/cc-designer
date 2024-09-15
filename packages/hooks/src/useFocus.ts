@@ -1,4 +1,4 @@
-import { nextTick, Ref, ref, watch } from "vue";
+import { computed, nextTick, Ref, ref, watch } from "vue";
 import { ElementManage, IEditorElement } from "./useElement";
 import { isEqual } from "lodash";
 import useObserve from "./useObserve";
@@ -17,7 +17,7 @@ export interface FocusManage {
   resetFocus: (elements?: IEditorElement[]) => void;
 }
 
-export const useFocus = (): FocusManage => {
+export const useFocus = (elementManage: ElementManage): FocusManage => {
   //初始化要展示的hover总容器
   const focusWidgetRef = ref<HTMLDivElement | null>(null);
   //是否要动画
@@ -25,7 +25,10 @@ export const useFocus = (): FocusManage => {
   //当前focus的元素
   const focusedElement = ref<IEditorElement | null>(null);
   //当前focus的元素的dom实例
-  const foucusedElementDom = ref<HTMLElement | null>(null);
+  const foucusedElementDom = computed(() => {
+    if (!focusedElement.value) return null;
+    return elementManage.elementInstanceList.value[focusedElement.value!.id];
+  });
   //画布的点击 取消所有的focus
   const handleCanvasClick = (e: MouseEvent) => {
     e.preventDefault();
@@ -64,9 +67,6 @@ export const useFocus = (): FocusManage => {
     //比较进来的 如果已经就是当前的 就不用动了
     if (!isEqual(focusedElement.value, focusInstanceSchema)) {
       focusedElement.value = focusInstanceSchema;
-      //拿到实例的dom
-      foucusedElementDom.value =
-        elementManage.elementInstanceList.value[focusInstanceSchema.id];
       setFocusWidgetStyle();
     }
   };

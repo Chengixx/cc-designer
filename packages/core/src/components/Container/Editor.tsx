@@ -16,7 +16,7 @@ const Editor = defineComponent({
     const formManage = useForm()
     const hoverManage = useHover()
     const elementManage = useElement()
-    const focusManage = useFocus();
+    const focusManage = useFocus(elementManage);
     const { commands } = useCommand(elementManage, focusManage);
     //因为只能有一个实例 所以用provide注入进去
     provide("elementConfig", elementConfig);
