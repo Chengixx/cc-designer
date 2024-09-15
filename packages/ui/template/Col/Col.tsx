@@ -37,7 +37,7 @@ const Col = defineComponent({
             class="h-full relative"
             onClick={(e: MouseEvent) => {
               e.stopPropagation();
-              focusManage.handleFocus(props.col, elementManage, e);
+              focusManage.handleFocus(props.col, e);
             }}
           >
             <Draggle

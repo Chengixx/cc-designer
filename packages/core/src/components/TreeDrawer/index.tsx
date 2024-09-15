@@ -41,7 +41,7 @@ const TreeDrawerDom = defineComponent({
       const element = IElementManage.value!.findElementById(data.id);
       // console.log("点击了", element);
       if (element?.id !== IFocusManage.value?.focusedElement.value?.id) {
-        IFocusManage.value!.handleFocus(element!, IElementManage.value!);
+        IFocusManage.value!.handleFocus(element!);
       }
     };
     ctx.expose({

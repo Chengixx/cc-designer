@@ -31,11 +31,7 @@ const EditorElement = defineComponent({
     const focusManage = inject("focusManage") as FocusManage;
     const elementRef = ref<HTMLBaseElement | null>(null);
     const handleClick = (e: MouseEvent) => {
-      focusManage.handleFocus(
-        props.element as IEditorElement,
-        elementManage,
-        e
-      );
+      focusManage.handleFocus(props.element as IEditorElement, e);
     };
     return () => {
       //先从元素配置那里拿到

@@ -7,11 +7,7 @@ import { useTimedQuery } from "./useTimedQuery";
 export interface FocusManage {
   focusedElement: Ref<IEditorElement | null>;
   focusTransition: Ref<boolean>;
-  handleFocus: (
-    focusInstanceSchema: IEditorElement,
-    elementManage: ElementManage,
-    e?: MouseEvent
-  ) => void;
+  handleFocus: (focusInstanceSchema: IEditorElement, e?: MouseEvent) => void;
   setFocusWidgetRef: (el: HTMLDivElement) => void;
   handleCanvasClick: (e: MouseEvent) => void;
   resetFocus: (elements?: IEditorElement[]) => void;
@@ -46,7 +42,7 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
     const rect =
       foucusedElementDom.value?.getBoundingClientRect() ??
       foucusedElementDom.value?.nextElementSibling?.getBoundingClientRect();
-    // console.log(rect, "这里");
+    console.log(rect, "这里");
     //!还有一个滚动条的长度
     focusWidgetRef.value!.style.left = rect!.left - 280 + 4 + "px";
     focusWidgetRef.value!.style.top = rect!.top - 80 + "px";
@@ -59,11 +55,7 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
   const { startTimedQuery, stopTimedQuery } =
     useTimedQuery(setFocusWidgetStyle);
 
-  const handleFocus = (
-    focusInstanceSchema: IEditorElement,
-    elementManage: ElementManage,
-    e?: MouseEvent
-  ) => {
+  const handleFocus = (focusInstanceSchema: IEditorElement, e?: MouseEvent) => {
     e?.stopPropagation();
     //比较进来的 如果已经就是当前的 就不用动了
     if (!isEqual(focusedElement.value, focusInstanceSchema)) {
@@ -107,6 +99,6 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
     setFocusWidgetRef,
     handleCanvasClick,
     resetFocus,
-    setFocusWidgetStyle
+    setFocusWidgetStyle,
   };
 };
