@@ -1,9 +1,10 @@
 import { ElEmpty, ElForm } from "element-plus";
-import { defineComponent, inject } from "vue";
+import { defineComponent, inject, onMounted, ref } from "vue";
 import Draggle from "./components/Draggle.vue";
 import { FormManage } from "@cgx-designer/hooks";
 import { ElementManage } from "@cgx-designer/hooks";
 import PanelWidget from "./components/PanelWidget";
+import { FocusManage } from "@cgx-designer/hooks/src/useFocus";
 
 const Empty = () => {
   return (
@@ -17,14 +18,18 @@ const EdiorCanvas = defineComponent({
   setup() {
     const formManage = inject("formManage") as FormManage;
     const elementManage = inject("elementManage") as ElementManage;
-
+    const focusManage = inject("focusManage") as FocusManage;
+    const editorCanvasRef = ref<HTMLDivElement>();
+    onMounted(() => {
+      focusManage.initCanvas(editorCanvasRef.value!);
+    });
     return () => {
       return (
         <>
           {elementManage.elementList.value.length == 0 && <Empty />}
           {/* hover的盒子,选中的时候如果在这 */}
           <PanelWidget />
-          <div class="mx-4 mt-2">
+          <div class="mx-4 mt-2" ref={editorCanvasRef}>
             <ElForm
               labelWidth={formManage.formSetting.labelWidth}
               labelPosition={formManage.formSetting.labelPosition}

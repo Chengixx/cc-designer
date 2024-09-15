@@ -1,4 +1,4 @@
-import { computed, nextTick, Ref, ref, watch } from "vue";
+import { computed, nextTick, onMounted, Ref, ref, watch } from "vue";
 import { ElementManage, IEditorElement } from "./useElement";
 import { isEqual } from "lodash";
 import useObserve from "./useObserve";
@@ -7,6 +7,7 @@ import { useTimedQuery } from "./useTimedQuery";
 export interface FocusManage {
   focusedElement: Ref<IEditorElement | null>;
   focusTransition: Ref<boolean>;
+  initCanvas: (ref: HTMLDivElement) => void;
   handleFocus: (focusInstanceSchema: IEditorElement, e?: MouseEvent) => void;
   setFocusWidgetRef: (el: HTMLDivElement) => void;
   handleCanvasClick: (e: MouseEvent) => void;
@@ -15,6 +16,8 @@ export interface FocusManage {
 }
 
 export const useFocus = (elementManage: ElementManage): FocusManage => {
+  //总的容器
+  const containerRef = ref<HTMLDivElement | null>(null);
   //初始化要展示的hover总容器
   const focusWidgetRef = ref<HTMLDivElement | null>(null);
   //是否要动画
@@ -26,6 +29,11 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
     if (!focusedElement.value) return null;
     return elementManage.elementInstanceList.value[focusedElement.value!.id];
   });
+  const initCanvas = (ref: HTMLDivElement) => {
+    containerRef.value = ref;
+    mutationObserver.observe(document.body, observerConfig);
+  };
+
   //画布的点击 取消所有的focus
   const handleCanvasClick = (e: MouseEvent) => {
     e.preventDefault();
@@ -39,6 +47,7 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
 
   //修改这个hover物件的样式
   const setFocusWidgetStyle = () => {
+    if (!foucusedElementDom.value) return;
     const rect =
       foucusedElementDom.value?.getBoundingClientRect() ??
       foucusedElementDom.value?.nextElementSibling?.getBoundingClientRect();
@@ -73,8 +82,7 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
     (currendFocusedElementDom, _) => {
       //拿到了新的元素是要对其进行监听的，我写了一个hook
       if (currendFocusedElementDom) {
-        mutationObserver.observe(currendFocusedElementDom, observerConfig);
-
+        // mutationObserver.observe(document.body, observerConfig);
         const parentNode =
           currendFocusedElementDom.parentNode as HTMLBaseElement;
         if (parentNode) {
@@ -95,6 +103,7 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
   return {
     focusedElement,
     focusTransition,
+    initCanvas,
     handleFocus,
     setFocusWidgetRef,
     handleCanvasClick,
