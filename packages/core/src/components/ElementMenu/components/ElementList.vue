@@ -28,8 +28,8 @@ const handleClone = (e: any) => {
       animation: 180,
       ghostClass: 'moving',
     }"
-    @start="(e) => handleDropStart(e, hoverManage)"
-    @end="(e) => handleDropEnd(e, hoverManage)"
+    @start="(e) => handleDropStart(hoverManage)"
+    @end="(e) => handleDropEnd(hoverManage)"
     :clone="(e:any) => handleClone(e)"
     item-key="id"
     class="grid grid-cols-[auto_auto] px-[10px] gap-2"

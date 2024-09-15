@@ -3,28 +3,33 @@ import { HoverManage } from "./useHover";
 import { FocusManage } from "./useFocus";
 
 export interface DragManage {
-  handleDropStart: (event: DragEvent, hoverManager: HoverManage) => void;
-  handleDropEnd: (
-    event: DragEvent,
+  handleDropStart: (
     hoverManager: HoverManage,
     focusManage?: FocusManage
   ) => void;
+  handleDropEnd: (hoverManager: HoverManage, focusManage?: FocusManage) => void;
 }
 
 export const useDrag = (): DragManage => {
-  const handleDropStart = (event: DragEvent, hoverManager: HoverManage) => {
+  const handleDropStart = (
+    hoverManager: HoverManage,
+    focusManage?: FocusManage
+  ) => {
+    if (focusManage) {
+      focusManage.focusTransition.value = false;
+    }
     hoverManager.setDisableHoverStatus();
     hoverManager.setShowHoverBox();
     hoverManager.setHoverElementId();
     events.emit("start");
   };
   const handleDropEnd = (
-    event: DragEvent,
     hoverManager: HoverManage,
     focusManage?: FocusManage
   ) => {
     if (focusManage) {
       focusManage.setFocusWidgetStyle();
+      focusManage.focusTransition.value = true;
     }
     hoverManager.setDisableHoverStatus(false);
     events.emit("end");

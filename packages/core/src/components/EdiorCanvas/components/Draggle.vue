@@ -28,8 +28,8 @@ const { handleDropStart, handleDropEnd } = useDrag();
     item-key="id"
     :class="props.isNested ? 'min-h-[60px]' : 'draggable bg-white'"
     ghost-class="ghost"
-    @start="(e) => handleDropStart(e, hoverManage)"
-    @end="(e) => handleDropEnd(e, hoverManage, focusManage)"
+    @start="(e) => handleDropStart(hoverManage, focusManage)"
+    @end="(e) => handleDropEnd(hoverManage, focusManage)"
     animation="300"
     @dragover.prevent
   >
