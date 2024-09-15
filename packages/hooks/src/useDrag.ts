@@ -17,6 +17,7 @@ export const useDrag = (): DragManage => {
   ) => {
     if (focusManage) {
       focusManage.focusTransition.value = false;
+      focusManage.startFocusTimedQuery();
     }
     hoverManager.setDisableHoverStatus();
     hoverManager.setShowHoverBox();
@@ -28,7 +29,7 @@ export const useDrag = (): DragManage => {
     focusManage?: FocusManage
   ) => {
     if (focusManage) {
-      focusManage.setFocusWidgetStyle();
+      focusManage.stopFocusTimedQuery();
       focusManage.focusTransition.value = true;
     }
     hoverManager.setDisableHoverStatus(false);

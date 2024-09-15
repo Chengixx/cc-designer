@@ -13,6 +13,8 @@ export interface FocusManage {
   handleCanvasClick: (e: MouseEvent) => void;
   resetFocus: (elements?: IEditorElement[]) => void;
   setFocusWidgetStyle: () => void;
+  startFocusTimedQuery: () => void;
+  stopFocusTimedQuery: () => void;
 }
 
 export const useFocus = (elementManage: ElementManage): FocusManage => {
@@ -64,41 +66,24 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
   const { startTimedQuery, stopTimedQuery } =
     useTimedQuery(setFocusWidgetStyle);
 
+  const startFocusTimedQuery = () => {
+    startTimedQuery();
+  };
+  const stopFocusTimedQuery = () => {
+    stopTimedQuery();
+  };
+
   const handleFocus = (focusInstanceSchema: IEditorElement, e?: MouseEvent) => {
     e?.stopPropagation();
     //比较进来的 如果已经就是当前的 就不用动了
     if (!isEqual(focusedElement.value, focusInstanceSchema)) {
       focusedElement.value = focusInstanceSchema;
-      setFocusWidgetStyle();
     }
   };
 
   const resetFocus = () => {
     focusedElement.value = null;
   };
-
-  watch(
-    () => foucusedElementDom.value,
-    (currendFocusedElementDom, _) => {
-      //拿到了新的元素是要对其进行监听的，我写了一个hook
-      if (currendFocusedElementDom) {
-        // mutationObserver.observe(document.body, observerConfig);
-        const parentNode =
-          currendFocusedElementDom.parentNode as HTMLBaseElement;
-        if (parentNode) {
-          parentNode.ondragstart = () => {
-            focusTransition.value = false;
-            startTimedQuery();
-          };
-          parentNode.ondragend = () => {
-            focusTransition.value = true;
-            stopTimedQuery();
-          };
-        }
-        setFocusWidgetStyle();
-      }
-    }
-  );
 
   return {
     focusedElement,
@@ -107,6 +92,8 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
     handleFocus,
     setFocusWidgetRef,
     handleCanvasClick,
+    startFocusTimedQuery,
+    stopFocusTimedQuery,
     resetFocus,
     setFocusWidgetStyle,
   };
