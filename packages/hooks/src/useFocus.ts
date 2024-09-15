@@ -15,6 +15,7 @@ export interface FocusManage {
   setFocusWidgetRef: (el: HTMLDivElement) => void;
   handleCanvasClick: (e: MouseEvent) => void;
   resetFocus: (elements?: IEditorElement[]) => void;
+  setFocusWidgetStyle: () => void;
 }
 
 export const useFocus = (elementManage: ElementManage): FocusManage => {
@@ -45,7 +46,7 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
     const rect =
       foucusedElementDom.value?.getBoundingClientRect() ??
       foucusedElementDom.value?.nextElementSibling?.getBoundingClientRect();
-    console.log(rect, "这里");
+    // console.log(rect, "这里");
     //!还有一个滚动条的长度
     focusWidgetRef.value!.style.left = rect!.left - 280 + 4 + "px";
     focusWidgetRef.value!.style.top = rect!.top - 80 + "px";
@@ -106,5 +107,6 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
     setFocusWidgetRef,
     handleCanvasClick,
     resetFocus,
+    setFocusWidgetStyle
   };
 };

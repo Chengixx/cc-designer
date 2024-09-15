@@ -5,12 +5,13 @@ export default {
 </script>
 <script setup lang="ts">
 import draggable from "vuedraggable";
-import { IEditorElement } from "@cgx-designer/hooks";
+import { FocusManage, IEditorElement } from "@cgx-designer/hooks";
 import EditorElement from "./EditorElement";
 import { useDrag } from "@cgx-designer/hooks";
 import { inject } from "vue";
 import { HoverManage } from "@cgx-designer/hooks";
 const hoverManage = inject("hoverManage") as HoverManage;
+const focusManage = inject("focusManage") as FocusManage;
 const props = defineProps<{
   list: IEditorElement[];
   isNested: boolean;
@@ -28,7 +29,7 @@ const { handleDropStart, handleDropEnd } = useDrag();
     :class="props.isNested ? 'min-h-[60px]' : 'draggable bg-white'"
     ghost-class="ghost"
     @start="(e) => handleDropStart(e, hoverManage)"
-    @end="(e) => handleDropEnd(e, hoverManage)"
+    @end="(e) => handleDropEnd(e, hoverManage, focusManage)"
     animation="300"
     @dragover.prevent
   >
