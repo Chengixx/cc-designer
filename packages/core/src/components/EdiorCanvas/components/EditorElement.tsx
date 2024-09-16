@@ -53,9 +53,6 @@ const EditorElement = defineComponent({
           {/* //!也就是表单元素的 就要加ElFormItem 为了更好的体验而已 */}
           {Object.keys(props.element!.props).includes("defaultValue") ? (
             <ElFormItem
-              // !这里我知道没有click 但是必须加这个 不能有默认的事件的
-              //@ts-expect-error
-              onClick={(e: MouseEvent) => e.preventDefault()}
               label={
                 !!props.element!.props.label
                   ? props.element!.props.label

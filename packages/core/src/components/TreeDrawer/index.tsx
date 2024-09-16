@@ -40,7 +40,10 @@ const TreeDrawerDom = defineComponent({
     const handleNodeClick = (data: TreeNode) => {
       const element = IElementManage.value!.findElementById(data.id);
       // console.log("点击了", element);
-      if (element?.id !== IFocusManage.value?.focusedElement.value?.id) {
+      if (
+        !IFocusManage.value?.focusedElement ||
+        element?.id !== IFocusManage.value?.focusedElement.value?.id
+      ) {
         IFocusManage.value!.handleFocus(element!);
       }
     };

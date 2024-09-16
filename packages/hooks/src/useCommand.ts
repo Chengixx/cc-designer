@@ -221,6 +221,7 @@ export const useCommand = (
         let after = elementManage.deleteAllElements();
         return {
           redo: () => {
+            focusManage.resetFocus();
             elementManage.setElementList(after!);
           },
           undo: () => {

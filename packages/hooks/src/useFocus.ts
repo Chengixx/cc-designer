@@ -17,6 +17,8 @@ export interface FocusManage {
   stopFocusTimedQuery: () => void;
 }
 
+const SCROLL_HEIGHT: number = 4;
+
 export const useFocus = (elementManage: ElementManage): FocusManage => {
   //总的容器
   const containerRef = ref<HTMLDivElement | null>(null);
@@ -53,9 +55,8 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
     const rect =
       foucusedElementDom.value?.getBoundingClientRect() ??
       foucusedElementDom.value?.nextElementSibling?.getBoundingClientRect();
-    console.log(rect, "这里");
     //!还有一个滚动条的长度
-    focusWidgetRef.value!.style.left = rect!.left - 280 + 4 + "px";
+    focusWidgetRef.value!.style.left = rect!.left - 280 + SCROLL_HEIGHT + "px";
     focusWidgetRef.value!.style.top = rect!.top - 80 + "px";
     focusWidgetRef.value!.style.width = rect?.width + "px";
     focusWidgetRef.value!.style.height = rect?.height + "px";
