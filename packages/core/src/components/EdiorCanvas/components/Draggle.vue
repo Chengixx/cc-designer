@@ -15,7 +15,6 @@ const focusManage = inject("focusManage") as FocusManage;
 const props = defineProps<{
   list: IEditorElement[];
   isNested: boolean;
-  elementKey?: string;
 }>();
 const emits = defineEmits(["drop"]);
 const { handleDropStart, handleDropEnd } = useDrag();

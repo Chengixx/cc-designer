@@ -24,7 +24,7 @@ const Card = defineComponent({
                     ]}
                     id={props.id as string}
                   >
-                    <Draggle list={props.elementList!} isNested={true} elementKey="card" />
+                    <Draggle list={props.elementList!} isNested={true} />
                   </div>
                 )
 

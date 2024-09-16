@@ -40,11 +40,7 @@ const Col = defineComponent({
               focusManage.handleFocus(props.col, e);
             }}
           >
-            <Draggle
-              list={props.col.elementList!}
-              isNested={true}
-              elementKey={props.col.key}
-            />
+            <Draggle list={props.col.elementList!} isNested={true} />
           </div>
         </ElCol>
       );
