@@ -35,10 +35,11 @@ const { handleDropStart, handleDropEnd } = useDrag();
   >
     <template #item="{ element }">
       <div
-        class="editor-element-item"
-        :class="
-          element.key === 'row' ? 'border border-[#d9d9d9] border-dashed' : ''
-        "
+        :class="[
+          element.key === 'card' || element.key === 'row' ? 'mb-0' : 'mb-4',
+          element.key === 'row' ? 'border border-[#d9d9d9] border-dashed' : '',
+          'editor-element-item',
+        ]"
         :key="element.id"
       >
         <EditorElement :element="element" />
@@ -52,16 +53,8 @@ const { handleDropStart, handleDropEnd } = useDrag();
   height: calc(100vh - 6rem);
   overflow-y: scroll;
 }
-/* .ghost {
-  opacity: 0.5;
-  border: 1px dashed #336699;
-  border: 1px solid #3b82f6;
-} */
 .editor-element-item {
-  margin-bottom: 16px;
   width: 100%;
-  /* min-height: 60px; */
-  /* border: 1px dashed #336699; */
 }
 .editor-element-item:first-child {
   margin-top: 0;
