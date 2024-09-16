@@ -56,7 +56,6 @@ export const useCommand = (
       }
       queue.push({ redo, undo });
       state.current = current + 1;
-      // console.log("🍉", state.queue);
     };
   };
 
@@ -67,9 +66,7 @@ export const useCommand = (
       execute() {
         return {
           redo() {
-            // console.log("重做");
             let item = state.queue[state.current + 1];
-            // console.log(state.current + 1);
             if (item) {
               item.redo && item.redo();
               state.current++;
@@ -88,7 +85,6 @@ export const useCommand = (
       execute() {
         return {
           redo() {
-            // console.log("撤销");
             //一开始不能撤销，就空的就不能撤销了
             if (state.current == -1) {
               return ElNotification.warning("已经是最前面啦！");
@@ -125,18 +121,14 @@ export const useCommand = (
       execute() {
         let before = this.before;
         let after = elementManage.elementList.value;
-        // console.log("before", before);
-        // console.log("after", after);
         return {
           redo() {
             //默认的
-            // console.log("重做会触发这个事件", after);
             //要深拷贝一份 因为是响应式的 妈的一直更新,我服了操阿草草草草草草
             elementManage.setElementList(cloneDeep(after));
           },
           undo() {
             //前一次的
-            // console.log("撤销会触发这个事件", before);
             elementManage.setElementList(before);
           },
         };
@@ -239,12 +231,10 @@ export const useCommand = (
         };
         const onKeydown = (e: KeyboardEvent) => {
           const { ctrlKey, code } = e;
-          // console.log("没触发吗", code);
           let keyString: Array<string> | string = [];
           if (ctrlKey) keyString.push("ctrl");
           keyString.push(keyCodes[code]);
           keyString = keyString.join("+");
-          // console.log(keyString);
           state.commandArray.forEach(({ keyboard, name }) => {
             if (!keyboard) return;
             if (keyboard === keyString) {

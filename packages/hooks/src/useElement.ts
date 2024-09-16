@@ -50,9 +50,7 @@ export const useElement = (): ElementManage => {
   //树形结构
   const tree = ref<TreeNode[]>([]);
   const setElementList = (newElements: IEditorElement[]) => {
-    // console.log("也应该走到这", newElements);
     elementList.value = newElements;
-    // console.log("修改之后", elementList.value);
   };
   const deleteElementById = (
     id: string | number,

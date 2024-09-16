@@ -15,7 +15,6 @@ const DialogDom = defineComponent({
     const IDERef = ref<typeof IDE | null>(null);
     const isShow = ref<boolean>(false);
     const showDialog = (newOption: any) => {
-      // console.log(newOption);
       IDERef.value?.setModelValue(newOption.content)
       option.value = newOption;
       isShow.value = true;

@@ -64,7 +64,6 @@ const EditElementSetting = defineComponent({
           component.value = elementConfig![nv?.key];
           currentFocusElement.value = nv;
           formData.value = nv.props;
-          // console.log("📃", formData.value);
         }
       }
     );

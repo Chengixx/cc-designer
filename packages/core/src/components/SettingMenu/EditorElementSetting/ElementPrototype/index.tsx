@@ -6,7 +6,6 @@ let componentList: Record<string, DefineComponent> = {};
 for (const path in modules) {
   //之里是获取到这个组件的名称
   const cname = path.match(/\/([^\/]+)\.tsx$/)![1];
-  // console.log(cname);
   const module = modules[path] as Record<string, DefineComponent>;
   componentList[cname] = module.default;
 }

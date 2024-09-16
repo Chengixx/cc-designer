@@ -31,7 +31,6 @@ const TreeDrawerDom = defineComponent({
       //进来一瞬间要先高亮起来
       const focusElement = focusManage.focusedElement;
       if (focusElement.value) {
-        // console.log(focusElement);
         nextTick(() => {
           nodeTree.value?.setCurrentKey(focusElement.value!.id);
         });
@@ -39,7 +38,6 @@ const TreeDrawerDom = defineComponent({
     };
     const handleNodeClick = (data: TreeNode) => {
       const element = IElementManage.value!.findElementById(data.id);
-      // console.log("点击了", element);
       if (
         !IFocusManage.value?.focusedElement ||
         element?.id !== IFocusManage.value?.focusedElement.value?.id
