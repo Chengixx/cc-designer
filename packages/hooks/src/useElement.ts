@@ -29,8 +29,7 @@ export interface ElementManage {
 export interface IEditorElement {
   id: string;
   key: string;
-  cols?: IEditorElement[];
-  elementList?: IEditorElement[] | [];
+  elementList?: IEditorElement[];
   props: Record<string, any>;
 }
 export interface TreeNode {
@@ -64,14 +63,14 @@ export const useElement = (): ElementManage => {
     for (let item of elements) {
       if (item.id === id) {
         elements.splice(elements.indexOf(item), 1);
-        //删除之后看一下cols，如果已经没有cols了，就可以删除row了
+        //删除之后看一下还有没有col，如果已经没有col了，就可以删除row了
         //!此循环是为了最后一个col删除的时候，删除父级row
-        if (rowParent?.cols?.length === 0) {
+        if (rowParent?.elementList?.length === 0) {
           deleteElementById(rowParent.id);
         }
       }
-      if (item.cols) {
-        deleteElementById(id, item.cols, item);
+      if (item.elementList && item.key === "row") {
+        deleteElementById(id, item.elementList, item);
       }
       if (item.elementList) {
         deleteElementById(id, item.elementList);
@@ -94,8 +93,8 @@ export const useElement = (): ElementManage => {
       if (item.id === id) {
         result = item;
       }
-      if (item.cols) {
-        const colResult = findElementById(id, item.cols);
+      if (item.elementList && item.key === "row") {
+        const colResult = findElementById(id, item.elementList);
         if (colResult) {
           result = colResult;
         }
@@ -117,7 +116,7 @@ export const useElement = (): ElementManage => {
   const addColForRow = (id: string): IEditorElement[] | null => {
     const row = findElementById(id);
     if (row) {
-      row.cols!.push(elementTemplate["col"](uuid));
+      row.elementList!.push(elementTemplate["col"](uuid));
     }
     const result = cloneDeep(elementList.value);
     return result;
@@ -131,7 +130,7 @@ export const useElement = (): ElementManage => {
     treeNode.push(curNode);
     curNode.children = [];
     if (element.key === "row") {
-      element.cols!.forEach((col) => {
+      element.elementList!.forEach((col) => {
         let colNode = {
           id: col.id as string,
           key: col.key,

@@ -45,7 +45,7 @@ export const isIEditorElementArray = (arr: any[]): arr is IEditorElement[] => {
       return false;
     }
 
-    if (obj.cols !== undefined && !isIEditorElementArray(obj.cols)) {
+    if (obj.elementList !== undefined && !isIEditorElementArray(obj.elementList)) {
       return false;
     }
     if (

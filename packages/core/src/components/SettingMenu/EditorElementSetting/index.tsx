@@ -108,7 +108,7 @@ const EditElementSetting = defineComponent({
             )}
             {component.value &&
               component.value.key === "row" &&
-              currentFocusElement!.value!.cols!.map(
+              currentFocusElement!.value!.elementList!.map(
                 (col: IEditorElement, index: number) => {
                   return (
                     <>

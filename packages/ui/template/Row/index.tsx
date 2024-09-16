@@ -21,7 +21,7 @@ const Row: IElementBaseSetting = {
       id: uuid(),
       key: "row",
       props: {},
-      cols: [
+      elementList: [
         {
           id: uuid(),
           key: "col",
