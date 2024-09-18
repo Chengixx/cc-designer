@@ -54,7 +54,7 @@ export const useHover = (): HoverManage => {
     const rect = hoverInstanceDom.getBoundingClientRect();
     //!还有一个滚动条的长度
     hoverWidgetRef.value!.style.left = rect.left - 280 + 4 + "px";
-    hoverWidgetRef.value!.style.top = rect.top - 80 + "px";
+    hoverWidgetRef.value!.style.top = rect.top - 80 - 8 + "px";
     hoverWidgetRef.value!.style.width = rect.width + "px";
     hoverWidgetRef.value!.style.height = rect.height + "px";
   };

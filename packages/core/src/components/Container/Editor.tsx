@@ -13,9 +13,9 @@ import { useFocus } from "@cgx-designer/hooks";
 //主要画布
 const Editor = defineComponent({
   setup() {
-    const formManage = useForm()
-    const hoverManage = useHover()
-    const elementManage = useElement()
+    const formManage = useForm();
+    const hoverManage = useHover();
+    const elementManage = useElement();
     const focusManage = useFocus(elementManage);
     const { commands } = useCommand(elementManage, focusManage);
     //因为只能有一个实例 所以用provide注入进去
@@ -27,7 +27,7 @@ const Editor = defineComponent({
     provide("commands", commands);
     return () => {
       return (
-        <div class="w-full h-full flex justify-between">
+        <div class="w-full h-full flex justify-between overflow-hidden">
           {/* 编辑器左侧，可选择的组件列表 */}
           <div class="w-[280px] bg-white h-full">
             <CGXLogo />
@@ -40,7 +40,7 @@ const Editor = defineComponent({
             {/* 编辑器画布的地方 */}
             <div class="box-border">
               {/* 滚动条 */}
-              <div class="overflow-y-scroll h-full relative">
+              <div class="h-full relative">
                 <EdiorCanvas />
               </div>
             </div>
