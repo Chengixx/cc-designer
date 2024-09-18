@@ -91,12 +91,6 @@ export const useElement = (): ElementManage => {
       if (item.id === id) {
         result = item;
       }
-      if (item.elementList && item.key === "row") {
-        const colResult = findElementById(id, item.elementList);
-        if (colResult) {
-          result = colResult;
-        }
-      }
       if (item.elementList) {
         const elementResult = findElementById(id, item.elementList);
         if (elementResult) {
@@ -127,23 +121,8 @@ export const useElement = (): ElementManage => {
     };
     treeNode.push(curNode);
     curNode.children = [];
-    if (element.key === "row") {
-      element.elementList!.forEach((col) => {
-        let colNode = {
-          id: col.id as string,
-          key: col.key,
-          children: [],
-        };
-        curNode.children!.push(colNode);
-        if (col.elementList!.length > 0) {
-          col.elementList!.forEach((colWidget) =>
-            listToTree(colWidget, colNode.children)
-          );
-        }
-      });
-    }
-    if (element.key === "card") {
-      element.elementList!.forEach((sonElement) =>
+    if (element.elementList) {
+      element.elementList.forEach((sonElement) =>
         listToTree(sonElement, curNode.children!)
       );
     }
