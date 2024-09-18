@@ -29,7 +29,11 @@ const EdiorCanvas = defineComponent({
           {elementManage.elementList.value.length == 0 && <Empty />}
           {/* hover的盒子,选中的时候如果在这 */}
           <PanelWidget />
-          <div class="mx-4 mt-2" ref={editorCanvasRef}>
+          <div
+            class="mx-4 mt-2"
+            ref={editorCanvasRef}
+            onClick={(e) => focusManage.handleCanvasClick(e)}
+          >
             <ElForm
               labelWidth={formManage.formSetting.labelWidth}
               labelPosition={formManage.formSetting.labelPosition}
