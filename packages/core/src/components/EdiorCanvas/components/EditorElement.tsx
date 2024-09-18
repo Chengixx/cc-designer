@@ -11,7 +11,6 @@ import { FocusManage } from "@cgx-designer/hooks";
 import { ElementManage, IEditorElement } from "@cgx-designer/hooks";
 import { HoverManage } from "@cgx-designer/hooks";
 import { ElFormItem } from "element-plus";
-import ButtonTool from "./ButtonTool";
 
 const EditorElement = defineComponent({
   props: {

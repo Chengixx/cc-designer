@@ -2,7 +2,6 @@ import { FocusManage } from "@cgx-designer/hooks";
 import { ElCol } from "element-plus";
 import { defineComponent, onMounted, onBeforeUnmount, ref, inject } from "vue";
 import Draggle from "cgx-designer/src/components/EdiorCanvas/components/Draggle.vue";
-import ButtonTool from "cgx-designer/src/components/EdiorCanvas/components/ButtonTool";
 import { HoverManage } from "@cgx-designer/hooks";
 import { ElementManage } from "@cgx-designer/hooks";
 
