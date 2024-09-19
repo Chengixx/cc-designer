@@ -1,4 +1,4 @@
-import { defineComponent, provide } from "vue";
+import { defineComponent } from "vue";
 import { Container } from "cgx-designer";
 
 const App = defineComponent({

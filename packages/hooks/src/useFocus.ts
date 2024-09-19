@@ -1,7 +1,7 @@
 import { computed, Ref, ref } from "vue";
 import { ElementManage } from "./useElement";
 import { isEqual } from "lodash";
-import useObserve from "./useObserve";
+import { useObserve } from "./useObserve";
 import { useTimedQuery } from "./useTimedQuery";
 import { IEditorElement } from "cgx-designer";
 

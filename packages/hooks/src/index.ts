@@ -4,3 +4,5 @@ export * from "./useElement";
 export * from "./useFocus";
 export * from "./useForm";
 export * from "./useHover";
+export * from "./useObserve";
+export * from "./useTimedQuery";
