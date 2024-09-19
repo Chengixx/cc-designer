@@ -10,10 +10,10 @@ import {
 import { defineComponent, inject, ref, watch, h, resolveComponent } from "vue";
 import { ElementConfig, IElementBaseSetting } from "@cgx-designer/utils";
 import { FocusManage } from "@cgx-designer/hooks";
-import { IEditorElement } from "@cgx-designer/hooks";
 import componentList from "./ElementPrototype";
 import { stringFirstBigger } from "@cgx-designer/utils";
 import { commonProps } from "@cgx-designer/utils";
+import { IEditorElement } from "@/types";
 
 const Empty = () => {
   return (

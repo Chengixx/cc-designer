@@ -1,13 +1,5 @@
+import { FormSetting } from "cgx-designer";
 import { reactive } from "vue";
-
-export interface FormSetting {
-  modelName: string;
-  refName: string;
-  rulesName: string;
-  labelWidth: number;
-  labelPosition: "top" | "left" | "right";
-  size: "default" | "small" | "large";
-}
 
 export interface FormManage {
   formSetting: FormSetting;

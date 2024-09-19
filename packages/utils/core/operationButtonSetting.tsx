@@ -3,7 +3,6 @@ import { TreeDrawer } from "cgx-designer/src/components/TreeDrawer";
 import { isFormWithEditorElements } from "../common/index";
 import { ElNotification } from "element-plus";
 import { FocusManage } from "@cgx-designer/hooks/src/useFocus";
-import { exportCode } from "../common";
 import { FormManage } from "@cgx-designer/hooks/src/useForm";
 import { ElementManage } from "@cgx-designer/hooks/src/useElement";
 
@@ -25,7 +24,6 @@ export const createOperationButtonSetting = (
         console.log("总体元素列表", elementManage.elementList);
         console.log("当前选中的元素", focusManange.focusedElement.value);
         console.log("树", elementManage.getTree());
-        // console.log("导出的vue项目文件", exportCode());
         console.log("组件对象实例Map", elementManage.elementInstanceList);
       },
     },

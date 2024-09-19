@@ -8,9 +8,10 @@ import {
 } from "vue";
 import { ElementConfig } from "@cgx-designer/utils";
 import { FocusManage } from "@cgx-designer/hooks";
-import { ElementManage, IEditorElement } from "@cgx-designer/hooks";
+import { ElementManage } from "@cgx-designer/hooks";
 import { HoverManage } from "@cgx-designer/hooks";
 import { ElFormItem } from "element-plus";
+import { IEditorElement } from "@/types";
 
 const EditorElement = defineComponent({
   props: {

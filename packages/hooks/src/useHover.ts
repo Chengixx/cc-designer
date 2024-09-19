@@ -1,5 +1,6 @@
 import { ref, watch, Ref } from "vue";
-import { ElementManage, IEditorElement } from "./useElement";
+import { ElementManage } from "./useElement";
+import { IEditorElement } from "cgx-designer";
 
 export interface HoverManage {
   setDisableHoverStatus: (status?: boolean) => void;

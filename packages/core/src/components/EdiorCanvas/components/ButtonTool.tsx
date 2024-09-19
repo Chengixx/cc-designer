@@ -20,13 +20,15 @@ const ButtonTool = defineComponent({
     return () => {
       return (
         <div class="absolute bottom-0 right-1 cursor-pointer flex">
-          <ElTooltip effect="dark" content="复制组件" placement="bottom">
-            <div class="mr-1" onClick={(e: MouseEvent) => handleCopy(e)}>
-              <ElIcon>
-                <DocumentCopy />
-              </ElIcon>
-            </div>
-          </ElTooltip>
+          {focusManage.focusedElement.value?.key !== "col" && (
+            <ElTooltip effect="dark" content="复制组件" placement="bottom">
+              <div class="mr-1" onClick={(e: MouseEvent) => handleCopy(e)}>
+                <ElIcon>
+                  <DocumentCopy />
+                </ElIcon>
+              </div>
+            </ElTooltip>
+          )}
           <ElTooltip effect="dark" content="删除组件" placement="bottom">
             <div onClick={(e: MouseEvent) => handleDelete(e)}>
               <ElIcon>

@@ -11,7 +11,7 @@ import { useHover } from "@cgx-designer/hooks";
 import { useElement } from "@cgx-designer/hooks";
 import { useFocus } from "@cgx-designer/hooks";
 //主要画布
-const Editor = defineComponent({
+const Container = defineComponent({
   setup() {
     const formManage = useForm();
     const hoverManage = useHover();
@@ -55,4 +55,4 @@ const Editor = defineComponent({
   },
 });
 
-export default Editor;
+export default Container;

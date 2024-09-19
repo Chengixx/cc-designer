@@ -3,8 +3,9 @@ import { onMounted, onUnmounted, reactive } from "vue";
 import { ElNotification } from "element-plus";
 import { FocusManage } from "./useFocus";
 import { IElementBaseSetting } from "@cgx-designer/utils";
-import { ElementManage, IEditorElement } from "./useElement";
+import { ElementManage } from "./useElement";
 import { cloneDeep } from "lodash";
+import { IEditorElement } from "cgx-designer";
 
 export interface ICommand {
   name: string;
@@ -196,6 +197,7 @@ export const useCommand = (
         );
         return {
           redo: () => {
+            focusManage.resetFocus();
             elementManage.setElementList(cloneDeep(after!));
           },
           undo: () => {

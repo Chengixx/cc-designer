@@ -2,7 +2,7 @@
 import { computed, defineComponent, PropType } from "vue";
 import { vWaves } from "@cgx-designer/utils";
 
-const CCButtonV1 = defineComponent({
+const CCButton = defineComponent({
   directives: {
     wave: vWaves,
   },
@@ -52,4 +52,4 @@ const CCButtonV1 = defineComponent({
     };
   },
 });
-export default CCButtonV1;
+export default CCButton;

@@ -1,5 +1,4 @@
-import { IEditorElement } from "@cgx-designer/hooks/src/useElement";
-import { FormSetting } from "@cgx-designer/hooks/src/useForm";
+import { FormSetting, IEditorElement } from "cgx-designer";
 
 //深拷贝
 export const deepClone = <T>(obj: T): T => {

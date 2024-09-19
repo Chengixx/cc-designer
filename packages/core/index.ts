@@ -1,3 +1,4 @@
-import Editor from "./src/components/Container/Editor";
+import Container from './src/components/Container/index';
+export * from "./src/types/index";
 
-export { Editor };
+export { Container };

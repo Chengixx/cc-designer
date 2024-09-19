@@ -2,6 +2,7 @@ import { Ref, ref } from "vue";
 import { v4 as uuid } from "uuid";
 import { IElementBaseSetting, elementConfig } from "@cgx-designer/utils";
 import { cloneDeep } from "lodash";
+import { IEditorElement, TreeNode } from "cgx-designer";
 
 export interface ElementManage {
   elementList: Ref<IEditorElement[]>;
@@ -26,17 +27,7 @@ export interface ElementManage {
   deleteAllElements: () => IEditorElement[] | null;
 }
 
-export interface IEditorElement {
-  id: string;
-  key: string;
-  elementList?: IEditorElement[];
-  props: Record<string, any>;
-}
-export interface TreeNode {
-  id: string;
-  key: string;
-  children?: TreeNode[];
-}
+
 export const useElement = (): ElementManage => {
   const elementTemplate = elementConfig.elementTemplate;
   const elementList = ref<IEditorElement[]>([]);

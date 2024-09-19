@@ -1,8 +1,9 @@
-import { computed, nextTick, onMounted, Ref, ref, watch } from "vue";
-import { ElementManage, IEditorElement } from "./useElement";
+import { computed, Ref, ref } from "vue";
+import { ElementManage } from "./useElement";
 import { isEqual } from "lodash";
 import useObserve from "./useObserve";
 import { useTimedQuery } from "./useTimedQuery";
+import { IEditorElement } from "cgx-designer";
 
 export interface FocusManage {
   focusedElement: Ref<IEditorElement | null>;

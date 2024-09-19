@@ -5,11 +5,12 @@ export default {
 </script>
 <script setup lang="ts">
 import draggable from "vuedraggable";
-import { FocusManage, IEditorElement } from "@cgx-designer/hooks";
+import { FocusManage } from "@cgx-designer/hooks";
 import EditorElement from "./EditorElement";
 import { useDrag } from "@cgx-designer/hooks";
 import { inject } from "vue";
 import { HoverManage } from "@cgx-designer/hooks";
+import { IEditorElement } from "@/types";
 const hoverManage = inject("hoverManage") as HoverManage;
 const focusManage = inject("focusManage") as FocusManage;
 const props = defineProps<{
