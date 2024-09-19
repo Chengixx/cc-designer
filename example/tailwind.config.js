@@ -5,6 +5,7 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
     "../packages/core/src/**/*.{vue,js,ts,jsx,tsx}",
     "../packages/ui/template/**/*.{vue,js,ts,jsx,tsx}",
+    "../packages/ui/base/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {

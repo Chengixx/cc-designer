@@ -1,13 +1,7 @@
 import { ElDrawer, ElTree } from "element-plus";
-import {
-  createVNode,
-  defineComponent,
-  ref,
-  render,
-  nextTick,
-  inject,
-} from "vue";
-import { ElementManage, FocusManage, TreeNode } from "@cgx-designer/hooks";
+import { createVNode, defineComponent, ref, render, nextTick } from "vue";
+import { ElementManage, FocusManage } from "@cgx-designer/hooks";
+import { TreeNode } from "@/types";
 interface TreeDrawerExpose {
   showDrawer: Function;
 }

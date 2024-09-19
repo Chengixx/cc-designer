@@ -1,6 +1,7 @@
 //!优雅的一笔 ~~ >.<
+//Todo 不知道为什么这里需要具体指定路径
 import { computed, defineComponent, PropType } from "vue";
-import { vWaves } from "@cgx-designer/utils";
+import { vWaves } from "@cgx-designer/utils/directives/waves/index";
 
 const CCButton = defineComponent({
   directives: {
