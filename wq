@@ -1,0 +1,299 @@
+[33mcommit 52a4b6ac3c542f178a65d2a4e4e94e7491ccefa2[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Fri Sep 20 15:56:05 2024 +0800
+
+    fix
+
+[33mcommit 220bbcdd7fcd03333d5baab6239a4869b36d8d98[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Fri Sep 20 15:17:13 2024 +0800
+
+    fix:类型更完善
+
+[33mcommit 34617ff3c34fc865cd6f8eb69e3f3bf818981390[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Fri Sep 20 14:56:28 2024 +0800
+
+    feat:修改传值 更符合后续操作
+
+[33mcommit 0a091126f59347ec8657f9e88b9fa089465e4514[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Thu Sep 19 15:35:49 2024 +0800
+
+    把节点村回去
+
+[33mcommit 37c37b582066546857d7deb328e0d3bc74e589c1[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Thu Sep 19 09:41:15 2024 +0800
+
+    fix;
+
+[33mcommit 0769859d9915157b1d2068c6370b024b797df600[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Thu Sep 19 09:13:15 2024 +0800
+
+    feat:optimize
+
+[33mcommit a16e958bb8f6f21e5d8dd73f824fd2a1b296e623[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Thu Sep 19 09:06:00 2024 +0800
+
+    feat:optimize
+
+[33mcommit 1d32bbc284a4ea8cab4b8b3f7f576e26c44cad99[m
+Author: lcc <1784843081@qq.com>
+Date:   Wed Sep 18 22:49:55 2024 +0800
+
+    asd
+
+[33mcommit bfee4ef6dc2cbd631e7c845eb9d66353f3c1bcef[m
+Author: lcc <1784843081@qq.com>
+Date:   Wed Sep 18 21:24:22 2024 +0800
+
+    feat:buttonTool 完善
+
+[33mcommit 04e7154a92706771f3072972dd21da13f97c442f[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Wed Sep 18 10:57:01 2024 +0800
+
+    fix:解决一个滚动问题
+
+[33mcommit 0301111ca403e7c130d795a59fcef96bf11c5f13[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Wed Sep 18 10:41:18 2024 +0800
+
+    feat:去除一些重复引用代码
+
+[33mcommit 4e79f22624386b24b251d0ab13629e721697215d[m
+Author: lcc <1784843081@qq.com>
+Date:   Tue Sep 17 01:01:11 2024 +0800
+
+    feat:remove useless clg
+
+[33mcommit 985bfa08026b1dec45cb797d22ff4f39cfe2b0ed[m
+Author: lcc <1784843081@qq.com>
+Date:   Tue Sep 17 00:59:32 2024 +0800
+
+    把cols都改掉了 规范起来了
+
+[33mcommit 2bd72bb4a0589cb05fdd5578ad2259b40e6d9731[m
+Author: lcc <1784843081@qq.com>
+Date:   Tue Sep 17 00:22:41 2024 +0800
+
+    修改了一些样式
+
+[33mcommit b99659dd39e32cbd4a7158fc951030070f8a87d2[m
+Author: lcc <1784843081@qq.com>
+Date:   Mon Sep 16 14:55:14 2024 +0800
+
+    样式修改
+
+[33mcommit fcd6f78a51f4a3bdd3049ec9c47b2ef8bf79d7a4[m
+Author: lcc <1784843081@qq.com>
+Date:   Mon Sep 16 14:29:39 2024 +0800
+
+    fix
+
+[33mcommit b8d645418e7b35f06b23a2739760ef08abbe4c4f[m
+Author: lcc <1784843081@qq.com>
+Date:   Mon Sep 16 00:57:02 2024 +0800
+
+    更加完善
+
+[33mcommit 07d537eec4884a3c75badf1463ab64a8fef151db[m
+Author: lcc <1784843081@qq.com>
+Date:   Sun Sep 15 18:15:25 2024 +0800
+
+    fix:修复了拖拽的时候有动画的效果
+
+[33mcommit bc8add96da330e01ccbe93459a455a21e67d6469[m
+Author: lcc <1784843081@qq.com>
+Date:   Sun Sep 15 15:27:19 2024 +0800
+
+    feat:更加友善
+
+[33mcommit 92c84689674f40f35e2a3f2e3b0370631f58ead7[m
+Author: lcc <1784843081@qq.com>
+Date:   Sun Sep 15 13:46:06 2024 +0800
+
+    去除无用代码
+
+[33mcommit 2fde31ccea4370013605dad9cbbf6939200bdcf6[m
+Author: lcc <1784843081@qq.com>
+Date:   Sun Sep 15 11:45:45 2024 +0800
+
+    fix:修复个别问题
+
+[33mcommit 137d280d007a8636470de04127023769b94a0a4a[m
+Author: lcc <1784843081@qq.com>
+Date:   Sun Sep 15 11:33:08 2024 +0800
+
+    fix:使用计算属性 防止dom更新不知道
+
+[33mcommit 261f20b37c08425b7e7a7f67cb7f66620384db9c[m
+Author: lcc <1784843081@qq.com>
+Date:   Sat Sep 14 20:35:45 2024 +0800
+
+    feat
+
+[33mcommit a2ec3cd03567544b4c6ac7f40c4afd4471220260[m
+Author: lcc <1784843081@qq.com>
+Date:   Sat Sep 14 20:27:03 2024 +0800
+
+    feat:add timeQuery hook
+
+[33mcommit f93538f99837cb46adc005915cd08aa18ad29060[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Sat Sep 14 14:58:24 2024 +0800
+
+    feat:加入一些clg
+
+[33mcommit 7ccb606ebcbfbb58d39268c804ae565ebaa5e9cc[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Sat Sep 14 10:15:19 2024 +0800
+
+    feat:出现一个问题
+
+[33mcommit 8797580be5eb210be2e8f0b1f6c7c9f93c729992[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Sat Sep 14 09:09:00 2024 +0800
+
+    feat:useObserver
+
+[33mcommit 97a01c679b457c18d29dcbc2b02dbfd6edbd8ac0[m
+Author: lcc <1784843081@qq.com>
+Date:   Fri Sep 13 23:01:06 2024 +0800
+
+    feat:focus
+
+[33mcommit 84c02314f0c6221efeadabe5fcb42663fdd17c8c[m
+Author: lcc <1784843081@qq.com>
+Date:   Fri Sep 13 22:30:54 2024 +0800
+
+    fix:code review
+
+[33mcommit 7bd90a5e150fd78af7ae5f1df15f429f59dfb6a1[m
+Author: lcc <1784843081@qq.com>
+Date:   Fri Sep 13 21:22:54 2024 +0800
+
+    feat:继续消除无用代码
+
+[33mcommit b8e28cfaed2a7927c25a81f3abfe720c6293d338[m
+Author: lcc <1784843081@qq.com>
+Date:   Fri Sep 13 21:18:39 2024 +0800
+
+    feat:foucs迁移成功
+
+[33mcommit 0efd7d43dd59df8603dca41b4e27df05aa18cf91[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Fri Sep 13 17:01:05 2024 +0800
+
+    useHover参数改变
+
+[33mcommit e452369b3cae3fb9880ba9b0a9f9a91ef26b9eb7[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Fri Sep 13 16:39:03 2024 +0800
+
+    优化代码
+
+[33mcommit 5368ba243a5749201e956ad2a6b92298a8222494[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Fri Sep 13 16:35:15 2024 +0800
+
+    加入自定义指令
+
+[33mcommit 1daf4ff9b8eeb9bbaa664cc669888fef8cb4294b[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Mon Sep 2 14:03:47 2024 +0800
+
+    去除无用代码
+
+[33mcommit 5874a93d5ba5c7129a49f80a150d0fc20dd2df65[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Mon Sep 2 14:02:58 2024 +0800
+
+    完善类型
+
+[33mcommit 12c7187765e0e7a3cacf5f79ce21bf8a1e68e08c[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Mon Sep 2 13:55:42 2024 +0800
+
+    修复俩bug 并且优惠row的逻辑
+
+[33mcommit 814e35163b847d8d9957eda8f0cffd7fd4299123[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Mon Sep 2 11:10:58 2024 +0800
+
+    优化
+
+[33mcommit a7b5e9e0c2acce3cee03d5a167b7f5dbe96a49f3[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Mon Sep 2 10:12:10 2024 +0800
+
+    解决了tailwind问题
+
+[33mcommit c4a4c2411b94d58fb5faa7e43d8825dbddf2c469[m
+Author: lcc <1784843081@qq.com>
+Date:   Sun Sep 1 22:43:57 2024 +0800
+
+    先抽过去 排问题
+
+[33mcommit 0ec679ee7e225d96300e0efc958e2c7b24d5c0ed[m
+Author: lcc <1784843081@qq.com>
+Date:   Sun Sep 1 20:10:41 2024 +0800
+
+    完善了一些类型
+
+[33mcommit 564f94848bf25f351a393271fb85c25521f77127[m
+Author: lcc <1784843081@qq.com>
+Date:   Sun Sep 1 19:51:03 2024 +0800
+
+    修改类型增强
+
+[33mcommit 306a5a2fb72227a25696910bc5f40074bdfa0dc1[m
+Author: lcc <1784843081@qq.com>
+Date:   Sun Sep 1 18:11:08 2024 +0800
+
+    修复一个问题
+
+[33mcommit 8bffd9f1f04ed1a75ef2c15be5eb9bf0f8961985[m
+Author: lcc <1784843081@qq.com>
+Date:   Sun Sep 1 17:58:08 2024 +0800
+
+    初步 要優化的點非常非常多
+
+[33mcommit f2fcfbe0f76bea5e197d35ff6a5e87ef04edb554[m
+Author: lcc <1784843081@qq.com>
+Date:   Sun Sep 1 17:47:52 2024 +0800
+
+    短暫報錯解決
+
+[33mcommit 327aebdb6672e5d3de792b32bad59520a2df75c9[m
+Author: lcc <1784843081@qq.com>
+Date:   Sun Sep 1 17:24:39 2024 +0800
+
+    還差core
+
+[33mcommit a6bd09aec0241a5699bb2b00a47a0c53ecef53d2[m
+Author: lcc <1784843081@qq.com>
+Date:   Sun Sep 1 16:40:08 2024 +0800
+
+    no pinia state,with manage
+
+[33mcommit 957359a0272f86be7ff02582a4e9e559bfd0fee7[m
+Author: lvchencheng <1784843081@qq.com>
+Date:   Fri Aug 30 10:08:17 2024 +0800
+
+    更详细的分包
+
+[33mcommit bb150a5a305abc56f84696059eb1bc97a8fd0299[m
+Author: lcc <1784843081@qq.com>
+Date:   Thu Aug 29 22:23:33 2024 +0800
+
+    总体配置搭好
+
+[33mcommit 0ddb4115a79b4ae0dfcfc9b34f8e649240f15504[m
+Author: lcc <1784843081@qq.com>
+Date:   Thu Aug 29 22:04:20 2024 +0800
+
+    init

@@ -1,16 +1,7 @@
 import { IEditorElement } from "@/types";
 import { ElementConfig } from "@cgx-designer/utils";
 import { ElFormItem } from "element-plus";
-import {
-  defineComponent,
-  h,
-  inject,
-  onMounted,
-  PropType,
-  ref,
-  watchEffect,
-} from "vue";
-import Draggle from "../EdiorCanvas/components/Draggle.vue";
+import { defineComponent, h, inject, PropType, ref, watchEffect } from "vue";
 import { ElementManage } from "@cgx-designer/hooks";
 
 const ElementNode = defineComponent({
@@ -21,13 +12,14 @@ const ElementNode = defineComponent({
     },
   },
   setup(props, { slots }) {
-    // console.log("第二层的slots",slots);
     const elementManage = inject("elementManage") as ElementManage;
     const elementRef = ref<any>(null);
     watchEffect(() => {
       if (elementRef.value) {
-        // console.log("elementRef", elementRef.value, props.element);
-        elementManage.addElementInstance(props.element!.id, elementRef.value!.$el);
+        elementManage.addElementInstance(
+          props.element!.id,
+          elementRef.value!.$el
+        );
       }
     });
     return () => {
