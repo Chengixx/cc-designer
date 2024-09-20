@@ -3,15 +3,18 @@ import { defineComponent } from "vue";
 
 const ColorPicker = defineComponent({
   props: {
-    props: Object
+    elementSchema: Object,
   },
   setup(props: any) {
     return () => {
       return (
-        <ElColorPicker size={props.props.size} v-model={props.props.defaultValue} />
-      )
-    }
-  }
-})
+        <ElColorPicker
+          size={props.elementSchema.props.size}
+          v-model={props.elementSchema.props.defaultValue}
+        />
+      );
+    };
+  },
+});
 
 export default ColorPicker;

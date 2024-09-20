@@ -3,17 +3,20 @@ import { defineComponent } from "vue";
 
 const Button = defineComponent({
   props: {
-    props: Object
+    elementSchema: Object,
   },
   setup(props: any) {
     return () => {
       return (
-        <ElButton size={props.props!.size} type={props.props!.type}>
-          {props.props!.label}
+        <ElButton
+          size={props.elementSchema.props!.size}
+          type={props.elementSchema.props!.type}
+        >
+          {props.elementSchema.props!.label}
         </ElButton>
-      )
-    }
-  }
-})
+      );
+    };
+  },
+});
 
 export default Button;

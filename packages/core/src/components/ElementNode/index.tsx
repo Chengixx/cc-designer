@@ -30,10 +30,10 @@ const ElementNode = defineComponent({
               labelPosition={props.element!.props.labelPosition}
               style={{ marginBottom: "0px !important" }}
             >
-              {h(elementRender, props.element!)}
+              {h(elementRender, { elementSchema: props.element! })}
             </ElFormItem>
           ) : (
-            <>{h(elementRender, props.element!)}</>
+            <>{h(elementRender, { elementSchema: props.element! })}</>
           )}
         </>
       );

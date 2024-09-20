@@ -5,17 +5,17 @@ import { GroupOption } from ".";
 
 const Select = defineComponent({
   props: {
-    props: Object
+    elementSchema: Object
   },
   setup(props) {
     return () => {
       return (
         <ElSelect
-          v-model={props.props!.defaultValue}
+          v-model={props.elementSchema!.props!.defaultValue}
           placeholder="请选择"
-          multiple={props.props!.multiple}
+          multiple={props.elementSchema!.props!.multiple}
         >
-          {props.props!.options.map((option: GroupOption) => (
+          {props.elementSchema!.props!.options.map((option: GroupOption) => (
             <ElOption
               key={option.value}
               label={option.label}

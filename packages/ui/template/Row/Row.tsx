@@ -5,21 +5,20 @@ import { IEditorElement } from "cgx-designer";
 
 const Row = defineComponent({
   props: {
-    props: Object,
-    elementList: Array
+    elementSchema: Object,
   },
   setup(props: any) {
     return () => {
       return (
         <ElRow class="w-full h-full">
-          {props.elementList.map((col: IEditorElement) => {
+          {props.elementSchema.elementList.map((col: IEditorElement) => {
             // 一定要加key!!!!不加直接出现问题了
-            return <Col col={col} key={col.id} />
+            return <Col col={col} key={col.id} />;
           })}
         </ElRow>
-      )
-    }
-  }
-})
+      );
+    };
+  },
+});
 
 export default Row;

@@ -3,20 +3,20 @@ import { defineComponent } from "vue";
 
 const Textarea = defineComponent({
   props: {
-    props: Object
+    elementSchema: Object,
   },
   setup(props) {
     return () => {
       return (
         <ElInput
           type="textarea"
-          placeholder={props.props!.placeHolder}
-          size={props.props!.size}
-          v-model={props.props!.defaultValue}
+          placeholder={props.elementSchema!.props!.placeHolder}
+          size={props.elementSchema!.props!.size}
+          v-model={props.elementSchema!.props!.defaultValue}
         />
-      )
-    }
-  }
-})
+      );
+    };
+  },
+});
 
-export default Textarea
+export default Textarea;

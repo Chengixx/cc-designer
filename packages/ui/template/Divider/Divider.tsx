@@ -3,17 +3,13 @@ import { defineComponent } from "vue";
 
 const Divider = defineComponent({
   props: {
-    props: Object
+    elementSchema: Object,
   },
   setup(props: any) {
     return () => {
-      return (
-        <ElDivider>
-          {props.props.placeHolder}
-        </ElDivider>
-      )
-    }
-  }
-})
+      return <ElDivider>{props.elementSchema.props.placeHolder}</ElDivider>;
+    };
+  },
+});
 
 export default Divider;

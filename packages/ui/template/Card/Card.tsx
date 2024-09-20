@@ -4,8 +4,7 @@ import Draggle from "cgx-designer/src/components/EdiorCanvas/components/Draggle.
 
 const Card = defineComponent({
   props: {
-    props: Object,
-    elementList: Array,
+    elementSchema: Object,
   },
   setup(props: any) {
     return () => {
@@ -14,27 +13,27 @@ const Card = defineComponent({
           <ElCard class="w-full">
             {{
               header: () => {
-                return <div>{props.props!.label}</div>
+                return <div>{props.elementSchema.props!.label}</div>;
               },
               default: () => {
                 return (
                   <div
-                    class={[
-                      "border-dashed border border-[#d9d9d9]",
-                    ]}
-                    id={props.id as string}
+                    class={["border-dashed border border-[#d9d9d9]"]}
+                    id={props.elementSchema.id as string}
                   >
-                    <Draggle list={props.elementList!} isNested={true} />
+                    <Draggle
+                      list={props.elementSchema.elementList!}
+                      isNested={true}
+                    />
                   </div>
-                )
-
-              }
+                );
+              },
             }}
           </ElCard>
         </div>
-      )
-    }
-  }
-})
+      );
+    };
+  },
+});
 
-export default Card
+export default Card;

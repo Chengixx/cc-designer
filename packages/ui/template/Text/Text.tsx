@@ -2,7 +2,7 @@ import { defineComponent } from "vue";
 
 const Text = defineComponent({
   props: {
-    props: Object
+    elementSchema: Object,
   },
   setup(props) {
     return () => {
@@ -10,15 +10,15 @@ const Text = defineComponent({
         <div
           class="h-fit w-fit"
           style={{
-            fontSize: props.props!.size,
-            color: props.props!.color,
+            fontSize: props.elementSchema!.props!.size,
+            color: props.elementSchema!.props!.color,
           }}
         >
-          {props.props!.label}
+          {props.elementSchema!.props!.label}
         </div>
-      )
-    }
-  }
-})
+      );
+    };
+  },
+});
 
-export default Text
+export default Text;

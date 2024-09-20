@@ -1,18 +1,20 @@
-
 import { ElSwitch } from "element-plus";
 import { defineComponent } from "vue";
 
 const Switch = defineComponent({
   props: {
-    props: Object
+    elementSchema: Object,
   },
   setup(props) {
     return () => {
       return (
-        <ElSwitch size={props.props!.size} v-model={props.props!.defaultValue} />
-      )
-    }
-  }
-})
+        <ElSwitch
+          size={props.elementSchema!.props!.size}
+          v-model={props.elementSchema!.props!.defaultValue}
+        />
+      );
+    };
+  },
+});
 
-export default Switch
+export default Switch;

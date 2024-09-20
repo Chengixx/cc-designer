@@ -3,19 +3,19 @@ import { defineComponent } from "vue";
 
 const Input = defineComponent({
   props: {
-    props: Object
+    elementSchema: Object,
   },
   setup(props: any) {
     return () => {
       return (
         <ElInput
-          placeholder={props.props!.placeHolder}
-          size={props.props!.size}
-          v-model={props.props!.defaultValue}
+          placeholder={props.elementSchema.props!.placeHolder}
+          size={props.elementSchema.props!.size}
+          v-model={props.elementSchema.props!.defaultValue}
         ></ElInput>
-      )
-    }
-  }
-})
+      );
+    };
+  },
+});
 
-export default Input
+export default Input;
