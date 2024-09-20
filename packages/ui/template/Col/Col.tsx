@@ -7,6 +7,7 @@ import {
   ref,
   inject,
   PropType,
+  renderSlot,
 } from "vue";
 import Draggle from "cgx-designer/src/components/EdiorCanvas/components/Draggle.vue";
 import { HoverManage } from "@cgx-designer/hooks";
@@ -17,8 +18,8 @@ const Col = defineComponent({
   props: {
     elementSchema: Object as PropType<IEditorElement>,
   },
-  setup(props: any) {
-    console.log(props, 123);
+  setup(props: any,{slots}) {
+    console.log(props.elementSchema, "col里的props");
     const hoverManage = inject("hoverManage") as HoverManage;
     const elementManage = inject("elementManage") as ElementManage;
     const focusManage = inject("focusManage") as FocusManage;
@@ -38,7 +39,7 @@ const Col = defineComponent({
           span={props.elementSchema.props.span}
           class="border-dashed border border-[#d9d9d9]"
         >
-          <div
+          {/* <div
             ref={elementRef}
             onMouseover={(e) =>
               hoverManage.handleHover(e, props.elementSchema, elementManage)
@@ -52,7 +53,15 @@ const Col = defineComponent({
             }}
           >
             <Draggle list={props.elementSchema.elementList!} isNested={true} />
-          </div>
+          </div> */}
+                    {renderSlot(slots, "editNode", {}, () =>
+            props.elementSchema.elementList.map(
+              (subcomponentSchema: IEditorElement) =>
+                renderSlot(slots, "node", {
+                  element: subcomponentSchema,
+                })
+            )
+          )}
         </ElCol>
       );
     };

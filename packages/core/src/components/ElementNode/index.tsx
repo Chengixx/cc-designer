@@ -2,6 +2,7 @@ import { IEditorElement } from "@/types";
 import { ElementConfig } from "@cgx-designer/utils";
 import { ElFormItem } from "element-plus";
 import { defineComponent, h, inject, PropType } from "vue";
+import Draggle from "../EdiorCanvas/components/Draggle.vue";
 
 const ElementNode = defineComponent({
   props: {
@@ -10,7 +11,8 @@ const ElementNode = defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  setup(props, { slots }) {
+    console.log("第二层的slots",slots);
     return () => {
       //先从元素配置那里拿到
       const elementConfig = inject<ElementConfig>("elementConfig");
@@ -34,7 +36,24 @@ const ElementNode = defineComponent({
               {h(elementRender, { elementSchema: props.element })}
             </ElFormItem>
           ) : (
-            <>{h(elementRender, { elementSchema: props.element })}</>
+            <>
+              {h(
+                elementRender,
+                { elementSchema: props.element },
+                {
+                  // 这个是普通的插槽,就是给他一个个循环出来就好了不用过多的操作
+                  node: (element: IEditorElement) => {
+                    // return elementList.map((element) => {
+                      return <ElementNode element={element} />;
+                    // });
+                  },
+                  //这个是拖拽的插槽，应该要用draggle,这里会提供一个插槽 到外面如果需要拖拽的话 是用插槽穿进来的
+                  editNode: () => {
+                    return <>{slots.editNode ? slots.editNode() : null}</>;
+                  },
+                }
+              )}
+            </>
           )}
         </>
       );

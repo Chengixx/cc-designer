@@ -11,6 +11,7 @@ import { ElementManage } from "@cgx-designer/hooks";
 import { HoverManage } from "@cgx-designer/hooks";
 import { IEditorElement } from "@/types";
 import ElementNode from "../../ElementNode";
+import Draggle from "./Draggle.vue";
 
 const EditorElement = defineComponent({
   props: {
@@ -21,6 +22,7 @@ const EditorElement = defineComponent({
     const elementManage = inject("elementManage") as ElementManage;
 
     onMounted(() => {
+      console.log(elementRef.value!, "这里的elementRef");
       elementManage.addElementInstance(props.element!.id, elementRef.value!);
     });
     //!一定要用onBeforeUnmount,用onUnmounted不行,顺序会出问题
@@ -34,17 +36,36 @@ const EditorElement = defineComponent({
     };
     return () => {
       return (
-        <div
-          onMouseover={(e) =>
-            hoverManage.handleHover(e, props.element!, elementManage)
-          }
-          onMouseout={(e) => hoverManage.handleCancelHover(e)}
-          class="h-full flex items-center relative"
-          ref={elementRef}
-          onClick={(e: MouseEvent) => handleClick(e)}
-        >
-          <ElementNode element={props.element!} />
-        </div>
+        // <div
+        //   onMouseover={(e) =>
+        //     hoverManage.handleHover(e, props.element!, elementManage)
+        //   }
+        //   onMouseout={(e) => hoverManage.handleCancelHover(e)}
+        //   class="h-full w-full flex items-center relative"
+        //   ref={elementRef}
+        //   onClick={(e: MouseEvent) => handleClick(e)}
+        // >
+        <ElementNode element={props.element as IEditorElement} ref={elementRef}>
+          {{
+            editNode: () => {
+              if (props.element?.key === "row") {
+                //就返回循环的elementList啊
+                return (
+                  <>
+                    {props.element.elementList.map(
+                      (element: IEditorElement) => {
+                        return <EditorElement element={element} />;
+                      }
+                    )}
+                  </>
+                );
+              } else {
+                return <Draggle list={props.element!.elementList} isNested />;
+              }
+            },
+          }}
+        </ElementNode>
+        // </div>
       );
     };
   },
