@@ -1,10 +1,11 @@
 import { ElCard } from "element-plus";
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import Draggle from "cgx-designer/src/components/EdiorCanvas/components/Draggle.vue";
+import { IEditorElement } from "cgx-designer";
 
 const Card = defineComponent({
   props: {
-    elementSchema: Object,
+    elementSchema: Object as PropType<IEditorElement>,
   },
   setup(props: any) {
     return () => {

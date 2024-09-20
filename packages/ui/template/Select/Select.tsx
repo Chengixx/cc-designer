@@ -1,11 +1,11 @@
-
 import { ElOption, ElSelect, ElSwitch } from "element-plus";
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import { GroupOption } from ".";
+import { IEditorElement } from "cgx-designer";
 
 const Select = defineComponent({
   props: {
-    elementSchema: Object
+    elementSchema: Object as PropType<IEditorElement>,
   },
   setup(props) {
     return () => {
@@ -23,9 +23,9 @@ const Select = defineComponent({
             />
           ))}
         </ElSelect>
-      )
-    }
-  }
-})
+      );
+    };
+  },
+});
 
-export default Select
+export default Select;

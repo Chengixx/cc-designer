@@ -1,9 +1,10 @@
+import { IEditorElement } from "cgx-designer";
 import { ElSwitch } from "element-plus";
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 
 const Switch = defineComponent({
   props: {
-    elementSchema: Object,
+    elementSchema: Object as PropType<IEditorElement>,
   },
   setup(props) {
     return () => {

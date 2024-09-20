@@ -1,9 +1,10 @@
+import { IEditorElement } from "cgx-designer";
 import { ElInput } from "element-plus";
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 
 const Input = defineComponent({
   props: {
-    elementSchema: Object,
+    elementSchema: Object as PropType<IEditorElement>,
   },
   setup(props: any) {
     return () => {

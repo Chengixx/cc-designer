@@ -1,8 +1,9 @@
-import { defineComponent } from "vue";
+import { IEditorElement } from "cgx-designer";
+import { defineComponent, PropType } from "vue";
 
 const Text = defineComponent({
   props: {
-    elementSchema: Object,
+    elementSchema: Object as PropType<IEditorElement>,
   },
   setup(props) {
     return () => {
