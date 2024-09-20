@@ -1,8 +1,17 @@
 import { IEditorElement } from "@/types";
 import { ElementConfig } from "@cgx-designer/utils";
 import { ElFormItem } from "element-plus";
-import { defineComponent, h, inject, PropType } from "vue";
+import {
+  defineComponent,
+  h,
+  inject,
+  onMounted,
+  PropType,
+  ref,
+  watchEffect,
+} from "vue";
 import Draggle from "../EdiorCanvas/components/Draggle.vue";
+import { ElementManage } from "@cgx-designer/hooks";
 
 const ElementNode = defineComponent({
   props: {
@@ -12,7 +21,15 @@ const ElementNode = defineComponent({
     },
   },
   setup(props, { slots }) {
-    console.log("第二层的slots",slots);
+    // console.log("第二层的slots",slots);
+    const elementManage = inject("elementManage") as ElementManage;
+    const elementRef = ref<any>(null);
+    watchEffect(() => {
+      if (elementRef.value) {
+        // console.log("elementRef", elementRef.value, props.element);
+        elementManage.addElementInstance(props.element!.id, elementRef.value!.$el);
+      }
+    });
     return () => {
       //先从元素配置那里拿到
       const elementConfig = inject<ElementConfig>("elementConfig");
@@ -24,6 +41,7 @@ const ElementNode = defineComponent({
           {/* //!也就是表单元素的 就要加ElFormItem 为了更好的体验而已 */}
           {Object.keys(props.element.props).includes("defaultValue") ? (
             <ElFormItem
+              ref={elementRef}
               label={
                 !!props.element.props.label
                   ? props.element.props.label
@@ -39,12 +57,12 @@ const ElementNode = defineComponent({
             <>
               {h(
                 elementRender,
-                { elementSchema: props.element },
+                { elementSchema: props.element, ref: elementRef },
                 {
                   // 这个是普通的插槽,就是给他一个个循环出来就好了不用过多的操作
                   node: (element: IEditorElement) => {
                     // return elementList.map((element) => {
-                      return <ElementNode element={element} />;
+                    return <ElementNode element={element} />;
                     // });
                   },
                   //这个是拖拽的插槽，应该要用draggle,这里会提供一个插槽 到外面如果需要拖拽的话 是用插槽穿进来的

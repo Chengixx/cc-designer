@@ -19,7 +19,6 @@ const Col = defineComponent({
     elementSchema: Object as PropType<IEditorElement>,
   },
   setup(props: any,{slots}) {
-    console.log(props.elementSchema, "col里的props");
     const hoverManage = inject("hoverManage") as HoverManage;
     const elementManage = inject("elementManage") as ElementManage;
     const focusManage = inject("focusManage") as FocusManage;

@@ -10,6 +10,7 @@ export interface ElementManage {
   elementInstanceList: Ref<Record<string, HTMLBaseElement>>;
   addElementInstance: (id: string, dom: HTMLBaseElement) => void;
   deleteElementInstance: (id: string) => void;
+  getElementInstanceById: (id: string) => HTMLBaseElement | null;
   deleteElementById: (
     id: string,
     elements?: IEditorElement[],
@@ -27,7 +28,6 @@ export interface ElementManage {
   deleteAllElements: () => IEditorElement[] | null;
 }
 
-
 export const useElement = (): ElementManage => {
   const elementTemplate = elementConfig.elementTemplate;
   const elementList = ref<IEditorElement[]>([]);
@@ -37,6 +37,9 @@ export const useElement = (): ElementManage => {
   };
   const deleteElementInstance = (id: string) => {
     delete elementInstanceList.value[id];
+  };
+  const getElementInstanceById = (id: string) => {
+    return elementInstanceList.value[id];
   };
   //树形结构
   const tree = ref<TreeNode[]>([]);
@@ -129,6 +132,7 @@ export const useElement = (): ElementManage => {
     elementInstanceList,
     setElementList,
     deleteElementInstance,
+    getElementInstanceById,
     deleteElementById,
     addElementFromLast,
     getTree,

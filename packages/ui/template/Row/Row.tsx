@@ -8,7 +8,6 @@ const Row = defineComponent({
     elementSchema: Object as PropType<IEditorElement>,
   },
   setup(props: any, { slots }) {
-    console.log(slots,'123');
     return () => {
       return (
         <ElRow class="w-full h-full">
