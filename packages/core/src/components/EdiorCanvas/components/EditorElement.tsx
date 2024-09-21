@@ -25,7 +25,7 @@ const EditorElement = defineComponent({
     watch(
       () => getComponentInstance.value,
       () => {
-        console.log(getComponentInstance.value, "getComponentInstance");
+        // console.log(getComponentInstance.value, "getComponentInstance");
         if (getComponentInstance.value) {
           getComponentInstance.value.addEventListener("click", (e) =>
             handleClick(e)
@@ -55,7 +55,9 @@ const EditorElement = defineComponent({
                   <>
                     {props.element.elementList.map(
                       (element: IEditorElement) => {
-                        return <EditorElement element={element} />;
+                        return (
+                          <EditorElement element={element} key={element.id} />
+                        );
                       }
                     )}
                   </>

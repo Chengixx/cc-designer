@@ -1,7 +1,15 @@
 import { IEditorElement } from "@/types";
 import { ElementConfig } from "@cgx-designer/utils";
 import { ElFormItem } from "element-plus";
-import { defineComponent, h, inject, PropType, ref, watchEffect } from "vue";
+import {
+  defineComponent,
+  h,
+  inject,
+  onUnmounted,
+  PropType,
+  ref,
+  watchEffect,
+} from "vue";
 import { ElementManage } from "@cgx-designer/hooks";
 
 const ElementNode = defineComponent({
@@ -16,11 +24,16 @@ const ElementNode = defineComponent({
     const elementRef = ref<any>(null);
     watchEffect(() => {
       if (elementRef.value) {
+        console.log(elementRef.value!.$el.parentElement);
         elementManage.addElementInstance(
           props.element!.id,
           elementRef.value!.$el
         );
       }
+    });
+    onUnmounted(() => {
+      console.log("触发销毁", props.element);
+      elementManage.deleteElementInstance(props.element!.id);
     });
     return () => {
       //先从元素配置那里拿到

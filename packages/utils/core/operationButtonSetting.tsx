@@ -24,7 +24,7 @@ export const createOperationButtonSetting = (
         console.log("总体元素列表", elementManage.elementList);
         console.log("当前选中的元素", focusManange.focusedElement.value);
         console.log("树", elementManage.getTree());
-        console.log("组件对象实例Map", elementManage.elementInstanceList);
+        console.log("组件对象实例Map", elementManage.elementInstanceList.value);
       },
     },
     {
