@@ -4,16 +4,16 @@ import { defineComponent, PropType } from "vue";
 
 const Textarea = defineComponent({
   props: {
-    elementSchema: Object as PropType<IEditorElement>,
+    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
   setup(props) {
     return () => {
       return (
         <ElInput
           type="textarea"
-          placeholder={props.elementSchema!.props!.placeHolder}
-          size={props.elementSchema!.props!.size}
-          v-model={props.elementSchema!.props!.defaultValue}
+          placeholder={props.elementSchema.props.placeHolder}
+          size={props.elementSchema.props.size}
+          v-model={props.elementSchema.props.defaultValue}
         />
       );
     };

@@ -4,9 +4,9 @@ import { IEditorElement } from "cgx-designer";
 
 const Card = defineComponent({
   props: {
-    elementSchema: Object as PropType<IEditorElement>,
+    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
-  setup(props: any, { slots }) {
+  setup(props, { slots }) {
     return () => {
       return (
         <div class="p-1 w-full">
@@ -19,7 +19,7 @@ const Card = defineComponent({
                 return (
                   <div class="border-dashed border border-[#d9d9d9]">
                     {renderSlot(slots, "editNode", {}, () =>
-                      props.elementSchema.elementList.map(
+                      props.elementSchema.elementList!.map(
                         (childElementSchema: IEditorElement) =>
                           renderSlot(slots, "node", {
                             element: childElementSchema,

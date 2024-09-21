@@ -4,14 +4,14 @@ import { IEditorElement } from "cgx-designer";
 
 const Row = defineComponent({
   props: {
-    elementSchema: Object as PropType<IEditorElement>,
+    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
-  setup(props: any, { slots }) {
+  setup(props, { slots }) {
     return () => {
       return (
         <ElRow class="w-full h-full">
           {renderSlot(slots, "editNode", {}, () =>
-            props.elementSchema.elementList.map(
+            props.elementSchema.elementList!.map(
               (childElementSchema: IEditorElement) =>
                 renderSlot(slots, "node", {
                   element: childElementSchema,

@@ -4,9 +4,9 @@ import { IEditorElement } from "cgx-designer";
 
 const Col = defineComponent({
   props: {
-    elementSchema: Object as PropType<IEditorElement>,
+    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
-  setup(props: any, { slots }) {
+  setup(props, { slots }) {
     return () => {
       return (
         <ElCol
@@ -14,7 +14,7 @@ const Col = defineComponent({
           class="border-dashed border border-[#d9d9d9]"
         >
           {renderSlot(slots, "editNode", {}, () =>
-            props.elementSchema.elementList.map(
+            props.elementSchema.elementList!.map(
               (childElementSchema: IEditorElement) =>
                 renderSlot(slots, "node", {
                   element: childElementSchema,
