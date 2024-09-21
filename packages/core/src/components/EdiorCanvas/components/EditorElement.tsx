@@ -1,4 +1,12 @@
-import { inject, ref, defineComponent, watch, computed, PropType } from "vue";
+import {
+  inject,
+  ref,
+  defineComponent,
+  watch,
+  computed,
+  PropType,
+  onUnmounted,
+} from "vue";
 import { FocusManage } from "@cgx-designer/hooks";
 import { ElementManage } from "@cgx-designer/hooks";
 import { HoverManage } from "@cgx-designer/hooks";
@@ -39,6 +47,19 @@ const EditorElement = defineComponent({
         }
       }
     );
+    onUnmounted(() => {
+      if (getComponentInstance.value) {
+        getComponentInstance.value.removeEventListener("click", (e) =>
+          handleClick(e)
+        );
+        getComponentInstance.value.removeEventListener("mouseover", (e) =>
+          hoverManage.handleHover(e, props.elementSchema, elementManage)
+        );
+        getComponentInstance.value.removeEventListener("mouseout", (e) =>
+          hoverManage.handleCancelHover(e)
+        );
+      }
+    });
     const focusManage = inject("focusManage") as FocusManage;
     const elementRef = ref<HTMLBaseElement | null>(null);
     const handleClick = (e: MouseEvent) => {

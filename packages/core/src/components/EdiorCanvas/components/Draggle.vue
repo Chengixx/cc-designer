@@ -34,19 +34,19 @@ const _needMarginBottom = (elementSchema: IEditorElement) => {
     animation="300"
     @dragover.prevent
   >
-    <template #item="{ elementSchema }">
+    <template #item="{ element }">
       <div
         :class="[
-          _needMarginBottom(elementSchema) ? 'mb-0' : 'mb-4',
-          elementSchema.key === 'row'
+          _needMarginBottom(element) ? 'mb-0' : 'mb-4',
+          element.key === 'row'
             ? 'border border-[#d9d9d9] border-dashed'
             : '',
-          elementSchema.key === 'divider' ? 'inline-block' : '',
+            element.key === 'divider' ? 'inline-block' : '',
           'editor-element-item',
         ]"
-        :key="elementSchema.id"
+        :key="element.id"
       >
-        <EditorElement :elementSchema="elementSchema" />
+        <EditorElement :elementSchema="element" />
       </div>
     </template>
   </draggable>
