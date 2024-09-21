@@ -1,13 +1,12 @@
 import { ElCard } from "element-plus";
-import { defineComponent, PropType } from "vue";
-import Draggle from "cgx-designer/src/components/EdiorCanvas/components/Draggle.vue";
+import { defineComponent, PropType, renderSlot } from "vue";
 import { IEditorElement } from "cgx-designer";
 
 const Card = defineComponent({
   props: {
     elementSchema: Object as PropType<IEditorElement>,
   },
-  setup(props: any) {
+  setup(props: any, { slots }) {
     return () => {
       return (
         <div class="p-1 w-full">
@@ -18,14 +17,15 @@ const Card = defineComponent({
               },
               default: () => {
                 return (
-                  <div
-                    class={["border-dashed border border-[#d9d9d9]"]}
-                    id={props.elementSchema.id as string}
-                  >
-                    <Draggle
-                      list={props.elementSchema.elementList!}
-                      isNested={true}
-                    />
+                  <div class="border-dashed border border-[#d9d9d9]">
+                    {renderSlot(slots, "editNode", {}, () =>
+                      props.elementSchema.elementList.map(
+                        (childElementSchema: IEditorElement) =>
+                          renderSlot(slots, "node", {
+                            element: childElementSchema,
+                          })
+                      )
+                    )}
                   </div>
                 );
               },
