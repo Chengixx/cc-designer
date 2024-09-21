@@ -2,6 +2,7 @@ import { IEditorElement } from "@/types";
 import { ElementConfig } from "@cgx-designer/utils";
 import { ElFormItem } from "element-plus";
 import {
+  ComponentPublicInstance,
   defineComponent,
   h,
   inject,
@@ -21,13 +22,13 @@ const ElementNode = defineComponent({
   },
   setup(props, { slots }) {
     const elementManage = inject("elementManage") as ElementManage;
-    const elementRef = ref<any>(null);
+    const elementRef = ref<ComponentPublicInstance>();
     watchEffect(() => {
       if (elementRef.value) {
         // console.log(elementRef.value);
         let el = elementRef.value.$el;
         //如果是分割线 给他用父亲的
-        if (props.element.key === "divider") {
+        if (props.element.key === "divider" || props.element.key === "text") {
           el = elementRef.value.$el.parentElement;
         }
         elementManage.addElementInstance(props.element.id, el);
@@ -48,6 +49,7 @@ const ElementNode = defineComponent({
           {/* //!也就是表单元素的 就要加ElFormItem 为了更好的体验而已 */}
           {Object.keys(props.element.props).includes("defaultValue") ? (
             <ElFormItem
+              for="-"
               ref={elementRef}
               label={
                 !!props.element.props.label
