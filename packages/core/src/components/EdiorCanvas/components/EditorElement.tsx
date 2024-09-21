@@ -1,4 +1,4 @@
-import { inject, ref, defineComponent, watch, computed } from "vue";
+import { inject, ref, defineComponent, watch, computed, PropType } from "vue";
 import { FocusManage } from "@cgx-designer/hooks";
 import { ElementManage } from "@cgx-designer/hooks";
 import { HoverManage } from "@cgx-designer/hooks";
@@ -8,19 +8,19 @@ import Draggle from "./Draggle.vue";
 
 const EditorElement = defineComponent({
   props: {
-    element: { type: Object },
+    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
   setup(props) {
     const hoverManage = inject("hoverManage") as HoverManage;
     const elementManage = inject("elementManage") as ElementManage;
     const getComponentInstance = computed(() => {
       if (
-        !props.element!.id ||
-        !elementManage.getElementInstanceById(props.element!.id)
+        !props.elementSchema.id ||
+        !elementManage.getElementInstanceById(props.elementSchema.id)
       ) {
         return null;
       }
-      return elementManage.getElementInstanceById(props.element!.id);
+      return elementManage.getElementInstanceById(props.elementSchema.id);
     });
     watch(
       () => getComponentInstance.value,
@@ -31,7 +31,7 @@ const EditorElement = defineComponent({
             handleClick(e)
           );
           getComponentInstance.value.addEventListener("mouseover", (e) =>
-            hoverManage.handleHover(e, props.element!, elementManage)
+            hoverManage.handleHover(e, props.elementSchema, elementManage)
           );
           getComponentInstance.value.addEventListener("mouseout", (e) =>
             hoverManage.handleCancelHover(e)
@@ -42,28 +42,33 @@ const EditorElement = defineComponent({
     const focusManage = inject("focusManage") as FocusManage;
     const elementRef = ref<HTMLBaseElement | null>(null);
     const handleClick = (e: MouseEvent) => {
-      focusManage.handleFocus(props.element as IEditorElement, e);
+      focusManage.handleFocus(props.elementSchema, e);
     };
     return () => {
       return (
-        <ElementNode element={props.element as IEditorElement} ref={elementRef}>
+        <ElementNode element={props.elementSchema} ref={elementRef}>
           {{
             editNode: () => {
-              if (props.element?.key === "row") {
+              if (props.elementSchema?.key === "row") {
                 //就返回循环的elementList啊
                 return (
                   <>
-                    {props.element.elementList.map(
-                      (element: IEditorElement) => {
+                    {props.elementSchema.elementList!.map(
+                      (childElementSchema: IEditorElement) => {
                         return (
-                          <EditorElement element={element} key={element.id} />
+                          <EditorElement
+                            elementSchema={childElementSchema}
+                            key={childElementSchema.id}
+                          />
                         );
                       }
                     )}
                   </>
                 );
               } else {
-                return <Draggle list={props.element!.elementList} isNested />;
+                return (
+                  <Draggle list={props.elementSchema.elementList!} isNested />
+                );
               }
             },
           }}
