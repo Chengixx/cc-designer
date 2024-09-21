@@ -24,16 +24,18 @@ const ElementNode = defineComponent({
     const elementRef = ref<any>(null);
     watchEffect(() => {
       if (elementRef.value) {
-        console.log(elementRef.value!.$el.parentElement);
-        elementManage.addElementInstance(
-          props.element!.id,
-          elementRef.value!.$el
-        );
+        // console.log(elementRef.value);
+        let el = elementRef.value.$el;
+        //如果是分割线 给他用父亲的
+        if (props.element.key === "divider") {
+          el = elementRef.value.$el.parentElement;
+        }
+        elementManage.addElementInstance(props.element.id, el);
       }
     });
     onUnmounted(() => {
-      console.log("触发销毁", props.element);
-      elementManage.deleteElementInstance(props.element!.id);
+      // console.log("触发销毁", props.element);
+      elementManage.deleteElementInstance(props.element.id);
     });
     return () => {
       //先从元素配置那里拿到

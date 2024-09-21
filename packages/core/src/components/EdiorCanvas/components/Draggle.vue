@@ -1,8 +1,3 @@
-<script lang="ts">
-export default {
-  name: "Draggle",
-};
-</script>
 <script setup lang="ts">
 import draggable from "vuedraggable";
 import { FocusManage } from "@cgx-designer/hooks";
@@ -11,14 +6,20 @@ import { useDrag } from "@cgx-designer/hooks";
 import { inject } from "vue";
 import { HoverManage } from "@cgx-designer/hooks";
 import { IEditorElement } from "@/types";
-const hoverManage = inject("hoverManage") as HoverManage;
-const focusManage = inject("focusManage") as FocusManage;
+defineOptions({
+  name: "Draggle",
+});
+const emits = defineEmits(["drop"]);
 const props = defineProps<{
   list: IEditorElement[];
   isNested: boolean;
 }>();
-const emits = defineEmits(["drop"]);
+const hoverManage = inject("hoverManage") as HoverManage;
+const focusManage = inject("focusManage") as FocusManage;
 const { handleDropStart, handleDropEnd } = useDrag();
+const _needMarginBottom = (element: IEditorElement) => {
+  return ["card", "row", "divider"].includes(element.key);
+};
 </script>
 
 <template>
@@ -36,8 +37,9 @@ const { handleDropStart, handleDropEnd } = useDrag();
     <template #item="{ element }">
       <div
         :class="[
-          element.key === 'card' || element.key === 'row' ? 'mb-0' : 'mb-4',
+          _needMarginBottom(element) ? 'mb-0' : 'mb-4',
           element.key === 'row' ? 'border border-[#d9d9d9] border-dashed' : '',
+          element.key === 'divider' ? 'inline-block' : '',
           'editor-element-item',
         ]"
         :key="element.id"
@@ -62,8 +64,5 @@ const { handleDropStart, handleDropEnd } = useDrag();
 .editor-element-item::hover {
   /* background-color: #336699; */
   background-color: #3b82f6;
-}
-.not-draggable {
-  cursor: no-drop;
 }
 </style>
