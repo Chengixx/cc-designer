@@ -1,4 +1,4 @@
-import { defineComponent, provide } from "vue";
+import { defineComponent, provide, ref } from "vue";
 import ElementMenu from "cgx-designer/src/components/ElementMenu";
 import SettingMenu from "cgx-designer/src/components/SettingMenu";
 import CGXLogo from "cgx-designer/src/components/CGXLogo";
@@ -10,6 +10,7 @@ import { useForm } from "@cgx-designer/hooks";
 import { useHover } from "@cgx-designer/hooks";
 import { useElement } from "@cgx-designer/hooks";
 import { useFocus } from "@cgx-designer/hooks";
+import PreviewDialog from "../PreviewDialog";
 //主要画布
 const Container = defineComponent({
   setup() {
@@ -25,6 +26,12 @@ const Container = defineComponent({
     provide("hoverManage", hoverManage);
     provide("formManage", formManage);
     provide("commands", commands);
+
+    //dialog实例
+    const pDialogRef = ref<InstanceType<typeof PreviewDialog> | null>(null);
+    const handleShow = () => {
+      pDialogRef.value?.open();
+    };
     return () => {
       return (
         <div class="w-full h-full flex justify-between overflow-hidden">
@@ -37,6 +44,7 @@ const Container = defineComponent({
           <div class="h-full w-full min-w-650px">
             {/* 编辑器顶部 */}
             <OperationMenu />
+            <button onClick={handleShow}>按钮</button>
             {/* 编辑器画布的地方 */}
             <div class="box-border">
               {/* 滚动条 */}
@@ -49,6 +57,7 @@ const Container = defineComponent({
           <div class="w-[280px] bg-white h-full">
             <SettingMenu />
           </div>
+          <PreviewDialog ref={pDialogRef} />
         </div>
       );
     };

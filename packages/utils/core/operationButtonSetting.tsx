@@ -96,6 +96,10 @@ export const createOperationButtonSetting = (
         });
       },
     },
+    {
+      label: "预览",
+      handler: () => {},
+    },
   ];
   console.log("操作栏按钮列表注册完成", btnList);
   return btnList;
