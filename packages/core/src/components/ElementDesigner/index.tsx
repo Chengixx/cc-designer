@@ -12,7 +12,7 @@ import { useElement } from "@cgx-designer/hooks";
 import { useFocus } from "@cgx-designer/hooks";
 import PreviewDialog from "../PreviewDialog";
 //主要画布
-const Container = defineComponent({
+const ElementDesigner = defineComponent({
   setup() {
     //dialog实例
     const dialogRef = ref<InstanceType<typeof PreviewDialog> | null>(null);
@@ -60,4 +60,4 @@ const Container = defineComponent({
   },
 });
 
-export default Container;
+export default ElementDesigner;
