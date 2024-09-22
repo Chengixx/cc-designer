@@ -1,12 +1,9 @@
-import { ElementPlus } from "@element-plus/icons-vue";
-import { ElIcon } from "element-plus";
+import SvgIcon from "../../../SvgIcon";
 
 const CGXLogo = () => {
   return (
     <div class="w-full h-10  flex justify-center items-center border">
-      {/* <ElIcon>
-        <ElementPlus />
-      </ElIcon> */}
+      <SvgIcon name="smile" class="mr-1" />
       <span>CGX-FORM-DESIGN</span>
     </div>
   );

@@ -18,16 +18,14 @@ const Card = defineComponent({
               default: () => {
                 return (
                   <>
-                    {/* <div class="border-dashed border border-[#d9d9d9]"> */}
-                      {renderSlot(slots, "editNode", {}, () =>
-                        props.elementSchema.elementList!.map(
-                          (childElementSchema: IEditorElement) =>
-                            renderSlot(slots, "node", {
-                              element: childElementSchema,
-                            })
-                        )
-                      )}
-                    {/* </div> */}
+                    {renderSlot(slots, "editNode", {}, () =>
+                      props.elementSchema.elementList!.map(
+                        (childElementSchema: IEditorElement) =>
+                          renderSlot(slots, "node", {
+                            element: childElementSchema,
+                          })
+                      )
+                    )}
                   </>
                 );
               },

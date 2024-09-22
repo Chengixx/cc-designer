@@ -32,16 +32,14 @@ const EditorElement = defineComponent({
     });
     watch(
       () => getComponentInstance.value,
-      () => {
+      (componentInstance) => {
         // console.log(getComponentInstance.value, "getComponentInstance");
-        if (getComponentInstance.value) {
-          getComponentInstance.value.addEventListener("click", (e) =>
-            handleClick(e)
-          );
-          getComponentInstance.value.addEventListener("mouseover", (e) =>
+        if (componentInstance) {
+          componentInstance.addEventListener("click", (e) => handleClick(e));
+          componentInstance.addEventListener("mouseover", (e) =>
             hoverManage.handleHover(e, props.elementSchema, elementManage)
           );
-          getComponentInstance.value.addEventListener("mouseout", (e) =>
+          componentInstance.addEventListener("mouseout", (e) =>
             hoverManage.handleCancelHover(e)
           );
         }
@@ -67,7 +65,7 @@ const EditorElement = defineComponent({
     };
     return () => {
       return (
-        <ElementNode element={props.elementSchema} ref={elementRef}>
+        <ElementNode elementSchema={props.elementSchema} ref={elementRef}>
           {{
             editNode: () => {
               if (props.elementSchema?.key === "row") {

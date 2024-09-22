@@ -9,7 +9,7 @@ const ElementBuilderNode = defineComponent({
   setup(props) {
     return () => {
       return (
-        <ElementNode element={props.elementSchema}>
+        <ElementNode elementSchema={props.elementSchema}>
           {{
             editNode: () => {
               //就返回循环的elementList啊

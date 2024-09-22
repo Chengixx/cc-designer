@@ -15,7 +15,7 @@ import { ElementManage } from "@cgx-designer/hooks";
 
 const ElementNode = defineComponent({
   props: {
-    element: {
+    elementSchema: {
       type: Object as PropType<IEditorElement>,
       required: true,
     },
@@ -28,50 +28,54 @@ const ElementNode = defineComponent({
         // console.log(elementRef.value);
         let el = elementRef.value.$el;
         //如果是分割线 给他用父亲的
-        if (props.element.key === "divider" || props.element.key === "text") {
+        if (
+          props.elementSchema.key === "divider" ||
+          props.elementSchema.key === "text"
+        ) {
           el = elementRef.value.$el.parentElement;
         }
-        elementManage.addElementInstance(props.element.id, el);
+        elementManage.addElementInstance(props.elementSchema.id, el);
       }
     });
     onUnmounted(() => {
       // console.log("触发销毁", props.element);
-      elementManage.deleteElementInstance(props.element.id);
+      elementManage.deleteElementInstance(props.elementSchema.id);
     });
     return () => {
       //先从元素配置那里拿到
       const elementConfig = inject<ElementConfig>("elementConfig");
       //渲染出来的组件
-      const elementRender = elementConfig?.elementRenderMap[props.element.key];
+      const elementRender =
+        elementConfig?.elementRenderMap[props.elementSchema.key];
       return (
         <>
           {/* //!当前选中的元素不是row 就普通元素 然后如果是有默认值 */}
           {/* //!也就是表单元素的 就要加ElFormItem 为了更好的体验而已 */}
-          {Object.keys(props.element.props).includes("defaultValue") ? (
+          {Object.keys(props.elementSchema.props).includes("defaultValue") ? (
             <ElFormItem
               for="-"
               ref={elementRef}
               label={
-                !!props.element.props.label
-                  ? props.element.props.label
-                  : props.element.key
+                !!props.elementSchema.props.label
+                  ? props.elementSchema.props.label
+                  : props.elementSchema.key
               }
               class="w-full"
-              labelPosition={props.element.props.labelPosition}
+              labelPosition={props.elementSchema.props.labelPosition}
               style={{ marginBottom: "0px !important" }}
             >
-              {h(elementRender, { elementSchema: props.element })}
+              {h(elementRender, { elementSchema: props.elementSchema })}
             </ElFormItem>
           ) : (
             <>
               {h(
                 elementRender,
-                { elementSchema: props.element, ref: elementRef },
+                { elementSchema: props.elementSchema, ref: elementRef },
                 {
                   // 这个是普通的插槽,就是给他一个个循环出来就好了不用过多的操作
-                  node: (element: IEditorElement) => {
+                  node: (childElementSchema: IEditorElement) => {
                     // return elementList.map((element) => {
-                    return <ElementNode element={element} />;
+                    return <ElementNode elementSchema={childElementSchema} />;
                     // });
                   },
                   //这个是拖拽的插槽，应该要用draggle,这里会提供一个插槽 到外面如果需要拖拽的话 是用插槽穿进来的
