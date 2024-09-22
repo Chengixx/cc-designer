@@ -12,7 +12,7 @@ import { ElementManage } from "@cgx-designer/hooks";
 import { HoverManage } from "@cgx-designer/hooks";
 import { IEditorElement } from "@/types";
 import Draggle from "./Draggle.vue";
-import ElementNode from "@/components/ElementNode";
+import ElementNode from "../../../../ElementNode";
 
 const EditorElement = defineComponent({
   props: {

@@ -4,10 +4,10 @@ import { ElIcon } from "element-plus";
 const CGXLogo = () => {
   return (
     <div class="w-full h-10  flex justify-center items-center border">
-      <ElIcon>
+      {/* <ElIcon>
         <ElementPlus />
-      </ElIcon>
-      <span>组件表(CC出品)</span>
+      </ElIcon> */}
+      <span>CGX-FORM-DESIGN</span>
     </div>
   );
 };

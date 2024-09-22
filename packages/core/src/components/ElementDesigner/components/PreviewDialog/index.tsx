@@ -1,4 +1,4 @@
-import ElementBuilder from "@/components/ElementBuilder";
+import ElementBuilder from "../../../ElementBuilder";
 import { ElDialog } from "element-plus";
 import { defineComponent, ref } from "vue";
 
