@@ -30,7 +30,8 @@ const ElementNode = defineComponent({
         //如果是分割线 给他用父亲的
         if (
           props.elementSchema.key === "divider" ||
-          props.elementSchema.key === "text"
+          props.elementSchema.key === "text" ||
+          props.elementSchema.key === "button"
         ) {
           el = elementRef.value.$el.parentElement;
         }
@@ -63,6 +64,7 @@ const ElementNode = defineComponent({
               class="w-full"
               labelPosition={props.elementSchema.props.labelPosition}
               style={{ marginBottom: "0px !important" }}
+              prop={new Date().getTime().toString() + props.elementSchema.key}
             >
               {h(elementRender, { elementSchema: props.elementSchema })}
             </ElFormItem>

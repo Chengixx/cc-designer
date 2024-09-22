@@ -16,6 +16,9 @@ const ElementDesigner = defineComponent({
   setup() {
     //dialog实例
     const dialogRef = ref<InstanceType<typeof PreviewDialog> | null>(null);
+    const handleClick = () =>{
+      dialogRef.value?.open();
+    }
     const formManage = useForm();
     const hoverManage = useHover();
     const elementManage = useElement();
@@ -51,6 +54,7 @@ const ElementDesigner = defineComponent({
           </div>
           {/* 编辑器右侧 */}
           <div class="w-[280px] bg-white h-full">
+            <button onClick={handleClick}>点击打开</button>
             <SettingMenu />
           </div>
           <PreviewDialog ref={dialogRef} />
