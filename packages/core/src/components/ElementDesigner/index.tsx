@@ -15,10 +15,10 @@ import PreviewDialog from "./components/PreviewDialog";
 const ElementDesigner = defineComponent({
   setup() {
     //dialog实例
-    const dialogRef = ref<InstanceType<typeof PreviewDialog> | null>(null);
-    const handleClick = () =>{
+    const dialogRef = ref<any>(null);
+    const showPreviewDialog = () => {
       dialogRef.value?.open();
-    }
+    };
     const formManage = useForm();
     const hoverManage = useHover();
     const elementManage = useElement();
@@ -43,7 +43,7 @@ const ElementDesigner = defineComponent({
           {/* 中间部分 */}
           <div class="h-full w-full min-w-[650px]">
             {/* 编辑器顶部 */}
-            <OperationMenu />
+            <OperationMenu showPreviewDialog={showPreviewDialog} />
             {/* 编辑器画布的地方 */}
             <div class="box-border">
               {/* 滚动条 */}
@@ -54,7 +54,6 @@ const ElementDesigner = defineComponent({
           </div>
           {/* 编辑器右侧 */}
           <div class="w-[280px] bg-white h-full">
-            <button onClick={handleClick}>点击打开</button>
             <SettingMenu />
           </div>
           <PreviewDialog ref={dialogRef} />

@@ -15,7 +15,8 @@ export const createOperationButtonSetting = (
   formManage: FormManage,
   elementManage: ElementManage,
   focusManange: FocusManage,
-  commands: Record<string, Function>
+  commands: Record<string, Function>,
+  showPreviewDialog: () => void
 ): OperationButtonSetting[] => {
   const btnList = [
     {
@@ -98,7 +99,9 @@ export const createOperationButtonSetting = (
     },
     {
       label: "预览",
-      handler: () => {},
+      handler: () => {
+        showPreviewDialog();
+      },
     },
   ];
   console.log("操作栏按钮列表注册完成", btnList);

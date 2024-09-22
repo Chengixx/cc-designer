@@ -4,16 +4,15 @@ import ElementBuilderNode from "./ElementBuilderNode";
 import { ElForm, FormInstance } from "element-plus";
 
 const ElementBuilder = defineComponent({
-  setup() {
+  setup(_, { expose }) {
     const elementManage = inject("elementManage") as ElementManage;
     const formRef = ref<FormInstance>();
-    const handleClick = () => {
-      console.log("formRef", formRef.value);
-    };
+    expose({
+      formRef,
+    });
     return () => {
       return (
         <>
-          <button onClick={handleClick}>查看formRef</button>
           <ElForm ref={formRef}>
             {elementManage.elementList.value.map((elementSchema) => {
               return (

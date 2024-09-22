@@ -6,7 +6,10 @@ import { FocusManage } from "@cgx-designer/hooks";
 import { CCButton } from "@cgx-designer/ui";
 
 const OperationMenu = defineComponent({
-  setup() {
+  props: {
+    showPreviewDialog: Function,
+  },
+  setup({ showPreviewDialog }) {
     const commands: Record<string, Function> | undefined = inject("commands");
     const focusManage = inject("focusManage") as FocusManage;
     const formManage = inject("formManage") as FormManage;
@@ -15,7 +18,8 @@ const OperationMenu = defineComponent({
       formManage,
       elementManage,
       focusManage,
-      commands!
+      commands!,
+      showPreviewDialog as () => void
     );
     return () => {
       return (
