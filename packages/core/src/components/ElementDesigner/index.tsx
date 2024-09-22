@@ -38,7 +38,7 @@ const ElementDesigner = defineComponent({
             <ElementMenu />
           </div>
           {/* 中间部分 */}
-          <div class="h-full w-full min-w-650px">
+          <div class="h-full w-full min-w-[650px]">
             {/* 编辑器顶部 */}
             <OperationMenu />
             {/* 编辑器画布的地方 */}
