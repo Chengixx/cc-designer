@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import draggable from "vuedraggable";
-import SvgIcon from "../../SvgIcon";
+import SvgIcon from "../../../../SvgIcon";
 import { inject } from "vue";
 import { ElementConfig, IElementBaseSetting } from "@cgx-designer/utils";
 import { v4 as uuid } from "uuid";

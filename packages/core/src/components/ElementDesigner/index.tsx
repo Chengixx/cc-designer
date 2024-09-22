@@ -1,16 +1,16 @@
 import { defineComponent, provide, ref } from "vue";
-import ElementMenu from "cgx-designer/src/components/ElementMenu";
-import SettingMenu from "cgx-designer/src/components/SettingMenu";
-import CGXLogo from "cgx-designer/src/components/CGXLogo";
-import EdiorCanvas from "cgx-designer/src/components/EdiorCanvas";
-import OperationMenu from "cgx-designer/src/components/OperationMenu";
 import { elementConfig } from "@cgx-designer/utils";
 import { useCommand } from "@cgx-designer/hooks";
 import { useForm } from "@cgx-designer/hooks";
 import { useHover } from "@cgx-designer/hooks";
 import { useElement } from "@cgx-designer/hooks";
 import { useFocus } from "@cgx-designer/hooks";
-import PreviewDialog from "../PreviewDialog";
+import CGXLogo from "./components/CGXLogo";
+import ElementMenu from "./components/ElementMenu";
+import OperationMenu from "./components/OperationMenu";
+import EdiorCanvas from "./components/EdiorCanvas";
+import SettingMenu from "./components/SettingMenu";
+import PreviewDialog from "./components/PreviewDialog";
 //主要画布
 const ElementDesigner = defineComponent({
   setup() {

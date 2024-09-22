@@ -1,6 +1,6 @@
+import ElementBuilder from "@/components/ElementBuilder";
 import { ElDialog } from "element-plus";
 import { defineComponent, ref } from "vue";
-import ElementBuilder from "../ElementBuilder";
 
 const PreviewDialog = defineComponent({
   setup(_, { expose }) {

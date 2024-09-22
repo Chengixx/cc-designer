@@ -11,8 +11,8 @@ import { FocusManage } from "@cgx-designer/hooks";
 import { ElementManage } from "@cgx-designer/hooks";
 import { HoverManage } from "@cgx-designer/hooks";
 import { IEditorElement } from "@/types";
-import ElementNode from "../../ElementNode";
 import Draggle from "./Draggle.vue";
+import ElementNode from "@/components/ElementNode";
 
 const EditorElement = defineComponent({
   props: {
