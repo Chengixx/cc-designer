@@ -11,7 +11,7 @@ const Col = defineComponent({
       return (
         <ElCol
           span={props.elementSchema.props.span}
-          class="border-dashed border border-[#d9d9d9]"
+          class=""
         >
           {renderSlot(slots, "editNode", {}, () =>
             props.elementSchema.elementList!.map(

@@ -14,6 +14,8 @@ import PreviewDialog from "../PreviewDialog";
 //主要画布
 const Container = defineComponent({
   setup() {
+    //dialog实例
+    const dialogRef = ref<InstanceType<typeof PreviewDialog> | null>(null);
     const formManage = useForm();
     const hoverManage = useHover();
     const elementManage = useElement();
@@ -27,8 +29,6 @@ const Container = defineComponent({
     provide("formManage", formManage);
     provide("commands", commands);
 
-    //dialog实例
-    const pDialogRef = ref<InstanceType<typeof PreviewDialog> | null>(null);
     return () => {
       return (
         <div class="w-full h-full flex justify-between overflow-hidden">
@@ -53,7 +53,7 @@ const Container = defineComponent({
           <div class="w-[280px] bg-white h-full">
             <SettingMenu />
           </div>
-          <PreviewDialog ref={pDialogRef} />
+          <PreviewDialog ref={dialogRef} />
         </div>
       );
     };

@@ -27,7 +27,11 @@ const _needMarginBottom = (elementSchema: IEditorElement) => {
     group="draggable"
     :list="props.list"
     item-key="id"
-    :class="props.isNested ? 'min-h-[60px]' : 'draggable bg-white'"
+    :class="
+      props.isNested
+        ? 'min-h-[60px] border-dashed border border-[#d9d9d9]'
+        : 'draggable bg-white'
+    "
     ghost-class="ghost"
     @start="(e) => handleDropStart(hoverManage, focusManage)"
     @end="(e) => handleDropEnd(hoverManage, focusManage)"
@@ -38,10 +42,8 @@ const _needMarginBottom = (elementSchema: IEditorElement) => {
       <div
         :class="[
           _needMarginBottom(element) ? 'mb-0' : 'mb-4',
-          element.key === 'row'
-            ? 'border border-[#d9d9d9] border-dashed'
-            : '',
-            element.key === 'divider' ? 'inline-block' : '',
+          element.key === 'row' ? 'border border-[#d9d9d9] border-dashed' : '',
+          element.key === 'divider' ? 'inline-block' : '',
           'editor-element-item',
         ]"
         :key="element.id"
