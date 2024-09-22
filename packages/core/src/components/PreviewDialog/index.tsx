@@ -17,7 +17,7 @@ const PreviewDialog = defineComponent({
     });
     return () => {
       return (
-        <ElDialog title="预览" v-model={dialogShow.value}>
+        <ElDialog title="预览" v-model={dialogShow.value} beforeClose={close}>
           <ElementBuilder />
         </ElDialog>
       );

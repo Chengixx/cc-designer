@@ -1,9 +1,22 @@
-import { defineComponent } from "vue";
+import { ElementManage } from "@cgx-designer/hooks";
+import { defineComponent, inject } from "vue";
+import ElementBuilderNode from "./ElementBuilderNode";
 
 const ElementBuilder = defineComponent({
   setup() {
+    const elementManage = inject("elementManage") as ElementManage;
     return () => {
-      return <>我是用来生成的</>;
+      return (
+        <div>
+          {elementManage.elementList.value.map((elementSchema) => {
+            return (
+              <>
+                <ElementBuilderNode elementSchema={elementSchema} />
+              </>
+            );
+          })}
+        </div>
+      );
     };
   },
 });

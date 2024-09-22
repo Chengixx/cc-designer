@@ -29,9 +29,6 @@ const Container = defineComponent({
 
     //dialog实例
     const pDialogRef = ref<InstanceType<typeof PreviewDialog> | null>(null);
-    const handleShow = () => {
-      pDialogRef.value?.open();
-    };
     return () => {
       return (
         <div class="w-full h-full flex justify-between overflow-hidden">
@@ -44,7 +41,6 @@ const Container = defineComponent({
           <div class="h-full w-full min-w-650px">
             {/* 编辑器顶部 */}
             <OperationMenu />
-            <button onClick={handleShow}>按钮</button>
             {/* 编辑器画布的地方 */}
             <div class="box-border">
               {/* 滚动条 */}
