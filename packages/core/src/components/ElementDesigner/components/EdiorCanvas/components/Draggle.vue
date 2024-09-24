@@ -29,7 +29,7 @@ const _needMarginBottom = (elementSchema: IEditorElement) => {
     item-key="id"
     :class="
       props.isNested
-        ? 'min-h-[60px] border-dashed border border-[#d9d9d9]'
+        ? 'min-h-[60px] border-dashed border border-[#d9d9d9] h-full'
         : 'draggable bg-white'
     "
     ghost-class="ghost"

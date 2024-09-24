@@ -9,7 +9,7 @@ const Row = defineComponent({
   setup(props, { slots }) {
     return () => {
       return (
-        <ElRow class="w-full h-full">
+        <ElRow>
           {renderSlot(slots, "editNode", {}, () =>
             props.elementSchema.elementList!.map(
               (childElementSchema: IEditorElement) =>
