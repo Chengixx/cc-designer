@@ -1,30 +1,19 @@
-import { defineComponent, inject } from "vue";
-import { createOperationButtonSetting } from "@cgx-designer/utils";
-import { FormManage } from "@cgx-designer/hooks";
-import { ElementManage } from "@cgx-designer/hooks";
-import { FocusManage } from "@cgx-designer/hooks";
+import { defineComponent } from "vue";
 import { CCButton } from "@cgx-designer/ui";
+import { OperationButtonSetting } from "@cgx-designer/utils";
 
 const OperationMenu = defineComponent({
   props: {
-    showPreviewDialog: Function,
+    buttonList: {
+      type: Array<OperationButtonSetting>,
+      required: true,
+    },
   },
-  setup({ showPreviewDialog }) {
-    const commands: Record<string, Function> | undefined = inject("commands");
-    const focusManage = inject("focusManage") as FocusManage;
-    const formManage = inject("formManage") as FormManage;
-    const elementManage = inject("elementManage") as ElementManage;
-    const buttons = createOperationButtonSetting(
-      formManage,
-      elementManage,
-      focusManage,
-      commands!,
-      showPreviewDialog as () => void
-    );
+  setup({ buttonList }) {
     return () => {
       return (
         <div class="h-20  flex justify-center items-center px-2 border bg-white border-blue-100">
-          {buttons.map((button, index) => {
+          {buttonList.map((button, index) => {
             return (
               <CCButton key={index} onClick={button.handler} class="mx-1">
                 {button.label}

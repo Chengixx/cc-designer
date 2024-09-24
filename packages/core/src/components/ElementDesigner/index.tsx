@@ -1,5 +1,8 @@
 import { defineComponent, provide, ref } from "vue";
-import { elementConfig } from "@cgx-designer/utils";
+import {
+  createOperationButtonSetting,
+  elementConfig,
+} from "@cgx-designer/utils";
 import { useCommand } from "@cgx-designer/hooks";
 import { useForm } from "@cgx-designer/hooks";
 import { useHover } from "@cgx-designer/hooks";
@@ -31,7 +34,13 @@ const ElementDesigner = defineComponent({
     provide("hoverManage", hoverManage);
     provide("formManage", formManage);
     provide("commands", commands);
-
+    const buttonList = createOperationButtonSetting(
+      formManage,
+      elementManage,
+      focusManage,
+      commands!,
+      showPreviewDialog as () => void
+    );
     return () => {
       return (
         <div class="w-full h-full flex justify-between overflow-hidden">
@@ -43,7 +52,7 @@ const ElementDesigner = defineComponent({
           {/* 中间部分 */}
           <div class="h-full w-full min-w-[650px]">
             {/* 编辑器顶部 */}
-            <OperationMenu showPreviewDialog={showPreviewDialog} />
+            <OperationMenu buttonList={buttonList} />
             {/* 编辑器画布的地方 */}
             <div class="box-border">
               {/* 滚动条 */}

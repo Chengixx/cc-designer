@@ -19,20 +19,22 @@ const ElementNode = defineComponent({
       type: Object as PropType<IEditorElement>,
       required: true,
     },
+    //编辑状态还是预览状态
+    isPreview: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, { slots }) {
+    const useParentDomList: string[] = ["divider", "text", "button"];
     const elementManage = inject("elementManage") as ElementManage;
     const elementRef = ref<ComponentPublicInstance>();
     watchEffect(() => {
-      if (elementRef.value) {
+      if (elementRef.value && !props.isPreview) {
         // console.log(elementRef.value);
         let el = elementRef.value.$el;
-        //如果是分割线 给他用父亲的
-        if (
-          props.elementSchema.key === "divider" ||
-          props.elementSchema.key === "text" ||
-          props.elementSchema.key === "button"
-        ) {
+        //如果是包含以下的 给他用父亲的
+        if (useParentDomList.includes(props.elementSchema.key)) {
           el = elementRef.value.$el.parentElement;
         }
         elementManage.addElementInstance(props.elementSchema.id, el);
@@ -40,7 +42,9 @@ const ElementNode = defineComponent({
     });
     onUnmounted(() => {
       // console.log("触发销毁", props.element);
-      elementManage.deleteElementInstance(props.elementSchema.id);
+      if (!props.isPreview) {
+        elementManage.deleteElementInstance(props.elementSchema.id);
+      }
     });
     return () => {
       //先从元素配置那里拿到
@@ -64,7 +68,7 @@ const ElementNode = defineComponent({
               class="w-full"
               labelPosition={props.elementSchema.props.labelPosition}
               style={{ marginBottom: "0px !important" }}
-              prop={new Date().getTime().toString() + props.elementSchema.key}
+              prop={props.elementSchema.key + props.elementSchema.id}
             >
               {h(elementRender, { elementSchema: props.elementSchema })}
             </ElFormItem>
@@ -77,7 +81,12 @@ const ElementNode = defineComponent({
                   // 这个是普通的插槽,就是给他一个个循环出来就好了不用过多的操作
                   node: (childElementSchema: IEditorElement) => {
                     // return elementList.map((element) => {
-                    return <ElementNode elementSchema={childElementSchema} />;
+                    return (
+                      <ElementNode
+                        elementSchema={childElementSchema}
+                        isPreview={props.isPreview}
+                      />
+                    );
                     // });
                   },
                   //这个是拖拽的插槽，应该要用draggle,这里会提供一个插槽 到外面如果需要拖拽的话 是用插槽穿进来的
