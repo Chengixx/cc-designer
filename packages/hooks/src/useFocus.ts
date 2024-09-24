@@ -57,7 +57,8 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
       foucusedElementDom.value?.getBoundingClientRect() ??
       foucusedElementDom.value?.nextElementSibling?.getBoundingClientRect();
     //!还有一个滚动条的长度
-    focusWidgetRef.value!.style.left = rect!.left - 280 + SCROLL_HEIGHT + "px";
+    focusWidgetRef.value!.style.left =
+      rect!.left - 280 + SCROLL_HEIGHT + 16 + "px";
     focusWidgetRef.value!.style.top = rect!.top - 80 - 8 + "px";
     focusWidgetRef.value!.style.width = rect?.width + "px";
     focusWidgetRef.value!.style.height = rect?.height + "px";
