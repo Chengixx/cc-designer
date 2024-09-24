@@ -1,4 +1,4 @@
-import { InputDialog } from "cgx-designer/src/components/InputDialog";
+import { InputDialog } from "cgx-designer/src/components/ElementDesigner/components/InputDialog";
 import { TreeDrawer } from "cgx-designer/src/components/TreeDrawer";
 import { isFormWithEditorElements } from "../common/index";
 import { ElNotification } from "element-plus";
