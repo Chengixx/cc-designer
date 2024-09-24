@@ -67,7 +67,6 @@ const ElementNode = defineComponent({
               }
               class="w-full"
               labelPosition={props.elementSchema.props.labelPosition}
-              style={{ marginBottom: "0px !important" }}
               prop={props.elementSchema.key + props.elementSchema.id}
             >
               {h(elementRender, { elementSchema: props.elementSchema })}
@@ -80,14 +79,12 @@ const ElementNode = defineComponent({
                 {
                   // 这个是普通的插槽,就是给他一个个循环出来就好了不用过多的操作
                   node: (childElementSchema: IEditorElement) => {
-                    // return elementList.map((element) => {
                     return (
                       <ElementNode
                         elementSchema={childElementSchema}
                         isPreview={props.isPreview}
                       />
                     );
-                    // });
                   },
                   //这个是拖拽的插槽，应该要用draggle,这里会提供一个插槽 到外面如果需要拖拽的话 是用插槽穿进来的
                   editNode: () => {
