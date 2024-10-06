@@ -6,9 +6,12 @@ import {
   defineComponent,
   h,
   inject,
+  onMounted,
   onUnmounted,
   PropType,
+  reactive,
   ref,
+  watch,
   watchEffect,
 } from "vue";
 import { ElementManage } from "@cgx-designer/hooks";
@@ -26,6 +29,31 @@ const ElementNode = defineComponent({
     },
   },
   setup(props, { slots }) {
+    //给个默认值防止拖拽模式报错
+    const formData = inject("formData", reactive({})) as any;
+    const setFormDataField = () => {
+      if (
+        formData &&
+        typeof props.elementSchema.props.defaultValue !== "undefined" &&
+        props.elementSchema.props.defaultValue !== null
+      ) {
+        formData[props.elementSchema.id] =
+          props.elementSchema.props.defaultValue;
+      }
+    };
+    onMounted(() => {
+      //如果是有值的 就放进formData里去
+      setFormDataField();
+    });
+    //监听值的变化 如果是有值的，formData里的值要跟着变化
+    //todo 不知道为什么这里会触发两次，但是如果直接监听里面的defaultValue是不行的
+    watch(
+      () => props.elementSchema,
+      (nv, ov) => {
+        setFormDataField();
+      },
+      { deep: true }
+    );
     const useParentDomList: string[] = ["divider", "text", "button"];
     const elementManage = inject("elementManage") as ElementManage;
     const elementRef = ref<ComponentPublicInstance>();
@@ -58,6 +86,14 @@ const ElementNode = defineComponent({
           {/* //!也就是表单元素的 就要加ElFormItem 为了更好的体验而已 */}
           {Object.keys(props.elementSchema.props).includes("defaultValue") ? (
             <ElFormItem
+              //判断非空必填测试
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: `请输入${props.elementSchema.props.label}`,
+              //     trigger: "blur",
+              //   },
+              // ]}
               for="-"
               ref={elementRef}
               label={
@@ -67,7 +103,7 @@ const ElementNode = defineComponent({
               }
               class="w-full"
               labelPosition={props.elementSchema.props.labelPosition}
-              prop={props.elementSchema.key + props.elementSchema.id}
+              prop={props.elementSchema.id}
             >
               {h(elementRender, { elementSchema: props.elementSchema })}
             </ElFormItem>
