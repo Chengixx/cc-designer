@@ -30,7 +30,7 @@ const EdiorCanvas = defineComponent({
           {/* hover的盒子,选中的时候如果在这 */}
           <PanelWidget />
           <div
-            class="mx-4 mt-2"
+            class="mx-2 mt-2"
             ref={editorCanvasRef}
             onClick={(e) => focusManage.handleCanvasClick(e)}
           >

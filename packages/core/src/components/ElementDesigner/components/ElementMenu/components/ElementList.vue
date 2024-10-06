@@ -2,8 +2,11 @@
 import draggable from "vuedraggable";
 import SvgIcon from "../../../../SvgIcon";
 import { computed, inject } from "vue";
-import { ElementConfig, IElementBaseSetting } from "@cgx-designer/utils";
-import { v4 as uuid } from "uuid";
+import {
+  ElementConfig,
+  getRandomId,
+  IElementBaseSetting,
+} from "@cgx-designer/utils";
 import { useDrag } from "@cgx-designer/hooks";
 import { HoverManage } from "@cgx-designer/hooks";
 
@@ -25,7 +28,7 @@ const handleClick = (element: IElementBaseSetting) => {
 };
 const { handleDropStart, handleDropEnd } = useDrag();
 const handleClone = (e: any) => {
-  const newElement = e.template(uuid);
+  const newElement = e.template(getRandomId);
   return newElement;
 };
 </script>

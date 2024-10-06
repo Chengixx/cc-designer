@@ -1,6 +1,5 @@
 import { Ref, ref } from "vue";
-import { v4 as uuid } from "uuid";
-import { IElementBaseSetting, elementConfig } from "@cgx-designer/utils";
+import { IElementBaseSetting, elementConfig, getRandomId } from "@cgx-designer/utils";
 import { cloneDeep } from "lodash";
 import { IEditorElement, TreeNode } from "cgx-designer";
 
@@ -95,14 +94,14 @@ export const useElement = (): ElementManage => {
     return result;
   };
   const addElementFromLast = (newElement: IElementBaseSetting) => {
-    elementList.value.push(elementTemplate[newElement.key](uuid));
+    elementList.value.push(elementTemplate[newElement.key](getRandomId));
     const result = cloneDeep(elementList.value);
     return result;
   };
   const addColForRow = (id: string): IEditorElement[] | null => {
     const row = findElementById(id);
     if (row) {
-      row.elementList!.push(elementTemplate["col"](uuid));
+      row.elementList!.push(elementTemplate["col"](getRandomId));
     }
     const result = cloneDeep(elementList.value);
     return result;
