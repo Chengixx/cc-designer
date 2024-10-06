@@ -15,7 +15,7 @@ import {
   watchEffect,
 } from "vue";
 import { ElementManage } from "@cgx-designer/hooks";
-import { useParentDomList } from "@/constant";
+import { useParentDomList } from "../../constant";
 
 const ElementNode = defineComponent({
   props: {

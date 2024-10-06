@@ -6,7 +6,7 @@ import { useDrag } from "@cgx-designer/hooks";
 import { inject } from "vue";
 import { HoverManage } from "@cgx-designer/hooks";
 import { IEditorElement } from "@/types";
-import { needMarginBottomDomList } from "@/constant";
+import { needMarginBottomDomList } from "../../../../../constant";
 defineOptions({
   name: "Draggle",
 });
