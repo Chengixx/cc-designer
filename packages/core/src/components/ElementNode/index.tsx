@@ -15,6 +15,7 @@ import {
   watchEffect,
 } from "vue";
 import { ElementManage } from "@cgx-designer/hooks";
+import { useParentDomList } from "@/constant";
 
 const ElementNode = defineComponent({
   props: {
@@ -49,12 +50,11 @@ const ElementNode = defineComponent({
     //todo 不知道为什么这里会触发两次，但是如果直接监听里面的defaultValue是不行的
     watch(
       () => props.elementSchema,
-      (nv, ov) => {
+      (_) => {
         setFormDataField();
       },
       { deep: true }
     );
-    const useParentDomList: string[] = ["divider", "text", "button"];
     const elementManage = inject("elementManage") as ElementManage;
     const elementRef = ref<ComponentPublicInstance>();
     watchEffect(() => {

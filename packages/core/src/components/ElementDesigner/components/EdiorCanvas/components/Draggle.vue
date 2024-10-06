@@ -6,6 +6,7 @@ import { useDrag } from "@cgx-designer/hooks";
 import { inject } from "vue";
 import { HoverManage } from "@cgx-designer/hooks";
 import { IEditorElement } from "@/types";
+import { needMarginBottomDomList } from "@/constant";
 defineOptions({
   name: "Draggle",
 });
@@ -18,7 +19,7 @@ const hoverManage = inject("hoverManage") as HoverManage;
 const focusManage = inject("focusManage") as FocusManage;
 const { handleDropStart, handleDropEnd } = useDrag();
 const _needMarginBottom = (elementSchema: IEditorElement) => {
-  return ["card", "row", "divider"].includes(elementSchema.key);
+  return needMarginBottomDomList.includes(elementSchema.key);
 };
 </script>
 
