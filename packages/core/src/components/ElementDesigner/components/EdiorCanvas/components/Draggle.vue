@@ -25,19 +25,21 @@ const _needMarginBottom = (elementSchema: IEditorElement) => {
 
 <template>
   <draggable
-    group="draggable"
     :list="props.list"
-    item-key="id"
+    v-bind="{
+      group: { name: 'draggable' },
+      animation: 180,
+      ghostClass: 'moving',
+    }"
     :class="
       props.isNested
         ? 'min-h-[60px] border-dashed border border-[#d9d9d9] h-full'
         : 'draggable bg-white'
     "
-    ghost-class="ghost"
-    @start="(e) => handleDropStart(hoverManage, focusManage)"
-    @end="(e) => handleDropEnd(hoverManage, focusManage)"
-    animation="300"
+    @start="() => handleDropStart(hoverManage, focusManage)"
+    @end="() => handleDropEnd(hoverManage, focusManage)"
     @dragover.prevent
+    item-key="id"
   >
     <template #item="{ element }">
       <div

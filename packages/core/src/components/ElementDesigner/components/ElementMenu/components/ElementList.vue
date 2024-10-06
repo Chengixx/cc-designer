@@ -27,8 +27,8 @@ const handleClick = (element: IElementBaseSetting) => {
   commands!.addFromLast(element);
 };
 const { handleDropStart, handleDropEnd } = useDrag();
-const handleClone = (e: any) => {
-  const newElement = e.template(getRandomId);
+const handleClone = (elementBaseSetting: IElementBaseSetting) => {
+  const newElement = elementBaseSetting.template(getRandomId);
   return newElement;
 };
 </script>
@@ -48,9 +48,9 @@ const handleClone = (e: any) => {
         animation: 180,
         ghostClass: 'moving',
       }"
-      @start="(e) => handleDropStart(hoverManage)"
-      @end="(e) => handleDropEnd(hoverManage)"
-      :clone="(e: any) => handleClone(e)"
+      @start="() => handleDropStart(hoverManage)"
+      @end="() => handleDropEnd(hoverManage)"
+      :clone="(elementBaseSetting: IElementBaseSetting) => handleClone(elementBaseSetting)"
       item-key="id"
       class="grid grid-cols-[auto_auto] px-[10px] gap-2"
     >
