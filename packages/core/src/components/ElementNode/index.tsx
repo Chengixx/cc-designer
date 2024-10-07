@@ -34,6 +34,7 @@ const ElementNode = defineComponent({
     const formData = inject("formData", reactive({})) as any;
     const setFormDataField = () => {
       if (
+        props.isPreview &&
         formData &&
         typeof props.elementSchema.props.defaultValue !== "undefined" &&
         props.elementSchema.props.defaultValue !== null
