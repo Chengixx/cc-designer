@@ -39,7 +39,7 @@ export const isIEditorElementArray = (arr: any[]): arr is IEditorElement[] => {
       obj === null ||
       !obj.key ||
       typeof obj.key !== "string" ||
-      !(typeof obj.id === "string" || typeof obj.id === "number")
+      !(typeof obj.id === "string")
     ) {
       return false;
     }
