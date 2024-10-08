@@ -1,6 +1,6 @@
 import { ElButton, ElDialog } from "element-plus";
 import { createVNode, render, ref, defineComponent, VNode } from "vue";
-import IDE from "../IDE";
+import IDE from "../../../IDE";
 
 interface DialogExpose {
   showDialog: (option?: any) => void;

@@ -32,23 +32,21 @@ const CCButton = defineComponent({
 
     return () => {
       return (
-        <div>
-          <button
-            v-wave
-            class={[
-              // 基础按钮样式
-              "rounded-lg border z-0 border-solid border-blue-500 py-2 px-5 text-base cursor-pointer duration-700 relative overflow-hidden",
-              //这个是基础before的
-              "before:duration-700 before:-z-10 before:absolute before:left-0 before:w-full before:h-0 before:bg-blue-500 ",
-              //这个根据不同的 去弄不同的
-              buttonClass.value,
-            ]}
-            onClick={(e) => handleClick(e)}
-          >
-            {/* 默认插槽 */}
-            {slots.default?.()}
-          </button>
-        </div>
+        <button
+          v-wave
+          class={[
+            // 基础按钮样式
+            "rounded-lg border z-0 border-solid border-blue-500 py-2 px-5 text-base cursor-pointer duration-700 relative overflow-hidden",
+            //这个是基础before的
+            "before:duration-700 before:-z-10 before:absolute before:left-0 before:w-full before:h-0 before:bg-blue-500 ",
+            //这个根据不同的 去弄不同的
+            buttonClass.value,
+          ]}
+          onClick={(e) => handleClick(e)}
+        >
+          {/* 默认插槽 */}
+          {slots.default?.()}
+        </button>
       );
     };
   },

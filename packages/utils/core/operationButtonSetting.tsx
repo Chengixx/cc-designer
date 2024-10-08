@@ -1,4 +1,4 @@
-import { InputDialog } from "cgx-designer/src/components/InputDialog";
+import { InputDialog } from "cgx-designer/src/components/ElementDesigner/components/InputDialog";
 import { TreeDrawer } from "cgx-designer/src/components/TreeDrawer";
 import { isFormWithEditorElements } from "../common/index";
 import { ElNotification } from "element-plus";
@@ -15,7 +15,8 @@ export const createOperationButtonSetting = (
   formManage: FormManage,
   elementManage: ElementManage,
   focusManange: FocusManage,
-  commands: Record<string, Function>
+  commands: Record<string, Function>,
+  showPreviewDialog: () => void
 ): OperationButtonSetting[] => {
   const btnList = [
     {
@@ -24,7 +25,7 @@ export const createOperationButtonSetting = (
         console.log("总体元素列表", elementManage.elementList);
         console.log("当前选中的元素", focusManange.focusedElement.value);
         console.log("树", elementManage.getTree());
-        console.log("组件对象实例Map", elementManage.elementInstanceList);
+        console.log("组件对象实例Map", elementManage.elementInstanceList.value);
       },
     },
     {
@@ -94,6 +95,12 @@ export const createOperationButtonSetting = (
             }
           },
         });
+      },
+    },
+    {
+      label: "预览",
+      handler: () => {
+        showPreviewDialog();
       },
     },
   ];

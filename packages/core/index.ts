@@ -1,4 +1,4 @@
-import Container from './src/components/Container/index';
+import ElementDesigner from "./src/components/ElementDesigner/index";
 export * from "./src/types/index";
 
-export { Container };
+export { ElementDesigner };

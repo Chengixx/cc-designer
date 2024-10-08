@@ -13,7 +13,7 @@ const Card: IElementBaseSetting = {
           return <div>title</div>;
         },
         default: () => {
-          return <div class="min-h-colHeight">content</div>;
+          return <div class="min-h-[42px]">content</div>;
         },
       }}
     </ElCard>

@@ -9,16 +9,6 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        "custom-gray": "#efeaeb",
-      },
-      minWidth: {
-        "650px": "650px",
-      },
-      minHeight: {
-        "60px": "60px",
-        colHeight: "42px",
-      },
       height: {
         "95%": "95%",
         "180%": "180%",

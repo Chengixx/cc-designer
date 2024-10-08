@@ -1,8 +1,3 @@
-<script lang="ts">
-export default {
-  name: "Draggle",
-};
-</script>
 <script setup lang="ts">
 import draggable from "vuedraggable";
 import { FocusManage } from "@cgx-designer/hooks";
@@ -11,38 +6,52 @@ import { useDrag } from "@cgx-designer/hooks";
 import { inject } from "vue";
 import { HoverManage } from "@cgx-designer/hooks";
 import { IEditorElement } from "@/types";
-const hoverManage = inject("hoverManage") as HoverManage;
-const focusManage = inject("focusManage") as FocusManage;
+import { needMarginBottomDomList } from "../../../../../constant";
+defineOptions({
+  name: "Draggle",
+});
+const emits = defineEmits(["drop"]);
 const props = defineProps<{
   list: IEditorElement[];
   isNested: boolean;
 }>();
-const emits = defineEmits(["drop"]);
+const hoverManage = inject("hoverManage") as HoverManage;
+const focusManage = inject("focusManage") as FocusManage;
 const { handleDropStart, handleDropEnd } = useDrag();
+const _needMarginBottom = (elementSchema: IEditorElement) => {
+  return needMarginBottomDomList.includes(elementSchema.key);
+};
 </script>
 
 <template>
   <draggable
-    group="draggable"
     :list="props.list"
-    item-key="id"
-    :class="props.isNested ? 'min-h-[60px]' : 'draggable bg-white'"
-    ghost-class="ghost"
-    @start="(e) => handleDropStart(hoverManage, focusManage)"
-    @end="(e) => handleDropEnd(hoverManage, focusManage)"
-    animation="300"
+    v-bind="{
+      group: { name: 'draggable' },
+      animation: 180,
+      ghostClass: 'moving',
+    }"
+    :class="
+      props.isNested
+        ? 'min-h-[60px] border-dashed border border-[#d9d9d9] h-full'
+        : 'draggable bg-white'
+    "
+    @start="() => handleDropStart(hoverManage, focusManage)"
+    @end="() => handleDropEnd(hoverManage, focusManage)"
     @dragover.prevent
+    item-key="id"
   >
     <template #item="{ element }">
       <div
         :class="[
-          element.key === 'card' || element.key === 'row' ? 'mb-0' : 'mb-4',
+          _needMarginBottom(element) ? 'mb-0' : 'mb-4',
           element.key === 'row' ? 'border border-[#d9d9d9] border-dashed' : '',
+          element.key === 'divider' ? 'inline-block' : '',
           'editor-element-item',
         ]"
         :key="element.id"
       >
-        <EditorElement :element="element" />
+        <EditorElement :elementSchema="element" />
       </div>
     </template>
   </draggable>
@@ -62,8 +71,5 @@ const { handleDropStart, handleDropEnd } = useDrag();
 .editor-element-item::hover {
   /* background-color: #336699; */
   background-color: #3b82f6;
-}
-.not-draggable {
-  cursor: no-drop;
 }
 </style>

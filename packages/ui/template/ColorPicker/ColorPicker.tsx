@@ -4,9 +4,9 @@ import { defineComponent, PropType } from "vue";
 
 const ColorPicker = defineComponent({
   props: {
-    elementSchema: Object as PropType<IEditorElement>,
+    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
-  setup(props: any) {
+  setup(props) {
     return () => {
       return (
         <ElColorPicker

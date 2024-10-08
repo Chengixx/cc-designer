@@ -3,7 +3,7 @@ import { defineComponent, PropType } from "vue";
 
 const Text = defineComponent({
   props: {
-    elementSchema: Object as PropType<IEditorElement>,
+    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
   setup(props) {
     return () => {
@@ -11,11 +11,11 @@ const Text = defineComponent({
         <div
           class="h-fit w-fit"
           style={{
-            fontSize: props.elementSchema!.props!.size,
-            color: props.elementSchema!.props!.color,
+            fontSize: props.elementSchema.props.size,
+            color: props.elementSchema.props.color,
           }}
         >
-          {props.elementSchema!.props!.label}
+          {props.elementSchema.props.label}
         </div>
       );
     };

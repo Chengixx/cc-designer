@@ -1,6 +1,5 @@
 import { Ref, ref } from "vue";
-import { v4 as uuid } from "uuid";
-import { IElementBaseSetting, elementConfig } from "@cgx-designer/utils";
+import { IElementBaseSetting, elementConfig, getRandomId } from "@cgx-designer/utils";
 import { cloneDeep } from "lodash";
 import { IEditorElement, TreeNode } from "cgx-designer";
 
@@ -10,6 +9,7 @@ export interface ElementManage {
   elementInstanceList: Ref<Record<string, HTMLBaseElement>>;
   addElementInstance: (id: string, dom: HTMLBaseElement) => void;
   deleteElementInstance: (id: string) => void;
+  getElementInstanceById: (id: string) => HTMLBaseElement | null;
   deleteElementById: (
     id: string,
     elements?: IEditorElement[],
@@ -27,7 +27,6 @@ export interface ElementManage {
   deleteAllElements: () => IEditorElement[] | null;
 }
 
-
 export const useElement = (): ElementManage => {
   const elementTemplate = elementConfig.elementTemplate;
   const elementList = ref<IEditorElement[]>([]);
@@ -37,6 +36,9 @@ export const useElement = (): ElementManage => {
   };
   const deleteElementInstance = (id: string) => {
     delete elementInstanceList.value[id];
+  };
+  const getElementInstanceById = (id: string) => {
+    return elementInstanceList.value[id];
   };
   //树形结构
   const tree = ref<TreeNode[]>([]);
@@ -92,14 +94,14 @@ export const useElement = (): ElementManage => {
     return result;
   };
   const addElementFromLast = (newElement: IElementBaseSetting) => {
-    elementList.value.push(elementTemplate[newElement.key](uuid));
+    elementList.value.push(elementTemplate[newElement.key](getRandomId));
     const result = cloneDeep(elementList.value);
     return result;
   };
   const addColForRow = (id: string): IEditorElement[] | null => {
     const row = findElementById(id);
     if (row) {
-      row.elementList!.push(elementTemplate["col"](uuid));
+      row.elementList!.push(elementTemplate["col"](getRandomId));
     }
     const result = cloneDeep(elementList.value);
     return result;
@@ -129,6 +131,7 @@ export const useElement = (): ElementManage => {
     elementInstanceList,
     setElementList,
     deleteElementInstance,
+    getElementInstanceById,
     deleteElementById,
     addElementFromLast,
     getTree,

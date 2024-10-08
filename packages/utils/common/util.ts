@@ -44,7 +44,10 @@ export const isIEditorElementArray = (arr: any[]): arr is IEditorElement[] => {
       return false;
     }
 
-    if (obj.elementList !== undefined && !isIEditorElementArray(obj.elementList)) {
+    if (
+      obj.elementList !== undefined &&
+      !isIEditorElementArray(obj.elementList)
+    ) {
       return false;
     }
     if (
@@ -97,4 +100,15 @@ export const createTemplateProps = (props: Record<string, any>) => {
 export const stringFirstBigger = (str: string): string => {
   if (!str) return str;
   return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+//生成不重复的id
+export const getRandomId = (length: number = 8): string => {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
 };

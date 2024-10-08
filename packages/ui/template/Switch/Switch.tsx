@@ -4,14 +4,14 @@ import { defineComponent, PropType } from "vue";
 
 const Switch = defineComponent({
   props: {
-    elementSchema: Object as PropType<IEditorElement>,
+    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
   setup(props) {
     return () => {
       return (
         <ElSwitch
-          size={props.elementSchema!.props!.size}
-          v-model={props.elementSchema!.props!.defaultValue}
+          size={props.elementSchema.props.size}
+          v-model={props.elementSchema.props.defaultValue}
         />
       );
     };

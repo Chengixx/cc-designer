@@ -1,20 +1,23 @@
 import { ElRow } from "element-plus";
-import { defineComponent, PropType } from "vue";
-import Col from "../Col/Col";
+import { defineComponent, PropType, renderSlot } from "vue";
 import { IEditorElement } from "cgx-designer";
 
 const Row = defineComponent({
   props: {
-    elementSchema: Object as PropType<IEditorElement>,
+    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
-  setup(props: any) {
+  setup(props, { slots }) {
     return () => {
       return (
-        <ElRow class="w-full h-full">
-          {props.elementSchema.elementList.map((element: IEditorElement) => {
-            // 一定要加key!!!!不加直接出现问题了
-            return <Col elementSchema={element} key={element.id} />;
-          })}
+        <ElRow>
+          {renderSlot(slots, "editNode", {}, () =>
+            props.elementSchema.elementList!.map(
+              (childElementSchema: IEditorElement) =>
+                renderSlot(slots, "node", {
+                  element: childElementSchema,
+                })
+            )
+          )}
         </ElRow>
       );
     };

@@ -4,16 +4,16 @@ import { defineComponent, PropType } from "vue";
 
 const Button = defineComponent({
   props: {
-    elementSchema: Object as PropType<IEditorElement>,
+    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
-  setup(props: any) {
+  setup(props) {
     return () => {
       return (
         <ElButton
-          size={props.elementSchema.props!.size}
-          type={props.elementSchema.props!.type}
+          size={props.elementSchema.props.size}
+          type={props.elementSchema.props.type}
         >
-          {props.elementSchema.props!.label}
+          {props.elementSchema.props.label}
         </ElButton>
       );
     };
