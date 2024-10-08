@@ -86,11 +86,23 @@ export const isFormWithEditorElements = (
 };
 
 //拆对象 组新对象
-export const createTemplateProps = (props: Record<string, any>) => {
-  const attrs = Object.keys(props) as (keyof typeof props)[];
-  const templateProps: Partial<typeof props> = {};
-  attrs.forEach((attr) => {
-    templateProps[attr] = "";
+export const createEmptyObj = (
+  props: Record<string, any>
+): Record<string, any> => {
+  const templateProps: Record<string, any> = {};
+
+  Object.keys(props).forEach((key) => {
+    if (
+      typeof props[key] === "object" &&
+      !Array.isArray(props[key]) &&
+      props[key] !== null
+    ) {
+      // 如果是对象，则递归调用
+      templateProps[key] = createEmptyObj(props[key]);
+    } else {
+      // 否则设置为 null
+      templateProps[key] = null;
+    }
   });
 
   return templateProps;
