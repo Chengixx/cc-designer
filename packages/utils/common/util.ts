@@ -1,5 +1,3 @@
-import { FormSetting, IEditorElement } from "cgx-designer";
-
 //深拷贝
 export const deepClone = <T>(obj: T): T => {
   if (!obj || typeof obj !== "object") {
@@ -18,71 +16,6 @@ export const deepClone = <T>(obj: T): T => {
     }
   }
   return newObj as T;
-};
-
-//获取一个元素距离顶部距离
-export const getDistanceFromTop = (element: HTMLElement): number => {
-  const elementRect = element!.getBoundingClientRect();
-  const elementTopPosition = elementRect!.top + window.pageYOffset; // 加上页面的滚动偏移量
-  return elementTopPosition;
-};
-
-//用类型断言去判断是不是IEditorElement这个接口
-export const isIEditorElementArray = (arr: any[]): arr is IEditorElement[] => {
-  if (!Array.isArray(arr)) {
-    return false;
-  }
-
-  for (let obj of arr) {
-    if (
-      typeof obj !== "object" ||
-      obj === null ||
-      !obj.key ||
-      typeof obj.key !== "string" ||
-      !(typeof obj.id === "string")
-    ) {
-      return false;
-    }
-
-    if (
-      obj.elementList !== undefined &&
-      !isIEditorElementArray(obj.elementList)
-    ) {
-      return false;
-    }
-    if (
-      obj.elementList !== undefined &&
-      !(Array.isArray(obj.elementList) || obj.elementList.length === 0)
-    ) {
-      return false;
-    }
-  }
-
-  return true;
-};
-
-//用类型断言去判断是不是Form这个接口
-export const isFormSetting = (obj: any): obj is FormSetting => {
-  return (
-    typeof obj.modelName === "string" &&
-    typeof obj.refName === "string" &&
-    typeof obj.rulesName === "string" &&
-    typeof obj.labelWidth === "number" &&
-    ["top", "left", "right"].includes(obj.labelPosition) &&
-    ["default", "small", "large"].includes(obj.size)
-  );
-};
-
-//上面两个方法结合
-export const isFormWithEditorElements = (
-  obj: any
-): obj is { formSetting: FormSetting; elementList: IEditorElement[] } => {
-  return (
-    typeof obj === "object" &&
-    isFormSetting(obj.formSetting) &&
-    Array.isArray(obj.elementList) &&
-    isIEditorElementArray(obj.elementList)
-  );
 };
 
 //拆对象 组新对象
@@ -124,3 +57,71 @@ export const getRandomId = (length: number = 8): string => {
   }
   return result;
 };
+
+/**
+ * 从嵌套对象中提取值
+ * @param object - 要访问的对象
+ * @param path - 点分隔的路径字符串
+ * @param defaultValue - 如果路径不存在，返回的默认值
+ * @returns 通过路径获取的值
+ */
+export function getValueByPath(
+  object: Record<string, any>,
+  path: string,
+  defaultValue?: any
+): any {
+  // 将路径字符串拆分为数组
+  const pathArray = path.split(".");
+
+  // 逐步从对象中提取值
+  let result = object;
+  for (let i = 0; i < pathArray.length; i++) {
+    if (result == null) {
+      // 如果中间的值为 null 或 undefined，返回默认值
+      return defaultValue;
+    }
+    result = result[pathArray[i]];
+  }
+
+  // 如果最终的值为 undefined，返回默认值
+  return result === undefined ? defaultValue : result;
+}
+
+/**
+ * 在嵌套对象中设置值
+ * @param obj - 要修改的对象
+ * @param path - 点分隔的路径字符串
+ * @param value - 要设置的值
+ * @returns 修改后的对象
+ */
+export function setValueByPath(
+  object: Record<string, any>,
+  path: string,
+  value: any
+): Record<string, any> {
+  // 将路径字符串拆分为数组
+  const pathArray = path
+    .replace(/\[(\d+)\]/g, ".$1")
+    .split(".")
+    .filter(Boolean);
+
+  // 逐步设置对象中的值
+  let current = object;
+
+  for (let i = 0; i < pathArray.length - 1; i++) {
+    const key = pathArray[i];
+
+    // 如果当前对象的属性不存在，则创建一个新对象或数组
+    if (current[key] == null) {
+      // 如果路径部分是数字，创建数组；否则，创建对象
+      current[key] = isNaN(Number(pathArray[i + 1])) ? {} : [];
+    }
+
+    current = current[key];
+  }
+
+  // 在路径的最后一层设置值
+  current[pathArray[pathArray.length - 1]] = value;
+
+  return object;
+}
