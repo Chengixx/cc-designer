@@ -1,14 +1,13 @@
-import { defineAsyncComponent } from 'vue';
-import { template } from "@cgx-designer/ui"
+import { defineAsyncComponent } from "vue";
+import { template } from "@cgx-designer/ui";
 //创建组件基础配置的东西
 export interface IElementBaseSetting {
   key: string;
   label: string;
   render: any;
   icon?: string;
-  preview?: Function;
-  noPushList?: boolean;
   template?: any;
+  [key: string]: any;
 }
 
 export class ElementConfig {
