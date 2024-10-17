@@ -18,12 +18,10 @@ export interface FocusManage {
   stopFocusTimedQuery: () => void;
 }
 
-const SCROLL_HEIGHT: number = 4;
-
 export const useFocus = (elementManage: ElementManage): FocusManage => {
   //总的容器
   const containerRef = ref<HTMLDivElement | null>(null);
-  //初始化要展示的hover总容器
+  //初始化要展示的focus总容器
   const focusWidgetRef = ref<HTMLDivElement | null>(null);
   //是否要动画
   const focusTransition = ref<boolean>(true);
@@ -38,7 +36,6 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
     containerRef.value = ref;
     //且需要监听他的滚动，给赋值
     containerRef.value?.addEventListener("scroll", () => {
-      console.log("触发了");
       setFocusWidgetStyle();
     });
     mutationObserver.observe(document.body, observerConfig);
