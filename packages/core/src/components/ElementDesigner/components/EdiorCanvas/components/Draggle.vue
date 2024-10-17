@@ -59,8 +59,8 @@ const _needMarginBottom = (elementSchema: IEditorElement) => {
 
 <style scoped>
 .draggable {
-  height: calc(100vh - 6rem);
-  overflow-y: scroll;
+  height: 100%;
+  width: 100%;
 }
 .editor-element-item {
   width: 100%;

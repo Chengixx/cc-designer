@@ -36,6 +36,11 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
   });
   const initCanvas = (ref: HTMLDivElement) => {
     containerRef.value = ref;
+    //且需要监听他的滚动，给赋值
+    containerRef.value?.addEventListener("scroll", () => {
+      console.log("触发了");
+      setFocusWidgetStyle();
+    });
     mutationObserver.observe(document.body, observerConfig);
   };
 
@@ -57,9 +62,9 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
       foucusedElementDom.value?.getBoundingClientRect() ??
       foucusedElementDom.value?.nextElementSibling?.getBoundingClientRect();
     //!还有一个滚动条的长度
-    focusWidgetRef.value!.style.left =
-      rect!.left - 280 + SCROLL_HEIGHT + 16 + "px";
-    focusWidgetRef.value!.style.top = rect!.top - 80 - 8 + "px";
+    focusWidgetRef.value!.style.left = rect!.left - 280 + 12 + "px";
+    focusWidgetRef.value!.style.top =
+      rect!.top - 80 - 8 + containerRef.value?.scrollTop! + "px";
     focusWidgetRef.value!.style.width = rect?.width + "px";
     focusWidgetRef.value!.style.height = rect?.height + "px";
   };
