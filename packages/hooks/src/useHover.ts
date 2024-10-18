@@ -60,13 +60,15 @@ export const useHover = (elementManage: ElementManage): HoverManage => {
   //修改这个hover物件的样式
   const setHoverWidgetStyle = () => {
     if (!hoveredElementDom.value) return;
-    const rect = hoveredElementDom.value.getBoundingClientRect();
-    //!还有一个滚动条的长度
-    hoverWidgetRef.value!.style.left = rect.left - 280 + 12 + "px";
+    const { top: containerTop, left: containerLeft } =
+      containerRef.value!.getBoundingClientRect();
+    const { top, left, width, height } =
+      hoveredElementDom.value.getBoundingClientRect();
+    hoverWidgetRef.value!.style.left = left - containerLeft + "px";
     hoverWidgetRef.value!.style.top =
-      rect.top - 80 - 8 + containerRef.value?.scrollTop! + "px";
-    hoverWidgetRef.value!.style.width = rect.width + "px";
-    hoverWidgetRef.value!.style.height = rect.height + "px";
+      top - containerTop + containerRef.value?.scrollTop! + "px";
+    hoverWidgetRef.value!.style.width = width + "px";
+    hoverWidgetRef.value!.style.height = height + "px";
   };
   const handleCancelHover = (e: MouseEvent) => {
     e.stopPropagation();

@@ -55,15 +55,16 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
   //修改这个focus物件的样式
   const setFocusWidgetStyle = () => {
     if (!foucusedElementDom.value) return;
-    const rect =
+    const { top: containerTop, left: containerLeft } =
+      containerRef.value!.getBoundingClientRect();
+    const { top, left, width, height } =
       foucusedElementDom.value?.getBoundingClientRect() ??
       foucusedElementDom.value?.nextElementSibling?.getBoundingClientRect();
-    //!还有一个滚动条的长度
-    focusWidgetRef.value!.style.left = rect!.left - 280 + 12 + "px";
+    focusWidgetRef.value!.style.left = left - containerLeft + "px";
     focusWidgetRef.value!.style.top =
-      rect!.top - 80 - 8 + containerRef.value?.scrollTop! + "px";
-    focusWidgetRef.value!.style.width = rect?.width + "px";
-    focusWidgetRef.value!.style.height = rect?.height + "px";
+      top - containerTop + containerRef.value?.scrollTop! + "px";
+    focusWidgetRef.value!.style.width = width + "px";
+    focusWidgetRef.value!.style.height = height + "px";
   };
 
   //初始化dom监听实例(拿到的是实例和config)
