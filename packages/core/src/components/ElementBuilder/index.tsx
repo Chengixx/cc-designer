@@ -1,7 +1,7 @@
 import { ElementManage } from "@cgx-designer/hooks";
 import { defineComponent, inject, provide, reactive, ref } from "vue";
 import ElementBuilderNode from "./ElementBuilderNode";
-import { ElForm, FormInstance } from "element-plus";
+import { ElEmpty, ElForm, FormInstance } from "element-plus";
 
 const ElementBuilder = defineComponent({
   setup(_, { expose }) {
@@ -20,15 +20,19 @@ const ElementBuilder = defineComponent({
     return () => {
       return (
         <>
-          <ElForm ref={formRef} model={formData}>
-            {elementManage.elementList.value.map((elementSchema) => {
-              return (
-                <>
-                  <ElementBuilderNode elementSchema={elementSchema} />
-                </>
-              );
-            })}
-          </ElForm>
+          {elementManage.elementList.value.length ? (
+            <ElForm ref={formRef} model={formData}>
+              {elementManage.elementList.value.map((elementSchema) => {
+                return (
+                  <>
+                    <ElementBuilderNode elementSchema={elementSchema} />
+                  </>
+                );
+              })}
+            </ElForm>
+          ) : (
+            <ElEmpty description="暂无表单元素哦~请添加!" />
+          )}
         </>
       );
     };

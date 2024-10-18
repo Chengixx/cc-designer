@@ -34,7 +34,7 @@ const _needMarginBottom = (elementSchema: IEditorElement) => {
     :class="
       props.isNested
         ? 'min-h-[60px] border-dashed border border-[#d9d9d9] h-full'
-        : 'draggable bg-white'
+        : 'min-h-[calc(100vh-6rem)] w-full bg-white'
     "
     @start="() => handleDropStart(hoverManage, focusManage)"
     @end="() => handleDropEnd(hoverManage, focusManage)"
@@ -58,10 +58,6 @@ const _needMarginBottom = (elementSchema: IEditorElement) => {
 </template>
 
 <style scoped>
-.draggable {
-  height: 100%;
-  width: 100%;
-}
 .editor-element-item {
   width: 100%;
 }
