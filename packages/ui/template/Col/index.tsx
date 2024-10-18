@@ -1,4 +1,3 @@
-import { ElCol } from "element-plus";
 import { IElementBaseSetting } from "@cgx-designer/utils";
 
 const Col: IElementBaseSetting = {
@@ -6,9 +5,6 @@ const Col: IElementBaseSetting = {
   label: "布局",
   noPushList: true,
   render: () => import("./Col"),
-  preview: () => (
-    <ElCol span={12} class="border-dashed border border-blue-200"></ElCol>
-  ),
   template: (uuid: Function) => {
     return {
       id: uuid(),

@@ -1,5 +1,4 @@
 import { IElementBaseSetting } from "@cgx-designer/utils";
-import { ElSelect } from "element-plus";
 
 export interface GroupOption {
   label: string;
@@ -11,7 +10,6 @@ const Select: IElementBaseSetting = {
   icon: "select",
   label: "选择器",
   render: () => import("./Select"),
-  preview: () => <ElSelect />,
   template: (uuid: Function) => {
     return {
       id: uuid(),

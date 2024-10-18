@@ -5,7 +5,6 @@ const Text: IElementBaseSetting = {
   icon: "text",
   label: "文本",
   render: () => import("./Text"),
-  preview: () => <div class="h-fit w-fit">something...</div>,
   template: (uuid: Function) => {
     return {
       id: uuid(),

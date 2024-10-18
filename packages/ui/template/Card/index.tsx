@@ -1,4 +1,3 @@
-import { ElCard } from "element-plus";
 import { IElementBaseSetting } from "@cgx-designer/utils";
 
 const Card: IElementBaseSetting = {
@@ -6,18 +5,6 @@ const Card: IElementBaseSetting = {
   icon: "card",
   label: "卡片",
   render: () => import("./Card"),
-  preview: () => (
-    <ElCard class="w-full">
-      {{
-        header: () => {
-          return <div>title</div>;
-        },
-        default: () => {
-          return <div class="min-h-[42px]">content</div>;
-        },
-      }}
-    </ElCard>
-  ),
   template: (uuid: Function) => {
     return {
       id: uuid(),
