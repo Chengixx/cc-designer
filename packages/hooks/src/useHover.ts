@@ -1,4 +1,4 @@
-import { ref, watch, Ref } from "vue";
+import { ref, watch, Ref, computed } from "vue";
 import { ElementManage } from "./useElement";
 import { IEditorElement } from "cgx-designer";
 
@@ -12,13 +12,15 @@ export interface HoverManage {
   setShowHoverBox: (status?: boolean) => void;
   handleHover: (
     e: MouseEvent,
-    hoverInstanceSchema: Record<string, any>,
-    elementManage: ElementManage
+    hoverInstanceSchema: Record<string, any>
   ) => void;
   handleCancelHover: (e: MouseEvent) => void;
+  initCanvas: (ref: HTMLDivElement) => void;
 }
 
-export const useHover = (): HoverManage => {
+export const useHover = (elementManage: ElementManage): HoverManage => {
+  //总的容器
+  const containerRef = ref<HTMLDivElement | null>(null);
   //初始化要展示的hover总容器
   const hoverWidgetRef = ref<HTMLDivElement | null>(null);
   //是否可以进行hover，因为拖拽的时候不要显示
@@ -27,6 +29,14 @@ export const useHover = (): HoverManage => {
   const hoverElementId = ref<string>("");
   //是否显示hoverBox
   const showHoverBox = ref<boolean>(false);
+  //当前hover到的元素实例
+  const hoveredElementDom = computed(() => {
+    if (!hoverElementId.value) return null;
+    return elementManage.elementInstanceList.value[hoverElementId.value];
+  });
+  const initCanvas = (ref: HTMLDivElement) => {
+    containerRef.value = ref;
+  };
   const setDisableHoverStatus = (status: boolean = true) => {
     disableHover.value = status;
   };
@@ -40,22 +50,21 @@ export const useHover = (): HoverManage => {
   const setShowHoverBox = (status: boolean = false) => {
     showHoverBox.value = status;
   };
-  const handleHover = (
-    e: MouseEvent,
-    hoverInstanceSchema: IEditorElement,
-    elementManage: ElementManage
-  ) => {
+  const handleHover = (e: MouseEvent, hoverInstanceSchema: IEditorElement) => {
     if (disableHover.value) return;
     //元素会有重叠 所以这里需要防止冒泡
     e.stopPropagation();
     hoverElementId.value = hoverInstanceSchema.id;
-    //拿到实例的dom
-    const hoverInstanceDom =
-      elementManage.elementInstanceList.value[hoverInstanceSchema.id];
-    const rect = hoverInstanceDom.getBoundingClientRect();
+    setHoverWidgetStyle();
+  };
+  //修改这个hover物件的样式
+  const setHoverWidgetStyle = () => {
+    if (!hoveredElementDom.value) return;
+    const rect = hoveredElementDom.value.getBoundingClientRect();
     //!还有一个滚动条的长度
     hoverWidgetRef.value!.style.left = rect.left - 280 + 12 + "px";
-    hoverWidgetRef.value!.style.top = rect.top - 80 - 8 + "px";
+    hoverWidgetRef.value!.style.top =
+      rect.top - 80 - 8 + containerRef.value?.scrollTop! + "px";
     hoverWidgetRef.value!.style.width = rect.width + "px";
     hoverWidgetRef.value!.style.height = rect.height + "px";
   };
@@ -86,5 +95,6 @@ export const useHover = (): HoverManage => {
     showHoverBox,
     handleHover,
     handleCancelHover,
+    initCanvas,
   };
 };

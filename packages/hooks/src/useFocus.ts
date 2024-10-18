@@ -47,12 +47,12 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
     resetFocus();
   };
 
-  //初始化这个hover的物件ref
+  //初始化这个focus的物件ref
   const setFocusWidgetRef = (el: HTMLDivElement) => {
     focusWidgetRef.value = el;
   };
 
-  //修改这个hover物件的样式
+  //修改这个focus物件的样式
   const setFocusWidgetStyle = () => {
     if (!foucusedElementDom.value) return;
     const rect =

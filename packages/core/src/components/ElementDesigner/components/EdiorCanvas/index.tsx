@@ -1,7 +1,7 @@
 import { ElEmpty, ElForm } from "element-plus";
 import { defineComponent, inject, onMounted, ref } from "vue";
 import Draggle from "./components/Draggle.vue";
-import { FormManage } from "@cgx-designer/hooks";
+import { FormManage, HoverManage } from "@cgx-designer/hooks";
 import { ElementManage } from "@cgx-designer/hooks";
 import PanelWidget from "./components/PanelWidget";
 import { FocusManage } from "@cgx-designer/hooks/src/useFocus";
@@ -19,9 +19,11 @@ const EdiorCanvas = defineComponent({
     const formManage = inject("formManage") as FormManage;
     const elementManage = inject("elementManage") as ElementManage;
     const focusManage = inject("focusManage") as FocusManage;
+    const hoverManage = inject("hoverManage") as HoverManage;
     const editorCanvasRef = ref<HTMLDivElement>();
     onMounted(() => {
       focusManage.initCanvas(editorCanvasRef.value!);
+      hoverManage.initCanvas(editorCanvasRef.value!);
     });
     return () => {
       return (
