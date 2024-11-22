@@ -36,11 +36,8 @@ export default defineConfig({
       fileName: (ModuleFormat, entryName) => {
         console.log("文件name", ModuleFormat, entryName);
         const extension = ModuleFormat === "es" ? "js" : ModuleFormat;
-        const isIndexEntry = entryName === 'index'
-        const path = isIndexEntry
-          ? `index.${extension}`
-          : `ui/${entryName}/index.${extension}`
-        return path
+        const path = `index.${extension}`;
+        return path;
       },
     },
     rollupOptions: {
