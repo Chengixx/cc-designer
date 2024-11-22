@@ -211,7 +211,6 @@ const EventSettingDialog = defineComponent({
                             class="node-tree"
                             icon-class="el-icon-arrow-right"
                             onNode-click={handleNodeClick}
-                            draggable
                             data={elementManage.elementList.value}
                             node-key="id"
                             props={{ label: "key", children: "elementList" }}
