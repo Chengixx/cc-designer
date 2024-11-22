@@ -96,6 +96,7 @@ const ElementAttribute = defineComponent({
                               ? currentFocusElement.value?.props
                               : {}),
                           },
+                          field: undefined,
                           formItem: false,
                         }}
                         onUpdateProvideValue={(value) =>

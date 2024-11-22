@@ -10,8 +10,8 @@ import {
   ComponentPublicInstance,
   computed,
   defineComponent,
-  h,
   inject,
+  onMounted,
   onUnmounted,
   PropType,
   reactive,
@@ -85,7 +85,6 @@ const ElementNode = defineComponent({
       //!要赋值表单 如果是渲染模式 就是正式的数据了 如果编辑模式 则用于三向绑定
       if (localSchema.field) {
         formData[localSchema.field!] = nv;
-        bindValue.value = nv;
       }
     };
     //监听当前的绑定的值 变了的话 要去更改
@@ -199,12 +198,15 @@ const ElementNode = defineComponent({
       },
       { immediate: true }
     );
+    onMounted(() => {
+      initComponentInstance();
+    });
     onUnmounted(() => {
       handleRemoveElementInstance();
     });
     return () => {
       //渲染出来的组件
-      const elementRender = elementController.elementRenderMap[localSchema.key];
+      const ElementRender = elementController.elementRenderMap[localSchema.key];
       return (
         <>
           {localSchema.formItem ? (
@@ -221,34 +223,22 @@ const ElementNode = defineComponent({
               prop={localSchema.field}
               rules={localSchema.rules}
             >
-              {h(elementRender, {
-                ...getElementFunction.value,
-                ...getElementModel.value,
-                elementSchema: localSchema,
-                ref: elementRef,
-                onVnodeMounted: (_) => {
-                  handleAddElementInstance();
-                  getElementFunction.value.onVnodeMounted &&
-                    getElementFunction.value.onVnodeMounted(_);
-                },
-              })}
+              <ElementRender
+                ref={elementRef}
+                {...getElementFunction.value}
+                {...getElementModel.value}
+                elementSchema={localSchema}
+              />
             </ElFormItem>
           ) : (
             <>
-              {h(
-                elementRender,
-                {
-                  ...getElementFunction.value,
-                  ...getElementModel.value,
-                  elementSchema: localSchema,
-                  ref: elementRef,
-                  onVnodeMounted: (_) => {
-                    handleAddElementInstance();
-                    getElementFunction.value.onVnodeMounted &&
-                      getElementFunction.value.onVnodeMounted(_);
-                  },
-                },
-                {
+              <ElementRender
+                ref={elementRef}
+                {...getElementFunction.value}
+                {...getElementModel.value}
+                elementSchema={localSchema}
+              >
+                {{
                   // 这个是普通的插槽,就是给他一个个循环出来就好了不用过多的操作
                   node: (childElementSchema: IEditorElement) => {
                     return (
@@ -262,8 +252,8 @@ const ElementNode = defineComponent({
                   editNode: () => {
                     return <>{slots.editNode ? slots.editNode() : null}</>;
                   },
-                }
-              )}
+                }}
+              </ElementRender>
             </>
           )}
         </>
