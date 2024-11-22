@@ -3,6 +3,39 @@ import { ElementManage } from "./useElement";
 import { ElementInstance, EventInstance } from "@cgx-designer/core";
 import { ElMessage, ElMessageBox } from "element-plus";
 
+//默认js
+export let defaultJs = `
+      const removeAllFocus = () => {
+          const focusableElements = [
+              '[contenteditable]',
+              'a[href]',
+              'area[href]',
+              'button:not([disabled])',
+              'input:not([disabled]):not([type="hidden"]):not(.no-focus)',
+              'select:not([disabled])',
+              'textarea:not([disabled])',
+              '[tabindex]:not([tabindex="-1"]):not([disabled])',
+              '[contenteditable]'
+          ].join(',');
+          const allFocusableElements = document.querySelectorAll(focusableElements);
+          allFocusableElements.forEach(element => {
+              element.blur();
+          });
+      };
+
+      window.alert = (value) => {
+            this.ElMessageBox({
+              message: value,
+              confirmButtonText: '确定',
+              autofocus: false,
+              beforeClose: (action, instance, done) => {
+                  removeAllFocus();
+                  done();
+              },
+            })
+      }
+      `;
+
 export type FunctionManage = ReturnType<typeof useFunction>;
 
 //此hook用于挂载函数 并负责调用他们
@@ -44,39 +77,6 @@ export const useFunction = (elementManage: ElementManage) => {
   ) => {
     //用new Function去创建 但是注意这里一定要立刻执行 否则没用的
     try {
-      //默认js
-      const defaultJs = `
-      const removeAllFocus = () => {
-          const focusableElements = [
-              '[contenteditable]',
-              'a[href]',
-              'area[href]',
-              'button:not([disabled])',
-              'input:not([disabled]):not([type="hidden"]):not(.no-focus)',
-              'select:not([disabled])',
-              'textarea:not([disabled])',
-              '[tabindex]:not([tabindex="-1"]):not([disabled])',
-              '[contenteditable]'
-          ].join(',');
-          const allFocusableElements = document.querySelectorAll(focusableElements);
-          allFocusableElements.forEach(element => {
-              element.blur();
-          });
-      };
-
-      window.alert = (value) => {
-            this.ElMessageBox({
-              message: value,
-              confirmButtonText: '确定',
-              autofocus: false,
-              beforeClose: (action, instance, done) => {
-                  removeAllFocus();
-                  done();
-              },
-            })
-      }
-      `;
-
       new Function(defaultJs + js).bind({
         get: getElementInstanceById,
         inject,
@@ -109,7 +109,7 @@ export const useFunction = (elementManage: ElementManage) => {
         try {
           functionsList.value[action.methodName!]?.(...methodArgs);
         } catch (err) {
-          console.error(`函数(${action.methodName})报错:`, err);
+          console.error(`函数(${action.methodName})报错`, err);
         }
       }
       //component
@@ -121,7 +121,7 @@ export const useFunction = (elementManage: ElementManage) => {
           ) as ElementInstance);
 
         if (!component) {
-          console.warn(`组件${action.componentId}]没有挂载:`);
+          console.warn(`组件${action.componentId}]没有挂载`);
           return;
         }
 
@@ -129,7 +129,7 @@ export const useFunction = (elementManage: ElementManage) => {
           component[action.methodName!](...methodArgs);
         } catch (err) {
           console.error(
-            `组件${action.componentId}执行函数(${action.methodName})]报错:`,
+            `组件${action.componentId}执行函数(${action.methodName})]报错`,
             err
           );
         }

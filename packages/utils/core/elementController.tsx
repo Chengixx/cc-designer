@@ -1,6 +1,7 @@
 import { defineAsyncComponent } from "vue";
 import { template } from "@cgx-designer/ui";
 import { IElementBaseSetting } from "../types/index";
+import { getRandomId } from "../common/index";
 //创建组件基础配置的东西
 
 export class ElementController {
@@ -12,13 +13,34 @@ export class ElementController {
   elementMap: Record<string, IElementBaseSetting> = {};
   //用于渲染的map
   elementRenderMap: Record<string, any> = {};
-  register = (element: IElementBaseSetting) => {
-    if (!element.noPushList) {
-      this.elementList.push(element);
+  register = (elementBaseConfig: IElementBaseSetting) => {
+    if (!elementBaseConfig.noPushList) {
+      this.elementList.push(elementBaseConfig);
     }
-    this.elementMap[element.key] = element;
-    this.elementTemplate[element.key] = element.template;
-    this.elementRenderMap[element.key] = defineAsyncComponent(element.render);
+    this.elementTemplate[elementBaseConfig.key] = elementBaseConfig.template;
+    this.elementRenderMap[elementBaseConfig.key] = defineAsyncComponent(
+      elementBaseConfig.render
+    );
+    if (elementBaseConfig.template(getRandomId).formItem) {
+      (elementBaseConfig.config!.action ??= []).unshift(
+        {
+          type: "setValue",
+          describe: "设置值",
+          argsConfigs: [
+            {
+              field: getRandomId(),
+              label: "设置数据",
+              ...elementBaseConfig.template(getRandomId),
+            },
+          ],
+        },
+        {
+          type: "getValue",
+          describe: "获取值",
+        }
+      );
+    }
+    this.elementMap[elementBaseConfig.key] = elementBaseConfig;
   };
   registerCustomElement = (key: string, element: any) => {
     this.elementRenderMap[key] = element;
@@ -26,7 +48,7 @@ export class ElementController {
 }
 
 //提供一个实例
-export let elementController = new ElementController();
+export const elementController = new ElementController();
 
 //注册模板
 (function () {

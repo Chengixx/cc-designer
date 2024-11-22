@@ -28,8 +28,8 @@ const Input: IElementBaseSetting = {
         key: "input",
         field: "field",
         props: {
-          placeholder: "请输入字段名"
-        }
+          placeholder: "请输入字段名",
+        },
       },
       {
         label: "标题名称",
@@ -44,8 +44,8 @@ const Input: IElementBaseSetting = {
         key: "input",
         field: "props.placeholder",
         props: {
-          placeholder: "请输入占位符"
-        }
+          placeholder: "请输入占位符",
+        },
       },
       {
         label: "默认值",
@@ -59,7 +59,7 @@ const Input: IElementBaseSetting = {
         props: {
           label: "select",
           multiple: false,
-          placeholder:"请选择大小",
+          placeholder: "请选择大小",
           options: [
             { label: "大", value: "large" },
             { label: "中", value: "medium" },
@@ -110,29 +110,6 @@ const Input: IElementBaseSetting = {
       },
     ],
     action: [
-      {
-        type: "setValue",
-        describe: "设置值",
-        // 参数配置
-        argsConfigs: [
-          {
-            field: "input-" + 1,
-            key: "input",
-            formItem: true,
-            props: {
-              label: "input",
-              placeholder: "placeholder",
-              size: "",
-              labelPosition: "",
-            },
-            label: "设置数据",
-          },
-        ],
-      },
-      {
-        type: "getValue",
-        describe: "获取值",
-      },
       {
         type: "focus",
         describe: "使 input 获取焦点",
