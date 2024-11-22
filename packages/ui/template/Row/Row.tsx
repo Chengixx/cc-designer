@@ -1,6 +1,6 @@
 import { ElRow } from "element-plus";
 import { defineComponent, PropType, renderSlot } from "vue";
-import { IEditorElement } from "cgx-designer";
+import { IEditorElement } from "@cgx-designer/core";
 
 const Row = defineComponent({
   props: {
@@ -8,18 +8,7 @@ const Row = defineComponent({
   },
   setup(props, { slots }) {
     return () => {
-      return (
-        <ElRow>
-          {renderSlot(slots, "editNode", {}, () =>
-            props.elementSchema.elementList!.map(
-              (childElementSchema: IEditorElement) =>
-                renderSlot(slots, "node", {
-                  element: childElementSchema,
-                })
-            )
-          )}
-        </ElRow>
-      );
+      return <ElRow>{renderSlot(slots, "editNode")}</ElRow>;
     };
   },
 });

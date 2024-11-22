@@ -1,0 +1,32 @@
+{
+  "name": "@cgx-designer/icons",
+  "version": "1.0.0",
+  "description": "这是用来放生成的svg库的地方",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "node ./script/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "mitt": "^3.0.1"
+  },
+  "devDependencies": {
+    "@pnpm/find-workspace-dir": "^6.0.3",
+    "@pnpm/find-workspace-packages": "^6.0.9",
+    "@pnpm/logger": "^5.0.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.11.25",
+    "camelcase": "^8.0.0",
+    "esbuild": "^0.20.1",
+    "esbuild-plugin-globals": "^0.2.0",
+    "fast-glob": "^3.3.2",
+    "fs-extra": "^11.2.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.2.5",
+    "tsx": "^4.7.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

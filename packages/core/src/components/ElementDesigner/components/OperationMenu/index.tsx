@@ -1,6 +1,6 @@
 import { defineComponent } from "vue";
-import { CCButton } from "@cgx-designer/ui";
-import { OperationButtonSetting } from "@cgx-designer/utils";
+import { CCButton } from "@cgx-designer/extensions";
+import { OperationButtonSetting } from "./operationButtonSetting";
 
 const OperationMenu = defineComponent({
   props: {
@@ -9,11 +9,11 @@ const OperationMenu = defineComponent({
       required: true,
     },
   },
-  setup({ buttonList }) {
+  setup(props) {
     return () => {
       return (
         <div class="h-20  flex justify-center items-center px-2 border bg-white border-blue-100">
-          {buttonList.map((button, index) => {
+          {props.buttonList.map((button, index) => {
             return (
               <CCButton key={index} onClick={button.handler} class="mx-1">
                 {button.label}

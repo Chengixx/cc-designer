@@ -1,6 +1,6 @@
 import { ElCol } from "element-plus";
 import { defineComponent, PropType, renderSlot } from "vue";
-import { IEditorElement } from "cgx-designer";
+import { IEditorElement } from "@cgx-designer/core";
 
 const Col = defineComponent({
   props: {
@@ -9,18 +9,8 @@ const Col = defineComponent({
   setup(props, { slots }) {
     return () => {
       return (
-        <ElCol
-          span={props.elementSchema.props.span}
-          class=""
-        >
-          {renderSlot(slots, "editNode", {}, () =>
-            props.elementSchema.elementList!.map(
-              (childElementSchema: IEditorElement) =>
-                renderSlot(slots, "node", {
-                  element: childElementSchema,
-                })
-            )
-          )}
+        <ElCol span={props.elementSchema.props!.span}>
+          {renderSlot(slots, "editNode")}
         </ElCol>
       );
     };

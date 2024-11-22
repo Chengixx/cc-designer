@@ -2,15 +2,9 @@ import { events } from "@cgx-designer/utils";
 import { HoverManage } from "./useHover";
 import { FocusManage } from "./useFocus";
 
-export interface DragManage {
-  handleDropStart: (
-    hoverManager: HoverManage,
-    focusManage?: FocusManage
-  ) => void;
-  handleDropEnd: (hoverManager: HoverManage, focusManage?: FocusManage) => void;
-}
+export type DragManage = ReturnType<typeof useDrag>;
 
-export const useDrag = (): DragManage => {
+export const useDrag = () => {
   const handleDropStart = (
     hoverManager: HoverManage,
     focusManage?: FocusManage
@@ -21,7 +15,7 @@ export const useDrag = (): DragManage => {
     }
     hoverManager.setDisableHoverStatus();
     hoverManager.setShowHoverBox();
-    hoverManager.setHoverElementId();
+    hoverManager.setHoveredElement();
     events.emit("start");
   };
   const handleDropEnd = (

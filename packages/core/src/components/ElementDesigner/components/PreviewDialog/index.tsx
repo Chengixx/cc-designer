@@ -1,14 +1,22 @@
-import { CCButton } from "@cgx-designer/ui";
+import { CCButton } from "@cgx-designer/extensions";
 import ElementBuilder from "../../../ElementBuilder";
 import { ElDialog, ElMessage } from "element-plus";
-import { defineComponent, ref } from "vue";
+import { defineComponent, inject, ref } from "vue";
+import { ElementManage, FormManage, FunctionManage } from "@cgx-designer/hooks";
+import { deepClone } from "@cgx-designer/utils";
+import { ElementBuilderExpose } from "../../../ElementBuilder/type";
 
 const PreviewDialog = defineComponent({
   setup(_, { expose }) {
-    const elementBuilderRef = ref<any>();
+    const elementManage = inject("elementManage") as ElementManage;
+    const formManage = inject("formManage") as FormManage;
+    const functionManage = inject("functionManage") as FunctionManage;
+    const elementBuilderRef = ref<ElementBuilderExpose | null>(null);
     const dialogShow = ref<boolean>(false);
+    const ElementBuilderKey = ref("");
     const open = () => {
       dialogShow.value = true;
+      ElementBuilderKey.value = new Date().getTime().toString();
     };
     const close = () => {
       dialogShow.value = false;
@@ -38,10 +46,30 @@ const PreviewDialog = defineComponent({
     });
     return () => {
       return (
-        <ElDialog title="预览" v-model={dialogShow.value} beforeClose={close}>
+        <ElDialog
+          destroyOnClose
+          title="预览"
+          v-model={dialogShow.value}
+          beforeClose={close}
+          style={{
+            marginTop: "5vh !important",
+          }}
+        >
           {{
             default: () => {
-              return <ElementBuilder ref={elementBuilderRef} />;
+              return (
+                <div class="h-[75vh] overflow-y-auto">
+                  <ElementBuilder
+                    key={ElementBuilderKey.value}
+                    ref={elementBuilderRef}
+                    script={functionManage.javaScriptVal.value}
+                    elementSchemaList={deepClone(
+                      elementManage.elementList.value
+                    )}
+                    formSetting={formManage.formSetting}
+                  />
+                </div>
+              );
             },
             footer: () => {
               return (

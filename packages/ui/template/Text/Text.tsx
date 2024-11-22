@@ -1,4 +1,4 @@
-import { IEditorElement } from "cgx-designer";
+import { IEditorElement } from "@cgx-designer/core";
 import { defineComponent, PropType } from "vue";
 
 const Text = defineComponent({
@@ -11,11 +11,11 @@ const Text = defineComponent({
         <div
           class="h-fit w-fit"
           style={{
-            fontSize: props.elementSchema.props.size,
-            color: props.elementSchema.props.color,
+            fontSize: props.elementSchema.props!.size,
+            color: props.elementSchema.props!.color,
           }}
         >
-          {props.elementSchema.props.label}
+          {props.elementSchema.props!.label}
         </div>
       );
     };

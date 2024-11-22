@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { isIEditorElementArray } from "../common";
-import { IEditorElement } from "cgx-designer";
+import { IEditorElement } from "@cgx-designer/core";
 
 describe("isIEditorElementArray", () => {
   it("应对包含无效元素的数组返回 false", () => {

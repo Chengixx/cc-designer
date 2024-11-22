@@ -1,21 +1,27 @@
-import { IEditorElement } from "@/types";
-import { ElementConfig } from "@cgx-designer/utils";
+import { ElementInstance, IEditorElement } from "../../types";
+import {
+  deepClone,
+  deepCompareAndModify,
+  elementController,
+  stringFirstBigger,
+} from "@cgx-designer/utils";
 import { ElFormItem } from "element-plus";
 import {
   ComponentPublicInstance,
+  computed,
   defineComponent,
   h,
   inject,
-  onMounted,
   onUnmounted,
   PropType,
   reactive,
   ref,
+  toRaw,
   watch,
   watchEffect,
 } from "vue";
-import { ElementManage } from "@cgx-designer/hooks";
-import { useParentDomList } from "../../constant";
+import { ElementManage, FunctionManage } from "@cgx-designer/hooks";
+import { isEqual, omit } from "lodash";
 
 const ElementNode = defineComponent({
   props: {
@@ -28,91 +34,220 @@ const ElementNode = defineComponent({
       type: Boolean,
       default: false,
     },
+    provideValue: {
+      required: false,
+    },
   },
-  setup(props, { slots }) {
+  emits: ["updateProvideValue"],
+  setup(props, { slots, emit }) {
+    const elementManage = inject("elementManage") as ElementManage;
+    const functionManage = inject("functionManage") as FunctionManage;
+    const elementRef = ref<ComponentPublicInstance>();
+    const formItemRef = ref<ComponentPublicInstance>();
+    const localSchema = reactive<IEditorElement>(
+      deepClone(props.elementSchema)
+    );
     //给个默认值防止拖拽模式报错
     const formData = inject("formData", reactive({})) as any;
-    const setFormDataField = () => {
-      if (
-        props.isPreview &&
-        formData &&
-        typeof props.elementSchema.props.defaultValue !== "undefined" &&
-        props.elementSchema.props.defaultValue !== null
-      ) {
-        formData[props.elementSchema.id] =
-          props.elementSchema.props.defaultValue;
+    //用于和组件实例双向绑定的值
+    const bindValue = ref<any>(null);
+    //拖拽编辑的时候 往field后面放一个特殊的东西 用于三向绑定
+    //进来就调用一次 并且后面修改elementSchema的时候，如果和localSchema相同就不调用，不然还是要调用
+    const addFieldAssit = () => {
+      if (props.isPreview) {
+        return;
+      }
+      if (localSchema.field && typeof localSchema.field === "string") {
+        localSchema.field = localSchema.field + "-assit";
       }
     };
-    onMounted(() => {
-      //如果是有值的 就放进formData里去
-      setFormDataField();
-    });
-    //监听值的变化 如果是有值的，formData里的值要跟着变化
-    //todo 不知道为什么这里会触发两次，但是如果直接监听里面的defaultValue是不行的
+    addFieldAssit();
     watch(
       () => props.elementSchema,
-      (_) => {
-        setFormDataField();
-      },
-      { deep: true }
-    );
-    const elementManage = inject("elementManage") as ElementManage;
-    const elementRef = ref<ComponentPublicInstance>();
-    watchEffect(() => {
-      if (elementRef.value && !props.isPreview) {
-        // console.log(elementRef.value);
-        let el = elementRef.value.$el;
-        //如果是包含以下的 给他用父亲的
-        if (useParentDomList.includes(props.elementSchema.key)) {
-          el = elementRef.value.$el.parentElement;
+      (newElementSchema) => {
+        if (
+          !isEqual(
+            omit(localSchema, "children"),
+            omit(newElementSchema, "children")
+          )
+        ) {
+          deepCompareAndModify(localSchema, deepClone(newElementSchema));
+          addFieldAssit();
         }
-        elementManage.addElementInstance(props.elementSchema.id, el);
+      },
+      {
+        deep: true,
+      }
+    );
+    //更新值
+    const handleUpdate = (nv: any) => {
+      emit("updateProvideValue", nv);
+      //!要赋值表单 如果是渲染模式 就是正式的数据了 如果编辑模式 则用于三向绑定
+      if (localSchema.field) {
+        formData[localSchema.field!] = nv;
+        bindValue.value = nv;
+      }
+    };
+    //监听当前的绑定的值 变了的话 要去更改
+    watch(
+      () => bindValue.value,
+      () => {
+        handleUpdate(bindValue.value);
+      }
+    );
+    //初始化的时候，去赋值一下bindValue
+    const initComponentInstance = () => {
+      if (
+        typeof localSchema.props!.defaultValue !== "undefined" &&
+        localSchema.props!.defaultValue !== null
+      ) {
+        const defaultValue = !props.isPreview
+          ? localSchema.props!.defaultValue
+          : formData[localSchema.field!] ?? localSchema.props!.defaultValue;
+        handleUpdate(deepClone(defaultValue));
+      }
+    };
+    //任何情况下有变动 就重新赋值绑定值
+    watchEffect(() => {
+      //如果有provideValue 就用provideValue，说明是属性那边的 不然就用默认值的
+      bindValue.value = props.provideValue ?? formData[localSchema.field ?? ""];
+    });
+
+    //监听json变化 json变化了 就要重新赋值的
+    //!此处一定要用oldData保存数据 防止无限递归
+    let tempSchema: IEditorElement | null = null;
+    watch(
+      () => localSchema,
+      (nv) => {
+        const newSchema = toRaw(deepClone({ ...nv, children: undefined }));
+        if (!isEqual(newSchema, tempSchema)) {
+          tempSchema = newSchema;
+          initComponentInstance();
+        }
+      },
+      { deep: true, immediate: true }
+    );
+    //给管理中传入ref实例
+    const handleAddElementInstance = () => {
+      const instance = elementRef.value as ElementInstance;
+      //如果有id 说明是主要的 而且有实例 就放进去
+      if (localSchema.id && instance) {
+        // 添加属性设置方法
+        instance.setAttr = (key: string, value: any) => {
+          //保底机制
+          if (!localSchema.props) {
+            localSchema.props = {};
+          }
+          return (localSchema.props[key] = value);
+        };
+
+        instance.getAttr = (key: string) => {
+          return localSchema.props![key];
+        };
+        //如果是表单组件 把输入值和获取值方法也放一下
+        if (localSchema.formItem) {
+          instance.setValue = handleUpdate;
+          instance.getValue = () => {
+            return formData[localSchema.field!] || props.provideValue;
+          };
+        }
+
+        elementManage.addElementInstance(localSchema.id, instance);
+        if (formItemRef.value && localSchema.formItem) {
+          elementManage.addElementInstance(
+            localSchema.id + "-form-item",
+            formItemRef.value!
+          );
+        }
+      }
+    };
+    //给管理中删除ref实例
+    const handleRemoveElementInstance = () => {
+      if (localSchema.id) {
+        elementManage.deleteElementInstance(localSchema.id);
+        if (localSchema.formItem) {
+          elementManage.deleteElementInstance(localSchema.id + "-form-item");
+        }
+      }
+    };
+    //获取组件的方法 事件
+    const getElementFunction = computed(() => {
+      const onEvent: { [prop: string]: Function } = {};
+      localSchema.on &&
+        Object.keys(localSchema.on).forEach((item) => {
+          onEvent["on" + stringFirstBigger(item)] = (...args: any[]) =>
+            functionManage.executeFunctions(localSchema.on[item], ...args);
+        });
+      return { ...onEvent };
+    });
+    //获取组件的bindValue（怎么绑定的）
+    const getElementModel = computed(() => {
+      if (!!!props.elementSchema.container) {
+        return {
+          modelValue: bindValue.value,
+          "onUpdate:modelValue": handleUpdate,
+        };
+      }
+      if (props.elementSchema.container) {
+        return undefined;
       }
     });
+    watch(
+      () => elementRef.value,
+      () => {
+        handleAddElementInstance();
+      },
+      { immediate: true }
+    );
     onUnmounted(() => {
-      // console.log("触发销毁", props.element);
-      if (!props.isPreview) {
-        elementManage.deleteElementInstance(props.elementSchema.id);
-      }
+      handleRemoveElementInstance();
     });
     return () => {
-      //先从元素配置那里拿到
-      const elementConfig = inject<ElementConfig>("elementConfig");
       //渲染出来的组件
-      const elementRender =
-        elementConfig?.elementRenderMap[props.elementSchema.key];
+      const elementRender = elementController.elementRenderMap[localSchema.key];
       return (
         <>
-          {/* //!当前选中的元素不是row 就普通元素 然后如果是有默认值 */}
-          {/* //!也就是表单元素的 就要加ElFormItem 为了更好的体验而已 */}
-          {Object.keys(props.elementSchema.props).includes("defaultValue") ? (
+          {localSchema.formItem ? (
             <ElFormItem
-              //判断非空必填测试
-              // rules={[
-              //   {
-              //     required: true,
-              //     message: `请输入${props.elementSchema.props.label}`,
-              //     trigger: "blur",
-              //   },
-              // ]}
               for="-"
-              ref={elementRef}
               label={
-                !!props.elementSchema.props.label
-                  ? props.elementSchema.props.label
-                  : props.elementSchema.key
+                !!localSchema.props!.label
+                  ? localSchema.props!.label
+                  : localSchema.key
               }
+              ref={formItemRef}
               class="w-full"
-              labelPosition={props.elementSchema.props.labelPosition}
-              prop={props.elementSchema.id}
+              labelPosition={localSchema.props!.labelPosition}
+              prop={localSchema.field}
+              rules={localSchema.rules}
             >
-              {h(elementRender, { elementSchema: props.elementSchema })}
+              {h(elementRender, {
+                ...getElementFunction.value,
+                ...getElementModel.value,
+                elementSchema: localSchema,
+                ref: elementRef,
+                onVnodeMounted: (_) => {
+                  handleAddElementInstance();
+                  getElementFunction.value.onVnodeMounted &&
+                    getElementFunction.value.onVnodeMounted(_);
+                },
+              })}
             </ElFormItem>
           ) : (
             <>
               {h(
                 elementRender,
-                { elementSchema: props.elementSchema, ref: elementRef },
+                {
+                  ...getElementFunction.value,
+                  ...getElementModel.value,
+                  elementSchema: localSchema,
+                  ref: elementRef,
+                  onVnodeMounted: (_) => {
+                    handleAddElementInstance();
+                    getElementFunction.value.onVnodeMounted &&
+                      getElementFunction.value.onVnodeMounted(_);
+                  },
+                },
                 {
                   // 这个是普通的插槽,就是给他一个个循环出来就好了不用过多的操作
                   node: (childElementSchema: IEditorElement) => {

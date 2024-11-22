@@ -1,8 +1,9 @@
 import { IElementBaseSetting } from "@cgx-designer/utils";
+import { RowIcon } from "@cgx-designer/icons";
 
 const Row: IElementBaseSetting = {
   key: "row",
-  icon: "row",
+  icon: RowIcon,
   label: "栅格",
   render: () => import("./Row"),
   template: (uuid: Function) => {
@@ -29,6 +30,14 @@ const Row: IElementBaseSetting = {
         },
       ],
     };
+  },
+  config: {
+    attribute: [
+      {
+        key: "colList",
+        field: "elementList",
+      },
+    ],
   },
 };
 

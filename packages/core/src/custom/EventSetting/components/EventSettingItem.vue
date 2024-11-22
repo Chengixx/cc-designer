@@ -1,0 +1,169 @@
+<script setup lang="ts">
+import { elementController } from "@cgx-designer/utils";
+import { inject, PropType } from "vue";
+import { ElButton } from "element-plus";
+import draggable from "vuedraggable";
+import { ElementManage } from "@cgx-designer/hooks";
+import SvgIcon from "../../../components/SvgIcon/index";
+import { EventInstance, EventItem } from "../../../types/index";
+
+const elementManage = inject("elementManage") as ElementManage;
+const props = defineProps({
+  //用于循环渲染的事件item
+  eventItem: {
+    type: Array as PropType<EventItem[]>,
+    required: true,
+  },
+  modelValue: {
+    type: Object as PropType<any>,
+  },
+  //已经有的事件
+  events: {
+    type: Object as PropType<any>,
+  },
+  //所有的事件 用于删除的时候
+  allEventList: {
+    type: Array as PropType<any>,
+    default: () => [],
+  },
+});
+
+const emit = defineEmits(["addEvent", "editEvent", "update:modelValue"]);
+
+//新增事件
+const handleAddEvent = (type: string) => {
+  emit("addEvent", type);
+};
+//编辑事件
+const handleEditEvent = (
+  index: number,
+  type: string,
+  eventInstance: EventInstance
+) => {
+  emit("editEvent", type, index, eventInstance);
+};
+//删除事件
+const handleDeleteEvent = (index: number, type: string) => {
+  const newEvents = getNewEvents(type);
+  newEvents[type] = props.events[type].filter(
+    (_: any, i: number) => index !== i
+  );
+  if (!newEvents[type]?.length) {
+    delete newEvents[type];
+  }
+  emit("update:modelValue", newEvents);
+};
+
+const getNewEvents = (type: string) => {
+  const newEvents: { [type: string]: any } = {};
+  props.allEventList.forEach((item: any) => {
+    if (!props.events[item.type].length) {
+      return false;
+    }
+    if (item.type === type) {
+      return false;
+    }
+    newEvents[item.type] = props.events[item.type];
+  });
+  return newEvents;
+};
+
+const getElementSetting = (id: string) => {
+  const key = elementManage.findElementById(id)!.key;
+  const baseSetting = elementController.elementList.find(
+    (item) => item.key === key
+  );
+  return baseSetting;
+};
+
+const getElementSvg = (tag: string) => {
+  return elementController!.elementMap[tag].icon;
+};
+</script>
+
+<template>
+  <div v-for="item in eventItem" :key="item.type">
+    <!-- item的上面 也就是个体 -->
+    <div
+      class="h-10 w-full border flex items-center justify-between rounded-md mt-1 bg-gray-50"
+    >
+      <div class="ml-2">{{ item.describe }}</div>
+      <div class="mr-2">
+        <ElButton link type="primary" @click="handleAddEvent(item.type)"
+          >新增</ElButton
+        >
+      </div>
+    </div>
+    <!-- 下面的方法 用draggle是因为这样可以拖拽循环 -->
+    <div>
+      <draggable
+        v-model="props.events[item.type]"
+        item-key="id"
+        :component-data="{
+          type: 'transition-group',
+        }"
+        group="option-list"
+        :animation="200"
+      >
+        <template #item="{ element: eventInstance, index }">
+          <div
+            class="p-2 rounded-md border flex my-2 hover:border-blue-500 transition-all"
+          >
+            <div class="flex-1">
+              <div v-if="eventInstance.type === 'custom'">自定义函数</div>
+              <div
+                class="flex items-center gap-1"
+                v-if="eventInstance.type === 'component'"
+              >
+                <template
+                  v-if="
+                    typeof getElementSetting(eventInstance.componentId)
+                      ?.icon === 'string'
+                  "
+                >
+                  <SvgIcon
+                    :name="getElementSetting(eventInstance.componentId)!.icon!"
+                  />
+                </template>
+                <template v-else>
+                  <component
+                    class="w-[16px] h-[16px]"
+                    :is="
+                      getElementSvg(
+                        getElementSetting(eventInstance.componentId)!.key
+                      )
+                    "
+                  />
+                </template>
+
+                <span>{{
+                  getElementSetting(eventInstance.componentId)!.label
+                }}</span>
+              </div>
+              <div>
+                {{ eventInstance.componentId }}
+              </div>
+              <div>
+                {{ eventInstance.methodName }}
+              </div>
+            </div>
+            <el-button
+              link
+              type="primary"
+              @click="handleEditEvent(index, item.type, eventInstance)"
+              >编辑</el-button
+            >
+            <el-button
+              link
+              type="danger"
+              @click="handleDeleteEvent(index, item.type)"
+              >删除</el-button
+            >
+          </div>
+        </template>
+      </draggable>
+    </div>
+  </div>
+</template>
+
+<style scoped></style>

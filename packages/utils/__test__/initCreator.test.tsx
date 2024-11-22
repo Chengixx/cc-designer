@@ -1,5 +1,6 @@
 import { describe, it } from "vitest";
-import { ElementConfig, IElementBaseSetting } from "../core";
+import { ElementController } from "../core";
+import { IElementBaseSetting } from "../types";
 
 describe("测试注册组件", () => {
   it("注册一个", () => {
@@ -18,7 +19,7 @@ describe("测试注册组件", () => {
         };
       },
     };
-    const elementConfig = new ElementConfig();
-    elementConfig.register(mockTemplate);
+    const elementController = new ElementController();
+    elementController.register(mockTemplate);
   });
 });

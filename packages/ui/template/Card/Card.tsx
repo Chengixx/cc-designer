@@ -1,6 +1,6 @@
 import { ElCard } from "element-plus";
 import { defineComponent, PropType, renderSlot } from "vue";
-import { IEditorElement } from "cgx-designer";
+import { IEditorElement } from "@cgx-designer/core";
 
 const Card = defineComponent({
   props: {
@@ -10,24 +10,13 @@ const Card = defineComponent({
     return () => {
       return (
         <div class="p-1 w-full">
-          <ElCard class="w-full">
+          <ElCard class="w-full" shadow={props.elementSchema.props!.shadow}>
             {{
               header: () => {
-                return <div>{props.elementSchema.props!.label}</div>;
+                return <>{props.elementSchema.props!.label}</>;
               },
               default: () => {
-                return (
-                  <>
-                    {renderSlot(slots, "editNode", {}, () =>
-                      props.elementSchema.elementList!.map(
-                        (childElementSchema: IEditorElement) =>
-                          renderSlot(slots, "node", {
-                            element: childElementSchema,
-                          })
-                      )
-                    )}
-                  </>
-                );
+                return <>{renderSlot(slots, "editNode")}</>;
               },
             }}
           </ElCard>

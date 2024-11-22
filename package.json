@@ -4,32 +4,40 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "dev": "pnpm --filter=./example dev",
+    "dev": "pnpm --filter=./play dev",
+    "dev:example": "pnpm --filter=./example dev",
     "test": "vitest",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "build": "pnpm --filter=./packages/cgx-designer build",
+    "build:icon": "pnpm --filter=./packages/icons build",
+    "dev:auto": "node ./script/build.js && pnpm dev:example"
   },
   "dependencies": {
+    "@cgx-designer/core": "workspace:*",
+    "@cgx-designer/extensions": "workspace:*",
     "@cgx-designer/hooks": "workspace:*",
     "@cgx-designer/ui": "workspace:*",
     "@cgx-designer/utils": "workspace:*",
+    "@cgx-designer/icons": "workspace:*",
     "@vitejs/plugin-vue-jsx": "^4.0.0",
     "cgx-designer": "workspace:*",
     "element-plus": "^2.8.0",
     "lodash": "^4.17.21",
-    "pinia": "^2.1.7",
     "vue": "^3.4.29"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.6",
     "@types/node": "^20.16.1",
     "@vitejs/plugin-vue": "^5.0.5",
+    "@vue/test-utils": "^2.4.6",
     "jsdom": "^25.0.1",
     "postcss": "^8.4.39",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.2.2",
     "vite": "^5.3.1",
+    "vite-plugin-dts": "^4.2.1",
     "vitepress": "^1.4.0",
     "vitest": "^2.1.2",
     "vue-tsc": "^2.0.21"

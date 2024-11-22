@@ -6,3 +6,5 @@ export * from "./useForm";
 export * from "./useHover";
 export * from "./useObserve";
 export * from "./useTimedQuery";
+export * from "./useFunction";
+export * from "./useExpose";

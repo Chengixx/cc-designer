@@ -1,4 +1,4 @@
-import { FormSetting, IEditorElement } from "cgx-designer";
+import { FormSetting, IEditorElement } from "@cgx-designer/core";
 
 //用类型断言去判断是不是IEditorElement这个接口
 export const isIEditorElementArray = (arr: any[]): arr is IEditorElement[] => {
@@ -47,11 +47,16 @@ export const isFormSetting = (obj: any): obj is FormSetting => {
 };
 
 //上面两个方法结合
-export const isFormWithEditorElements = (
+export const checkCJsonType = (
   obj: any
-): obj is { formSetting: FormSetting; elementList: IEditorElement[] } => {
+): obj is {
+  formSetting: FormSetting;
+  elementList: IEditorElement[];
+  script: string;
+} => {
   return (
     typeof obj === "object" &&
+    typeof obj.script === "string" &&
     isFormSetting(obj.formSetting) &&
     Array.isArray(obj.elementList) &&
     isIEditorElementArray(obj.elementList)

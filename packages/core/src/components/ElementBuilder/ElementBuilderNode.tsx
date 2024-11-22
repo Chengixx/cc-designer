@@ -1,5 +1,5 @@
 import { defineComponent, PropType } from "vue";
-import { IEditorElement } from "@/types";
+import { IEditorElement } from "../../types";
 import ElementNode from "../ElementNode";
 
 const ElementBuilderNode = defineComponent({

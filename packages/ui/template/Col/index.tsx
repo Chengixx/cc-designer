@@ -15,6 +15,15 @@ const Col: IElementBaseSetting = {
       elementList: [],
     };
   },
+  config: {
+    attribute: [
+      {
+        label: "列数",
+        key: "inputNumber",
+        field: "props.span",
+      },
+    ],
+  },
 };
 
 export default Col;

@@ -1,9 +1,6 @@
 import { defineComponent, provide, ref } from "vue";
-import {
-  createOperationButtonSetting,
-  elementConfig,
-} from "@cgx-designer/utils";
-import { useCommand } from "@cgx-designer/hooks";
+import { createOperationButtonSetting } from "./components/OperationMenu/operationButtonSetting";
+import { useCommand, useFunction } from "@cgx-designer/hooks";
 import { useForm } from "@cgx-designer/hooks";
 import { useHover } from "@cgx-designer/hooks";
 import { useElement } from "@cgx-designer/hooks";
@@ -11,39 +8,47 @@ import { useFocus } from "@cgx-designer/hooks";
 import CGXLogo from "./components/CGXLogo";
 import ElementMenu from "./components/ElementMenu";
 import OperationMenu from "./components/OperationMenu";
-import EdiorCanvas from "./components/EdiorCanvas";
+import EditorCanvas from "./components/EditorCanvas";
 import SettingMenu from "./components/SettingMenu";
 import PreviewDialog from "./components/PreviewDialog";
+import { SourceCodeDialog } from "./components/SourceCodeDialog";
 //主要画布
 const ElementDesigner = defineComponent({
   setup() {
     //dialog实例
-    const dialogRef = ref<any>(null);
+    const previewDialogRef = ref<any>(null);
+    const sourceCodeDialogRef = ref<any>(null);
     const showPreviewDialog = () => {
-      dialogRef.value?.open();
+      previewDialogRef.value?.open();
+    };
+    const showSourceCodeDialog = (value: any) => {
+      sourceCodeDialogRef.value.showDialog(value);
     };
     const formManage = useForm();
     const elementManage = useElement();
     const hoverManage = useHover(elementManage);
     const focusManage = useFocus(elementManage);
     const { commands } = useCommand(elementManage, focusManage);
+    const functionManage = useFunction(elementManage);
     //因为只能有一个实例 所以用provide注入进去
-    provide("elementConfig", elementConfig);
     provide("focusManage", focusManage);
     provide("elementManage", elementManage);
     provide("hoverManage", hoverManage);
     provide("formManage", formManage);
     provide("commands", commands);
+    provide("functionManage", functionManage);
     const buttonList = createOperationButtonSetting(
       formManage,
       elementManage,
+      functionManage,
       focusManage,
       commands!,
-      showPreviewDialog as () => void
+      showPreviewDialog as () => void,
+      showSourceCodeDialog
     );
     return () => {
       return (
-        <div class="w-full h-full flex justify-between overflow-hidden">
+        <div class="w-full h-full flex justify-between overflow-hidden bg-gray-100">
           {/* 编辑器左侧，可选择的组件列表 */}
           <div class="w-[280px] bg-white h-full">
             <CGXLogo />
@@ -57,7 +62,7 @@ const ElementDesigner = defineComponent({
             <div class="box-border">
               {/* 滚动条 */}
               <div class="h-full relative">
-                <EdiorCanvas />
+                <EditorCanvas />
               </div>
             </div>
           </div>
@@ -65,7 +70,10 @@ const ElementDesigner = defineComponent({
           <div class="w-[280px] bg-white h-full">
             <SettingMenu />
           </div>
-          <PreviewDialog ref={dialogRef} />
+          {/* 预览dialog */}
+          <PreviewDialog ref={previewDialogRef} />
+          {/* 导入导出dialog */}
+          <SourceCodeDialog ref={sourceCodeDialogRef} />
         </div>
       );
     };

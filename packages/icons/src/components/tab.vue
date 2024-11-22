@@ -1,0 +1,21 @@
+<template>
+  <svg
+    t="1731475486203"
+    class="icon"
+    viewBox="0 0 1024 1024"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    p-id="4294"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+  >
+    <path
+      d="M832 192a64 64 0 0 1 64 64v512a128 128 0 0 1-128 128H256a128 128 0 0 1-128-128V192a64 64 0 0 1 64-64h256a64 64 0 0 1 64 64h320z m0 192H192v384a64 64 0 0 0 56.512 63.552L256 832h512a64 64 0 0 0 64-64V384zM448 192H192v128h256V192z m192 64H512v64h128V256z m192 0h-128v64h128V256z"
+      p-id="4295"
+    ></path>
+  </svg>
+</template>
+<script lang="ts" setup>
+defineOptions({
+  name: 'Tab',
+})
+</script>

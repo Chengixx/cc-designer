@@ -8,7 +8,7 @@ const ElementMenu = defineComponent({
 
     return () => {
       return (
-        <div class="w-full h-95% overflow-y-auto overflow-x-hidden min-w-[260px]">
+        <div class="w-full h-[calc(100vh-40px)] overflow-y-auto overflow-x-hidden min-w-[260px]">
           <SearchBox v-model:widgetName={searchValue.value} />
           <ElementList searchValue={searchValue.value} />
         </div>

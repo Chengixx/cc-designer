@@ -1,10 +1,7 @@
-import { FormSetting } from "cgx-designer";
+import { FormSetting } from "@cgx-designer/core";
 import { reactive } from "vue";
 
-export interface FormManage {
-  formSetting: FormSetting;
-  setFormSetting: (newSetting: FormSetting) => void;
-}
+export type FormManage = ReturnType<typeof useForm>;
 
 export const useForm = () => {
   const formSetting: FormSetting = reactive({
@@ -12,8 +9,9 @@ export const useForm = () => {
     refName: "formRef",
     rulesName: "formRules",
     labelPosition: "left",
-    labelWidth: 90,
+    labelWidth: 100,
     size: "default",
+    disabled: false,
   });
 
   const setFormSetting = (newSetting: FormSetting) => {
@@ -23,6 +21,7 @@ export const useForm = () => {
     formSetting.labelPosition = newSetting.labelPosition;
     formSetting.labelWidth = newSetting.labelWidth;
     formSetting.size = newSetting.size;
+    formSetting.disabled = newSetting.disabled;
   };
 
   return {

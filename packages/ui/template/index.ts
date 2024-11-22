@@ -1,6 +1,6 @@
 import { IElementBaseSetting } from "@cgx-designer/utils";
 
-//此类型标注是为了在createor中使用
+//此类型标注是为了在creator中使用
 const modules = import.meta.glob("./**/index.tsx", { eager: true });
 export let template: Record<string, IElementBaseSetting> = {};
 

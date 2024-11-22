@@ -2,10 +2,9 @@ import { events } from "@cgx-designer/utils";
 import { onMounted, onUnmounted, reactive } from "vue";
 import { ElNotification } from "element-plus";
 import { FocusManage } from "./useFocus";
-import { IElementBaseSetting } from "@cgx-designer/utils";
 import { ElementManage } from "./useElement";
 import { cloneDeep } from "lodash";
-import { IEditorElement } from "cgx-designer";
+import { IEditorElement } from "@cgx-designer/core";
 
 export interface ICommand {
   name: string;
@@ -27,7 +26,7 @@ export interface ICommandState {
   queue: Array<Queue>;
   commands: Record<string, Function>;
   commandArray: ICommand[];
-  destoryArray: Function[];
+  destroyArray: Function[];
 }
 
 export const useCommand = (
@@ -39,7 +38,7 @@ export const useCommand = (
     queue: [], //命令
     commands: {}, //老样子 印射表
     commandArray: [], //存放
-    destoryArray: [],
+    destroyArray: [],
   });
   const registry = (command: ICommand) => {
     state.commandArray.push(command);
@@ -101,6 +100,7 @@ export const useCommand = (
         };
       },
     });
+    //Todo深拷贝影响绑定了 但是不深拷贝无法回退等。。。
     //拖拽的事件
     registry({
       name: "drag",
@@ -108,9 +108,15 @@ export const useCommand = (
       before: null,
       init() {
         this.before = null;
-        const start = () =>
-          (this.before = cloneDeep(elementManage.elementList.value));
-        const end = () => state.commands.drag();
+        //开始的回调函数
+        const start = () => {
+          this.before = cloneDeep(elementManage.elementList.value);
+          // this.before = elementManage.elementList.value;
+        };
+        //结束的回调函数
+        const end = () => {
+          state.commands.drag();
+        };
         events.on("start", start);
         events.on("end", end);
 
@@ -127,6 +133,7 @@ export const useCommand = (
             //默认的
             //要深拷贝一份 因为是响应式的 妈的一直更新,我服了操阿草草草草草草
             elementManage.setElementList(cloneDeep(after));
+            // elementManage.setElementList(after);
           },
           undo() {
             //前一次的
@@ -137,7 +144,7 @@ export const useCommand = (
     });
     //导入
     registry({
-      name: "import",
+      name: "handleImport",
       pushQueue: true,
       execute(newValue: IEditorElement[]) {
         let before = cloneDeep(elementManage.elementList.value);
@@ -154,31 +161,17 @@ export const useCommand = (
     });
     //往最后面加一个
     registry({
-      name: "addFromLast",
+      name: "handleLastAdd",
       pushQueue: true,
-      execute(element: IElementBaseSetting) {
+      execute(newElementSchema: IEditorElement) {
         let before = cloneDeep(elementManage.elementList.value);
-        let after = elementManage.addElementFromLast(element);
+        let after = elementManage.addElementFromLast(newElementSchema);
         return {
           redo: () => {
             elementManage.setElementList(cloneDeep(after)!);
-          },
-          undo: () => {
-            elementManage.setElementList(before);
-          },
-        };
-      },
-    });
-    //往一个row里加col
-    registry({
-      name: "addColForRow",
-      pushQueue: true,
-      execute(id: string) {
-        let before = cloneDeep(elementManage.elementList.value);
-        let after = elementManage.addColForRow(id);
-        return {
-          redo: () => {
-            elementManage.setElementList(cloneDeep(after!));
+            focusManage.handleFocus(
+              elementManage.findElementById(newElementSchema.id!)!
+            );
           },
           undo: () => {
             elementManage.setElementList(before);
@@ -188,12 +181,12 @@ export const useCommand = (
     });
     //删除
     registry({
-      name: "delete",
+      name: "handleDelete",
       pushQueue: true,
       execute() {
         let before = cloneDeep(elementManage.elementList.value);
         let after = elementManage.deleteElementById(
-          focusManage.focusedElement.value!.id
+          focusManage.focusedElement.value!.id!
         );
         return {
           redo: () => {
@@ -208,7 +201,7 @@ export const useCommand = (
     });
     //删除全部 清空
     registry({
-      name: "clear",
+      name: "handleClear",
       pushQueue: true,
       execute() {
         let before = cloneDeep(elementManage.elementList.value);
@@ -256,16 +249,16 @@ export const useCommand = (
     })();
 
     (() => {
-      state.destoryArray.push(keyboardEvent());
+      state.destroyArray.push(keyboardEvent());
       state.commandArray.forEach(
-        (command) => command.init && state.destoryArray.push(command.init())
+        (command) => command.init && state.destroyArray.push(command.init())
       );
     })();
   });
 
   onUnmounted(() => {
     //最后也是要清除
-    state.destoryArray.forEach((cb) => {
+    state.destroyArray.forEach((cb) => {
       cb && cb();
     });
   });

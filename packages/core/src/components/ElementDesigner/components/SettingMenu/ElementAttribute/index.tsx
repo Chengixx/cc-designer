@@ -1,0 +1,121 @@
+import ElementNode from "../../../../ElementNode";
+import { IEditorElement } from "../../../../../types";
+import { FocusManage } from "@cgx-designer/hooks";
+import { setValueByPath, elementController } from "@cgx-designer/utils";
+import { defineComponent, inject, nextTick, ref, watch } from "vue";
+import {
+  deepClone,
+  getValueByPath,
+} from "./../../../../../../../utils/common/util";
+import { ElCol, ElEmpty, ElRow } from "element-plus";
+
+const ElementAttribute = defineComponent({
+  setup() {
+    const elementControllerMap = elementController.elementMap;
+    const focusManage = inject("focusManage") as FocusManage;
+    const currentFocusElement = ref<IEditorElement | null>(null);
+    // 获取当前选中元素的属性
+    const componentAttributes = ref<IEditorElement[]>([]);
+    //是否显示通过回调函数来做
+    const showAttributeConfigWidget = (attributeConfig: IEditorElement) => {
+      let show: boolean = true;
+      if (typeof attributeConfig.show === "boolean") {
+        show = attributeConfig.show;
+      }
+
+      if (typeof attributeConfig.show === "function") {
+        show = attributeConfig.show({ values: currentFocusElement.value });
+      }
+
+      return show;
+    };
+    //更新值
+    const handleSetValue = (
+      value: any,
+      field: string,
+      attributeConfig: IEditorElement,
+      editData = currentFocusElement.value
+    ) => {
+      if (typeof attributeConfig.onChange === "function") {
+        attributeConfig.onChange({ value, values: editData });
+      }
+      nextTick(() => {
+        setValueByPath(currentFocusElement.value!, field, value);
+      });
+    };
+    watch(
+      () => focusManage.focusedElement.value,
+      (nv) => {
+        //这种情况一般是选中之后又点一下 就是取消了
+        if (!nv) {
+          componentAttributes.value = [];
+          currentFocusElement.value = null;
+        }
+        //正常情况 正常赋值就行
+        if (nv) {
+          currentFocusElement.value = nv;
+          //保底机制
+          const attributes =
+            elementControllerMap![nv.key].config!.attribute || [];
+          componentAttributes.value = deepClone(attributes);
+        }
+      },
+      //注意此处必须立刻监听 否则vue会使用上一次的组件
+      { immediate: true }
+    );
+    return () => (
+      // !此处不给key值vue会重复利用上一次的 是不行的
+      <div key={currentFocusElement.value?.id}>
+        {!componentAttributes.value.length && (
+          <ElEmpty description="暂时没有选中的组件，请先选择吧！" />
+        )}
+        {componentAttributes.value.map((attributeConfig) => {
+          return (
+            <>
+              {showAttributeConfigWidget(attributeConfig) && (
+                <div class="w-full flex mb-3 items-center">
+                  <ElRow class="w-full">
+                    {attributeConfig.label && (
+                      <ElCol span={6}>
+                        <div class="font-medium text-sm text-gray-600 h-full flex items-center">
+                          {attributeConfig.label}:
+                        </div>
+                      </ElCol>
+                    )}
+                    <ElCol span={attributeConfig.label ? 18 : 24}>
+                      <ElementNode
+                        provideValue={getValueByPath(
+                          currentFocusElement.value!,
+                          attributeConfig.field!
+                        )}
+                        elementSchema={{
+                          ...attributeConfig,
+                          props: {
+                            ...attributeConfig.props,
+                            ...(attributeConfig.field === "props.defaultValue"
+                              ? currentFocusElement.value?.props
+                              : {}),
+                          },
+                          formItem: false,
+                        }}
+                        onUpdateProvideValue={(value) =>
+                          handleSetValue(
+                            value,
+                            attributeConfig.field!,
+                            attributeConfig
+                          )
+                        }
+                      />
+                    </ElCol>
+                  </ElRow>
+                </div>
+              )}
+            </>
+          );
+        })}
+      </div>
+    );
+  },
+});
+
+export default ElementAttribute;

@@ -1,7 +1,9 @@
 import { ElDrawer, ElTree } from "element-plus";
 import { createVNode, defineComponent, ref, render, nextTick } from "vue";
 import { ElementManage, FocusManage } from "@cgx-designer/hooks";
-import { TreeNode } from "@/types";
+import { IEditorElement, TreeNode } from "../../types";
+import type Node from "element-plus/es/components/tree/src/model/node";
+
 interface TreeDrawerExpose {
   showDrawer: Function;
 }
@@ -11,7 +13,6 @@ const TreeDrawerDom = defineComponent({
   setup(_, ctx) {
     const nodeTree = ref<InstanceType<typeof ElTree>>();
     const isShow = ref<boolean>(false);
-    const treeData = ref<TreeNode[]>([]);
     const IElementManage = ref<ElementManage>();
     const IFocusManage = ref<FocusManage>();
     const showDrawer = (
@@ -19,7 +20,6 @@ const TreeDrawerDom = defineComponent({
       focusManage: FocusManage
     ) => {
       isShow.value = true;
-      treeData.value = elementManage.getTree();
       IElementManage.value = elementManage;
       IFocusManage.value = focusManage;
       //进来一瞬间要先高亮起来
@@ -39,6 +39,24 @@ const TreeDrawerDom = defineComponent({
         IFocusManage.value!.handleFocus(element!);
       }
     };
+
+    const IsAllowDrop = (
+      _: Node,
+      dropNode: Node,
+      type: "prev" | "inner" | "next"
+    ) => {
+      if (type === "inner") {
+        //!只有是容器的情况才能放进去
+        const dropContainerList: string[] = ["card", "col"];
+        if (!dropContainerList.includes(dropNode.label)) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return true;
+      }
+    };
     ctx.expose({
       showDrawer,
     });
@@ -55,9 +73,15 @@ const TreeDrawerDom = defineComponent({
                 class="node-tree"
                 icon-class="el-icon-arrow-right"
                 onNode-click={handleNodeClick}
-                data={treeData.value}
+                draggable
+                data={
+                  IElementManage.value?.elementList as
+                    | IEditorElement[]
+                    | undefined
+                }
                 node-key="id"
-                props={{ label: "key", children: "children" }}
+                props={{ label: "key", children: "elementList" }}
+                allowDrop={IsAllowDrop}
               />
             ),
           }}

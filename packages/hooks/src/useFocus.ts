@@ -1,24 +1,14 @@
-import { computed, Ref, ref } from "vue";
+import { computed, ref } from "vue";
 import { ElementManage } from "./useElement";
 import { isEqual } from "lodash";
 import { useObserve } from "./useObserve";
 import { useTimedQuery } from "./useTimedQuery";
-import { IEditorElement } from "cgx-designer";
+import { useParentDomList } from "@cgx-designer/core/src/constant";
+import { IEditorElement } from "@cgx-designer/core";
 
-export interface FocusManage {
-  focusedElement: Ref<IEditorElement | null>;
-  focusTransition: Ref<boolean>;
-  initCanvas: (ref: HTMLDivElement) => void;
-  handleFocus: (focusInstanceSchema: IEditorElement, e?: MouseEvent) => void;
-  setFocusWidgetRef: (el: HTMLDivElement) => void;
-  handleCanvasClick: (e: MouseEvent) => void;
-  resetFocus: (elements?: IEditorElement[]) => void;
-  setFocusWidgetStyle: () => void;
-  startFocusTimedQuery: () => void;
-  stopFocusTimedQuery: () => void;
-}
+export type FocusManage = ReturnType<typeof useFocus>;
 
-export const useFocus = (elementManage: ElementManage): FocusManage => {
+export const useFocus = (elementManage: ElementManage) => {
   //总的容器
   const containerRef = ref<HTMLDivElement | null>(null);
   //初始化要展示的focus总容器
@@ -28,9 +18,25 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
   //当前focus的元素
   const focusedElement = ref<IEditorElement | null>(null);
   //当前focus的元素的dom实例
-  const foucusedElementDom = computed(() => {
-    if (!focusedElement.value) return null;
-    return elementManage.elementInstanceList.value[focusedElement.value!.id];
+  const focusedElementDom = computed(() => {
+    const id = focusedElement.value?.id;
+    const elementInstance = elementManage.getElementInstanceById(id!);
+    if (!id || !elementInstance) return null;
+    //如果是表单组件,就给表单的item
+    if (focusedElement.value?.formItem) {
+      return elementManage.elementInstanceList.value[
+        focusedElement.value?.id + "-form-item"
+      ].$el;
+    }
+    if (elementInstance.$el.nodeName === "#text") {
+      return null;
+    }
+    //默认给一个$el实例
+    if (useParentDomList.includes(focusedElement.value?.key!)) {
+      return elementInstance.$el.parentElement;
+    } else {
+      return elementInstance.$el;
+    }
   });
   const initCanvas = (ref: HTMLDivElement) => {
     containerRef.value = ref;
@@ -54,12 +60,12 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
 
   //修改这个focus物件的样式
   const setFocusWidgetStyle = () => {
-    if (!foucusedElementDom.value) return;
+    if (!focusedElementDom.value) return;
     const { top: containerTop, left: containerLeft } =
       containerRef.value!.getBoundingClientRect();
     const { top, left, width, height } =
-      foucusedElementDom.value?.getBoundingClientRect() ??
-      foucusedElementDom.value?.nextElementSibling?.getBoundingClientRect();
+      focusedElementDom.value?.getBoundingClientRect() ??
+      focusedElementDom.value?.nextElementSibling?.getBoundingClientRect();
     focusWidgetRef.value!.style.left = left - containerLeft + "px";
     focusWidgetRef.value!.style.top =
       top - containerTop + containerRef.value?.scrollTop! + "px";
@@ -80,7 +86,9 @@ export const useFocus = (elementManage: ElementManage): FocusManage => {
   };
 
   const handleFocus = (focusInstanceSchema: IEditorElement, e?: MouseEvent) => {
-    e?.stopPropagation();
+    if (e) {
+      e?.stopPropagation();
+    }
     //比较进来的 如果已经就是当前的 就不用动了
     if (!isEqual(focusedElement.value, focusInstanceSchema)) {
       focusedElement.value = focusInstanceSchema;

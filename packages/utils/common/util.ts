@@ -58,70 +58,95 @@ export const getRandomId = (length: number = 8): string => {
   return result;
 };
 
-/**
- * 从嵌套对象中提取值
- * @param object - 要访问的对象
- * @param path - 点分隔的路径字符串
- * @param defaultValue - 如果路径不存在，返回的默认值
- * @returns 通过路径获取的值
- */
-export function getValueByPath(
+//根据路径获取值
+export const getValueByPath = (
   object: Record<string, any>,
   path: string,
   defaultValue?: any
-): any {
-  // 将路径字符串拆分为数组
+): any => {
+  if (!path) return defaultValue;
   const pathArray = path.split(".");
-
-  // 逐步从对象中提取值
-  let result = object;
-  for (let i = 0; i < pathArray.length; i++) {
-    if (result == null) {
-      // 如果中间的值为 null 或 undefined，返回默认值
-      return defaultValue;
-    }
-    result = result[pathArray[i]];
-  }
-
-  // 如果最终的值为 undefined，返回默认值
+  const result = pathArray.reduce((acc, key) => {
+    return acc != null ? acc[key] : undefined;
+  }, object);
   return result === undefined ? defaultValue : result;
-}
+};
 
-/**
- * 在嵌套对象中设置值
- * @param obj - 要修改的对象
- * @param path - 点分隔的路径字符串
- * @param value - 要设置的值
- * @returns 修改后的对象
- */
-export function setValueByPath(
+//根据路径赋值
+export const setValueByPath = (
   object: Record<string, any>,
   path: string,
   value: any
-): Record<string, any> {
-  // 将路径字符串拆分为数组
+): Record<string, any> => {
   const pathArray = path
     .replace(/\[(\d+)\]/g, ".$1")
     .split(".")
     .filter(Boolean);
-
-  // 逐步设置对象中的值
-  let current = object;
-
-  for (let i = 0; i < pathArray.length - 1; i++) {
-    const key = pathArray[i];
-
-    // 如果当前对象的属性不存在，则创建一个新对象或数组
-    if (current[key] == null) {
-      // 如果路径部分是数字，创建数组；否则，创建对象
-      current[key] = isNaN(Number(pathArray[i + 1])) ? {} : [];
+  pathArray.reduce((acc, key, index) => {
+    if (index === pathArray.length - 1) {
+      acc[key] = value;
+    } else {
+      if (acc[key] == null) {
+        acc[key] = isNaN(Number(pathArray[index + 1])) ? {} : [];
+      }
     }
-
-    current = current[key];
-  }
-
-  // 在路径的最后一层设置值
-  current[pathArray[pathArray.length - 1]] = value;
+    return acc[key];
+  }, object);
 
   return object;
+};
+
+//深比较并修改
+export function deepCompareAndModify(
+  obj1: Record<string, any>,
+  obj2: Record<string, any>,
+  shouldDelete: boolean = true
+): void {
+  for (const [key, val2] of Object.entries(obj2)) {
+    let val1 = obj1?.[key];
+    if (val1 && val2 && typeof val1 === "object" && typeof val2 === "object") {
+      if (Array.isArray(val1) && !Array.isArray(val2)) {
+        val1 = obj1[key] = {};
+      } else if (!Array.isArray(val1) && Array.isArray(val2)) {
+        val1 = obj1[key] = [];
+      }
+      deepCompareAndModify(val1, val2, shouldDelete);
+    } else {
+      obj1[key] = val2;
+    }
+  }
+
+  if (shouldDelete) {
+    Object.keys(obj1)
+      .reverse()
+      .forEach((key) => {
+        if (obj2.hasOwnProperty(key)) {
+          return;
+        }
+        if (Array.isArray(obj1)) {
+          obj1.splice(Number(key), 1);
+        } else {
+          delete obj1[key];
+        }
+      });
+  }
 }
+
+//判断是否为空
+export const isEmpty = (value: any) => {
+  if (value == null) return true;
+
+  if (typeof value === "object") {
+    if (Array.isArray(value) || value instanceof Map || value instanceof Set) {
+      return (value as any[]).length === 0 || (value as Set<any>).size === 0;
+    }
+
+    return Object.keys(value).length === 0;
+  }
+
+  if (typeof value === "string") {
+    return value.length === 0;
+  }
+
+  return false;
+};

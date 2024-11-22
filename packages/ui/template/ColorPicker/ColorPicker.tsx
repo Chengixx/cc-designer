@@ -1,4 +1,4 @@
-import { IEditorElement } from "cgx-designer";
+import { IEditorElement } from "@cgx-designer/core";
 import { ElColorPicker } from "element-plus";
 import { defineComponent, PropType } from "vue";
 
@@ -6,14 +6,13 @@ const ColorPicker = defineComponent({
   props: {
     elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
-  setup(props) {
+  setup(props, { attrs }) {
     return () => {
-      return (
-        <ElColorPicker
-          size={props.elementSchema.props.size}
-          v-model={props.elementSchema.props.defaultValue}
-        />
-      );
+      const renderProps: Record<string, any> = {
+        ...props.elementSchema.props,
+        ...attrs,
+      };
+      return <ElColorPicker {...renderProps} />;
     };
   },
 });

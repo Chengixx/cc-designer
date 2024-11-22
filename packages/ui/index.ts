@@ -1,2 +1,2 @@
 export * from "./template";
-export * from "./base";
+export * from "./types"

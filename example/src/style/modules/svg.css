@@ -1,0 +1,14 @@
+.svg-move {
+  fill: none;
+  stroke: orange;
+  stroke-width: 2px;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: move 2s linear forwards;
+}
+
+@keyframes move {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
