@@ -32,7 +32,7 @@ const CCButton = defineComponent({
     });
 
     const buttonBaseClass = computed(() => {
-      return "rounded-lg border z-0 border-solid border-blue-500 py-2 px-5 text-base cursor-pointer duration-700 relative overflow-hidden";
+      return "rounded-lg border z-0 border-solid border-blue-500 py-[8px] px-[15px] text-base cursor-pointer duration-700 relative overflow-hidden";
     });
 
     const buttonBeforeClass = computed(() => {
@@ -54,7 +54,7 @@ const CCButton = defineComponent({
           onClick={(e) => handleClick(e)}
         >
           {/* 默认插槽 */}
-          {slots.default?.()}
+          <span>{slots.default?.()}</span>
         </button>
       );
     };
