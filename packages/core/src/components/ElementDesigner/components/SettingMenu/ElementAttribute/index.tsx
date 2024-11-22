@@ -2,7 +2,7 @@ import ElementNode from "../../../../ElementNode";
 import { IEditorElement } from "../../../../../types";
 import { FocusManage } from "@cgx-designer/hooks";
 import { setValueByPath, elementController } from "@cgx-designer/utils";
-import { defineComponent, inject, nextTick, ref, watch } from "vue";
+import { defineComponent, Fragment, inject, nextTick, ref, watch } from "vue";
 import {
   deepClone,
   getValueByPath,
@@ -71,7 +71,7 @@ const ElementAttribute = defineComponent({
         )}
         {componentAttributes.value.map((attributeConfig) => {
           return (
-            <>
+            <Fragment key={attributeConfig.field}>
               {showAttributeConfigWidget(attributeConfig) && (
                 <div class="w-full flex mb-3 items-center">
                   <ElRow class="w-full">
@@ -110,7 +110,7 @@ const ElementAttribute = defineComponent({
                   </ElRow>
                 </div>
               )}
-            </>
+            </Fragment>
           );
         })}
       </div>
