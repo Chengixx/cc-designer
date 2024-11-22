@@ -39,7 +39,7 @@ const ElementIDE = defineComponent({
               <ElRow class="w-full">
                 <ElCol span={6}>
                   <div class="font-medium text-sm text-gray-600 h-full flex items-center">
-                    {!!item.props.label ? item.props.label : item.key}
+                    {!!item.props!.label ? item.props!.label : item.key}
                   </div>
                 </ElCol>
                 <ElCol span={18}>
