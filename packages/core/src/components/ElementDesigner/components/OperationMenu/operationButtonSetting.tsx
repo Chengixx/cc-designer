@@ -5,10 +5,21 @@ import { FocusManage } from "@cgx-designer/hooks/src/useFocus";
 import { FormManage } from "@cgx-designer/hooks/src/useForm";
 import { ElementManage } from "@cgx-designer/hooks/src/useElement";
 import { FunctionManage } from "@cgx-designer/hooks";
+import {
+  ClearIcon,
+  ExportIcon,
+  ImportIcon,
+  MessageIcon,
+  PreviewIcon,
+  RedoIcon,
+  TreeIcon,
+  UndoIcon,
+} from "@cgx-designer/icons";
 
 export interface OperationButtonSetting {
   label: string;
   handler: ((...args: any[]) => any) | undefined;
+  icon: any;
 }
 
 export const createOperationButtonSetting = (
@@ -19,9 +30,9 @@ export const createOperationButtonSetting = (
   commands: Record<string, Function>,
   showPreviewDialog: () => void,
   showSourceCodeDialog: Function
-): OperationButtonSetting[] => {
-  const btnList = [
-    {
+): Record<string, OperationButtonSetting> => {
+  const ButtonMap = {
+    Message: {
       label: "查看日志",
       handler: () => {
         console.log("总体元素列表", elementManage.elementList);
@@ -32,14 +43,16 @@ export const createOperationButtonSetting = (
         );
         console.log("当前function管理", functionManage);
       },
+      icon: MessageIcon,
     },
-    {
+    Tree: {
       label: "树状图",
       handler: () => {
         TreeDrawer(elementManage, focusManage);
       },
+      icon: TreeIcon,
     },
-    {
+    Clear: {
       label: "清空",
       handler: () => {
         if (elementManage.elementList.value.length === 0) {
@@ -48,20 +61,23 @@ export const createOperationButtonSetting = (
         }
         commands.handleClear();
       },
+      icon: ClearIcon,
     },
-    {
+    Undo: {
       label: "撤销",
       handler: () => {
         commands.undo();
       },
+      icon: UndoIcon,
     },
-    {
+    Redo: {
       label: "重做",
       handler: () => {
         commands.redo();
       },
+      icon: RedoIcon,
     },
-    {
+    Export: {
       label: "导出",
       handler: () => {
         const tempObj = {
@@ -80,8 +96,9 @@ export const createOperationButtonSetting = (
           },
         });
       },
+      icon: ExportIcon,
     },
-    {
+    Import: {
       label: "导入",
       handler: () => {
         showSourceCodeDialog({
@@ -103,14 +120,16 @@ export const createOperationButtonSetting = (
           },
         });
       },
+      icon: ImportIcon,
     },
-    {
+    Preview: {
       label: "预览",
       handler: () => {
         showPreviewDialog();
       },
+      icon: PreviewIcon,
     },
-  ];
-  console.log("操作栏按钮列表注册完成", btnList);
-  return btnList;
+  };
+  console.log("操作栏按钮列表注册完成", ButtonMap);
+  return ButtonMap;
 };

@@ -30,7 +30,7 @@ const EditorCanvas = defineComponent({
         <>
           {elementManage.elementList.value.length == 0 && <Empty />}
           <div
-            class="mx-2 mt-2 overflow-y-auto h-[calc(100vh-6rem)] bg-white relative"
+            class="mx-2 mt-2 overflow-y-auto h-[calc(100vh-4rem)] bg-white relative"
             ref={editorCanvasRef}
             onClick={(e) => focusManage.handleCanvasClick(e)}
           >

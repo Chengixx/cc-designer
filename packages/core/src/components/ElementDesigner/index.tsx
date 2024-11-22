@@ -37,7 +37,7 @@ const ElementDesigner = defineComponent({
     provide("formManage", formManage);
     provide("commands", commands);
     provide("functionManage", functionManage);
-    const buttonList = createOperationButtonSetting(
+    const buttonMap = createOperationButtonSetting(
       formManage,
       elementManage,
       functionManage,
@@ -57,7 +57,7 @@ const ElementDesigner = defineComponent({
           {/* 中间部分 */}
           <div class="h-full w-full min-w-[650px]">
             {/* 编辑器顶部 */}
-            <OperationMenu buttonList={buttonList} />
+            <OperationMenu buttonMap={buttonMap} />
             {/* 编辑器画布的地方 */}
             <div class="box-border">
               {/* 滚动条 */}
