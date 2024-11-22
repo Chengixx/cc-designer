@@ -15,6 +15,7 @@ const Select: IElementBaseSetting = {
       field: "select-" + id,
       props: {
         label: "select",
+        multiple: false,
         options: [
           { label: "label1", value: "value1" },
           { label: "label2", value: "value2" },
