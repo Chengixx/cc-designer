@@ -3,7 +3,7 @@ import { createVNode, defineComponent, ref, render, nextTick } from "vue";
 import { ElementManage, FocusManage } from "@cgx-designer/hooks";
 import { IEditorElement, TreeNode } from "../../types";
 import type Node from "element-plus/es/components/tree/src/model/node";
-import { Tree } from "element-plus/lib/components/tree-v2/src/types.js";
+import { deepClone, getRandomId } from "@cgx-designer/utils";
 
 interface TreeDrawerExpose {
   showDrawer: Function;
@@ -16,13 +16,16 @@ const TreeDrawerDom = defineComponent({
     const isShow = ref<boolean>(false);
     const IElementManage = ref<ElementManage>();
     const IFocusManage = ref<FocusManage>();
+    const ICommand = ref<Record<string, Function> | null>();
     const showDrawer = (
       elementManage: ElementManage,
-      focusManage: FocusManage
+      focusManage: FocusManage,
+      commands: Record<string, Function>
     ) => {
       isShow.value = true;
       IElementManage.value = elementManage;
       IFocusManage.value = focusManage;
+      ICommand.value = commands;
       //进来一瞬间要先高亮起来
       const focusElement = focusManage.focusedElement;
       if (focusElement.value) {
@@ -48,6 +51,22 @@ const TreeDrawerDom = defineComponent({
     ) => {
       e.stopPropagation();
       IElementManage.value!.deleteElementById(data.id!);
+    };
+
+    const handleCopyNode = (
+      e: MouseEvent,
+      node: Node,
+      data: IEditorElement
+    ) => {
+      e.stopPropagation();
+      const id = getRandomId();
+      ICommand.value!.handleLastAdd(
+        deepClone({
+          ...data,
+          id,
+          field: data.key + "-" + id,
+        })
+      );
     };
 
     const IsAllowDrop = (
@@ -106,15 +125,26 @@ const TreeDrawerDom = defineComponent({
                         {node.label}{" "}
                         <span class="text-gray-400">{data.id}</span>
                       </span>
-                      <ElButton
-                        link
-                        type="danger"
-                        onClick={(e: MouseEvent) =>
-                          handleDeleteNode(e, node, data)
-                        }
-                      >
-                        删除
-                      </ElButton>
+                      <div>
+                        <ElButton
+                          link
+                          type="primary"
+                          onClick={(e: MouseEvent) =>
+                            handleCopyNode(e, node, data)
+                          }
+                        >
+                          复制
+                        </ElButton>
+                        <ElButton
+                          link
+                          type="danger"
+                          onClick={(e: MouseEvent) =>
+                            handleDeleteNode(e, node, data)
+                          }
+                        >
+                          删除
+                        </ElButton>
+                      </div>
                     </div>
                   ),
                 }}
@@ -129,11 +159,12 @@ const TreeDrawerDom = defineComponent({
 
 export const TreeDrawer = (
   elementManage: ElementManage,
-  focusManage: FocusManage
+  focusManage: FocusManage,
+  commands: Record<string, Function>
 ) => {
   let el = document.createElement("div");
   let VDom = createVNode(TreeDrawerDom);
   document.body.appendChild((render(VDom, el), el));
   let { showDrawer } = VDom.component!.exposed as TreeDrawerExpose;
-  showDrawer(elementManage, focusManage);
+  showDrawer(elementManage, focusManage, commands);
 };

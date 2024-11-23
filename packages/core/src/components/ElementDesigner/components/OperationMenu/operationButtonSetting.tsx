@@ -48,7 +48,7 @@ export const createOperationButtonSetting = (
     Tree: {
       label: "树状图",
       handler: () => {
-        TreeDrawer(elementManage, focusManage);
+        TreeDrawer(elementManage, focusManage, commands);
       },
       icon: TreeIcon,
     },
