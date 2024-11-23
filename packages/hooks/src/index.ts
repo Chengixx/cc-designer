@@ -8,3 +8,4 @@ export * from "./useObserve";
 export * from "./useTimedQuery";
 export * from "./useFunction";
 export * from "./useExpose";
+export * from "./useCollapse";

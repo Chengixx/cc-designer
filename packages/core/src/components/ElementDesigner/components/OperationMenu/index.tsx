@@ -1,7 +1,8 @@
-import { defineComponent, PropType } from "vue";
+import { defineComponent, inject, PropType } from "vue";
 import { OperationButtonSetting } from "./operationButtonSetting";
 import { ElButton, ButtonType } from "element-plus";
 import { ToLeftIcon, ToRightIcon } from "@cgx-designer/icons";
+import { CollapseManage } from "@cgx-designer/hooks";
 
 const Icon = (Iconfig: OperationButtonSetting) => {
   return (
@@ -51,14 +52,22 @@ const OperationMenu = defineComponent({
     },
   },
   setup({ buttonMap }) {
+    const collapseManage = inject("collapseManage") as CollapseManage;
     const { Message, Tree, Clear, Undo, Redo, Export, Import, Preview } =
       buttonMap;
 
     return () => {
       return (
         <div class="h-12 flex items-center border-y bg-white border-gray-200">
-          <div class="h-full w-[24px] cursor-pointer flex justify-center items-center border-r border-gray-200 hover:bg-[#f4f8fe]">
-            <ToLeftIcon class="w-[18px] h-[18px]" />
+          <div
+            class="h-full w-[24px] cursor-pointer flex justify-center items-center border-r border-gray-200 hover:bg-[#f4f8fe]"
+            onClick={collapseManage.toggleLeftMenu}
+          >
+            {collapseManage.leftMenuCollapseState.value ? (
+              <ToLeftIcon class="w-[18px] h-[18px]" />
+            ) : (
+              <ToRightIcon class="w-[18px] h-[18px]" />
+            )}
           </div>
           <div class="h-full flex-1 flex items-center gap-x-4 pl-4">
             <Icon {...Undo} />
@@ -72,8 +81,15 @@ const OperationMenu = defineComponent({
             {IconButton(Export, true)}
             {IconButton(Preview, true)}
           </div>
-          <div class="h-full w-[24px] cursor-pointer flex items-center justify-center  border-l border-gray-200 hover:bg-[#f4f8fe]">
-            <ToRightIcon class="w-[18px] h-[18px]" />
+          <div
+            class="h-full w-[24px] cursor-pointer flex items-center justify-center  border-l border-gray-200 hover:bg-[#f4f8fe]"
+            onClick={collapseManage.toggleRightMenu}
+          >
+            {collapseManage.rightMenuCollapseState.value ? (
+              <ToRightIcon class="w-[18px] h-[18px]" />
+            ) : (
+              <ToLeftIcon class="w-[18px] h-[18px]" />
+            )}
           </div>
         </div>
       );
