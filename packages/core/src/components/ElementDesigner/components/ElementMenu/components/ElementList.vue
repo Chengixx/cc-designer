@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import draggable from "vuedraggable";
 import SvgIcon from "../../../../SvgIcon";
-import { computed, inject } from "vue";
+import { computed, inject, ref } from "vue";
 import {
   getRandomId,
   IElementBaseSetting,
@@ -35,6 +35,16 @@ const handleClone = (elementBaseSetting: IElementBaseSetting) => {
 const getElementSvg = (tag: string) => {
   return elementController!.elementMap[tag].icon;
 };
+
+const hoverIndex = ref<number>(-1);
+
+const handleMouseEnter = (index: number) => {
+  hoverIndex.value = index;
+};
+
+const handleMouseLeave = () => {
+  hoverIndex.value = -1;
+};
 </script>
 
 <template>
@@ -61,21 +71,32 @@ const getElementSvg = (tag: string) => {
       item-key="id"
       class="grid grid-cols-[auto_auto] px-[10px] gap-2"
     >
-      <template #item="{ element }">
+      <template #item="{ element, index }">
         <div
           class="relative w-[116px] h-[36px] mt-2 flex justify-start items-center py-1 px-[8px] bg-white box-border cursor-move select-none rounded border border-[#d9d9d9] hover:border-blue-500 hover:bg-[#f4f8fe]"
           @click="handleClick(element)"
+          @mouseenter="handleMouseEnter(index)"
+          @mouseleave="handleMouseLeave"
         >
           <template v-if="typeof element.icon === 'string'">
-            <SvgIcon :name="element.icon" />
+            <SvgIcon
+              :name="element.icon"
+              :class="[{ 'fill-blue-500': hoverIndex === index }]"
+            />
           </template>
           <template v-else>
             <component
-              class="w-[16px] h-[16px]"
+              :class="[
+                'w-[16px] h-[16px]',
+                { 'fill-blue-500': hoverIndex === index },
+              ]"
               :is="getElementSvg(element.key)"
             />
           </template>
-          <span class="text-sm ml-1">{{ element.label }}</span>
+          <span
+            :class="['text-sm ml-1', { 'text-blue-500': hoverIndex === index }]"
+            >{{ element.label }}</span
+          >
         </div>
       </template>
     </draggable>
