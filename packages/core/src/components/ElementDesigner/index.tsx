@@ -65,7 +65,12 @@ const ElementDesigner = defineComponent({
             {/* 编辑器左侧，可选择的组件列表 */}
             <div
               ref={leftMenuRef}
-              class="w-[260px] bg-white h-full transition-all duration-300"
+              class={[
+                collapseManage.leftMenuCollapseState.value
+                  ? "w-[260px]"
+                  : "w-0",
+                " bg-white h-full transition-all duration-300",
+              ]}
             >
               <ElementMenu />
             </div>
@@ -83,7 +88,12 @@ const ElementDesigner = defineComponent({
             </div>
             {/* 编辑器右侧 */}
             <div
-              class="w-[280px] bg-white h-full transition-all duration-300"
+              class={[
+                collapseManage.rightMenuCollapseState.value
+                  ? "w-[280px]"
+                  : "w-0",
+                " bg-white h-full transition-all duration-300",
+              ]}
               ref={rightMenuRef}
             >
               <SettingMenu />

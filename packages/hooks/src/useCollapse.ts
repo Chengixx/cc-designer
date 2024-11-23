@@ -18,14 +18,10 @@ export const useCollapse = () => {
 
   const toggleLeftMenu = () => {
     leftMenuCollapseState.value = !leftMenuCollapseState.value;
-    leftMenuRef.value?.classList.toggle("w-0");
-    leftMenuRef.value?.classList.toggle("w-[260px]");
   };
 
   const toggleRightMenu = () => {
     rightMenuCollapseState.value = !rightMenuCollapseState.value;
-    rightMenuRef.value?.classList.toggle("w-0");
-    rightMenuRef.value?.classList.toggle("w-[280px]");
   };
 
   return {
