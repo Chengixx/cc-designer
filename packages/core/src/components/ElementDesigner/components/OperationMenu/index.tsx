@@ -1,6 +1,6 @@
 import { defineComponent, PropType } from "vue";
 import { OperationButtonSetting } from "./operationButtonSetting";
-import { ElButton } from "element-plus";
+import { ElButton, ButtonType } from "element-plus";
 
 const Icon = (Iconfig: OperationButtonSetting) => {
   return (
@@ -10,6 +10,35 @@ const Icon = (Iconfig: OperationButtonSetting) => {
         onclick={Iconfig.handler}
       />
     </div>
+  );
+};
+
+const IconButton = (
+  Iconfig: OperationButtonSetting,
+  showLabel: boolean = false,
+  disabled: boolean = false,
+  type: ButtonType = ""
+) => {
+  return (
+    <>
+      {showLabel ? (
+        <ElButton
+          icon={Iconfig.icon}
+          onClick={Iconfig.handler}
+          disabled={disabled}
+          type={type}
+        >
+          <span>{Iconfig.label}</span>
+        </ElButton>
+      ) : (
+        <ElButton
+          icon={Iconfig.icon}
+          onClick={Iconfig.handler}
+          disabled={disabled}
+          type={type}
+        />
+      )}
+    </>
   );
 };
 
@@ -27,26 +56,20 @@ const OperationMenu = defineComponent({
     return () => {
       return (
         <div class="h-12 flex items-center px-8 border bg-white border-blue-100">
-          {/* 重做和撤销 */}
           <div class="h-full flex-1 flex items-center gap-x-4">
             <Icon {...Undo} />
             <Icon {...Redo} />
-            <Icon {...Clear} />
-            <ElButton icon={Tree.icon} onClick={Tree.handler} />
+            <div>
+              <IconButton {...Clear} />
+              <IconButton {...Tree} />
+            </div>
             <Icon {...Message} />
           </div>
           <div class="h-full flex-1 flex justify-end items-center">
-            <ElButton icon={Import.icon} onClick={Import.handler}>
-              <span>{Import.label}</span>
-            </ElButton>
-            <ElButton icon={Export.icon} onClick={Export.handler}>
-              <span>{Export.label}</span>
-            </ElButton>
-            <ElButton icon={Preview.icon} onClick={Preview.handler}>
-              <span>{Preview.label}</span>
-            </ElButton>
+            {IconButton(Import, true)}
+            {IconButton(Export, true)}
+            {IconButton(Preview, true)}
           </div>
-          {/* 其他操作 */}
         </div>
       );
     };
