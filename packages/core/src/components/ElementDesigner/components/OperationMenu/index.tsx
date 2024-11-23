@@ -61,13 +61,16 @@ const OperationMenu = defineComponent({
         <div class="h-12 flex items-center border-y bg-white border-gray-200">
           <div
             title="收起/打开左侧菜单"
-            class="h-full w-[24px] cursor-pointer flex justify-center items-center border-r border-gray-200 hover:bg-[#f4f8fe]"
+            class="h-full min-w-[24px] cursor-pointer flex justify-center items-center border-r border-gray-200 hover:bg-[#f4f8fe]"
             onClick={collapseManage.toggleLeftMenu}
           >
             {collapseManage.leftMenuCollapseState.value ? (
               <ToLeftIcon class="w-[18px] h-[18px]" />
             ) : (
-              <ToRightIcon class="w-[18px] h-[18px]" />
+              <>
+                <span class="mx-2">组件菜单</span>
+                <ToRightIcon class="w-[18px] h-[18px] mr-2" />
+              </>
             )}
           </div>
           <div class="h-full flex-1 flex items-center gap-x-4 pl-4">
@@ -84,13 +87,16 @@ const OperationMenu = defineComponent({
           </div>
           <div
             title="收起/打开右侧菜单"
-            class="h-full w-[24px] cursor-pointer flex items-center justify-center  border-l border-gray-200 hover:bg-[#f4f8fe]"
+            class="h-full min-w-[24px] cursor-pointer flex items-center justify-center  border-l border-gray-200 hover:bg-[#f4f8fe]"
             onClick={collapseManage.toggleRightMenu}
           >
             {collapseManage.rightMenuCollapseState.value ? (
               <ToRightIcon class="w-[18px] h-[18px]" />
             ) : (
-              <ToLeftIcon class="w-[18px] h-[18px]" />
+              <>
+                <ToLeftIcon class="w-[18px] h-[18px] ml-2" />
+                <span class="mx-2">配置菜单</span>
+              </>
             )}
           </div>
         </div>
