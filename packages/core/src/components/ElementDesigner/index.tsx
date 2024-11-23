@@ -12,6 +12,8 @@ import EditorCanvas from "./components/EditorCanvas";
 import SettingMenu from "./components/SettingMenu";
 import PreviewDialog from "./components/PreviewDialog";
 import { SourceCodeDialog } from "./components/SourceCodeDialog";
+import { ElButton } from "element-plus";
+import { CaretLeft } from "@element-plus/icons-vue";
 //主要画布
 const ElementDesigner = defineComponent({
   setup() {
@@ -46,6 +48,9 @@ const ElementDesigner = defineComponent({
       showPreviewDialog as () => void,
       showSourceCodeDialog
     );
+
+    const leftMenuRef = ref<HTMLDivElement | null>(null);
+    const rightMenuRef = ref<HTMLDivElement | null>(null);
     return () => {
       return (
         <div>
@@ -54,15 +59,28 @@ const ElementDesigner = defineComponent({
           </div>
           <div class="w-full h-full flex justify-between overflow-hidden bg-gray-100">
             {/* 编辑器左侧，可选择的组件列表 */}
-            <div class="w-[280px] bg-white h-full">
+            <div
+              ref={leftMenuRef}
+              class="w-[260px] bg-white h-full relative transition-all duration-300"
+            >
               <ElementMenu />
+              <div class="absolute right-[-20px] top-1/2 -translate-y-1/2 z-10">
+                <ElButton
+                  circle
+                  onClick={() => {
+                    leftMenuRef.value?.classList.toggle("w-0");
+                    leftMenuRef.value?.classList.toggle("w-[260px]");
+                  }}
+                  icon={CaretLeft}
+                />
+              </div>
             </div>
             {/* 中间部分 */}
-            <div class="h-full w-full min-w-[650px]">
+            <div class="h-full flex-1">
               {/* 编辑器顶部 */}
               <OperationMenu buttonMap={buttonMap} />
               {/* 编辑器画布的地方 */}
-              <div class="box-border">
+              <div class="box-border mx-4">
                 {/* 滚动条 */}
                 <div class="h-full relative">
                   <EditorCanvas />

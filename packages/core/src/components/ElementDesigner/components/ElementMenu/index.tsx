@@ -8,8 +8,8 @@ const ElementMenu = defineComponent({
 
     return () => {
       return (
-        <div>
-          <div class="w-full h-10 flex justify-center items-center border">
+        <div class="overflow-x-hidden border-r border-gray-200">
+          <div class="w-full h-10 flex justify-center items-center border min-w-[260px]">
             <span>组件菜单</span>
           </div>
           <div class="w-full h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden min-w-[260px]">
