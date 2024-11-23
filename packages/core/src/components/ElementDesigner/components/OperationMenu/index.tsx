@@ -55,7 +55,7 @@ const OperationMenu = defineComponent({
 
     return () => {
       return (
-        <div class="h-12 flex items-center px-8 border bg-white border-blue-100">
+        <div class="h-12 flex items-center px-8 border-y bg-white border-gray-200">
           <div class="h-full flex-1 flex items-center gap-x-4">
             <Icon {...Undo} />
             <Icon {...Redo} />

@@ -12,7 +12,7 @@ const SettingMenu = defineComponent({
     return () => {
       return (
         <div class="h-full w-full border-l border-gray-200">
-          <div class="w-full h-10 flex justify-center items-center border">
+          <div class="w-full h-10 flex justify-center items-center border border-l-0">
             <span>配置菜单</span>
           </div>
           <div class="h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden w-[280px]">
