@@ -64,7 +64,7 @@ const ElementDesigner = defineComponent({
               class="w-[260px] bg-white h-full relative transition-all duration-300"
             >
               <ElementMenu />
-              <div class="absolute right-[-20px] top-1/2 -translate-y-1/2 z-10">
+              {/* <div class="absolute right-[-20px] top-1/2 -translate-y-1/2 z-10">
                 <ElButton
                   circle
                   onClick={() => {
@@ -73,7 +73,7 @@ const ElementDesigner = defineComponent({
                   }}
                   icon={CaretLeft}
                 />
-              </div>
+              </div> */}
             </div>
             {/* 中间部分 */}
             <div class="h-full flex-1">
@@ -88,7 +88,7 @@ const ElementDesigner = defineComponent({
               </div>
             </div>
             {/* 编辑器右侧 */}
-            <div class="w-[280px] bg-white h-full">
+            <div class="w-[280px] bg-white h-full" ref={rightMenuRef}>
               <SettingMenu />
             </div>
             {/* 预览dialog */}
