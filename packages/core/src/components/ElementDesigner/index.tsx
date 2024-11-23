@@ -74,7 +74,7 @@ const ElementDesigner = defineComponent({
               {/* 编辑器顶部 */}
               <OperationMenu buttonMap={buttonMap} />
               {/* 编辑器画布的地方 */}
-              <div class="box-border mx-4">
+              <div class="box-border">
                 {/* 滚动条 */}
                 <div class="h-full relative">
                   <EditorCanvas />

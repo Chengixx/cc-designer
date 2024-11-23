@@ -60,6 +60,7 @@ const OperationMenu = defineComponent({
       return (
         <div class="h-12 flex items-center border-y bg-white border-gray-200">
           <div
+            title="收起/打开左侧菜单"
             class="h-full w-[24px] cursor-pointer flex justify-center items-center border-r border-gray-200 hover:bg-[#f4f8fe]"
             onClick={collapseManage.toggleLeftMenu}
           >
@@ -82,6 +83,7 @@ const OperationMenu = defineComponent({
             {IconButton(Preview, true)}
           </div>
           <div
+            title="收起/打开右侧菜单"
             class="h-full w-[24px] cursor-pointer flex items-center justify-center  border-l border-gray-200 hover:bg-[#f4f8fe]"
             onClick={collapseManage.toggleRightMenu}
           >
