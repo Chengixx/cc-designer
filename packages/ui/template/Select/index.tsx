@@ -86,6 +86,7 @@ const Select: IElementBaseSetting = {
         label: "多选标签",
         key: "select",
         props: {
+          placeholder: "请选择标签类型",
           options: [
             {
               label: "success",

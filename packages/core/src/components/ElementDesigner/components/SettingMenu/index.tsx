@@ -15,7 +15,7 @@ const SettingMenu = defineComponent({
           <div class="w-full h-10 flex justify-center items-center border">
             <span>配置菜单</span>
           </div>
-          <div class="h-[calc(100vh-40px)] overflow-y-auto overflow-x-hidden w-[280px]">
+          <div class="h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden w-[280px]">
             <ElTabs v-model={settingTab.value} stretch>
               <ElTabPane label="属性" name={1}>
                 <div class="px-2 pt-2">

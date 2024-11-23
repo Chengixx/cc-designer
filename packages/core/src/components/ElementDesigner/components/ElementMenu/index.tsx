@@ -8,9 +8,14 @@ const ElementMenu = defineComponent({
 
     return () => {
       return (
-        <div class="w-full h-[calc(100vh-40px)] overflow-y-auto overflow-x-hidden min-w-[260px]">
-          <SearchBox v-model:widgetName={searchValue.value} />
-          <ElementList searchValue={searchValue.value} />
+        <div>
+          <div class="w-full h-10 flex justify-center items-center border">
+            <span>组件菜单</span>
+          </div>
+          <div class="w-full h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden min-w-[260px]">
+            <SearchBox v-model:widgetName={searchValue.value} />
+            <ElementList searchValue={searchValue.value} />
+          </div>
         </div>
       );
     };

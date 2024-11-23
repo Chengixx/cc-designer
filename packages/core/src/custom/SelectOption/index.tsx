@@ -38,18 +38,6 @@ const SelectOption = defineComponent({
     return () => (
       <div class="w-full">
         <ElDivider content-position="center">选项配置</ElDivider>
-        <div class="flex items-center gap-1">
-          <ElButton link type="primary" onClick={() => handleAddOption()}>
-            新增选项
-          </ElButton>
-          <ElTooltip
-            effect="dark"
-            content="switch控制是否禁用选项"
-            placement="top"
-          >
-            <QuestionMarkIcon style={{ width: "16px", height: "16px" }} />
-          </ElTooltip>
-        </div>
         {bindValue.value?.map((option: GroupOption, index: number) => {
           return (
             <div class="flex justify-center items-center my-2">
@@ -84,6 +72,18 @@ const SelectOption = defineComponent({
             </div>
           );
         })}
+        <div class="flex items-center gap-1">
+          <ElButton link type="primary" onClick={() => handleAddOption()}>
+            新增选项
+          </ElButton>
+          <ElTooltip
+            effect="dark"
+            content="switch控制是否禁用选项"
+            placement="top"
+          >
+            <QuestionMarkIcon style={{ width: "16px", height: "16px" }} />
+          </ElTooltip>
+        </div>
       </div>
     );
   },

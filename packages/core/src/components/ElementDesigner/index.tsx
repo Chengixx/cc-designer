@@ -48,32 +48,36 @@ const ElementDesigner = defineComponent({
     );
     return () => {
       return (
-        <div class="w-full h-full flex justify-between overflow-hidden bg-gray-100">
-          {/* 编辑器左侧，可选择的组件列表 */}
-          <div class="w-[280px] bg-white h-full">
+        <div>
+          <div class="h-10">
             <CGXLogo />
-            <ElementMenu />
           </div>
-          {/* 中间部分 */}
-          <div class="h-full w-full min-w-[650px]">
-            {/* 编辑器顶部 */}
-            <OperationMenu buttonMap={buttonMap} />
-            {/* 编辑器画布的地方 */}
-            <div class="box-border">
-              {/* 滚动条 */}
-              <div class="h-full relative">
-                <EditorCanvas />
+          <div class="w-full h-full flex justify-between overflow-hidden bg-gray-100">
+            {/* 编辑器左侧，可选择的组件列表 */}
+            <div class="w-[280px] bg-white h-full">
+              <ElementMenu />
+            </div>
+            {/* 中间部分 */}
+            <div class="h-full w-full min-w-[650px]">
+              {/* 编辑器顶部 */}
+              <OperationMenu buttonMap={buttonMap} />
+              {/* 编辑器画布的地方 */}
+              <div class="box-border">
+                {/* 滚动条 */}
+                <div class="h-full relative">
+                  <EditorCanvas />
+                </div>
               </div>
             </div>
+            {/* 编辑器右侧 */}
+            <div class="w-[280px] bg-white h-full">
+              <SettingMenu />
+            </div>
+            {/* 预览dialog */}
+            <PreviewDialog ref={previewDialogRef} />
+            {/* 导入导出dialog */}
+            <SourceCodeDialog ref={sourceCodeDialogRef} />
           </div>
-          {/* 编辑器右侧 */}
-          <div class="w-[280px] bg-white h-full">
-            <SettingMenu />
-          </div>
-          {/* 预览dialog */}
-          <PreviewDialog ref={previewDialogRef} />
-          {/* 导入导出dialog */}
-          <SourceCodeDialog ref={sourceCodeDialogRef} />
         </div>
       );
     };

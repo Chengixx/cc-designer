@@ -41,6 +41,7 @@ export const isFormSetting = (obj: any): obj is FormSetting => {
     typeof obj.refName === "string" &&
     typeof obj.rulesName === "string" &&
     typeof obj.labelWidth === "number" &&
+    typeof obj.disabled === "boolean" &&
     ["top", "left", "right"].includes(obj.labelPosition) &&
     ["default", "small", "large"].includes(obj.size)
   );
