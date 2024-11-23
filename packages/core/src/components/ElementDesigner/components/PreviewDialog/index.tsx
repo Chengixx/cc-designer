@@ -1,6 +1,5 @@
-import { CCButton } from "@cgx-designer/extensions";
 import ElementBuilder from "../../../ElementBuilder";
-import { ElDialog, ElMessage } from "element-plus";
+import { ElButton, ElDialog, ElMessage } from "element-plus";
 import { defineComponent, inject, ref } from "vue";
 import { ElementManage, FormManage, FunctionManage } from "@cgx-designer/hooks";
 import { deepClone } from "@cgx-designer/utils";
@@ -74,13 +73,13 @@ const PreviewDialog = defineComponent({
             footer: () => {
               return (
                 <div>
-                  <CCButton class="mr-1" onClick={close}>
-                    关闭
-                  </CCButton>
-                  <CCButton class="mr-1" onClick={handleValidFormData}>
+                  <ElButton onClick={close}>关闭</ElButton>
+                  <ElButton type="primary" onClick={handleValidFormData}>
                     模拟校验
-                  </CCButton>
-                  <CCButton onClick={handleGetFormData}>查看数据</CCButton>
+                  </ElButton>
+                  <ElButton type="primary" onClick={handleGetFormData}>
+                    查看数据
+                  </ElButton>
                 </div>
               );
             },

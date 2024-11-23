@@ -9,7 +9,7 @@ import { FocusManage } from "@cgx-designer/hooks/src/useFocus";
 const Empty = () => {
   return (
     <div class="pointer-events-none z-10 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-400 text-lg">
-      <ElEmpty description="目前还没有元素哦，从左侧组件拖拽或双击添加吧！" />
+      <ElEmpty description="目前还没有元素哦，从左侧组件拖拽或点击添加吧！" />
     </div>
   );
 };

@@ -59,13 +59,11 @@ const OperationMenu = defineComponent({
           <div class="h-full flex-1 flex items-center gap-x-4">
             <Icon {...Undo} />
             <Icon {...Redo} />
-            <div>
-              <IconButton {...Clear} />
-              <IconButton {...Tree} />
-            </div>
+            <Icon {...Clear} />
             <Icon {...Message} />
           </div>
           <div class="h-full flex-1 flex justify-end items-center">
+            {IconButton(Tree, true)}
             {IconButton(Import, true)}
             {IconButton(Export, true)}
             {IconButton(Preview, true)}

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import draggable from "vuedraggable";
 import SvgIcon from "../../../../SvgIcon";
-import { computed, defineComponent, inject } from "vue";
+import { computed, inject } from "vue";
 import {
   getRandomId,
   IElementBaseSetting,
