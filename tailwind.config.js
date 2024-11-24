@@ -10,6 +10,12 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundColor: {
+        darkMode: "#141414",
+      },
+      borderColor: {
+        darkMode: "#3c3c3e",
+      },
       height: {
         "95%": "95%",
         "180%": "180%",

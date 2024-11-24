@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import "./style/index";
 import "element-plus/dist/index.css";
+import 'element-plus/theme-chalk/dark/css-vars.css'
 import "virtual:svg-icons-register";
 import { elementController } from "cgx-designer";
 import "cgx-designer/dist/module.css";
