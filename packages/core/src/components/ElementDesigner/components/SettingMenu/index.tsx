@@ -11,7 +11,7 @@ const SettingMenu = defineComponent({
     const settingTab = ref<number>(1);
     return () => {
       return (
-        <div class="h-full w-full border-l border-gray-200 overflow-x-hidden">
+        <div class="h-full w-full border-l border-gray-200 overflow-x-hidden dark:bg-[#141414]">
           <div class="min-w-[280px] w-full h-10 flex justify-center items-center border border-l-0">
             <span>配置菜单</span>
           </div>

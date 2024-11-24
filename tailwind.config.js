@@ -1,7 +1,7 @@
 //为了获取tailwindcss代码提示
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: "media",
+  darkMode: "class",
   content: [
     "./packages/core/src/**/*.{vue,js,ts,jsx,tsx}",
     "./packages/ui/template/**/*.{vue,js,ts,jsx,tsx}",

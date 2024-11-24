@@ -40,7 +40,7 @@ const handleAdd = (index: number) => {
     :class="
       props.isNested
         ? 'min-h-[60px] border-dashed border border-[#d9d9d9] h-full'
-        : 'min-h-[calc(100vh-100px)] w-full bg-white p-2'
+        : 'min-h-[calc(100vh-100px)] w-full bg-white p-2 dark:bg-[#141414]'
     "
     @start="() => handleDropStart(hoverManage, focusManage)"
     @end="() => handleDropEnd(hoverManage, focusManage)"

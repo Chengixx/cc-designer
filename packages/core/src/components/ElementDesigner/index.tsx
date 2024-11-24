@@ -69,13 +69,13 @@ const ElementDesigner = defineComponent({
                 collapseManage.leftMenuCollapseState.value
                   ? "w-[260px]"
                   : "w-0",
-                " bg-white h-full transition-all duration-300",
+                " bg-white h-full transition-all duration-300 dark:bg-[#141414]",
               ]}
             >
               <ElementMenu />
             </div>
             {/* 中间部分 */}
-            <div class="h-full flex-1">
+            <div class="h-full flex-1 dark:bg-black">
               {/* 编辑器顶部 */}
               <OperationMenu buttonMap={buttonMap} />
               {/* 编辑器画布的地方 */}
