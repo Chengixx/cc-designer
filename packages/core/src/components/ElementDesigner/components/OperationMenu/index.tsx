@@ -2,7 +2,7 @@ import { defineComponent, inject, PropType } from "vue";
 import { OperationButtonSetting } from "./operationButtonSetting";
 import { ElButton, ButtonType } from "element-plus";
 import { ToLeftIcon, ToRightIcon } from "@cgx-designer/icons";
-import { CollapseManage } from "@cgx-designer/hooks";
+import { CollapseManage, FocusManage } from "@cgx-designer/hooks";
 
 const Icon = (Iconfig: OperationButtonSetting) => {
   return (
@@ -53,6 +53,7 @@ const OperationMenu = defineComponent({
   },
   setup({ buttonMap }) {
     const collapseManage = inject("collapseManage") as CollapseManage;
+    const focusManage = inject("focusManage") as FocusManage;
     const { Message, Tree, Clear, Undo, Redo, Export, Import, Preview } =
       buttonMap;
 
@@ -62,7 +63,13 @@ const OperationMenu = defineComponent({
           <div
             title="收起/打开左侧菜单"
             class="h-full min-w-[24px] cursor-pointer flex justify-center items-center border-r border-gray-200 hover:bg-[#f4f8fe]"
-            onClick={collapseManage.toggleLeftMenu}
+            onClick={() => {
+              focusManage.startFocusTimedQuery();
+              collapseManage.toggleLeftMenu();
+              setTimeout(() => {
+                focusManage.stopFocusTimedQuery();
+              }, 350);
+            }}
           >
             {collapseManage.leftMenuCollapseState.value ? (
               <ToLeftIcon class="w-[18px] h-[18px]" />
@@ -88,7 +95,13 @@ const OperationMenu = defineComponent({
           <div
             title="收起/打开右侧菜单"
             class="h-full min-w-[24px] cursor-pointer flex items-center justify-center  border-l border-gray-200 hover:bg-[#f4f8fe]"
-            onClick={collapseManage.toggleRightMenu}
+            onClick={() => {
+              focusManage.startFocusTimedQuery();
+              collapseManage.toggleRightMenu();
+              setTimeout(() => {
+                focusManage.stopFocusTimedQuery();
+              }, 350);
+            }}
           >
             {collapseManage.rightMenuCollapseState.value ? (
               <ToRightIcon class="w-[18px] h-[18px]" />

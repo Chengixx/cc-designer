@@ -60,6 +60,7 @@ export const useFocus = (elementManage: ElementManage) => {
 
   //修改这个focus物件的样式
   const setFocusWidgetStyle = () => {
+    console.log("chufal");
     if (!focusedElementDom.value) return;
     const { top: containerTop, left: containerLeft } =
       containerRef.value!.getBoundingClientRect();
@@ -71,6 +72,11 @@ export const useFocus = (elementManage: ElementManage) => {
       top - containerTop + containerRef.value?.scrollTop! + "px";
     focusWidgetRef.value!.style.width = width + "px";
     focusWidgetRef.value!.style.height = height + "px";
+  };
+
+  //强制修改一次focus的样式
+  const forceSetFocusWidgetStyle = () => {
+    setFocusWidgetStyle();
   };
 
   //初始化dom监听实例(拿到的是实例和config)
@@ -110,5 +116,6 @@ export const useFocus = (elementManage: ElementManage) => {
     stopFocusTimedQuery,
     resetFocus,
     setFocusWidgetStyle,
+    forceSetFocusWidgetStyle
   };
 };
