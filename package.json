@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
+  "type": "module",
   "scripts": {
     "dev": "pnpm --filter=./play dev",
     "dev:example": "pnpm --filter=./example dev",
@@ -41,7 +42,11 @@
     "vite-plugin-dts": "^4.2.1",
     "vitepress": "^1.4.0",
     "vitest": "^2.1.2",
-    "vue-tsc": "^2.0.21"
+    "vue-tsc": "^2.0.21",
+    "camelcase": "^8.0.0",
+    "fast-glob": "^3.3.2",
+    "fs-extra": "^11.2.0",
+    "prettier": "^3.2.5"
   },
   "keywords": [],
   "author": "",

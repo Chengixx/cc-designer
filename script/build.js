@@ -1,7 +1,10 @@
-const fs = require("fs");
-const path = require("path");
-const exec = require("child_process").exec;
+import { fileURLToPath } from "url";
+import fs from "fs";
+import path from "path";
+import { exec } from "child_process";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // 检查是否已经打包，打包路径是dist里的index.js
 const filePath = path.join(__dirname, "../packages/cgx-designer/dist/index.js");
 
@@ -17,7 +20,7 @@ if (fs.existsSync(filePath)) {
       console.error(stderr);
       if (error) {
         console.error(`执行错误: ${error}`);
-        return
+        return;
       } else {
         console.log("打包完成,将自动启动example");
       }

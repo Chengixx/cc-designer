@@ -54,12 +54,24 @@ importers:
       '@vue/test-utils':
         specifier: ^2.4.6
         version: 2.4.6
+      camelcase:
+        specifier: ^8.0.0
+        version: 8.0.0
+      fast-glob:
+        specifier: ^3.3.2
+        version: 3.3.2
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.2.0
       jsdom:
         specifier: ^25.0.1
         version: 25.0.1
       postcss:
         specifier: ^8.4.39
         version: 8.4.41
+      prettier:
+        specifier: ^3.2.5
+        version: 3.3.3
       tailwindcss:
         specifier: ^3.4.4
         version: 3.4.10
