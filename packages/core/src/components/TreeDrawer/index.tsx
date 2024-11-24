@@ -50,7 +50,8 @@ const TreeDrawerDom = defineComponent({
       data: IEditorElement
     ) => {
       e.stopPropagation();
-      IElementManage.value!.deleteElementById(data.id!);
+      // IElementManage.value!.deleteElementById(data.id!);
+      ICommand.value!.handleDelete(data.id);
     };
 
     const handleCopyNode = (

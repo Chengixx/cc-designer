@@ -24,9 +24,10 @@ const ButtonTool = defineComponent({
 
     const handleDelete = (e: MouseEvent) => {
       e.stopPropagation();
-      focusManage.startFocusTimedQuery()
-      commands!.handleDelete();
-      focusManage.stopFocusTimedQuery()
+      focusManage.startFocusTimedQuery();
+      const id = focusManage.focusedElement.value?.id;
+      commands!.handleDelete(id);
+      focusManage.stopFocusTimedQuery();
     };
 
     const elementTag = computed(() => {
@@ -44,7 +45,9 @@ const ButtonTool = defineComponent({
             {elementTag.value}
           </div>
           <div class="pointer-events-auto flex items-center">
-            {!noCopyDomList.includes(focusManage.focusedElement.value?.key!) && (
+            {!noCopyDomList.includes(
+              focusManage.focusedElement.value?.key!
+            ) && (
               <ElTooltip effect="dark" content="复制组件" placement="bottom">
                 <div
                   class="mr-1 flex items-center"

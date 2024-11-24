@@ -183,11 +183,9 @@ export const useCommand = (
     registry({
       name: "handleDelete",
       pushQueue: true,
-      execute() {
+      execute(id: string) {
         let before = cloneDeep(elementManage.elementList.value);
-        let after = elementManage.deleteElementById(
-          focusManage.focusedElement.value!.id!
-        );
+        let after = elementManage.deleteElementById(id);
         return {
           redo: () => {
             focusManage.resetFocus();
