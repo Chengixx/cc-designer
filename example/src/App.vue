@@ -16,9 +16,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bg-gray-100 h-screen">
+  <div class="root">
     <ElementDesigner />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.root {
+  background-color: gray;
+  height: 100vh;
+  width: 100vw;
+}
+</style>

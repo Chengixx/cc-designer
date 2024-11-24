@@ -4,6 +4,7 @@ import "./style/index";
 import "element-plus/dist/index.css";
 import "virtual:svg-icons-register";
 import { elementController } from "cgx-designer";
+import "cgx-designer/dist/module.css";
 import "cgx-designer/dist/style.css";
 
 //注册自定义组件
