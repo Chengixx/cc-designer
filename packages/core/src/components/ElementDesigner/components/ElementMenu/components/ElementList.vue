@@ -83,7 +83,7 @@ const handleMouseLeave = () => {
               :name="element.icon"
               :class="[
                 { 'fill-blue-500 dark:fill-blue-500': hoverIndex === index },
-                'dark:fill-white',
+                { 'dark:fill-white': hoverIndex !== index },
               ]"
             />
           </template>
@@ -92,7 +92,7 @@ const handleMouseLeave = () => {
               :class="[
                 'w-[16px] h-[16px]',
                 { 'fill-blue-500 dark:fill-blue-500': hoverIndex === index },
-                'dark:fill-white',
+                { 'dark:fill-white': hoverIndex !== index },
               ]"
               :is="getElementSvg(element.key)"
             />

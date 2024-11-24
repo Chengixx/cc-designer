@@ -8,7 +8,7 @@ const Icon = (Iconfig: OperationButtonSetting) => {
   return (
     <div title={Iconfig.label}>
       <Iconfig.icon
-        class="h-5 w-5 hover:fill-blue-500 cursor-pointer dark:fill-white"
+        class="h-5 w-5 hover:fill-blue-500 cursor-pointer dark:fill-white dark:hover:fill-blue-500"
         onclick={Iconfig.handler}
       />
     </div>
