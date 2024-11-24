@@ -11,6 +11,9 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundColor: {
+        darkMode: "#141414",
+      },
       height: {
         "95%": "95%",
         "180%": "180%",

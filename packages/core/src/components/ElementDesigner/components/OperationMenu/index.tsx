@@ -59,7 +59,7 @@ const OperationMenu = defineComponent({
 
     return () => {
       return (
-        <div class="h-12 flex items-center border-y bg-white border-gray-200 dark:bg-[#141414]">
+        <div class="h-12 flex items-center border-y bg-white border-gray-200 dark:bg-darkMode">
           <div
             title="收起/打开左侧菜单"
             class="h-full min-w-[24px] cursor-pointer flex justify-center items-center border-r border-gray-200 hover:bg-[#f4f8fe]"
