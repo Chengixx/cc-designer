@@ -3,9 +3,19 @@ import { logoName } from "../../../../constant/index";
 
 const CGXLogo = () => {
   return (
-    <div class="w-full h-10 bg-white flex justify-center items-center dark:bg-darkMode">
-      <CcIcon class="mr-1 w-[18px] h-[18px]" />
-      <span>{logoName}</span>
+    <div class="w-full h-10 bg-white flex items-center dark:bg-darkMode pl-8 pr-4">
+      <div class="flex-1 flex items-center">
+        <CcIcon
+          class="mr-1 w-[24px] h-[24px]"
+          style={{ filter: "drop-shadow(2px 2px 6px #409eff)" }}
+        />
+        <span style={{ filter: "drop-shadow(2px 2px 6px #409eff)" }}>
+          {logoName}
+        </span>
+      </div>
+      <div class="flex-1 flex justify-end">
+        帮助
+      </div>
     </div>
   );
 };
