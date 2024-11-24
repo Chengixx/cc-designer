@@ -33,13 +33,14 @@ const IDE = defineComponent({
   },
   emits: ["update:modelValue"],
   setup(props, { emit, expose }) {
+    const aceRef = ref<HTMLElement | null>(null);
     const aceEditor = ref<ace.Ace.Editor | null>(null);
     ace.config.setModuleUrl("ace/mode/javascript_worker", workerJavascriptUrl);
     const initEditor = () => {
-      aceEditor.value = ace.edit("aceRef", {
+      aceEditor.value = ace.edit(aceRef.value as HTMLElement, {
         // maxLines: 20, // 最大行数，超过会自动出现滚动条
         // minLines: 5, // 最小行数，还未到最大行数时，编辑器会自动伸缩大小
-        fontSize: 18, // 编辑器内字体大小
+        fontSize: 13, // 编辑器内字体大小
         theme: `ace/theme/${props.theme}`, // 默认设置的主题
         mode: "ace/mode/javascript", // 默认设置的语言模式
         tabSize: 2, // 制表符设置为2个空格大小
@@ -67,10 +68,19 @@ const IDE = defineComponent({
     };
     const setEditorValue = (value: string) => {
       if (aceEditor.value) {
+        const cursorPos = aceEditor.value.getCursorPosition();
         aceEditor.value.setValue(value, -1);
         formatCode();
+        aceEditor.value.moveCursorTo(cursorPos.row, cursorPos.column);
       }
     };
+
+    watch(
+      () => props.modelValue,
+      (nv) => {
+        setEditorValue(nv);
+      }
+    );
     expose({
       setEditorValue,
     });
@@ -87,7 +97,7 @@ const IDE = defineComponent({
     return () => {
       return (
         <div class="h-full relative">
-          <div id="aceRef" class="h-full" />
+          <div ref={aceRef} class="h-full" />
           <div class="absolute right-[8px] bottom-[8px]">
             <ElTooltip content="格式化" effect="light" placement="top">
               <ElButton onClick={formatCode} circle>

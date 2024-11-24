@@ -60,7 +60,6 @@ export const useFocus = (elementManage: ElementManage) => {
 
   //修改这个focus物件的样式
   const setFocusWidgetStyle = () => {
-    console.log("chufal");
     if (!focusedElementDom.value) return;
     const { top: containerTop, left: containerLeft } =
       containerRef.value!.getBoundingClientRect();
