@@ -20,7 +20,7 @@ const SearchBox = defineComponent({
     });
     return () => {
       return (
-        <div class="w-full border box-border p-1">
+        <div class="w-full border box-border p-1  dark:border-darkMode">
           <ElInput
             placeholder="搜索组件"
             v-model={inputWidgetName.value}

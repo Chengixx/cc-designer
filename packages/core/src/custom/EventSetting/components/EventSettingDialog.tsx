@@ -187,7 +187,7 @@ const EventSettingDialog = defineComponent({
           default: () => {
             return (
               <div class="h-[70vh] overflow-y-auto flex">
-                <div class="w-[240px] border">
+                <div class="w-[240px] border dark:border-darkMode">
                   <ElTabs
                     v-model={eventInstance.type}
                     stretch
@@ -204,7 +204,7 @@ const EventSettingDialog = defineComponent({
                     </ElTabPane>
                     <ElTabPane label="组件联动" name="component">
                       <div class="px-2 pt-2 flex flex-col h-[calc(70vh-40px-.5rem)]">
-                        <div class="h-[40vh] overflow-y-auto w-full border-b">
+                        <div class="h-[40vh] overflow-y-auto w-full border-b dark:border-darkMode">
                           <ElTree
                             default-expand-all
                             highlight-current
@@ -227,7 +227,7 @@ const EventSettingDialog = defineComponent({
                     </ElTabPane>
                   </ElTabs>
                 </div>
-                <div class="flex-1 ml-2 border p-2 h-full">
+                <div class="flex-1 ml-2 border p-2 h-full dark:border-darkMode">
                   {eventInstance.type === "custom" ? (
                     <>
                       <ScriptIDE />

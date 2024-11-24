@@ -59,10 +59,10 @@ const OperationMenu = defineComponent({
 
     return () => {
       return (
-        <div class="h-12 flex items-center border-y bg-white border-gray-200 dark:bg-darkMode">
+        <div class="h-12 flex items-center border-y bg-white border-gray-200 dark:bg-darkMode dark:border-darkMode">
           <div
             title="收起/打开左侧菜单"
-            class="h-full min-w-[24px] cursor-pointer flex justify-center items-center border-r border-gray-200 hover:bg-[#f4f8fe]"
+            class="h-full min-w-[24px] cursor-pointer flex justify-center items-center border-r border-gray-200 hover:bg-[#f4f8fe] dark:border-darkMode dark:hover:bg-[#2d2d2d]"
             onClick={() => {
               focusManage.startFocusTimedQuery();
               collapseManage.toggleLeftMenu();
@@ -94,7 +94,7 @@ const OperationMenu = defineComponent({
           </div>
           <div
             title="收起/打开右侧菜单"
-            class="h-full min-w-[24px] cursor-pointer flex items-center justify-center  border-l border-gray-200 hover:bg-[#f4f8fe]"
+            class="h-full min-w-[24px] cursor-pointer flex items-center justify-center border-l border-gray-200 hover:bg-[#f4f8fe] dark:border-darkMode dark:hover:bg-[#2d2d2d]"
             onClick={() => {
               focusManage.startFocusTimedQuery();
               collapseManage.toggleRightMenu();

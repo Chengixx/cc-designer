@@ -73,7 +73,7 @@ const handleMouseLeave = () => {
     >
       <template #item="{ element, index }">
         <div
-          class="relative w-[116px] h-[36px] mt-2 flex justify-start items-center py-1 px-[8px] bg-white box-border cursor-move select-none rounded border border-[#d9d9d9] hover:border-blue-500 hover:bg-[#f4f8fe] dark:bg-darkMode dark:hover:bg-[#272b32]"
+          class="relative w-[116px] h-[36px] mt-2 flex justify-start items-center py-1 px-[8px] bg-white box-border cursor-move select-none rounded border border-[#d9d9d9] hover:border-blue-500 hover:bg-[#f4f8fe] dark:bg-darkMode dark:hover:bg-[#272b32] dark:border-darkMode"
           @click="handleClick(element)"
           @mouseenter="handleMouseEnter(index)"
           @mouseleave="handleMouseLeave"

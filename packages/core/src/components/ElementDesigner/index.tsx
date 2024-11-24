@@ -61,7 +61,7 @@ const ElementDesigner = defineComponent({
           <div class="h-10">
             <CGXLogo />
           </div>
-          <div class="w-full h-full flex justify-between overflow-hidden bg-gray-100">
+          <div class="w-full h-full flex justify-between overflow-hidden bg-gray-100 dark:bg-black">
             {/* 编辑器左侧，可选择的组件列表 */}
             <div
               ref={leftMenuRef}
