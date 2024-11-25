@@ -3,25 +3,41 @@
     class="contact-container"
     @mouseover="handleMouseOver"
     @mouseout="handleMouseOut"
+    @click="handleClick"
+    ref="contactContainer"
   >
-    <a href="." target="_blank" class="contact-item" ref="contactItem">
-      <GithubIcon class="w-[24px] h-[24px]" />
-    </a>
-    <span class="tooltip" ref="tooltip">Github</span>
+    <div class="contact-item" ref="contactItem">
+      <slot />
+    </div>
+    <span class="tooltip" ref="tooltip">{{ label }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { GithubIcon } from "@cgx-designer/icons";
+
+defineProps({
+  label: {
+    type: String,
+    required: true,
+  },
+});
+
+const emits = defineEmits(["click"]);
+const handleClick = (e: MouseEvent) => {
+  emits("click", e);
+};
 
 const contactItem = ref<HTMLElement | null>(null);
 const tooltip = ref<HTMLElement | null>(null);
+const contactContainer = ref<HTMLElement | null>(null);
 
 const handleMouseOver = () => {
   if (tooltip.value && contactItem.value) {
     const tooltipWidth = tooltip.value.offsetWidth;
+    console.log(tooltipWidth);
     contactItem.value.style.transform = `translateX(-${tooltipWidth + 6}px)`;
+    contactContainer.value!.style.width = `${tooltipWidth + 6}px`;
     if (tooltip.value) {
       tooltip.value.style.visibility = "visible";
       tooltip.value.style.opacity = "1";
@@ -37,6 +53,7 @@ const handleMouseOut = () => {
     tooltip.value.style.visibility = "hidden";
     tooltip.value.style.opacity = "0";
   }
+  contactContainer.value!.style.width = "";
 };
 </script>
 
@@ -65,7 +82,7 @@ const handleMouseOut = () => {
 }
 
 .contact-container:hover .contact-item {
-  transform: translateX(-120%);
+  /* transform: translateX(-120%); */
 }
 
 .contact-container:hover .tooltip {

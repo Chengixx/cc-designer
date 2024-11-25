@@ -1,9 +1,9 @@
-import { CcIcon, LightIcon, DarkIcon } from "@cgx-designer/icons";
+import { CcIcon, LightIcon, DarkIcon, GithubIcon } from "@cgx-designer/icons";
 import { logoName } from "../../../../constant/index";
 import { inject } from "vue";
 import { ThemeManage } from "@cgx-designer/hooks/src/useTheme";
 import { ElSwitch } from "element-plus";
-import MoveIcon from "./MoveIcon.vue";
+import { MoveIcon } from "@cgx-designer/extensions";
 
 const CGXLogo = () => {
   const themeManage = inject("themeManage") as ThemeManage;
@@ -12,11 +12,10 @@ const CGXLogo = () => {
       <div class="flex-1 flex items-center">
         <CcIcon
           class="mr-1 w-[24px] h-[24px]"
-          // #3c3c3c
           style={{
             filter: themeManage.isDark.value
               ? "drop-shadow(2px 2px 6px #409eff)"
-              : "drop-shadow(2px 2px 6px #3c3c3c)",
+              : "drop-shadow(2px 2px 6px #999999)",
           }}
         />
         <span
@@ -24,15 +23,14 @@ const CGXLogo = () => {
           style={{
             filter: themeManage.isDark.value
               ? "drop-shadow(2px 2px 6px #409eff)"
-              : "drop-shadow(2px 2px 6px #3c3c3c)",
+              : "drop-shadow(2px 2px 6px #999999)",
           }}
         >
           {logoName}
         </span>
       </div>
-      <div class="flex-1 flex justify-end items-center gap-x-8">
-        <MoveIcon />
-
+      <div class="flex-1 flex justify-end items-center gap-x-6">
+        <span class="cursor-pointer">文档</span>
         <ElSwitch
           size="large"
           v-model={themeManage.isDark.value}
@@ -40,6 +38,9 @@ const CGXLogo = () => {
           active-action-icon={DarkIcon}
           inactive-action-icon={LightIcon}
         />
+        <MoveIcon label="Github" onClick={() => window.open("/")}>
+          <GithubIcon class="w-[24px] h-[24px] fill-black dark:fill-white" />
+        </MoveIcon>
       </div>
     </div>
   );

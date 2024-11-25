@@ -1,6 +1,6 @@
+export { default as CcIcon } from './CC.vue'
 export { default as ButtonIcon } from './button.vue'
 export { default as CardIcon } from './card.vue'
-export { default as CcIcon } from './CC.vue'
 export { default as ClearIcon } from './clear.vue'
 export { default as ColorPickerIcon } from './colorPicker.vue'
 export { default as DarkIcon } from './dark.vue'
