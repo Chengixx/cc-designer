@@ -14,6 +14,7 @@
     "build": "pnpm --filter=./packages/cgx-designer build",
     "build:icon": "node ./script/build-icon.js",
     "build:css": "npx tailwindcss -o ./packages/cgx-designer/dist/module.css --minify",
+    "build:auto": "node ./script/build.js",
     "dev:auto": "node ./script/build.js && pnpm dev:example"
   },
   "dependencies": {

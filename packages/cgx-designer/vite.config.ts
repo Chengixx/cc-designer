@@ -34,7 +34,7 @@ export default defineConfig({
       name: "cgx-designer",
       // formats: ["es"],
       fileName: (ModuleFormat, entryName) => {
-        console.log("文件name", ModuleFormat, entryName);
+        // console.log("文件name", ModuleFormat, entryName);
         const extension = ModuleFormat === "es" ? "js" : ModuleFormat;
         const path = `index.${extension}`;
         return path;
