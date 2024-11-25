@@ -39,7 +39,7 @@ const CGXLogo = () => {
           inactive-action-icon={LightIcon}
         />
         <MoveIcon label="Github" onClick={() => window.open("/")}>
-          <GithubIcon class="w-[24px] h-[24px] fill-black dark:fill-white" />
+          <GithubIcon class="w-[26px] h-[26px] fill-black dark:fill-white" />
         </MoveIcon>
       </div>
     </div>

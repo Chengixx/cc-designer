@@ -1,20 +1,20 @@
 <template>
   <div
-    class="contact-container"
+    class="move-icon"
     @mouseover="handleMouseOver"
     @mouseout="handleMouseOut"
     @click="handleClick"
-    ref="contactContainer"
+    ref="containerRef"
   >
-    <div class="contact-item" ref="contactItem">
+    <div ref="iconRef">
       <slot />
     </div>
-    <span class="tooltip" ref="tooltip">{{ label }}</span>
+    <span class="tooltip" ref="tooltipRef">{{ label }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 defineProps({
   label: {
@@ -28,68 +28,55 @@ const handleClick = (e: MouseEvent) => {
   emits("click", e);
 };
 
-const contactItem = ref<HTMLElement | null>(null);
-const tooltip = ref<HTMLElement | null>(null);
-const contactContainer = ref<HTMLElement | null>(null);
+const iconRef = ref<HTMLElement | null>(null);
+const tooltipRef = ref<HTMLElement | null>(null);
+const containerRef = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+  containerRef.value!.style.width = `${iconRef.value?.offsetWidth}px`;
+});
 
 const handleMouseOver = () => {
-  if (tooltip.value && contactItem.value) {
-    const tooltipWidth = tooltip.value.offsetWidth;
-    console.log(tooltipWidth);
-    contactItem.value.style.transform = `translateX(-${tooltipWidth + 6}px)`;
-    contactContainer.value!.style.width = `${tooltipWidth + 6}px`;
-    if (tooltip.value) {
-      tooltip.value.style.visibility = "visible";
-      tooltip.value.style.opacity = "1";
+  if (tooltipRef.value && iconRef.value && containerRef.value) {
+    const tooltipWidth = tooltipRef.value.offsetWidth;
+    const iconRefWidth = iconRef.value.offsetWidth;
+    containerRef.value.style.width = `${iconRefWidth + tooltipWidth + 6}px`;
+
+    if (tooltipRef.value) {
+      tooltipRef.value.style.visibility = "visible";
+      tooltipRef.value.style.opacity = "1";
     }
   }
 };
 
 const handleMouseOut = () => {
-  if (contactItem.value) {
-    contactItem.value.style.transform = "translateX(0)";
+  if (iconRef.value && containerRef.value) {
+    containerRef.value.style.width = `${iconRef.value?.offsetWidth}px`;
   }
-  if (tooltip.value) {
-    tooltip.value.style.visibility = "hidden";
-    tooltip.value.style.opacity = "0";
+  if (tooltipRef.value) {
+    tooltipRef.value.style.visibility = "hidden";
+    tooltipRef.value.style.opacity = "0";
   }
-  contactContainer.value!.style.width = "";
 };
 </script>
 
 <style scoped>
-.contact-container {
+.move-icon {
   position: relative;
   cursor: pointer;
   display: flex;
-}
-
-.contact-item {
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  transition: width 0.3s ease;
 }
 
 .tooltip {
   position: absolute;
-  top: 0;
+  top: 1px;
   right: 0;
   opacity: 0;
   visibility: hidden;
   transition:
-    opacity 0.3s ease,
-    visibility 0s 0.3s;
+    opacity 0.1s ease,
+    visibility 0s 0.1s;
   white-space: nowrap;
-}
-
-.contact-container:hover .contact-item {
-  /* transform: translateX(-120%); */
-}
-
-.contact-container:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
-  transition:
-    opacity 0.3s ease,
-    visibility 0s;
 }
 </style>
