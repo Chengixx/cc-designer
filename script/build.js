@@ -1,14 +1,9 @@
-import { fileURLToPath } from "url";
 import fs from "fs";
-import path from "path";
 import { exec } from "child_process";
+import { outputIndexPath, tailwindModulePath } from "./paths.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 // 检查是否已经打包，打包路径是dist里的index.js
-const filePath = path.join(__dirname, "../packages/cgx-designer/dist/index.js");
-
-if (fs.existsSync(filePath)) {
+if (fs.existsSync(outputIndexPath)) {
   console.log("已检测到有打包文件,将自动启动example");
 } else {
   console.log("暂未检测到有打包文件，将进行自动打包");
