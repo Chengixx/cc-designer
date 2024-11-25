@@ -72,7 +72,7 @@ const ElementDesigner = defineComponent({
                 collapseManage.leftMenuCollapseState.value
                   ? "w-[260px]"
                   : "w-0",
-                " bg-white h-full transition-all duration-300 dark:bg-darkMode",
+                " bg-white h-full transition-all duration-300",
               ]}
             >
               <ElementMenu />
