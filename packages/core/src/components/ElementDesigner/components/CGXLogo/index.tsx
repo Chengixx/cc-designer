@@ -1,7 +1,8 @@
-import { CcIcon } from "@cgx-designer/icons";
+import { CcIcon, LightIcon, DarkIcon } from "@cgx-designer/icons";
 import { logoName } from "../../../../constant/index";
 import { inject } from "vue";
 import { ThemeManage } from "@cgx-designer/hooks/src/useTheme";
+import { ElSwitch } from "element-plus";
 
 const CGXLogo = () => {
   const themeManage = inject("themeManage") as ThemeManage;
@@ -28,7 +29,15 @@ const CGXLogo = () => {
           {logoName}
         </span>
       </div>
-      <div class="flex-1 flex justify-end">帮助</div>
+      <div class="flex-1 flex justify-end">
+        <ElSwitch
+          size="large"
+          v-model={themeManage.isDark.value}
+          inline-prompt
+          active-action-icon={DarkIcon}
+          inactive-action-icon={LightIcon}
+        />
+      </div>
     </div>
   );
 };
