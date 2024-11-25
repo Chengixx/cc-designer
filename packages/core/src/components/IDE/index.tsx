@@ -1,4 +1,12 @@
-import { defineComponent, onMounted, onUnmounted, ref, watch } from "vue";
+import {
+  computed,
+  defineComponent,
+  inject,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch,
+} from "vue";
 import ace from "ace-builds";
 import workerJavascriptUrl from "ace-builds/src-noconflict/worker-javascript?url";
 import { js_beautify } from "js-beautify";
@@ -8,6 +16,7 @@ import { Star } from "@element-plus/icons-vue";
 import "ace-builds/src-min-noconflict/theme-monokai"; // 默认设置的主题
 import "ace-builds/src-min-noconflict/theme-dracula"; // 默认设置的主题
 import "ace-builds/src-min-noconflict/theme-sqlserver"; // 新设主题
+import "ace-builds/src-min-noconflict/theme-twilight"; // twilight 主题
 import "ace-builds/src-min-noconflict/mode-javascript"; // 默认设置的语言模式
 import "ace-builds/src-min-noconflict/mode-json"; //
 import "ace-builds/src-min-noconflict/mode-css"; //
@@ -15,6 +24,7 @@ import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/javascript";
 import "ace-builds/src-noconflict/snippets/json";
 import "ace-builds/src-noconflict/snippets/css";
+import { ThemeManage } from "@cgx-designer/hooks/src/useTheme";
 
 const IDE = defineComponent({
   props: {
@@ -28,11 +38,12 @@ const IDE = defineComponent({
     },
     theme: {
       type: String,
-      default: "sqlserver",
+      default: "twilight",
     },
   },
   emits: ["update:modelValue"],
   setup(props, { emit, expose }) {
+    const themeManage = inject("themeManage") as ThemeManage;
     const aceRef = ref<HTMLElement | null>(null);
     const aceEditor = ref<ace.Ace.Editor | null>(null);
     ace.config.setModuleUrl("ace/mode/javascript_worker", workerJavascriptUrl);
@@ -41,7 +52,9 @@ const IDE = defineComponent({
         // maxLines: 20, // 最大行数，超过会自动出现滚动条
         // minLines: 5, // 最小行数，还未到最大行数时，编辑器会自动伸缩大小
         fontSize: 13, // 编辑器内字体大小
-        theme: `ace/theme/${props.theme}`, // 默认设置的主题
+        theme: themeManage.isDark.value
+          ? "ace/theme/twilight"
+          : "ace/theme/sqlserver", // 默认设置的主题
         mode: "ace/mode/javascript", // 默认设置的语言模式
         tabSize: 2, // 制表符设置为2个空格大小
         readOnly: props.readonly,
@@ -74,6 +87,23 @@ const IDE = defineComponent({
         aceEditor.value.moveCursorTo(cursorPos.row, cursorPos.column);
       }
     };
+
+    const setEditorTheme = (theme: string) => {
+      if (aceEditor.value) {
+        aceEditor.value!.setTheme(theme);
+      }
+    };
+
+    watch(
+      () => themeManage.isDark.value,
+      () => {
+        if (themeManage.isDark.value) {
+          setEditorTheme("ace/theme/twilight");
+        } else {
+          setEditorTheme("ace/theme/sqlserver");
+        }
+      }
+    );
 
     watch(
       () => props.modelValue,
