@@ -1,31 +1,46 @@
 import { ElementManage } from "@cgx-designer/hooks";
 import IDE from "../../../../../components/IDE/index";
-import { defineComponent, inject, nextTick, ref, watch } from "vue";
-import { deepClone } from "@cgx-designer/utils";
+import { defineComponent, inject, nextTick, ref, toRaw, watch } from "vue";
+import { deepClone, deepCompareAndModify } from "@cgx-designer/utils";
+import { isEqual } from "lodash";
+import { IEditorElement } from "../../../../../../../cgx-designer/dist/core";
 
 // !注意这个IDE是用来修改script用的
 const ElementSource = defineComponent({
   setup() {
     const elementManage = inject("elementManage") as ElementManage;
-    const elementListSchema = ref(
-      JSON.stringify(deepClone(elementManage.elementList.value))
-    );
+    const sourceCodeIDERef = ref<any>(null);
+    const modelValue = JSON.stringify(elementManage.elementList.value);
+
+    let tempSchema: IEditorElement | null = null;
+
+    const handleUpdateSchema = (v: string) => {
+      if (!v) return;
+      try {
+        tempSchema = JSON.parse(v);
+        deepCompareAndModify(elementManage.elementList.value, tempSchema!);
+      } catch (e) {}
+    };
+
     watch(
       () => elementManage.elementList.value,
-      (nv) => {
-        elementListSchema.value = JSON.stringify(deepClone(nv));
+      (newSchema) => {
+        if (!isEqual(tempSchema, toRaw(deepClone(newSchema)))) {
+          sourceCodeIDERef.value!.setEditorValue(JSON.stringify(newSchema));
+        }
       },
-      { deep: true }
+      {
+        deep: true,
+      }
     );
 
-    // watch(
-    //   () => elementListSchema.value,
-    //   (nv) => {
-    //     elementManage.elementList.value = JSON.parse(nv);
-    //   }
-    // );
-
-    return () => <IDE v-model={elementListSchema.value} />;
+    return () => (
+      <IDE
+        modelValue={modelValue}
+        ref={sourceCodeIDERef}
+        onUpdate:modelValue={(v) => handleUpdateSchema(v)}
+      />
+    );
   },
 });
 

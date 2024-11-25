@@ -168,7 +168,7 @@ const ElementNode = defineComponent({
     };
     //获取组件的方法 事件
     const getElementFunction = computed(() => {
-      const onEvent: { [prop: string]: Function } = {};
+      const onEvent: Record<string, Function> = {};
       localSchema.on &&
         Object.keys(localSchema.on).forEach((item) => {
           onEvent["on" + stringFirstBigger(item)] = (...args: any[]) =>
