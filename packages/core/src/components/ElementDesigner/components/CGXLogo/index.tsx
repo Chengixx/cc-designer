@@ -3,11 +3,12 @@ import { logoName } from "../../../../constant/index";
 import { inject } from "vue";
 import { ThemeManage } from "@cgx-designer/hooks/src/useTheme";
 import { ElSwitch } from "element-plus";
+import MoveIcon from "./MoveIcon.vue";
 
 const CGXLogo = () => {
   const themeManage = inject("themeManage") as ThemeManage;
   return (
-    <div class="w-full h-10 bg-white flex items-center dark:bg-darkMode pl-8 pr-4">
+    <div class="w-full h-10 bg-white flex items-center dark:bg-darkMode px-8">
       <div class="flex-1 flex items-center">
         <CcIcon
           class="mr-1 w-[24px] h-[24px]"
@@ -19,7 +20,7 @@ const CGXLogo = () => {
           }}
         />
         <span
-          class="dark:text-[#5a9cf8]"
+          class="dark:text-[#5a9cf8] font-semibold"
           style={{
             filter: themeManage.isDark.value
               ? "drop-shadow(2px 2px 6px #409eff)"
@@ -29,7 +30,9 @@ const CGXLogo = () => {
           {logoName}
         </span>
       </div>
-      <div class="flex-1 flex justify-end">
+      <div class="flex-1 flex justify-end items-center gap-x-8">
+        <MoveIcon />
+
         <ElSwitch
           size="large"
           v-model={themeManage.isDark.value}
