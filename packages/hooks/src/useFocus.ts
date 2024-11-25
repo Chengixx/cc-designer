@@ -1,4 +1,4 @@
-import { computed, ref } from "vue";
+import { computed, onUnmounted, ref } from "vue";
 import { ElementManage } from "./useElement";
 import { isEqual } from "lodash";
 import { useObserve } from "./useObserve";
@@ -44,7 +44,7 @@ export const useFocus = (elementManage: ElementManage) => {
     containerRef.value?.addEventListener("scroll", () => {
       setFocusWidgetStyle();
     });
-    mutationObserver.observe(document.body, observerConfig);
+    startObserver();
   };
 
   //画布的点击 取消所有的focus
@@ -79,7 +79,10 @@ export const useFocus = (elementManage: ElementManage) => {
   };
 
   //初始化dom监听实例(拿到的是实例和config)
-  const { mutationObserver, observerConfig } = useObserve(setFocusWidgetStyle);
+  const { startObserver, stopObserver } = useObserve(
+    document.body,
+    setFocusWidgetStyle
+  );
   const { startTimedQuery, stopTimedQuery } =
     useTimedQuery(setFocusWidgetStyle);
 
@@ -104,6 +107,9 @@ export const useFocus = (elementManage: ElementManage) => {
     focusedElement.value = null;
   };
 
+  onUnmounted(() => {
+    stopObserver();
+  });
   return {
     focusedElement,
     focusTransition,
@@ -115,6 +121,6 @@ export const useFocus = (elementManage: ElementManage) => {
     stopFocusTimedQuery,
     resetFocus,
     setFocusWidgetStyle,
-    forceSetFocusWidgetStyle
+    forceSetFocusWidgetStyle,
   };
 };

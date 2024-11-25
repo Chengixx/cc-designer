@@ -5,6 +5,10 @@ export type ThemeManage = ReturnType<typeof useTheme>;
 
 export const useTheme = () => {
   const htmlElement: HTMLElement = document.documentElement;
+  const observeConfig = {
+    attributes: true,
+    attributeFilter: ["class"],
+  };
   const isDark = ref<boolean>(false);
   const toggleThemeMode = () => {
     isDark.value = !isDark.value;
@@ -27,19 +31,20 @@ export const useTheme = () => {
       }
     }
   };
-  const { mutationObserver } = useObserve(observerCallback);
+  const { startObserver, stopObserver } = useObserve(
+    htmlElement,
+    observerCallback,
+    observeConfig
+  );
 
   onMounted(() => {
     //初始化状态
     isDark.value = htmlElement.classList.contains("dark");
-    mutationObserver.observe(htmlElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
+    startObserver();
   });
 
   onUnmounted(() => {
-    mutationObserver.disconnect();
+    stopObserver();
   });
 
   return {
