@@ -22,8 +22,11 @@ const MethodsList = defineComponent({
                 <div
                   key={method.value}
                   class={[
-                    "p-1 border rounded-md cursor-pointer flex justify-center items-center my-1 dark:border-darkMode",
-                    props.currentMethod === method.value && "border-blue-500 dark:border-blue-500",
+                    "p-1 border rounded-md cursor-pointer flex justify-center items-center my-1",
+                    props.currentMethod === method.value &&
+                      "border-blue-500 dark:border-blue-500",
+                    props.currentMethod !== method.value &&
+                      "dark:border-darkMode",
                   ]}
                   onClick={() => emit("select", method.value)}
                 >
