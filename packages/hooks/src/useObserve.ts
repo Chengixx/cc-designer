@@ -1,4 +1,4 @@
-export const useObserve = (callback: () => void) => {
+export const useObserve = (callback: (...args: any[]) => void) => {
   const MutationObserver = window.MutationObserver;
 
   const observerConfig = {
@@ -15,5 +15,3 @@ export const useObserve = (callback: () => void) => {
     observerConfig,
   };
 };
-
-

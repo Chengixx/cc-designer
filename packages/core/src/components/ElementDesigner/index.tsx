@@ -12,6 +12,7 @@ import EditorCanvas from "./components/EditorCanvas";
 import SettingMenu from "./components/SettingMenu";
 import PreviewDialog from "./components/PreviewDialog";
 import { SourceCodeDialog } from "./components/SourceCodeDialog";
+import { useTheme } from "@cgx-designer/hooks/src/useTheme";
 //设计器
 const ElementDesigner = defineComponent({
   setup() {
@@ -27,6 +28,7 @@ const ElementDesigner = defineComponent({
     const formManage = useForm();
     const elementManage = useElement();
     const collapseManage = useCollapse();
+    const themeManage = useTheme();
     const hoverManage = useHover(elementManage);
     const focusManage = useFocus(elementManage);
     const { commands } = useCommand(elementManage, focusManage);
@@ -34,6 +36,7 @@ const ElementDesigner = defineComponent({
     //因为只能有一个实例 所以用provide注入进去
     provide("focusManage", focusManage);
     provide("elementManage", elementManage);
+    provide("themeManage", themeManage);
     provide("collapseManage", collapseManage);
     provide("hoverManage", hoverManage);
     provide("formManage", formManage);
