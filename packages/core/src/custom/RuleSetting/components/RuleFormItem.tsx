@@ -14,7 +14,7 @@ const RuleFormItem = defineComponent({
         <ElRow class="w-full">
           {props.label && (
             <ElCol span={8}>
-              <div class="font-medium text-sm text-gray-600 h-full flex items-center">
+              <div class="font-medium text-sm text-gray-600 h-full flex items-center dark:text-gray-300">
                 {props.label}:
               </div>
             </ElCol>
