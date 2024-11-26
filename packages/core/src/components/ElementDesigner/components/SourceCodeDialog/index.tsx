@@ -23,7 +23,7 @@ export const SourceCodeDialog = defineComponent({
     });
     const IDERef = ref<typeof IDE | null>(null);
     const isShow = ref<boolean>(false);
-    const showDialog = (newOption: OptionType) => {
+    const handleOpen = (newOption: OptionType) => {
       nextTick(() => {
         option.title = newOption.title;
         option.content = newOption.content;
@@ -41,7 +41,7 @@ export const SourceCodeDialog = defineComponent({
       option.confirm && option.confirm(option.content);
     };
     expose({
-      showDialog,
+      handleOpen,
     });
     return () => {
       return (

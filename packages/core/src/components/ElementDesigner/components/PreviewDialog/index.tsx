@@ -13,11 +13,11 @@ const PreviewDialog = defineComponent({
     const elementBuilderRef = ref<ElementBuilderExpose | null>(null);
     const dialogShow = ref<boolean>(false);
     const ElementBuilderKey = ref("");
-    const open = () => {
+    const handleOpen = () => {
       dialogShow.value = true;
       ElementBuilderKey.value = new Date().getTime().toString();
     };
-    const close = () => {
+    const handleClose = () => {
       dialogShow.value = false;
       //同时清空一下form的数据
       elementBuilderRef.value!.resetFormDataToEmpty();
@@ -40,8 +40,8 @@ const PreviewDialog = defineComponent({
       });
     };
     expose({
-      open,
-      close,
+      handleOpen,
+      handleClose,
     });
     return () => {
       return (
@@ -49,7 +49,7 @@ const PreviewDialog = defineComponent({
           destroyOnClose
           title="预览"
           v-model={dialogShow.value}
-          beforeClose={close}
+          beforeClose={handleClose}
           style={{
             marginTop: "5vh !important",
           }}
@@ -73,7 +73,7 @@ const PreviewDialog = defineComponent({
             footer: () => {
               return (
                 <div>
-                  <ElButton onClick={close}>关闭</ElButton>
+                  <ElButton onClick={handleClose}>关闭</ElButton>
                   <ElButton type="primary" onClick={handleValidFormData}>
                     模拟校验
                   </ElButton>

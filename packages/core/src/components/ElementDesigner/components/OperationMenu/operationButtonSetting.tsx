@@ -28,8 +28,8 @@ export const createOperationButtonSetting = (
   functionManage: FunctionManage,
   focusManage: FocusManage,
   commands: Record<string, Function>,
-  showPreviewDialog: () => void,
-  showSourceCodeDialog: Function
+  previewDialogRef: any,
+  sourceCodeDialogRef: any
 ): Record<string, OperationButtonSetting> => {
   const ButtonMap = {
     Message: {
@@ -85,7 +85,7 @@ export const createOperationButtonSetting = (
           elementList: elementManage.elementList.value,
           script: functionManage.javaScriptVal.value,
         };
-        showSourceCodeDialog({
+        sourceCodeDialogRef.value.handleOpen({
           title: "导出",
           content: JSON.stringify(tempObj),
           confirm: (value: string) => {
@@ -101,7 +101,7 @@ export const createOperationButtonSetting = (
     Import: {
       label: "导入",
       handler: () => {
-        showSourceCodeDialog({
+        sourceCodeDialogRef.value.handleOpen({
           title: "导入",
           content: "",
           confirm: (value: string) => {
@@ -125,7 +125,7 @@ export const createOperationButtonSetting = (
     Preview: {
       label: "预览",
       handler: () => {
-        showPreviewDialog();
+        previewDialogRef.value.handleOpen();
       },
       icon: PreviewIcon,
     },

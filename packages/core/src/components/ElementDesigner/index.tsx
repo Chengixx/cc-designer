@@ -23,12 +23,10 @@ const ElementDesigner = defineComponent({
     //dialog实例
     const previewDialogRef = ref<any>(null);
     const sourceCodeDialogRef = ref<any>(null);
-    const showPreviewDialog = () => {
-      previewDialogRef.value?.open();
-    };
-    const showSourceCodeDialog = (value: any) => {
-      sourceCodeDialogRef.value.showDialog(value);
-    };
+    //左右菜单实例
+    const leftMenuRef = ref<HTMLDivElement | null>(null);
+    const rightMenuRef = ref<HTMLDivElement | null>(null);
+    //所有的hook实例
     const formManage = useForm();
     const elementManage = useElement();
     const collapseManage = useCollapse();
@@ -52,12 +50,9 @@ const ElementDesigner = defineComponent({
       functionManage,
       focusManage,
       commands!,
-      showPreviewDialog as () => void,
-      showSourceCodeDialog
+      previewDialogRef,
+      sourceCodeDialogRef
     );
-
-    const leftMenuRef = ref<HTMLDivElement | null>(null);
-    const rightMenuRef = ref<HTMLDivElement | null>(null);
 
     onMounted(() => {
       collapseManage.initMenuInstance(leftMenuRef.value, rightMenuRef.value);
