@@ -7,9 +7,9 @@ import { ElementManage } from "@cgx-designer/hooks/src/useElement";
 import { FunctionManage } from "@cgx-designer/hooks";
 import {
   ClearIcon,
+  DebugIcon,
   ExportIcon,
   ImportIcon,
-  MessageIcon,
   PreviewIcon,
   RedoIcon,
   TreeIcon,
@@ -43,7 +43,7 @@ export const createOperationButtonSetting = (
         );
         console.log("当前function管理", functionManage);
       },
-      icon: MessageIcon,
+      icon: DebugIcon,
     },
     Tree: {
       label: "树状图",
