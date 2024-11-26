@@ -105,12 +105,6 @@ const IDE = defineComponent({
       }
     );
 
-    watch(
-      () => props.modelValue,
-      (nv) => {
-        setEditorValue(nv);
-      }
-    );
     expose({
       setEditorValue,
     });
