@@ -1,10 +1,5 @@
 import { defineComponent, onMounted, provide, ref } from "vue";
 import { createOperationButtonSetting } from "./components/OperationMenu/operationButtonSetting";
-import { useCollapse, useCommand, useFunction } from "@cgx-designer/hooks";
-import { useForm } from "@cgx-designer/hooks";
-import { useHover } from "@cgx-designer/hooks";
-import { useElement } from "@cgx-designer/hooks";
-import { useFocus } from "@cgx-designer/hooks";
 import CGXLogo from "./components/CGXLogo";
 import ElementMenu from "./components/ElementMenu";
 import OperationMenu from "./components/OperationMenu";
@@ -12,7 +7,16 @@ import EditorCanvas from "./components/EditorCanvas";
 import SettingMenu from "./components/SettingMenu";
 import PreviewDialog from "./components/PreviewDialog";
 import { SourceCodeDialog } from "./components/SourceCodeDialog";
-import { useTheme } from "@cgx-designer/hooks/src/useTheme";
+import {
+  useCollapse,
+  useCommand,
+  useFunction,
+  useForm,
+  useHover,
+  useElement,
+  useFocus,
+  useTheme,
+} from "@cgx-designer/hooks";
 //设计器
 const ElementDesigner = defineComponent({
   setup() {

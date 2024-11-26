@@ -9,3 +9,4 @@ export * from "./useTimedQuery";
 export * from "./useFunction";
 export * from "./useExpose";
 export * from "./useCollapse";
+export * from "./useTheme";
