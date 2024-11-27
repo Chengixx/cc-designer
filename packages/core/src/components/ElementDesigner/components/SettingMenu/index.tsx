@@ -4,6 +4,8 @@ import EditorFormSetting from "./EditorFormSetting";
 import ElementAttribute from "./ElementAttribute";
 import { FocusManage } from "@cgx-designer/hooks";
 import ElementEvent from "./ElementEvent";
+import ElementStyle from "./ElementStyle";
+import "../../../../style/index.css"
 
 const SettingMenu = defineComponent({
   setup() {
@@ -16,7 +18,7 @@ const SettingMenu = defineComponent({
             <span>配置菜单</span>
           </div>
           <div class="h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden w-[280px]">
-            <ElTabs v-model={settingTab.value} stretch>
+            <ElTabs v-model={settingTab.value} stretch class="no-padding-tabs">
               <ElTabPane label="属性" name={1}>
                 <div class="px-2 pt-2">
                   {focusManage.focusedElement.value ? (
@@ -29,6 +31,11 @@ const SettingMenu = defineComponent({
               <ElTabPane label="事件" name={2}>
                 <div class="px-2 pt-2">
                   <ElementEvent />
+                </div>
+              </ElTabPane>
+              <ElTabPane label="样式" name={3}>
+                <div class="px-2 pt-2">
+                  <ElementStyle />
                 </div>
               </ElTabPane>
             </ElTabs>
