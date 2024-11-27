@@ -21,7 +21,7 @@ import {
   watchEffect,
 } from "vue";
 import { ElementManage, FunctionManage } from "@cgx-designer/hooks";
-import { isEqual, omit } from "lodash";
+import { isEmpty, isEqual, omit } from "lodash";
 
 const ElementNode = defineComponent({
   props: {
@@ -99,7 +99,7 @@ const ElementNode = defineComponent({
       if (typeof localSchema.props!.defaultValue !== "undefined") {
         const defaultValue = !props.isPreview
           ? localSchema.props!.defaultValue
-          : formData[localSchema.field!] ?? localSchema.props!.defaultValue;
+          : (formData[localSchema.field!] ?? localSchema.props!.defaultValue);
         handleUpdate(deepClone(defaultValue));
       }
     };
@@ -188,6 +188,13 @@ const ElementNode = defineComponent({
         return undefined;
       }
     });
+    //获取组件的样式(style)
+    const getElementStyle = computed(() => {
+      if (localSchema.style && !isEmpty(localSchema.style)) {
+        return { style: { ...localSchema.style } };
+      }
+      return undefined;
+    });
     watch(
       () => elementRef.value,
       () => {
@@ -224,6 +231,7 @@ const ElementNode = defineComponent({
                 ref={elementRef}
                 {...getElementFunction.value}
                 {...getElementModel.value}
+                {...getElementStyle.value}
                 elementSchema={localSchema}
               />
             </ElFormItem>
@@ -233,6 +241,7 @@ const ElementNode = defineComponent({
                 ref={elementRef}
                 {...getElementFunction.value}
                 {...getElementModel.value}
+                {...getElementStyle.value}
                 elementSchema={localSchema}
               >
                 {{
