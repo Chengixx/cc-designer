@@ -18,9 +18,11 @@ export class ElementController {
       this.elementList.push(elementBaseConfig);
     }
     this.elementTemplate[elementBaseConfig.key] = elementBaseConfig.template;
-    this.elementRenderMap[elementBaseConfig.key] = defineAsyncComponent(
-      elementBaseConfig.render
-    );
+    this.elementRenderMap[elementBaseConfig.key] =
+      typeof elementBaseConfig.render === "function"
+        ? defineAsyncComponent(elementBaseConfig.render)
+        : elementBaseConfig.render;
+
     if (elementBaseConfig.template(getRandomId).formItem) {
       (elementBaseConfig.config!.action ??= []).unshift(
         {

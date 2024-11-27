@@ -6,6 +6,7 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 //引入svg
 import "virtual:svg-icons-register";
 import { elementController } from "@cgx-designer/utils";
+import Kobe from "./components/Kobe.vue";
 // import { elementController } from "cgx-designer";
 
 //注册自定义组件
@@ -32,7 +33,7 @@ elementController.register({
   key: "man",
   icon: "kobe",
   label: "曼巴",
-  render: () => import("./components/Kobe.vue"),
+  render: Kobe,
   template: (uuid: Function) => {
     return {
       id: uuid(),
