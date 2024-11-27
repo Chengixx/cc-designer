@@ -195,19 +195,11 @@ const ElementNode = defineComponent({
       }
       return undefined;
     });
-    watch(
-      () => elementRef.value,
-      () => {
-        handleAddElementInstance();
-      },
-      { immediate: true }
-    );
-    onMounted(() => {
-      initComponentInstance();
+    watch(() => elementRef.value, handleAddElementInstance, {
+      immediate: true,
     });
-    onUnmounted(() => {
-      handleRemoveElementInstance();
-    });
+    onMounted(initComponentInstance);
+    onUnmounted(handleRemoveElementInstance);
     return () => {
       //渲染出来的组件
       const ElementRender = elementController.elementRenderMap[localSchema.key];

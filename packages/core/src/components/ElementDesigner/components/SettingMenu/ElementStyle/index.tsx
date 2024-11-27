@@ -18,7 +18,7 @@ const ElementStyle = defineComponent({
           <div class="w-full h-full">
             <ComputedStyleWidget
               modelValue={getValueByPath(focusedElement.value!, "style")}
-              onUpdateModelValue={(v: any) => {
+              onUpdateModelValue={(v: string) => {
                 setValueByPath(focusedElement.value!, "style", v);
               }}
             />

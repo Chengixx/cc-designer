@@ -6,7 +6,7 @@ const Row = defineComponent({
   props: {
     elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
-  setup(props, { slots }) {
+  setup(_, { slots }) {
     return () => {
       return <ElRow>{renderSlot(slots, "editNode")}</ElRow>;
     };
