@@ -11,7 +11,7 @@ const StyleInput = defineComponent({
   setup(props, { emit }) {
     const formatValue = (value: string): string => {
       const validUnits = ["px", "rem", "%", "vh", "vw", "em"];
-      const regex = new RegExp(`^(\d*\.?\d+)(${validUnits.join("|")})$`);
+      const regex = new RegExp(`^([0-9]*\.?[0-9]+)(${validUnits.join("|")})$`);
       if (regex.test(value)) {
         return value;
       }
