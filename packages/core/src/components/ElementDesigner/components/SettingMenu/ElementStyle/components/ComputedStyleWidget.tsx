@@ -38,7 +38,6 @@ const ComputedStyleWidget = defineComponent({
 
     return () => (
       <div class="w-full h-fit">
-        <button onClick={() => console.log(styleState.value)}>111</button>
         <ElDivider content-position="center">计算样式</ElDivider>
         <div class="w-full h-[180px] m-auto">
           {/* margin的在最外面 */}
@@ -111,6 +110,7 @@ const ComputedStyleWidget = defineComponent({
                 }
                 class="absolute right-[2px] top-1/2 transform -translate-y-1/2"
               />
+              <div class="bg-[#88b2bd] w-full h-full"></div>
             </div>
           </div>
         </div>

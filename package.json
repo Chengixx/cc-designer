@@ -12,6 +12,7 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "build": "pnpm --filter=./packages/cgx-designer build",
+    "build:play": "pnpm --filter=./play build",
     "build:icon": "node ./script/build-icon.js",
     "build:css": "npx tailwindcss -o ./packages/cgx-designer/dist/module.css --minify",
     "build:auto": "node ./script/build.js",
