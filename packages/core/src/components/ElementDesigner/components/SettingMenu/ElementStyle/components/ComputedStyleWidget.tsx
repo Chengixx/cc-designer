@@ -1,6 +1,6 @@
 import { ElDivider } from "element-plus";
 import { defineComponent, PropType, ref, watch } from "vue";
-import StyleInput from "./StyleInput";
+import ComputedStyleInput from "./ComputedStyleInput";
 import { deepClone, getValueByPath, setValueByPath } from "@cgx-designer/utils";
 
 const ComputedStyleWidget = defineComponent({
@@ -37,7 +37,7 @@ const ComputedStyleWidget = defineComponent({
             <span class="absolute top-[2px] left-[4px] text-xs">
               {labelMap[prefix]}
             </span>
-            <StyleInput
+            <ComputedStyleInput
               key={key}
               modelValue={getValueByPath(styleState.value, key)}
               onUpdate:modelValue={(v) =>

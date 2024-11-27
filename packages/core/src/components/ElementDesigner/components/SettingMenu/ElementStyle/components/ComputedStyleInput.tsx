@@ -1,6 +1,6 @@
 import { defineComponent } from "vue";
 
-const StyleInput = defineComponent({
+const ComputedStyleInput = defineComponent({
   props: {
     modelValue: {
       type: String,
@@ -45,4 +45,4 @@ const StyleInput = defineComponent({
   },
 });
 
-export default StyleInput;
+export default ComputedStyleInput;
