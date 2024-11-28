@@ -97,11 +97,11 @@ export const setValueByPath = (
 };
 
 //深比较并修改
-export function deepCompareAndModify(
+export const deepCompareAndModify = (
   obj1: Record<string, any>,
   obj2: Record<string, any>,
   shouldDelete: boolean = true
-): void {
+): void => {
   for (const [key, val2] of Object.entries(obj2)) {
     let val1 = obj1?.[key];
     if (val1 && val2 && typeof val1 === "object" && typeof val2 === "object") {
@@ -130,7 +130,7 @@ export function deepCompareAndModify(
         }
       });
   }
-}
+};
 
 //判断是否为空
 export const isEmpty = (value: any) => {

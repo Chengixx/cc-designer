@@ -1,4 +1,3 @@
-import { ElementManage } from "@cgx-designer/hooks";
 import { IEditorElement } from "../../types";
 import { elementController, getRandomId } from "@cgx-designer/utils";
 import { Delete } from "@element-plus/icons-vue";
@@ -17,7 +16,6 @@ const ColList = defineComponent({
   },
   setup(_, { attrs }) {
     const commandManage = inject("commandManage") as any;
-    const elementManage = inject("elementManage") as ElementManage;
     const bindValue = ref<IEditorElement[]>(
       attrs.modelValue as IEditorElement[]
     );
