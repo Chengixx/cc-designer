@@ -23,6 +23,17 @@ export class ElementController {
         ? defineAsyncComponent(elementBaseConfig.render)
         : elementBaseConfig.render;
 
+    //每个元素都应该有id输入框 用于复制
+    (elementBaseConfig.config!.attribute ??= []).unshift({
+      label: "组件ID",
+      key: "idInput",
+      field: "id",
+      props: {
+        readonly: true,
+      },
+    });
+
+    // 每个有值的元素都可以设置值和获取值
     if (elementBaseConfig.template(getRandomId).formItem) {
       (elementBaseConfig.config!.action ??= []).unshift(
         {

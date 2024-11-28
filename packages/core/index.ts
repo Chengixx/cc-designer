@@ -6,6 +6,7 @@ import {
   RuleSetting,
   TabList,
   StyleInput,
+  IdInput,
 } from "./src/custom";
 import { elementController } from "@cgx-designer/utils";
 
@@ -14,6 +15,7 @@ elementController.registerCustomElement("colList", ColList);
 elementController.registerCustomElement("ruleSetting", RuleSetting);
 elementController.registerCustomElement("tabList", TabList);
 elementController.registerCustomElement("styleInput", StyleInput);
+elementController.registerCustomElement("idInput", IdInput);
 
 export * from "./src/types/index";
 export * from "./src/components/ElementBuilder/type";

@@ -5,7 +5,6 @@ import { ToLeftIcon, ToRightIcon } from "@cgx-designer/icons";
 import { CollapseManage, FocusManage } from "@cgx-designer/hooks";
 
 const Icon = (Iconfig: OperationButtonSetting, disabled: boolean = false) => {
-  console.log(disabled);
   return (
     <div title={Iconfig.label}>
       <Iconfig.icon

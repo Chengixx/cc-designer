@@ -2,3 +2,8 @@
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+
+.no-padding-elInput .el-input-group__append, .el-input-group__prepend{
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
