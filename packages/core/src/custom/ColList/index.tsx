@@ -1,14 +1,23 @@
+import { ElementManage } from "@cgx-designer/hooks";
 import { IEditorElement } from "../../types";
 import { elementController, getRandomId } from "@cgx-designer/utils";
 import { Delete } from "@element-plus/icons-vue";
-import { ElButton, ElDivider, ElIcon, ElInputNumber, ElTooltip } from "element-plus";
-import { defineComponent, PropType, ref } from "vue";
+import {
+  ElButton,
+  ElDivider,
+  ElIcon,
+  ElInputNumber,
+  ElTooltip,
+} from "element-plus";
+import { defineComponent, inject, PropType, ref } from "vue";
 
 const ColList = defineComponent({
   props: {
     elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
   setup(_, { attrs }) {
+    const commandManage = inject("commandManage") as any;
+    const elementManage = inject("elementManage") as ElementManage;
     const bindValue = ref<IEditorElement[]>(
       attrs.modelValue as IEditorElement[]
     );
@@ -19,7 +28,8 @@ const ColList = defineComponent({
     };
 
     const handleDeleteCol = (index: number) => {
-      bindValue.value.splice(index, 1);
+      const id = bindValue.value[index].id!;
+      commandManage.commands.handleDelete(id);
     };
 
     return () => (

@@ -10,6 +10,12 @@ import { ToLeftIcon, ToRightIcon } from "@cgx-designer/icons";
 import { CollapseManage, FocusManage, ModeManage } from "@cgx-designer/hooks";
 
 const Icon = (Iconfig: OperationButtonSetting, disabled: boolean = false) => {
+  const handleClick = () => {
+    if (!disabled) {
+      Iconfig.handler!();
+    }
+  };
+
   return (
     <div title={Iconfig.label}>
       <Iconfig.icon
@@ -19,7 +25,7 @@ const Icon = (Iconfig: OperationButtonSetting, disabled: boolean = false) => {
             ? "fill-gray-500 cursor-not-allowed"
             : "dark:fill-white hover:fill-blue-500 dark:hover:fill-blue-500",
         ]}
-        onclick={!disabled ? Iconfig.handler : undefined}
+        onclick={handleClick}
       />
     </div>
   );
