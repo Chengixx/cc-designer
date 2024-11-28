@@ -27,6 +27,7 @@ export const createOperationButtonSetting = (
   elementManage: ElementManage,
   functionManage: FunctionManage,
   focusManage: FocusManage,
+  commandManage: any,
   commands: Record<string, Function>,
   previewDialogRef: any,
   sourceCodeDialogRef: any
@@ -42,6 +43,7 @@ export const createOperationButtonSetting = (
           elementManage.elementInstanceList.value
         );
         console.log("当前function管理", functionManage);
+        console.log("当前队列管理", commandManage);
       },
       icon: DebugIcon,
     },

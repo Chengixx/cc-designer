@@ -10,6 +10,6 @@ export const needMarginBottomDomList: string[] = [
 //不让复制的节点
 export const noCopyDomList: string[] = ["col", "tabPane"];
 //需要展示找到上级的节点
-export const findHigherLevelDomList: string[] = ["col"];
+export const findHigherLevelDomList: string[] = ["col", "tabPane"];
 //logo名称
 export const logoName = "CGX-Form-Design";

@@ -33,7 +33,8 @@ const ElementDesigner = defineComponent({
     const themeManage = useTheme();
     const hoverManage = useHover(elementManage);
     const focusManage = useFocus(elementManage);
-    const { commands } = useCommand(elementManage, focusManage);
+    const commandManage = useCommand(elementManage, focusManage);
+    const { commands } = commandManage;
     const functionManage = useFunction(elementManage);
     //因为只能有一个实例 所以用provide注入进去
     provide("focusManage", focusManage);
@@ -42,6 +43,7 @@ const ElementDesigner = defineComponent({
     provide("collapseManage", collapseManage);
     provide("hoverManage", hoverManage);
     provide("formManage", formManage);
+    provide("commandManage", commandManage);
     provide("commands", commands);
     provide("functionManage", functionManage);
     const buttonMap = createOperationButtonSetting(
@@ -49,6 +51,7 @@ const ElementDesigner = defineComponent({
       elementManage,
       functionManage,
       focusManage,
+      commandManage,
       commands!,
       previewDialogRef,
       sourceCodeDialogRef

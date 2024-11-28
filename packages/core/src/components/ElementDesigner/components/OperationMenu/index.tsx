@@ -1,15 +1,21 @@
-import { defineComponent, inject, PropType } from "vue";
+import { computed, defineComponent, inject, PropType } from "vue";
 import { OperationButtonSetting } from "./operationButtonSetting";
 import { ElButton, ButtonType } from "element-plus";
 import { ToLeftIcon, ToRightIcon } from "@cgx-designer/icons";
 import { CollapseManage, FocusManage } from "@cgx-designer/hooks";
 
-const Icon = (Iconfig: OperationButtonSetting) => {
+const Icon = (Iconfig: OperationButtonSetting, disabled: boolean = false) => {
+  console.log(disabled);
   return (
     <div title={Iconfig.label}>
       <Iconfig.icon
-        class="h-5 w-5 hover:fill-blue-500 cursor-pointer dark:fill-white dark:hover:fill-blue-500"
-        onclick={Iconfig.handler}
+        class={[
+          "h-5 w-5 cursor-pointer",
+          disabled
+            ? "fill-gray-500 cursor-not-allowed"
+            : "dark:fill-white hover:fill-blue-500 dark:hover:fill-blue-500",
+        ]}
+        onclick={!disabled ? Iconfig.handler : undefined}
       />
     </div>
   );
@@ -52,10 +58,33 @@ const OperationMenu = defineComponent({
     },
   },
   setup({ buttonMap }) {
+    const commandManage = inject("commandManage") as any;
     const collapseManage = inject("collapseManage") as CollapseManage;
     const focusManage = inject("focusManage") as FocusManage;
     const { Message, Tree, Clear, Undo, Redo, Export, Import, Preview } =
       buttonMap;
+
+    const undoDisabled = computed(() => {
+      if (commandManage.queue?.length === 0) {
+        return true;
+      }
+      if (commandManage.queue?.length > 0 && commandManage.current === -1) {
+        return true;
+      }
+      return false;
+    });
+    const RedoDisabled = computed(() => {
+      if (commandManage.queue?.length === 0) {
+        return true;
+      }
+      if (
+        commandManage.queue?.length > 0 &&
+        commandManage.current === commandManage.queue?.length - 1
+      ) {
+        return true;
+      }
+      return false;
+    });
 
     return () => {
       return (
@@ -81,8 +110,8 @@ const OperationMenu = defineComponent({
             )}
           </div>
           <div class="h-full flex-1 flex items-center gap-x-4 pl-4">
-            <Icon {...Undo} />
-            <Icon {...Redo} />
+            {Icon(Undo, undoDisabled.value)}
+            {Icon(Redo, RedoDisabled.value)}
             <Icon {...Clear} />
             <Icon {...Message} />
           </div>
