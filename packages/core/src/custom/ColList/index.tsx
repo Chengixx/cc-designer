@@ -29,7 +29,10 @@ const ColList = defineComponent({
 
     const handleDeleteCol = (index: number) => {
       const id = bindValue.value[index].id!;
-      commandManage.commands.handleDelete(id);
+      commandManage.commands.handleDelete(
+        id,
+        bindValue.value.length === 1 ? true : false
+      );
     };
 
     return () => (

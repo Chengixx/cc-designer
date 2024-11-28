@@ -183,12 +183,15 @@ export const useCommand = (
     registry({
       name: "handleDelete",
       pushQueue: true,
-      execute(id: string) {
+      execute(id: string, clearFocus: boolean = true) {
         let before = cloneDeep(elementManage.elementList.value);
         let after = elementManage.deleteElementById(id);
         return {
           redo: () => {
-            focusManage.resetFocus();
+            const clearFocusFlag = clearFocus;
+            if (clearFocusFlag) {
+              focusManage.resetFocus();
+            }
             elementManage.setElementList(cloneDeep(after!));
           },
           undo: () => {
