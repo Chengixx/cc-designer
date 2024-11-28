@@ -16,14 +16,8 @@ const ButtonTool = defineComponent({
 
     const handleCopy = (e: MouseEvent) => {
       e.stopPropagation();
-      const id = getRandomId();
-      commands!.handleLastAdd(
-        deepClone({
-          ...focusManage.focusedElement.value,
-          id,
-          field: focusManage.focusedElement.value?.key + "-" + id,
-        })
-      );
+      const newElementSchema = elementManage.deepCopyElement(deepClone(focusManage.focusedElement.value!))
+      commands!.handleLastAdd(newElementSchema)
     };
 
     const handleDelete = (e: MouseEvent) => {

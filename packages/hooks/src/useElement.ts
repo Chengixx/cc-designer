@@ -1,6 +1,8 @@
 import { ref } from "vue";
-import { cloneDeep } from "lodash";
+import { cloneDeep, isEmpty } from "lodash";
 import { ElementInstance, IEditorElement } from "@cgx-designer/core";
+import { getRandomId } from "@cgx-designer/utils";
+import { deepClone } from "./../../utils/common/util";
 
 export type ElementManage = ReturnType<typeof useElement>;
 
@@ -97,6 +99,26 @@ export const useElement = () => {
     return result;
   };
 
+  const deepCopyElement = (elementSchema: IEditorElement) => {
+    let newElementSchema: IEditorElement | {} = {};
+    const id = getRandomId();
+    for (let key in elementSchema) {
+      if (key === "id") {
+        newElementSchema[key] = id;
+      } else if (key === "field") {
+        newElementSchema[key] = elementSchema.key + "-" + id;
+      } else if (key === "elementList" && !isEmpty(elementSchema[key])) {
+        newElementSchema[key] = []
+        for (let index = 0; index < elementSchema[key]!.length; index++) {
+          newElementSchema[key][index] = deepCopyElement(elementSchema[key]![index]!);
+        }
+      } else {
+        newElementSchema[key] = elementSchema[key];
+      }
+    }
+
+    return newElementSchema;
+  };
   return {
     elementList,
     elementInstanceList,
@@ -111,5 +133,6 @@ export const useElement = () => {
     findElementById,
     deleteAllElements,
     addElementInstance,
+    deepCopyElement,
   };
 };
