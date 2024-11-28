@@ -8,6 +8,8 @@ const StyleInput = defineComponent({
     elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
   emits: ["update:modelValue"],
+  // 加入这个即可防止直接v-model透传
+  inheritAttrs: false,
   setup(props, { attrs, emit }) {
     const options: OptionGroup[] = [
       { label: "px", value: "px" },
@@ -33,7 +35,7 @@ const StyleInput = defineComponent({
       { immediate: true }
     );
     watch(
-      () => bindValue.value + stylePrefix.value,
+      () => bindValue.value,
       () => {
         emit(
           "update:modelValue",
@@ -41,10 +43,14 @@ const StyleInput = defineComponent({
         );
       }
     );
-    return () => (
-      //Todo 目前一定要加div进行隔离 否则node会直接绑定model值
-      <div>
-        <ElInput v-model={bindValue.value} type="number">
+    return () => {
+      const renderProps = {
+        ...props.elementSchema.props,
+        // !0不是想写在这 是写在下面会报错 ts不知道为什么说elInput不支持 实际上是支持的
+        min: "0",
+      };
+      return (
+        <ElInput v-model={bindValue.value} type="number" {...renderProps}>
           {{
             append: () => {
               return (
@@ -63,8 +69,8 @@ const StyleInput = defineComponent({
             },
           }}
         </ElInput>
-      </div>
-    );
+      );
+    };
   },
 });
 
