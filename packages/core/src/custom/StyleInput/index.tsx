@@ -20,7 +20,7 @@ const StyleInput = defineComponent({
       { label: "%", value: "%" },
     ];
     const bindValue = ref<string | null>(null);
-    const stylePrefix = ref<string>("px");
+    const stylePrefix = ref<(typeof options)[number]["value"]>("px");
     watch(
       () => attrs.modelValue as string | undefined,
       (nv) => {
