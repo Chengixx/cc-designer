@@ -127,12 +127,14 @@ const OperationMenu = defineComponent({
               </>
             )}
           </div>
-          <div class="h-full pl-4 flex justify-center items-center">
-            <ElRadioGroup v-model={modeComputed.value}>
-              <ElRadioButton label="Pc" value="pc" />
-              <ElRadioButton label="Pad" value="ipad" />
-              <ElRadioButton label="Pe" value="pe" />
-            </ElRadioGroup>
+          <div class="h-full flex justify-center items-center py-2">
+            <div class="border-r px-4 flex justify-center items-center dark:border-[#3e434c]">
+              <ElRadioGroup v-model={modeComputed.value} size="small">
+                <ElRadioButton label="Pc" value="pc" />
+                <ElRadioButton label="Pad" value="ipad" />
+                <ElRadioButton label="Pe" value="pe" />
+              </ElRadioGroup>
+            </div>
           </div>
           <div class="h-full flex-1 flex items-center gap-x-4 pl-4">
             {Icon(Undo, undoDisabled.value)}
