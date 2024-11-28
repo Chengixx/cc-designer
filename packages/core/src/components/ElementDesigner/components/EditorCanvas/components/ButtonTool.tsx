@@ -1,14 +1,18 @@
-import { Delete, DocumentCopy } from "@element-plus/icons-vue";
+import { Delete, DocumentCopy, Top } from "@element-plus/icons-vue";
 import { ElIcon, ElTooltip } from "element-plus";
 import { computed, defineComponent, inject } from "vue";
-import { FocusManage } from "@cgx-designer/hooks";
+import { ElementManage, FocusManage } from "@cgx-designer/hooks";
 import { deepClone, getRandomId } from "@cgx-designer/utils";
-import { noCopyDomList } from "../../../../../constant/index";
+import {
+  noCopyDomList,
+  findHigherLevelDomList,
+} from "../../../../../constant/index";
 
 const ButtonTool = defineComponent({
   setup() {
     const commands: Record<string, Function> | undefined = inject("commands");
     const focusManage = inject("focusManage") as FocusManage;
+    const elementManage = inject("elementManage") as ElementManage;
 
     const handleCopy = (e: MouseEvent) => {
       e.stopPropagation();
@@ -28,6 +32,13 @@ const ButtonTool = defineComponent({
       const id = focusManage.focusedElement.value?.id;
       commands!.handleDelete(id);
       focusManage.stopFocusTimedQuery();
+    };
+
+    const handleTop = (e: MouseEvent) => {
+      e.stopPropagation();
+      const id = focusManage.focusedElement.value?.id;
+      const parentDom = elementManage.findParentElementById(id!);
+      focusManage.handleFocus(parentDom!);
     };
 
     const elementTag = computed(() => {
@@ -55,6 +66,20 @@ const ButtonTool = defineComponent({
                 >
                   <ElIcon>
                     <DocumentCopy />
+                  </ElIcon>
+                </div>
+              </ElTooltip>
+            )}
+            {findHigherLevelDomList.includes(
+              focusManage.focusedElement.value?.key!
+            ) && (
+              <ElTooltip effect="dark" content="父级元素" placement="bottom">
+                <div
+                  class="mr-1 flex items-center"
+                  onClick={(e: MouseEvent) => handleTop(e)}
+                >
+                  <ElIcon>
+                    <Top />
                   </ElIcon>
                 </div>
               </ElTooltip>
