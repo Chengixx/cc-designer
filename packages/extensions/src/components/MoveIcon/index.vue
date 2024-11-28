@@ -6,7 +6,7 @@
     @click="handleClick"
     ref="containerRef"
   >
-    <div ref="iconRef">
+    <div class="icon-instance"ref="iconRef">
       <slot />
     </div>
     <span class="tooltip" ref="tooltipRef">{{ label }}</span>
@@ -78,5 +78,18 @@ const handleMouseOut = () => {
     opacity 0.1s ease,
     visibility 0s 0.1s;
   white-space: nowrap;
+}
+
+.move-icon:hover .icon-instance {
+  animation: rotate 1s ease-in-out;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
