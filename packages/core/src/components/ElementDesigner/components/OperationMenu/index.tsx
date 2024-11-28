@@ -129,9 +129,9 @@ const OperationMenu = defineComponent({
           </div>
           <div class="h-full pl-4 flex justify-center items-center">
             <ElRadioGroup v-model={modeComputed.value}>
-              <ElRadioButton label="pc" value="pc" />
-              <ElRadioButton label="ipad" value="ipad" />
-              <ElRadioButton label="pe" value="pe" />
+              <ElRadioButton label="Pc" value="pc" />
+              <ElRadioButton label="Pad" value="ipad" />
+              <ElRadioButton label="Pe" value="pe" />
             </ElRadioGroup>
           </div>
           <div class="h-full flex-1 flex items-center gap-x-4 pl-4">
