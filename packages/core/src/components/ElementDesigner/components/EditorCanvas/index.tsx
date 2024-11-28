@@ -1,7 +1,12 @@
 import { ElEmpty, ElForm } from "element-plus";
 import { defineComponent, inject, onMounted, ref } from "vue";
 import Draggle from "./components/Draggle.vue";
-import { FormManage, HoverManage } from "@cgx-designer/hooks";
+import {
+  FormManage,
+  HoverManage,
+  ModeManage,
+  ModeSize,
+} from "@cgx-designer/hooks";
 import { ElementManage } from "@cgx-designer/hooks";
 import PanelWidget from "./components/PanelWidget";
 import { FocusManage } from "@cgx-designer/hooks/src/useFocus";
@@ -20,6 +25,7 @@ const EditorCanvas = defineComponent({
     const elementManage = inject("elementManage") as ElementManage;
     const focusManage = inject("focusManage") as FocusManage;
     const hoverManage = inject("hoverManage") as HoverManage;
+    const modeManage = inject("modeManage") as ModeManage;
     const editorCanvasRef = ref<HTMLDivElement>();
     onMounted(() => {
       focusManage.initCanvas(editorCanvasRef.value!);
@@ -30,7 +36,8 @@ const EditorCanvas = defineComponent({
         <>
           {elementManage.elementList.value.length == 0 && <Empty />}
           <div
-            class="mx-2 mt-2 overflow-y-auto h-[calc(100vh-100px)] bg-white relative rounded-md"
+            class="mx-2 mt-2 overflow-y-auto h-[calc(100vh-100px)] bg-white relative rounded-md transition-all"
+            style={{ width: ModeSize[modeManage.mode.value] }}
             ref={editorCanvasRef}
             onClick={(e) => focusManage.handleCanvasClick(e)}
           >

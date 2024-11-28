@@ -1,8 +1,13 @@
 import { computed, defineComponent, inject, PropType } from "vue";
 import { OperationButtonSetting } from "./operationButtonSetting";
-import { ElButton, ButtonType } from "element-plus";
+import {
+  ElButton,
+  ButtonType,
+  ElRadioGroup,
+  ElRadioButton,
+} from "element-plus";
 import { ToLeftIcon, ToRightIcon } from "@cgx-designer/icons";
-import { CollapseManage, FocusManage } from "@cgx-designer/hooks";
+import { CollapseManage, FocusManage, ModeManage } from "@cgx-designer/hooks";
 
 const Icon = (Iconfig: OperationButtonSetting, disabled: boolean = false) => {
   return (
@@ -59,9 +64,23 @@ const OperationMenu = defineComponent({
   setup({ buttonMap }) {
     const commandManage = inject("commandManage") as any;
     const collapseManage = inject("collapseManage") as CollapseManage;
+    const modeManage = inject("modeManage") as ModeManage;
     const focusManage = inject("focusManage") as FocusManage;
     const { Message, Tree, Clear, Undo, Redo, Export, Import, Preview } =
       buttonMap;
+
+    const modeComputed = computed({
+      get() {
+        return modeManage.mode.value;
+      },
+      set(nv) {
+        focusManage.startFocusTimedQuery();
+        modeManage.setMode(nv);
+        setTimeout(() => {
+          focusManage.stopFocusTimedQuery();
+        }, 350);
+      },
+    });
 
     const undoDisabled = computed(() => {
       if (commandManage.queue?.length === 0) {
@@ -107,6 +126,13 @@ const OperationMenu = defineComponent({
                 <ToRightIcon class="w-[18px] h-[18px] mr-2 dark:fill-white" />
               </>
             )}
+          </div>
+          <div class="h-full pl-4 flex justify-center items-center">
+            <ElRadioGroup v-model={modeComputed.value}>
+              <ElRadioButton label="pc" value="pc" />
+              <ElRadioButton label="ipad" value="ipad" />
+              <ElRadioButton label="pe" value="pe" />
+            </ElRadioGroup>
           </div>
           <div class="h-full flex-1 flex items-center gap-x-4 pl-4">
             {Icon(Undo, undoDisabled.value)}

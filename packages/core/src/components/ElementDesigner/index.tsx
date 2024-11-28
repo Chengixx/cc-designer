@@ -16,6 +16,7 @@ import {
   useElement,
   useFocus,
   useTheme,
+  useMode,
 } from "@cgx-designer/hooks";
 //设计器
 const ElementDesigner = defineComponent({
@@ -33,6 +34,7 @@ const ElementDesigner = defineComponent({
     const themeManage = useTheme();
     const hoverManage = useHover(elementManage);
     const focusManage = useFocus(elementManage);
+    const modeManage = useMode();
     const commandManage = useCommand(elementManage, focusManage);
     const { commands } = commandManage;
     const functionManage = useFunction(elementManage);
@@ -43,9 +45,11 @@ const ElementDesigner = defineComponent({
     provide("collapseManage", collapseManage);
     provide("hoverManage", hoverManage);
     provide("formManage", formManage);
+    provide("modeManage", modeManage);
     provide("commandManage", commandManage);
     provide("commands", commands);
     provide("functionManage", functionManage);
+    
     const buttonMap = createOperationButtonSetting(
       formManage,
       elementManage,
@@ -86,7 +90,7 @@ const ElementDesigner = defineComponent({
               {/* 编辑器画布的地方 */}
               <div class="box-border">
                 {/* 滚动条 */}
-                <div class="h-full relative">
+                <div class="h-full relative flex justify-center">
                   <EditorCanvas />
                 </div>
               </div>
