@@ -19,6 +19,15 @@ const ElementStyle = defineComponent({
           size: "default",
         },
       },
+      {
+        label: "高度",
+        key: "styleInput",
+        field: "style.height",
+        props: {
+          placeholder: "请输入高度",
+          size: "default",
+        },
+      },
     ];
     const focusedElement = computed(() => {
       return focusManage.focusedElement.value;
