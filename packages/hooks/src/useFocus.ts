@@ -73,7 +73,7 @@ export const useFocus = (
       focusedElementDom.value?.getBoundingClientRect() ??
       focusedElementDom.value?.nextElementSibling?.getBoundingClientRect();
     const modeStyle =
-      currentMode.value !== "pc" ? { left: 8, top: 8 } : { left: 0, top: 0 };
+      currentMode.value !== "pc" ? { left: 10, top: 10 } : { left: 0, top: 0 };
     focusWidgetRef.value!.style.left =
       left - containerLeft - modeStyle.left + "px";
     focusWidgetRef.value!.style.top =

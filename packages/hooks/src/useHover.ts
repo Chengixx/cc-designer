@@ -73,7 +73,7 @@ export const useHover = (
     const { top, left, width, height } =
       hoveredElementDom.value.getBoundingClientRect();
     const modeStyle =
-      currentMode.value !== "pc" ? { left: 8, top: 8 } : { left: 0, top: 0 };
+      currentMode.value !== "pc" ? { left: 10, top: 10 } : { left: 0, top: 0 };
     hoverWidgetRef.value!.style.left = left - containerLeft - modeStyle.left + "px";
     hoverWidgetRef.value!.style.top =
       top - containerTop + containerRef.value?.scrollTop! - modeStyle.top + "px";
