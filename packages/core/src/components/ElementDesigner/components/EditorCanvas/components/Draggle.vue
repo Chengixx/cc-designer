@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import draggable from "vuedraggable";
-import { FocusManage } from "@cgx-designer/hooks";
+import { FocusManage, ModeManage } from "@cgx-designer/hooks";
 import EditorElement from "./EditorElement";
 import { useDrag } from "@cgx-designer/hooks";
 import { inject } from "vue";
@@ -17,6 +17,7 @@ const props = defineProps<{
 }>();
 const hoverManage = inject("hoverManage") as HoverManage;
 const focusManage = inject("focusManage") as FocusManage;
+const modeManage = inject("modeManage") as ModeManage;
 const { handleDropStart, handleDropEnd } = useDrag();
 const _needMarginBottom = (elementSchema: IEditorElement) => {
   return needMarginBottomDomList.includes(elementSchema.key);
@@ -37,11 +38,14 @@ const handleAdd = (index: number) => {
       animation: 180,
       ghostClass: 'moving',
     }"
-    :class="
+    :class="[
       props.isNested
         ? 'min-h-[60px] border-dashed border border-[#d9d9d9] h-full'
-        : 'min-h-[calc(100vh-100px)] w-full bg-white p-2 dark:bg-darkMode'
-    "
+        : 'min-h-[calc(100vh-108px)] w-full bg-white p-2 dark:bg-darkMode ',
+      modeManage.mode.value !== 'pc' && !props.isNested
+        ? 'border-[10px] rounded-3xl border-black dark:border-gray-700'
+        : '',
+    ]"
     @start="() => handleDropStart(hoverManage, focusManage)"
     @end="() => handleDropEnd(hoverManage, focusManage)"
     @add="(e: any) => handleAdd(e.newIndex)"

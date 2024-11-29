@@ -45,6 +45,7 @@ const IconButton = (
           onClick={Iconfig.handler}
           disabled={disabled}
           type={type}
+          size="small"
         >
           <span>{Iconfig.label}</span>
         </ElButton>
@@ -54,6 +55,7 @@ const IconButton = (
           onClick={Iconfig.handler}
           disabled={disabled}
           type={type}
+          size="small"
         />
       )}
     </>
