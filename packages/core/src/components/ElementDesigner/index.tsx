@@ -32,9 +32,9 @@ const ElementDesigner = defineComponent({
     const elementManage = useElement();
     const collapseManage = useCollapse();
     const themeManage = useTheme();
-    const hoverManage = useHover(elementManage);
-    const focusManage = useFocus(elementManage);
     const modeManage = useMode();
+    const hoverManage = useHover(elementManage, modeManage);
+    const focusManage = useFocus(elementManage, modeManage);
     const commandManage = useCommand(elementManage, focusManage);
     const { commands } = commandManage;
     const functionManage = useFunction(elementManage);
@@ -49,7 +49,7 @@ const ElementDesigner = defineComponent({
     provide("commandManage", commandManage);
     provide("commands", commands);
     provide("functionManage", functionManage);
-    
+
     const buttonMap = createOperationButtonSetting(
       formManage,
       elementManage,

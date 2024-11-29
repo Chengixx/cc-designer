@@ -41,10 +41,10 @@ const handleAdd = (index: number) => {
     :class="[
       props.isNested
         ? 'min-h-[60px] border-dashed border border-[#d9d9d9] h-full'
-        : 'min-h-[calc(100vh-108px)] w-full bg-white p-2 dark:bg-darkMode ',
-      modeManage.mode.value !== 'pc' && !props.isNested
-        ? 'border-[10px] rounded-3xl border-black dark:border-gray-700'
-        : '',
+        : modeManage.mode.value === 'pc'
+          ? 'min-h-[calc(100vh-108px)] w-full bg-white p-2 dark:bg-darkMode'
+          : 'min-h-[calc(100vh-128px)] w-full bg-white p-2 dark:bg-darkMode',
+      ,
     ]"
     @start="() => handleDropStart(hoverManage, focusManage)"
     @end="() => handleDropEnd(hoverManage, focusManage)"

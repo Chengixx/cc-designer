@@ -5,10 +5,16 @@ import { useObserve } from "./useObserve";
 import { useTimedQuery } from "./useTimedQuery";
 import { useParentDomList } from "@cgx-designer/core/src/constant";
 import { IEditorElement } from "@cgx-designer/core";
+import { ModeManage } from "./useMode";
 
 export type FocusManage = ReturnType<typeof useFocus>;
 
-export const useFocus = (elementManage: ElementManage) => {
+export const useFocus = (
+  elementManage: ElementManage,
+  modeManage: ModeManage
+) => {
+  //当前手机还是电脑还是平板模式
+  const currentMode = computed(() => modeManage.mode.value);
   //总的容器
   const containerRef = ref<HTMLDivElement | null>(null);
   //初始化要展示的focus总容器
@@ -66,9 +72,16 @@ export const useFocus = (elementManage: ElementManage) => {
     const { top, left, width, height } =
       focusedElementDom.value?.getBoundingClientRect() ??
       focusedElementDom.value?.nextElementSibling?.getBoundingClientRect();
-    focusWidgetRef.value!.style.left = left - containerLeft + "px";
+    const modeStyle =
+      currentMode.value !== "pc" ? { left: 8, top: 8 } : { left: 0, top: 0 };
+    focusWidgetRef.value!.style.left =
+      left - containerLeft - modeStyle.left + "px";
     focusWidgetRef.value!.style.top =
-      top - containerTop + containerRef.value?.scrollTop! + "px";
+      top -
+      containerTop +
+      containerRef.value?.scrollTop! -
+      modeStyle.top +
+      "px";
     focusWidgetRef.value!.style.width = width + "px";
     focusWidgetRef.value!.style.height = height + "px";
   };

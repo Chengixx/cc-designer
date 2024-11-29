@@ -36,7 +36,12 @@ const EditorCanvas = defineComponent({
         <>
           {elementManage.elementList.value.length == 0 && <Empty />}
           <div
-            class="mx-2 mt-2 overflow-y-auto h-[calc(100vh-108px)] relative rounded-md transition-all"
+            class={[
+              "mx-2 mt-2 overflow-y-auto h-[calc(100vh-108px)] relative rounded-md transition-all",
+              modeManage.mode.value !== "pc"
+                ? "border-[10px] border-black dark:border-gray-700 box-border rounded-2xl"
+                : "",
+            ]}
             style={{ width: ModeSize[modeManage.mode.value] }}
             ref={editorCanvasRef}
             onClick={(e) => focusManage.handleCanvasClick(e)}

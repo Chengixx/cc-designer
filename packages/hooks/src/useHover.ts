@@ -2,9 +2,15 @@ import { ref, watch, computed } from "vue";
 import { ElementManage } from "./useElement";
 import { useParentDomList } from "@cgx-designer/core/src/constant";
 import { IEditorElement } from "@cgx-designer/core";
+import { ModeManage } from "./useMode";
 
 export type HoverManage = ReturnType<typeof useHover>;
-export const useHover = (elementManage: ElementManage) => {
+export const useHover = (
+  elementManage: ElementManage,
+  modeManage: ModeManage
+) => {
+  //当前手机还是电脑还是平板模式
+  const currentMode = computed(() => modeManage.mode.value);
   //总的容器
   const containerRef = ref<HTMLDivElement | null>(null);
   //初始化要展示的hover总容器
@@ -66,9 +72,11 @@ export const useHover = (elementManage: ElementManage) => {
       containerRef.value!.getBoundingClientRect();
     const { top, left, width, height } =
       hoveredElementDom.value.getBoundingClientRect();
-    hoverWidgetRef.value!.style.left = left - containerLeft + "px";
+    const modeStyle =
+      currentMode.value !== "pc" ? { left: 8, top: 8 } : { left: 0, top: 0 };
+    hoverWidgetRef.value!.style.left = left - containerLeft - modeStyle.left + "px";
     hoverWidgetRef.value!.style.top =
-      top - containerTop + containerRef.value?.scrollTop! + "px";
+      top - containerTop + containerRef.value?.scrollTop! - modeStyle.top + "px";
     hoverWidgetRef.value!.style.width = width + "px";
     hoverWidgetRef.value!.style.height = height + "px";
   };
