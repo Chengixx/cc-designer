@@ -3,7 +3,7 @@ import { createVNode, defineComponent, ref, render, nextTick } from "vue";
 import { ElementManage, FocusManage } from "@cgx-designer/hooks";
 import { IEditorElement, TreeNode } from "../../types";
 import type Node from "element-plus/es/components/tree/src/model/node";
-import { deepClone, getRandomId } from "@cgx-designer/utils";
+import { deepClone } from "@cgx-designer/utils";
 
 interface TreeDrawerExpose {
   showDrawer: Function;
@@ -44,30 +44,17 @@ const TreeDrawerDom = defineComponent({
       }
     };
 
-    const handleDeleteNode = (
-      e: MouseEvent,
-      node: Node,
-      data: IEditorElement
-    ) => {
+    const handleDeleteNode = (e: MouseEvent, _: Node, data: IEditorElement) => {
       e.stopPropagation();
-      // IElementManage.value!.deleteElementById(data.id!);
       ICommand.value!.handleDelete(data.id);
     };
 
-    const handleCopyNode = (
-      e: MouseEvent,
-      node: Node,
-      data: IEditorElement
-    ) => {
+    const handleCopyNode = (e: MouseEvent, _: Node, data: IEditorElement) => {
       e.stopPropagation();
-      const id = getRandomId();
-      ICommand.value!.handleLastAdd(
-        deepClone({
-          ...data,
-          id,
-          field: data.key + "-" + id,
-        })
+      const newElementSchema = IElementManage.value!.deepCopyElement(
+        deepClone(data)
       );
+      ICommand.value!.handleLastAdd(newElementSchema);
     };
 
     const IsAllowDrop = (
