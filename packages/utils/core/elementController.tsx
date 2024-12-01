@@ -23,6 +23,9 @@ export class ElementController {
         ? defineAsyncComponent(elementBaseConfig.render)
         : elementBaseConfig.render;
 
+    if (!Object.keys(elementBaseConfig).includes("config")) {
+      elementBaseConfig.config = {};
+    }
     //每个元素都应该有id输入框 用于复制
     (elementBaseConfig.config!.attribute ??= []).unshift({
       label: "组件ID",
