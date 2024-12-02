@@ -1,4 +1,4 @@
-import { IElementBaseSetting } from "@cgx-designer/utils";
+import { IElementBaseSetting } from "@cgx-designer/controller";
 import { RateIcon } from "@cgx-designer/icons";
 
 const Rate: IElementBaseSetting = {

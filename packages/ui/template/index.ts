@@ -1,4 +1,4 @@
-import { IElementBaseSetting } from "@cgx-designer/utils";
+import { IElementBaseSetting } from "@cgx-designer/controller";
 
 //此类型标注是为了在creator中使用
 const modules = import.meta.glob("./**/index.tsx", { eager: true });

@@ -1,4 +1,4 @@
-import { IElementBaseSetting } from "@cgx-designer/utils";
+import { IElementBaseSetting } from "@cgx-designer/controller";
 import { SelectIcon } from "@cgx-designer/icons";
 
 const Select: IElementBaseSetting = {

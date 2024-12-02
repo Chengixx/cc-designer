@@ -1,4 +1,4 @@
-import { IElementBaseSetting } from "@cgx-designer/utils";
+import { IElementBaseSetting } from "@cgx-designer/controller";
 import { ColorPickerIcon } from "@cgx-designer/icons";
 
 const ColorPicker: IElementBaseSetting = {

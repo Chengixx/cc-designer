@@ -1,4 +1,4 @@
-import { IElementBaseSetting } from "@cgx-designer/utils";
+import { IElementBaseSetting } from "@cgx-designer/controller";
 import { ButtonIcon } from "@cgx-designer/icons";
 
 const Button: IElementBaseSetting = {
