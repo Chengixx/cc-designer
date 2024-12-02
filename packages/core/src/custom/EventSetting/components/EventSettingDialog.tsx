@@ -21,7 +21,8 @@ import ScriptIDE from "./ScriptIDE";
 import { ElementManage, FunctionManage } from "@cgx-designer/hooks";
 import MethodsList from "./MethodsList";
 import { EventInstance, IEditorElement } from "../../../types";
-import { deepClone, elementController, getRandomId } from "@cgx-designer/utils";
+import { deepClone, getRandomId } from "@cgx-designer/utils";
+import { elementController } from "@cgx-designer/controller";
 import ElementIDE from "./ElementIDE";
 
 const EventSettingDialog = defineComponent({

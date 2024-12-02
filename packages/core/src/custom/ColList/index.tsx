@@ -1,5 +1,6 @@
 import { IEditorElement } from "../../types";
-import { elementController, getRandomId } from "@cgx-designer/utils";
+import { getRandomId } from "@cgx-designer/utils";
+import { elementController } from "@cgx-designer/controller";
 import { Delete } from "@element-plus/icons-vue";
 import {
   ElButton,

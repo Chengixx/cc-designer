@@ -2,9 +2,9 @@ import { ElementInstance, IEditorElement } from "../../types";
 import {
   deepClone,
   deepCompareAndModify,
-  elementController,
   stringFirstBigger,
 } from "@cgx-designer/utils";
+import { elementController } from "@cgx-designer/controller";
 import { ElFormItem } from "element-plus";
 import {
   ComponentPublicInstance,

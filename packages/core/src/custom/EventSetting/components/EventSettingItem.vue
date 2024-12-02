@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { elementController } from "@cgx-designer/utils";
+import { elementController } from "@cgx-designer/controller";
 import { inject, PropType } from "vue";
 import { ElButton } from "element-plus";
 import draggable from "vuedraggable";

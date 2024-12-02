@@ -1,7 +1,8 @@
 import ElementNode from "../../../../ElementNode";
 import { IEditorElement } from "../../../../../types";
 import { FocusManage } from "@cgx-designer/hooks";
-import { setValueByPath, elementController } from "@cgx-designer/utils";
+import { setValueByPath } from "@cgx-designer/utils";
+import { elementController } from "@cgx-designer/controller";
 import { defineComponent, Fragment, inject, nextTick, ref, watch } from "vue";
 import {
   deepClone,

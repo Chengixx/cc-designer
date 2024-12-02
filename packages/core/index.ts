@@ -8,7 +8,7 @@ import {
   StyleInput,
   IdInput,
 } from "./src/custom";
-import { elementController } from "@cgx-designer/utils";
+import { elementController } from "@cgx-designer/controller";
 
 elementController.registerElementRenderMap("selectOption", SelectOption);
 elementController.registerElementRenderMap("colList", ColList);

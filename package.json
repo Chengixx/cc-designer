@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@cgx-designer/core": "workspace:*",
+    "@cgx-designer/controller": "workspace:*",
     "@cgx-designer/extensions": "workspace:*",
     "@cgx-designer/hooks": "workspace:*",
     "@cgx-designer/ui": "workspace:*",

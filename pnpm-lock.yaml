@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@cgx-designer/controller':
+        specifier: workspace:*
+        version: link:packages/controller
       '@cgx-designer/core':
         specifier: workspace:*
         version: link:packages/core
@@ -176,6 +179,8 @@ importers:
         version: 2.1.2(typescript@5.5.4)
 
   packages/cgx-designer: {}
+
+  packages/controller: {}
 
   packages/core:
     dependencies:

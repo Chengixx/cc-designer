@@ -1,6 +1,7 @@
 import { ElementManage, FocusManage } from "@cgx-designer/hooks";
 import { IEditorElement } from "../../types";
-import { elementController, getRandomId } from "@cgx-designer/utils";
+import { getRandomId } from "@cgx-designer/utils";
+import { elementController } from "@cgx-designer/controller";
 import { Delete } from "@element-plus/icons-vue";
 import { ElButton, ElDivider, ElIcon, ElInput, ElTooltip } from "element-plus";
 import { computed, defineComponent, inject, PropType, ref } from "vue";

@@ -2,11 +2,11 @@
 import draggable from "vuedraggable";
 import SvgIcon from "../../../../SvgIcon";
 import { computed, inject, ref } from "vue";
+import { getRandomId } from "@cgx-designer/utils";
 import {
-  getRandomId,
   IElementBaseSetting,
   elementController,
-} from "@cgx-designer/utils";
+} from "@cgx-designer/controller";
 import { useDrag, HoverManage } from "@cgx-designer/hooks";
 
 const props = defineProps({

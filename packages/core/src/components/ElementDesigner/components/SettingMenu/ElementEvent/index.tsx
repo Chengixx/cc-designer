@@ -1,11 +1,8 @@
 import { ElementManage, FocusManage } from "@cgx-designer/hooks";
 import { ElEmpty } from "element-plus";
 import { computed, defineComponent, inject } from "vue";
-import {
-  elementController,
-  getValueByPath,
-  setValueByPath,
-} from "@cgx-designer/utils";
+import { getValueByPath, setValueByPath } from "@cgx-designer/utils";
+import { elementController } from "@cgx-designer/controller";
 import { EventSetting } from "../../../../../custom";
 import { defaultEvents } from "./constant";
 const ElementEvent = defineComponent({

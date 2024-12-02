@@ -1,7 +1,7 @@
 import { defineAsyncComponent } from "vue";
 import { template } from "@cgx-designer/ui";
 import { IElementBaseSetting } from "../types/index";
-import { getRandomId } from "../common/index";
+import { getRandomId } from "@cgx-designer/utils";
 import { IEditorElement } from "@cgx-designer/core";
 
 //创建组件基础配置的东西
