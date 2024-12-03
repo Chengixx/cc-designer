@@ -24,8 +24,7 @@ export const createSourceCode = (builderSchema: BuilderSchema) => {
   };
 
   const createScript = () => {
-    return formatCode(
-      `
+    return `
     <script setup lang="ts">
     import {
       BuilderSchema,
@@ -37,15 +36,13 @@ export const createSourceCode = (builderSchema: BuilderSchema) => {
     const elementBuilderRef = ref<ElementBuilderExpose | null>(null);
     const builderSchema: BuilderSchema = ${JSON.stringify(builderSchema)});
     </script>
-    `,
-      "vue"
-    );
+    `;
   };
 
-  const createCGXSourceCode = async () => {
+  const createCGXSourceCode = () => {
     const html = createHTML();
     const style = createStyleSheet();
-    const script = await createScript();
+    const script = createScript();
 
     const code = `
       ${html}
@@ -53,13 +50,13 @@ export const createSourceCode = (builderSchema: BuilderSchema) => {
       ${style}
     `;
 
-    return formatCode(code, "vue");
+    return code;
   };
 
   return {
     createHTML,
     createStyleSheet,
     createScript,
-    createCGXSourceCode
+    createCGXSourceCode,
   };
 };

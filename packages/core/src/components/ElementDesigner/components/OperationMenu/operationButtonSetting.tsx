@@ -15,6 +15,7 @@ import {
   TreeIcon,
   UndoIcon,
 } from "@cgx-designer/icons";
+import { BuilderSchema } from "../../../../../../cgx-designer/dist/core";
 
 export interface OperationButtonSetting {
   label: string;
@@ -82,21 +83,12 @@ export const createOperationButtonSetting = (
     Export: {
       label: "导出",
       handler: () => {
-        const tempObj = {
+        const tempObj: BuilderSchema = {
           formSetting: formManage.formSetting,
           elementList: elementManage.elementList.value,
           script: functionManage.javaScriptVal.value,
         };
-        sourceCodeDialogRef.value.handleOpen({
-          title: "导出",
-          content: JSON.stringify(tempObj),
-          confirm: (value: string) => {
-            //复制到剪切板
-            navigator.clipboard.writeText(value).then(() => {
-              ElNotification.success("复制成功");
-            });
-          },
-        });
+        sourceCodeDialogRef.value.handleOpen(tempObj);
       },
       icon: ExportIcon,
     },

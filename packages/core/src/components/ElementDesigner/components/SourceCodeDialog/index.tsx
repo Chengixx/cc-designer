@@ -1,44 +1,42 @@
-import { ElButton, ElDialog } from "element-plus";
+import {
+  ElButton,
+  ElDialog,
+  ElNotification,
+  ElTabPane,
+  ElTabs,
+} from "element-plus";
 import { ref, defineComponent, reactive, nextTick } from "vue";
 import IDE from "../../../IDE";
+import { BuilderSchema } from "../../../../../../cgx-designer/dist/core";
+import { createSourceCode } from "@cgx-designer/utils";
 
 export interface SourceCodeDialogExpose {
   showDialog: (option?: any) => void;
 }
 
-interface OptionType {
-  title: string;
-  content: string;
-  confirm: Function;
-  cancel: Function;
-}
-
 export const SourceCodeDialog = defineComponent({
   setup(_, { expose }) {
-    const option = reactive<OptionType>({
-      title: "",
-      content: "",
-      confirm: () => {},
-      cancel: () => {},
-    });
+    const currentTab = ref<number>(1);
+    const jsonContent = ref<string>("");
+    const cgxContent = ref<string>("");
     const IDERef = ref<typeof IDE | null>(null);
     const isShow = ref<boolean>(false);
-    const handleOpen = (newOption: OptionType) => {
+    const handleOpen = (builderSchema: BuilderSchema) => {
       nextTick(() => {
-        option.title = newOption.title;
-        option.content = newOption.content;
-        option.confirm = newOption.confirm;
-        option.cancel = newOption.cancel;
+        jsonContent.value = JSON.stringify(builderSchema);
+        cgxContent.value =
+          createSourceCode(builderSchema).createCGXSourceCode();
       });
       isShow.value = true;
     };
     const handleCancel = () => {
       isShow.value = false;
-      option.cancel && option.cancel();
     };
     const handleConfirm = () => {
       isShow.value = false;
-      option.confirm && option.confirm(option.content);
+      navigator.clipboard.writeText(jsonContent.value).then(() => {
+        ElNotification.success("复制成功");
+      });
     };
     expose({
       handleOpen,
@@ -48,12 +46,26 @@ export const SourceCodeDialog = defineComponent({
         <ElDialog v-model={isShow.value} destroyOnClose>
           {{
             default: () => (
-              <div class="h-[60vh]">
-                <IDE ref={IDERef} v-model={option.content} />
-              </div>
+              <ElTabs
+                v-model={currentTab.value}
+                stretch
+                class="no-padding-tabs"
+                type="border-card"
+              >
+                <ElTabPane label="json" name={1}>
+                  <div class="h-[60vh]">
+                    <IDE ref={IDERef} v-model={jsonContent.value} />
+                  </div>
+                </ElTabPane>
+                <ElTabPane label="vue代码" name={2}>
+                  <div class="h-[60vh]">
+                    <IDE ref={IDERef} v-model={cgxContent.value} />
+                  </div>
+                </ElTabPane>
+              </ElTabs>
             ),
             header: () => {
-              return option.title;
+              return <div>导出</div>;
             },
             footer: () => (
               <>
