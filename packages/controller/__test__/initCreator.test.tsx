@@ -22,4 +22,12 @@ describe("测试注册组件", () => {
     const elementController = new ElementController();
     elementController.register(mockTemplate);
   });
+
+  it("应当可以注册异步组件或者方法组件", () => {
+    const elementController = new ElementController();
+    const fnComponent = () => <div>fnComponent</div>;
+    const asyncComponent = () => import("../../ui/template/Button/Button");
+    elementController.registerElementRenderMap("fn", fnComponent);
+    elementController.registerElementRenderMap("async", asyncComponent);
+  });
 });
