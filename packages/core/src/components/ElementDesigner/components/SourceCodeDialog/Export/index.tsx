@@ -43,7 +43,13 @@ export const ExportSourceCodeDialog = defineComponent({
     });
     return () => {
       return (
-        <ElDialog v-model={isShow.value} destroyOnClose>
+        <ElDialog
+          v-model={isShow.value}
+          destroyOnClose
+          style={{
+            marginTop: "5vh !important",
+          }}
+        >
           {{
             default: () => (
               <ElTabs
@@ -53,13 +59,13 @@ export const ExportSourceCodeDialog = defineComponent({
                 type="border-card"
               >
                 <ElTabPane label="json" name={1}>
-                  <div class="h-[60vh]">
+                  <div class="h-[70vh]">
                     <IDE ref={IDERef} v-model={jsonContent.value} />
                   </div>
                 </ElTabPane>
                 <ElTabPane label="vue代码" name={2}>
-                  <div class="h-[60vh]">
-                    <IDE ref={IDERef} v-model={cgxContent.value} mode="html"/>
+                  <div class="h-[70vh]">
+                    <IDE ref={IDERef} v-model={cgxContent.value} mode="html" />
                   </div>
                 </ElTabPane>
               </ElTabs>

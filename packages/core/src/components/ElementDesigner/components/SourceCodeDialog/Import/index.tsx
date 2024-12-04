@@ -46,10 +46,16 @@ export const ImportSourceCodeDialog = defineComponent({
     });
     return () => {
       return (
-        <ElDialog v-model={isShow.value} destroyOnClose>
+        <ElDialog
+          v-model={isShow.value}
+          destroyOnClose
+          style={{
+            marginTop: "5vh !important",
+          }}
+        >
           {{
             default: () => (
-              <div class="h-[60vh]">
+              <div class="h-[70vh]">
                 <IDE ref={IDERef} v-model={jsonContent.value} />
               </div>
             ),

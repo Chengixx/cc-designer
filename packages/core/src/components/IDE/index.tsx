@@ -9,9 +9,10 @@ import {
 import ace from "ace-builds";
 import workerJavascriptUrl from "ace-builds/src-noconflict/worker-javascript?url";
 import workerHtmlUrl from "ace-builds/src-noconflict/worker-html?url";
-import { js_beautify, html_beautify, html } from "js-beautify";
+import { js_beautify, html_beautify } from "js-beautify";
 import { ElButton, ElIcon, ElTooltip } from "element-plus";
-import { Star } from "@element-plus/icons-vue";
+import { FormatIcon } from "@cgx-designer/icons"
+import { ThemeManage } from "@cgx-designer/hooks/src/useTheme";
 
 import "ace-builds/src-min-noconflict/theme-monokai"; // 默认设置的主题
 import "ace-builds/src-min-noconflict/theme-dracula"; // 默认设置的主题
@@ -26,7 +27,7 @@ import "ace-builds/src-noconflict/snippets/javascript";
 import "ace-builds/src-noconflict/snippets/html";
 import "ace-builds/src-noconflict/snippets/json";
 import "ace-builds/src-noconflict/snippets/css";
-import { ThemeManage } from "@cgx-designer/hooks/src/useTheme";
+
 
 const IDE = defineComponent({
   props: {
@@ -148,7 +149,7 @@ const IDE = defineComponent({
             <ElTooltip content="格式化" effect="light" placement="top">
               <ElButton onClick={formatCode} circle>
                 <ElIcon>
-                  <Star />
+                  <FormatIcon />
                 </ElIcon>
               </ElButton>
             </ElTooltip>
