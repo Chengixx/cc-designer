@@ -21,7 +21,7 @@ import {
   useTheme,
   useMode,
 } from "@cgx-designer/hooks";
-import { ToLeftIcon, ToRightIcon } from "@cgx-designer/icons";
+import CollapseWidget from "./components/CollapseWidget";
 //设计器
 const ElementDesigner = defineComponent({
   setup() {
@@ -76,28 +76,7 @@ const ElementDesigner = defineComponent({
           <div class="h-10">
             <CGXLogo />
           </div>
-          {/* 左侧小按钮 */}
-          <div
-            class={[
-              "absolute transition-all duration-300 z-20 cursor-pointer top-[calc(50%-40px)] translate-y--1/2 w-3 h-16 bg-white rounded-r-lg flex justify-center items-center dark:bg-[#141414]",
-              collapseManage.leftMenuCollapseState.value
-                ? "left-[260px]"
-                : "left-0",
-            ]}
-            onClick={() => {
-              focusManage.startFocusTimedQuery();
-              collapseManage.toggleLeftMenu();
-              setTimeout(() => {
-                focusManage.stopFocusTimedQuery();
-              }, 350);
-            }}
-          >
-            {collapseManage.leftMenuCollapseState.value ? (
-              <ToLeftIcon class="dark:fill-white" />
-            ) : (
-              <ToRightIcon class="dark:fill-white" />
-            )}
-          </div>
+          <CollapseWidget />
           <div class="w-full h-full flex justify-between overflow-hidden bg-gray-100 dark:bg-black">
             {/* 编辑器左侧，可选择的组件列表 */}
             <div
@@ -122,28 +101,6 @@ const ElementDesigner = defineComponent({
                   <EditorCanvas />
                 </div>
               </div>
-            </div>
-            {/* 右侧小按钮 */}
-            <div
-              class={[
-                "absolute transition-all duration-300 z-20 cursor-pointer top-[calc(50%-40px)] translate-y--1/2 w-3 h-16 bg-white rounded-l-lg flex justify-center items-center dark:bg-[#141414]",
-                collapseManage.rightMenuCollapseState.value
-                  ? "right-[280px]"
-                  : "right-0",
-              ]}
-              onClick={() => {
-                focusManage.startFocusTimedQuery();
-                collapseManage.toggleRightMenu();
-                setTimeout(() => {
-                  focusManage.stopFocusTimedQuery();
-                }, 350);
-              }}
-            >
-              {collapseManage.rightMenuCollapseState.value ? (
-                <ToRightIcon class="dark:fill-white" />
-              ) : (
-                <ToLeftIcon class="dark:fill-white" />
-              )}
             </div>
             {/* 编辑器右侧 */}
             <div
