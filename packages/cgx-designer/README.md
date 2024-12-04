@@ -21,13 +21,14 @@ yarn
 ## 使用(How To Use)
 ## 项目main.ts引入
 ```javascript
-main.js中导入样式
+main文件中导入样式
 import "cgx-designer/dist/module.css";
 import "cgx-designer/dist/style.css";
 ```
 
 ## 自定义的组件(How To custom Component)
 ```javascript
+以异步组件形式引入和同步组件形式引入都可，cgx内部会做对应处理。
 import { elementController } from "@cgx-designer/controller";
 
 //注册自定义组件

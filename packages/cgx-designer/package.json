@@ -1,6 +1,6 @@
 {
   "name": "cgx-designer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "cgx表单生成器，开箱即用",
   "private": false,
   "type": "module",
