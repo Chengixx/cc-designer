@@ -1,13 +1,10 @@
 import { BuilderSchema } from "@cgx-designer/core";
-import { formatCode } from "./helper";
 
-export const html = `
-<template>
+export const html = `<template>
   <div>
-    <ElementBuilder ref="elementBuilderRef" :builderSchema="builderSchema" />
+    <ElementBuilder ref="elementBuilderRef" :builderSchema="builderSchema"></ElementBuilder>
   </div>
-</template>
-`;
+</template>`;
 
 export const style = `
 <style scoped>
@@ -25,18 +22,17 @@ export const createSourceCode = (builderSchema: BuilderSchema) => {
 
   const createScript = () => {
     return `
-    <script setup lang="ts">
-    import {
-      BuilderSchema,
-      ElementBuilder,
-      ElementBuilderExpose,
-    } from "cgx-designer";
-    import { ref } from "vue";
+<script setup lang="ts">
+import {
+  BuilderSchema,
+  ElementBuilder,
+  ElementBuilderExpose,
+} from "cgx-designer";
+import { ref } from "vue";
 
-    const elementBuilderRef = ref<ElementBuilderExpose | null>(null);
-    const builderSchema: BuilderSchema = ${JSON.stringify(builderSchema)});
-    </script>
-    `;
+const elementBuilderRef = ref<ElementBuilderExpose | null>(null);
+const builderSchema: BuilderSchema = ${JSON.stringify(builderSchema)});
+</script>`;
   };
 
   const createCGXSourceCode = () => {
@@ -44,11 +40,9 @@ export const createSourceCode = (builderSchema: BuilderSchema) => {
     const style = createStyleSheet();
     const script = createScript();
 
-    const code = `
-      ${html}
+    const code = `${html}
       ${script}
-      ${style}
-    `;
+      ${style}`;
 
     return code;
   };

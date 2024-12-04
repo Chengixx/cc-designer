@@ -6,7 +6,10 @@ import OperationMenu from "./components/OperationMenu";
 import EditorCanvas from "./components/EditorCanvas";
 import SettingMenu from "./components/SettingMenu";
 import PreviewDialog from "./components/PreviewDialog";
-import { SourceCodeDialog } from "./components/SourceCodeDialog";
+import {
+  ExportSourceCodeDialog,
+  ImportSourceCodeDialog,
+} from "./components/SourceCodeDialog";
 import {
   useCollapse,
   useCommand,
@@ -23,7 +26,8 @@ const ElementDesigner = defineComponent({
   setup() {
     //dialog实例
     const previewDialogRef = ref<any>(null);
-    const sourceCodeDialogRef = ref<any>(null);
+    const exportSourceCodeDialogRef = ref<any>(null);
+    const importSourceCodeDialogRef = ref<any>(null);
     //左右菜单实例
     const leftMenuRef = ref<HTMLDivElement | null>(null);
     const rightMenuRef = ref<HTMLDivElement | null>(null);
@@ -58,7 +62,8 @@ const ElementDesigner = defineComponent({
       commandManage,
       commands!,
       previewDialogRef,
-      sourceCodeDialogRef
+      exportSourceCodeDialogRef,
+      importSourceCodeDialogRef
     );
 
     onMounted(() => {
@@ -110,7 +115,8 @@ const ElementDesigner = defineComponent({
             {/* 预览dialog */}
             <PreviewDialog ref={previewDialogRef} />
             {/* 导入导出dialog */}
-            <SourceCodeDialog ref={sourceCodeDialogRef} />
+            <ExportSourceCodeDialog ref={exportSourceCodeDialogRef} />
+            <ImportSourceCodeDialog ref={importSourceCodeDialogRef} />
           </div>
         </div>
       );

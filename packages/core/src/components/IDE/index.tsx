@@ -43,13 +43,20 @@ const IDE = defineComponent({
       type: String,
       default: "twilight",
     },
+    mode: {
+      type: String,
+      default: "javascript",
+    },
   },
   emits: ["update:modelValue"],
   setup(props, { emit, expose }) {
     const themeManage = inject("themeManage") as ThemeManage;
     const aceRef = ref<HTMLElement | null>(null);
     const aceEditor = ref<ace.Ace.Editor | null>(null);
-    ace.config.setModuleUrl("ace/mode/javascript_worker", workerJavascriptUrl);
+    ace.config.setModuleUrl(
+      `ace/mode/${props.mode}_worker`,
+      props.mode === "html" ? workerHtmlUrl : workerJavascriptUrl
+    );
     const initEditor = () => {
       aceEditor.value = ace.edit(aceRef.value as HTMLElement, {
         // maxLines: 20, // 最大行数，超过会自动出现滚动条
@@ -58,7 +65,7 @@ const IDE = defineComponent({
         theme: themeManage.isDark.value
           ? "ace/theme/twilight"
           : "ace/theme/sqlserver", // 默认设置的主题
-        mode: "ace/mode/javascript", // 默认设置的语言模式
+        mode: `ace/mode/${props.mode}`, // 默认设置的语言模式
         tabSize: 2, // 制表符设置为2个空格大小
         readOnly: props.readonly,
         highlightActiveLine: true,
@@ -74,7 +81,8 @@ const IDE = defineComponent({
       });
     };
     const formatCode = () => {
-      if (aceEditor.value) {
+      //Todo 因为html格式化有问题
+      if (aceEditor.value && props.mode !== "html") {
         const formattedCode = js_beautify(aceEditor.value.getValue(), {
           indent_size: 2,
           space_in_empty_paren: true,

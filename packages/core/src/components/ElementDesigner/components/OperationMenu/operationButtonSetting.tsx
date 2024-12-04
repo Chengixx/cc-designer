@@ -31,7 +31,8 @@ export const createOperationButtonSetting = (
   commandManage: any,
   commands: Record<string, Function>,
   previewDialogRef: any,
-  sourceCodeDialogRef: any
+  exportSourceCodeDialogRef: any,
+  importSourceCodeDialogRef: any
 ): Record<string, OperationButtonSetting> => {
   const ButtonMap = {
     Message: {
@@ -88,31 +89,14 @@ export const createOperationButtonSetting = (
           elementList: elementManage.elementList.value,
           script: functionManage.javaScriptVal.value,
         };
-        sourceCodeDialogRef.value.handleOpen(tempObj);
+        exportSourceCodeDialogRef.value.handleOpen(tempObj);
       },
       icon: ExportIcon,
     },
     Import: {
       label: "导入",
       handler: () => {
-        sourceCodeDialogRef.value.handleOpen({
-          title: "导入",
-          content: "",
-          confirm: (value: string) => {
-            try {
-              if (value && checkCJsonType(JSON.parse(value))) {
-                commands.handleImport(JSON.parse(value).elementList);
-                formManage.setFormSetting(JSON.parse(value).formSetting);
-                functionManage.setJavaScriptVal(JSON.parse(value).script);
-                ElNotification.success("导入成功");
-              } else {
-                ElNotification.warning("导入失败，请检查数据格式");
-              }
-            } catch (error) {
-              ElNotification.warning("导入失败，请检查数据格式");
-            }
-          },
-        });
+        importSourceCodeDialogRef.value.handleOpen();
       },
       icon: ImportIcon,
     },

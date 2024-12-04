@@ -5,16 +5,16 @@ import {
   ElTabPane,
   ElTabs,
 } from "element-plus";
-import { ref, defineComponent, reactive, nextTick } from "vue";
-import IDE from "../../../IDE";
-import { BuilderSchema } from "../../../../../../cgx-designer/dist/core";
+import { ref, defineComponent, nextTick } from "vue";
+import IDE from "../../../../IDE";
+import { BuilderSchema } from "../../../../../../../cgx-designer/dist/core";
 import { createSourceCode } from "@cgx-designer/utils";
 
-export interface SourceCodeDialogExpose {
-  showDialog: (option?: any) => void;
+export interface ExportSourceCodeDialogExpose {
+  handleOpen: (builderSchema: BuilderSchema) => void;
 }
 
-export const SourceCodeDialog = defineComponent({
+export const ExportSourceCodeDialog = defineComponent({
   setup(_, { expose }) {
     const currentTab = ref<number>(1);
     const jsonContent = ref<string>("");
@@ -59,7 +59,7 @@ export const SourceCodeDialog = defineComponent({
                 </ElTabPane>
                 <ElTabPane label="vue代码" name={2}>
                   <div class="h-[60vh]">
-                    <IDE ref={IDERef} v-model={cgxContent.value} />
+                    <IDE ref={IDERef} v-model={cgxContent.value} mode="html"/>
                   </div>
                 </ElTabPane>
               </ElTabs>
