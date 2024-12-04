@@ -1,10 +1,14 @@
+<h1>https://gitee.com/lu-chencheng/cc-designer</h1>
+
+<h1>Welcome 👋</h1>
+
 基于vue的表单生成器
 提供渲染器和构建器，用于生成和渲染cgx组件
 
 ## online地址(demo)
 http://60.204.185.250/
 
-## 安装(intall)
+## 安装(install)
 
 ```bash
 npm install @cgx-designer
@@ -22,7 +26,7 @@ import "cgx-designer/dist/module.css";
 import "cgx-designer/dist/style.css";
 ```
 
-## 自定义的组件(How To cutom Component)
+## 自定义的组件(How To custom Component)
 ```javascript
 import { elementController } from "@cgx-designer/controller";
 
@@ -78,7 +82,7 @@ elementController.register({
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { ElNotification } from "element-plus";
-import { ElementBuilder } from "cgx-designer";
+import { ElementDesigner } from "cgx-designer";
 
 onMounted(() => {
   ElNotification({
@@ -149,13 +153,10 @@ onMounted(() => {
     "style": {}
   }],
   "script": "\n    const { inject , get , ElMessage , ElMessageBox } = this;\n\n    function fn () {\n        console.log(\"i am yours\");\n        ElMessage.success(\"i am yours\");\n    }\n    \n    const test = () => {\n        console.log(this);\n        alert(\"test\")\n    }\n\n    inject({\n      fn,\n      test,\n    })\n    "
-  });
+  };
 </script>
 
 <style scoped>
 </style>
 ```
-
-Welcome 👋
-https://gitee.com/lu-chencheng/cc-designer
 

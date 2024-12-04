@@ -31,7 +31,7 @@ import {
 import { ref } from "vue";
 
 const elementBuilderRef = ref<ElementBuilderExpose | null>(null);
-const builderSchema: BuilderSchema = ${JSON.stringify(builderSchema)});
+const builderSchema: BuilderSchema = ${JSON.stringify(builderSchema)};
 </script>`;
   };
 
