@@ -95,7 +95,7 @@ const ElementDesigner = defineComponent({
               {/* 编辑器画布的地方 */}
               <div class="box-border">
                 {/* 滚动条 */}
-                <div class="h-full relative flex justify-center">
+                <div class="h-full relative flex justify-center p-5">
                   <EditorCanvas />
                 </div>
               </div>

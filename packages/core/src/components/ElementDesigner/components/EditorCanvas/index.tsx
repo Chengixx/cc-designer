@@ -37,7 +37,7 @@ const EditorCanvas = defineComponent({
           {elementManage.elementList.value.length == 0 && <Empty />}
           <div
             class={[
-              "mx-2 mt-2 overflow-y-auto h-[calc(100vh-108px)] relative transition-all",
+              "mx-2 mt-2 overflow-y-auto h-[calc(100vh-132px)] relative transition-all",
               modeManage.mode.value !== "pc"
                 ? "border-[10px] border-black dark:border-gray-700 box-border rounded-2xl"
                 : "rounded-md",
