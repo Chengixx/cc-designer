@@ -1,19 +1,24 @@
 {
   "name": "cgx-designer",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "cgx表单生成器，开箱即用",
   "private": false,
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "typings": "dist/cgx-designer/index.d.ts",
+  "keywords": [
+    "vue",
+    "components",
+    "hooks",
+    "directives"
+  ],
   "scripts": {
     "build": "vite build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {},
   "devDependencies": {},
-  "keywords": [],
-  "author": "",
+  "author": "lcc",
   "license": "ISC"
 }

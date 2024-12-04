@@ -1,0 +1,12 @@
+node_modules/
+vite.config.ts
+pnpm-lock.yaml
+*.map
+*.html
+index.ts
+tailwind.config.ts
+.eslintrc.cjs
+.babelrc
+.env.local
+.env.*.local
+.vscode
