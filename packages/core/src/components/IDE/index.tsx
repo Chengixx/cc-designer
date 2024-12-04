@@ -1,5 +1,4 @@
 import {
-  computed,
   defineComponent,
   inject,
   onMounted,
@@ -10,7 +9,7 @@ import {
 import ace from "ace-builds";
 import workerJavascriptUrl from "ace-builds/src-noconflict/worker-javascript?url";
 import workerHtmlUrl from "ace-builds/src-noconflict/worker-html?url";
-import { js_beautify } from "js-beautify";
+import { js_beautify, html_beautify, html } from "js-beautify";
 import { ElButton, ElIcon, ElTooltip } from "element-plus";
 import { Star } from "@element-plus/icons-vue";
 
@@ -82,11 +81,23 @@ const IDE = defineComponent({
     };
     const formatCode = () => {
       //Todo 因为html格式化有问题
-      if (aceEditor.value && props.mode !== "html") {
-        const formattedCode = js_beautify(aceEditor.value.getValue(), {
-          indent_size: 2,
-          space_in_empty_paren: true,
-        });
+      if (aceEditor.value) {
+        const editorValue: string = aceEditor.value.getValue();
+        let formattedCode: string = "";
+        if (props.mode === "javascript") {
+          formattedCode = js_beautify(editorValue, {
+            indent_size: 2,
+            space_in_empty_paren: true,
+          });
+        }
+        if (props.mode === "html") {
+          formattedCode = html_beautify(editorValue, {
+            indent_size: 2,
+            preserve_newlines: true,
+            max_preserve_newlines: 1,
+          });
+        }
+
         aceEditor.value.setValue(formattedCode, -1);
       }
     };
