@@ -42,8 +42,8 @@ const handleAdd = (index: number) => {
       props.isNested
         ? 'min-h-[60px] border-dashed border border-[#d9d9d9] h-full'
         : modeManage.mode.value === 'pc'
-          ? 'min-h-[calc(100vh-132px)] w-full bg-white p-2 dark:bg-darkMode'
-          : 'min-h-[calc(100vh-152px)] w-full bg-white p-2 dark:bg-darkMode',
+          ? 'min-h-[calc(100vh-108px)] w-full bg-white p-2 dark:bg-darkMode'
+          : 'min-h-[calc(100vh-128px)] w-full bg-white p-2 dark:bg-darkMode',
       ,
     ]"
     @start="() => handleDropStart(hoverManage, focusManage)"
