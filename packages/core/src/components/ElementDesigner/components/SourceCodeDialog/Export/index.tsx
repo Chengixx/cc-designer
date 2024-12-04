@@ -34,7 +34,9 @@ export const ExportSourceCodeDialog = defineComponent({
     };
     const handleConfirm = () => {
       isShow.value = false;
-      navigator.clipboard.writeText(jsonContent.value).then(() => {
+      const targetValue: string =
+        currentTab.value === 1 ? jsonContent.value : cgxContent.value;
+      navigator.clipboard.writeText(targetValue).then(() => {
         ElNotification.success("复制成功");
       });
     };
