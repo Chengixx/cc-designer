@@ -125,7 +125,7 @@ const InputNumber: IElementBaseSetting = {
           placeholder: "请选择大小",
           options: [
             { label: "大", value: "large" },
-            { label: "中", value: "medium" },
+            { label: "中", value: "default" },
             { label: "小", value: "small" },
           ],
         },
