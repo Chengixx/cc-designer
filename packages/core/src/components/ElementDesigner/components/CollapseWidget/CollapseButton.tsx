@@ -42,7 +42,7 @@ const CollapseButton = defineComponent({
         : "dark:fill-white";
       const sideClass = props.isLeft
         ? props.collapseState
-          ? "left-[260px]"
+          ? "left-[280px]"
           : "left-0"
         : props.collapseState
           ? "right-[280px]"

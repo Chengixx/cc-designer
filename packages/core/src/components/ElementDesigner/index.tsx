@@ -83,7 +83,7 @@ const ElementDesigner = defineComponent({
               ref={leftMenuRef}
               class={[
                 collapseManage.leftMenuCollapseState.value
-                  ? "w-[260px]"
+                  ? "w-[280px]"
                   : "w-0",
                 " bg-white h-full transition-all duration-300",
               ]}

@@ -12,10 +12,10 @@ const ElementMenu = defineComponent({
     return () => {
       return (
         <div class="overflow-x-hidden border-r border-gray-200 dark:border-darkMode dark:bg-darkMode">
-          <div class="w-full h-10 flex justify-center items-center border-y min-w-[260px] dark:border-darkMode">
+          <div class="w-full h-10 flex justify-center items-center border-y min-w-[280px] dark:border-darkMode">
             <span>组件菜单</span>
           </div>
-          <div class="w-full h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden min-w-[260px]">
+          <div class="w-full h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden min-w-[280px]">
             <ElTabs v-model={settingTab.value} stretch>
               <ElTabPane label="组件" name={1}>
                 <div>
