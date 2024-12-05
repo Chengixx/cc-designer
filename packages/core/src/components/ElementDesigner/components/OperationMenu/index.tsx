@@ -6,8 +6,7 @@ import {
   ElRadioGroup,
   ElRadioButton,
 } from "element-plus";
-import { ToLeftIcon, ToRightIcon } from "@cgx-designer/icons";
-import { CollapseManage, FocusManage, ModeManage } from "@cgx-designer/hooks";
+import { FocusManage, ModeManage } from "@cgx-designer/hooks";
 
 const Icon = (Iconfig: OperationButtonSetting, disabled: boolean = false) => {
   const handleClick = () => {
@@ -71,7 +70,6 @@ const OperationMenu = defineComponent({
   },
   setup({ buttonMap }) {
     const commandManage = inject("commandManage") as any;
-    const collapseManage = inject("collapseManage") as CollapseManage;
     const modeManage = inject("modeManage") as ModeManage;
     const focusManage = inject("focusManage") as FocusManage;
     const { Message, Tree, Clear, Undo, Redo, Export, Import, Preview } =
@@ -115,26 +113,6 @@ const OperationMenu = defineComponent({
     return () => {
       return (
         <div class="h-12 flex items-center border-y bg-white border-gray-200 dark:bg-darkMode dark:border-darkMode">
-          {/* <div
-            title="收起/打开左侧菜单"
-            class="h-full min-w-[24px] cursor-pointer flex justify-center items-center border-r border-gray-200 hover:bg-[#f4f8fe] dark:border-darkMode dark:hover:bg-[#2d2d2d]"
-            onClick={() => {
-              focusManage.startFocusTimedQuery();
-              collapseManage.toggleLeftMenu();
-              setTimeout(() => {
-                focusManage.stopFocusTimedQuery();
-              }, 350);
-            }}
-          >
-            {collapseManage.leftMenuCollapseState.value ? (
-              <ToLeftIcon class="w-[18px] h-[18px] dark:fill-white" />
-            ) : (
-              <>
-                <span class="mx-2">组件菜单</span>
-                <ToRightIcon class="w-[18px] h-[18px] mr-2 dark:fill-white" />
-              </>
-            )}
-          </div> */}
           <div class="h-full flex justify-center items-center py-2">
             <div class="border-r px-4 flex justify-center items-center dark:border-[#3e434c]">
               <ElRadioGroup v-model={modeComputed.value} size="small">
@@ -156,26 +134,6 @@ const OperationMenu = defineComponent({
             {IconButton(Export, true)}
             {IconButton(Preview, true)}
           </div>
-          {/* <div
-            title="收起/打开右侧菜单"
-            class="h-full min-w-[24px] cursor-pointer flex items-center justify-center border-l border-gray-200 hover:bg-[#f4f8fe] dark:border-darkMode dark:hover:bg-[#2d2d2d]"
-            onClick={() => {
-              focusManage.startFocusTimedQuery();
-              collapseManage.toggleRightMenu();
-              setTimeout(() => {
-                focusManage.stopFocusTimedQuery();
-              }, 350);
-            }}
-          >
-            {collapseManage.rightMenuCollapseState.value ? (
-              <ToRightIcon class="w-[18px] h-[18px] dark:fill-white" />
-            ) : (
-              <>
-                <ToLeftIcon class="w-[18px] h-[18px] ml-2 dark:fill-white" />
-                <span class="mx-2">配置菜单</span>
-              </>
-            )}
-          </div> */}
         </div>
       );
     };
