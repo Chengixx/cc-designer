@@ -8,7 +8,7 @@ import {
 import { ref, defineComponent, nextTick } from "vue";
 import IDE from "../../../../IDE";
 import { BuilderSchema } from "../../../../../../../cgx-designer/dist/core";
-import { createSourceCode } from "@cgx-designer/utils";
+import { createSFCSourceCode, createSourceCode } from "@cgx-designer/utils";
 
 export interface ExportSourceCodeDialogExpose {
   handleOpen: (builderSchema: BuilderSchema) => void;
@@ -19,6 +19,7 @@ export const ExportSourceCodeDialog = defineComponent({
     const currentTab = ref<number>(1);
     const jsonContent = ref<string>("");
     const cgxContent = ref<string>("");
+    const sfcContent = ref<string>("");
     const IDERef = ref<typeof IDE | null>(null);
     const isShow = ref<boolean>(false);
     const handleOpen = (builderSchema: BuilderSchema) => {
@@ -26,6 +27,8 @@ export const ExportSourceCodeDialog = defineComponent({
         jsonContent.value = JSON.stringify(builderSchema);
         cgxContent.value =
           createSourceCode(builderSchema).createCGXSourceCode();
+        sfcContent.value =
+          createSFCSourceCode(builderSchema).createSFCSourceCode();
       });
       isShow.value = true;
     };
@@ -60,7 +63,7 @@ export const ExportSourceCodeDialog = defineComponent({
                 class="no-padding-tabs"
                 type="border-card"
               >
-                <ElTabPane label="json" name={1}>
+                <ElTabPane label="json代码" name={1}>
                   <div class="h-[70vh]">
                     <IDE ref={IDERef} v-model={jsonContent.value} />
                   </div>
@@ -68,6 +71,11 @@ export const ExportSourceCodeDialog = defineComponent({
                 <ElTabPane label="vue代码" name={2}>
                   <div class="h-[70vh]">
                     <IDE ref={IDERef} v-model={cgxContent.value} mode="html" />
+                  </div>
+                </ElTabPane>
+                <ElTabPane label="SFC代码" name={3}>
+                  <div class="h-[70vh]">
+                    <IDE ref={IDERef} v-model={sfcContent.value} mode="html" />
                   </div>
                 </ElTabPane>
               </ElTabs>

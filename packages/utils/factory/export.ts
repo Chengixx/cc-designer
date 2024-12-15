@@ -1,23 +1,15 @@
 import { BuilderSchema } from "@cgx-designer/core";
+import { defaultCSS, defaultHtml } from "./data";
 
-export const html = `<template>
-  <div>
-    <ElementBuilder ref="elementBuilderRef" :builderSchema="builderSchema"></ElementBuilder>
-  </div>
-</template>`;
-
-export const style = `
-<style scoped>
-</style>
-`;
+export type ICreateCode = ReturnType<typeof createSourceCode>;
 
 export const createSourceCode = (builderSchema: BuilderSchema) => {
   const createHTML = () => {
-    return html;
+    return defaultHtml;
   };
 
   const createStyleSheet = () => {
-    return style;
+    return defaultCSS;
   };
 
   const createScript = () => {
