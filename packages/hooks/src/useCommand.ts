@@ -14,6 +14,7 @@ export interface ICommand {
   before?: any;
   //是否要放到队列里
   pushQueue?: boolean;
+  [key: string]: any;
 }
 
 export type Queue = {
@@ -106,11 +107,16 @@ export const useCommand = (
       name: "drag",
       pushQueue: true,
       before: null,
+      beforeFocusElementId: null,
       init() {
         this.before = null;
         //开始的回调函数
         const start = () => {
           this.before = cloneDeep(elementManage.elementList.value);
+          //写这个是因为每次拖拽都是新的 都要重新赋值
+          if (focusManage.focusedElement) {
+            this.beforeFocusElementId = focusManage.focusedElement.value?.id;
+          }
           // this.before = elementManage.elementList.value;
         };
         //结束的回调函数
@@ -127,12 +133,15 @@ export const useCommand = (
       },
       execute() {
         let before = this.before;
+        let beforeFocusElementId = this.beforeFocusElementId;
         let after = elementManage.elementList.value;
         return {
           redo() {
             //默认的
             //要深拷贝一份 因为是响应式的 妈的一直更新,我服了操阿草草草草草草
             elementManage.setElementList(cloneDeep(after));
+            //写这个是因为每次拖拽都是新的 都要重新赋值
+            focusManage.handleFocusById(beforeFocusElementId);
             // elementManage.setElementList(after);
           },
           undo() {

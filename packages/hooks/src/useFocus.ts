@@ -116,6 +116,13 @@ export const useFocus = (
     }
   };
 
+  const handleFocusById = (id: string) => {
+    const elementSchema = elementManage.findElementById(id);
+    if (elementSchema) {
+      focusedElement.value = elementSchema;
+    }
+  };
+
   const resetFocus = () => {
     focusedElement.value = null;
   };
@@ -135,5 +142,6 @@ export const useFocus = (
     resetFocus,
     setFocusWidgetStyle,
     forceSetFocusWidgetStyle,
+    handleFocusById,
   };
 };
