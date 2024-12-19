@@ -1,0 +1,58 @@
+import IDE from "../../../IDE/index";
+import { ElButton, ElDialog } from "element-plus";
+import { defineComponent, ref } from "vue";
+
+export interface ValueDialogExpose {
+  handleOpen: (formDataString: string) => void;
+  handleClose: () => void;
+}
+
+export const ValueDialog = defineComponent({
+  setup(_, { expose }) {
+    const IDEValue = ref<string>("");
+    const dialogShow = ref<boolean>(false);
+    const handleOpen = (formDataString: string) => {
+      dialogShow.value = true;
+      IDEValue.value = formDataString;
+    };
+    const handleClose = () => {
+      dialogShow.value = false;
+      IDEValue.value = "";
+    };
+
+    expose({
+      handleOpen,
+      handleClose,
+    });
+    return () => {
+      return (
+        <ElDialog
+          destroyOnClose
+          title="预览表单数据"
+          v-model={dialogShow.value}
+          beforeClose={handleClose}
+          style={{
+            marginTop: "10vh !important",
+          }}
+        >
+          {{
+            default: () => {
+              return (
+                <div class="h-[60vh] overflow-y-auto">
+                  <IDE readonly v-model={IDEValue.value} />
+                </div>
+              );
+            },
+            footer: () => {
+              return (
+                <div>
+                  <ElButton onClick={handleClose}>关闭</ElButton>
+                </div>
+              );
+            },
+          }}
+        </ElDialog>
+      );
+    };
+  },
+});

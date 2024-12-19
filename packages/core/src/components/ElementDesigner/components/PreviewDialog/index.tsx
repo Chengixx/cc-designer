@@ -4,6 +4,7 @@ import { defineComponent, inject, ref } from "vue";
 import { ElementManage, FormManage, FunctionManage } from "@cgx-designer/hooks";
 import { deepClone } from "@cgx-designer/utils";
 import { ElementBuilderExpose } from "../../../ElementBuilder/type";
+import { ValueDialogExpose, ValueDialog } from "./ValueDialog";
 
 const PreviewDialog = defineComponent({
   setup(_, { expose }) {
@@ -11,6 +12,7 @@ const PreviewDialog = defineComponent({
     const formManage = inject("formManage") as FormManage;
     const functionManage = inject("functionManage") as FunctionManage;
     const elementBuilderRef = ref<ElementBuilderExpose | null>(null);
+    const ValueDialogRef = ref<ValueDialogExpose | null>(null);
     const dialogShow = ref<boolean>(false);
     const ElementBuilderKey = ref("");
     const handleOpen = () => {
@@ -25,6 +27,7 @@ const PreviewDialog = defineComponent({
     const handleGetFormData = () => {
       console.log("look", elementBuilderRef.value!.formRef);
       console.log("查看表单的数据", elementBuilderRef.value!.formData);
+      ValueDialogRef.value?.handleOpen(JSON.stringify(elementBuilderRef.value!.formData));
     };
     const handleValidFormData = () => {
       //防抖节流一下 防止一直点
@@ -45,46 +48,49 @@ const PreviewDialog = defineComponent({
     });
     return () => {
       return (
-        <ElDialog
-          destroyOnClose
-          title="预览"
-          v-model={dialogShow.value}
-          beforeClose={handleClose}
-          style={{
-            marginTop: "5vh !important",
-          }}
-        >
-          {{
-            default: () => {
-              return (
-                <div class="h-[70vh] overflow-y-auto">
-                  <ElementBuilder
-                    key={ElementBuilderKey.value}
-                    ref={elementBuilderRef}
-                    script={functionManage.javaScriptVal.value}
-                    elementSchemaList={deepClone(
-                      elementManage.elementList.value
-                    )}
-                    formSetting={formManage.formSetting}
-                  />
-                </div>
-              );
-            },
-            footer: () => {
-              return (
-                <div>
-                  <ElButton onClick={handleClose}>关闭</ElButton>
-                  <ElButton type="primary" onClick={handleValidFormData}>
-                    模拟校验
-                  </ElButton>
-                  <ElButton type="primary" onClick={handleGetFormData}>
-                    查看数据
-                  </ElButton>
-                </div>
-              );
-            },
-          }}
-        </ElDialog>
+        <>
+          <ElDialog
+            destroyOnClose
+            title="预览"
+            v-model={dialogShow.value}
+            beforeClose={handleClose}
+            style={{
+              marginTop: "5vh !important",
+            }}
+          >
+            {{
+              default: () => {
+                return (
+                  <div class="h-[70vh] overflow-y-auto">
+                    <ElementBuilder
+                      key={ElementBuilderKey.value}
+                      ref={elementBuilderRef}
+                      script={functionManage.javaScriptVal.value}
+                      elementSchemaList={deepClone(
+                        elementManage.elementList.value
+                      )}
+                      formSetting={formManage.formSetting}
+                    />
+                  </div>
+                );
+              },
+              footer: () => {
+                return (
+                  <div>
+                    <ElButton onClick={handleClose}>关闭</ElButton>
+                    <ElButton type="primary" onClick={handleValidFormData}>
+                      模拟校验
+                    </ElButton>
+                    <ElButton type="primary" onClick={handleGetFormData}>
+                      查看数据
+                    </ElButton>
+                  </div>
+                );
+              },
+            }}
+          </ElDialog>
+          <ValueDialog ref={ValueDialogRef} />
+        </>
       );
     };
   },
