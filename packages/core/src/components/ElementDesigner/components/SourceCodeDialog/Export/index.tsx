@@ -1,14 +1,12 @@
-import {
-  ElButton,
-  ElDialog,
-  ElNotification,
-  ElTabPane,
-  ElTabs,
-} from "element-plus";
+import { ElButton, ElDialog, ElMessage, ElTabPane, ElTabs } from "element-plus";
 import { ref, defineComponent, nextTick } from "vue";
 import IDE from "../../../../IDE";
 import { BuilderSchema } from "../../../../../../../cgx-designer/dist/core";
-import { createSFCSourceCode, createSourceCode } from "@cgx-designer/utils";
+import {
+  copyToClipboard,
+  createSFCSourceCode,
+  createSourceCode,
+} from "@cgx-designer/utils";
 
 export interface ExportSourceCodeDialogExpose {
   handleOpen: (builderSchema: BuilderSchema) => void;
@@ -39,9 +37,12 @@ export const ExportSourceCodeDialog = defineComponent({
       isShow.value = false;
       const targetValue: string =
         currentTab.value === 1 ? jsonContent.value : cgxContent.value;
-      navigator.clipboard.writeText(targetValue).then(() => {
-        ElNotification.success("复制成功");
-      });
+
+      copyToClipboard(
+        targetValue as string,
+        () => ElMessage.success("复制成功"),
+        () => ElMessage.warning("复制失败")
+      );
     };
     expose({
       handleOpen,

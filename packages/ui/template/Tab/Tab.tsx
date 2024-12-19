@@ -74,8 +74,7 @@ const Tab = defineComponent({
           onTabChange={(v) => handleTabChange(v)}
           onTabClick={(context, event) => handleTabClick(context, event)}
         >
-          {renderSlot(slots, "editNode"
-          )}
+          {renderSlot(slots, "editNode")}
         </ElTabs>
       );
     };

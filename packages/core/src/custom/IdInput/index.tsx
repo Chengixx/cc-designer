@@ -2,6 +2,7 @@ import { defineComponent, PropType, ref, watch } from "vue";
 import { IEditorElement } from "../../../../cgx-designer/dist/core";
 import { ElInput, ElMessage } from "element-plus";
 import "../../style/index.css";
+import { copyToClipboard } from "@cgx-designer/utils";
 
 const IdInput = defineComponent({
   props: {
@@ -13,14 +14,11 @@ const IdInput = defineComponent({
     const handleCopy = () => {
       const inputValue = attrs.modelValue;
       if (inputValue !== undefined && inputValue !== null) {
-        navigator.clipboard
-          .writeText(inputValue as string)
-          .then(() => {
-            ElMessage.success("复制成功");
-          })
-          .catch((error) => {
-            ElMessage.warning(error);
-          });
+        copyToClipboard(
+          inputValue as string,
+          () => ElMessage.success("复制成功"),
+          () => ElMessage.warning("复制失败")
+        );
       }
     };
 

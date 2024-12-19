@@ -1,3 +1,49 @@
+//复制
+export const copyToClipboard = (
+  value: string,
+  successCb?: () => void,
+  errorCb?: () => void
+) => {
+  if (
+    navigator.clipboard &&
+    typeof navigator.clipboard.writeText === "function"
+  ) {
+    return navigator.clipboard
+      .writeText(value)
+      .then(() => {
+        if (successCb) {
+          successCb();
+        }
+      })
+      .catch(() => {
+        if (errorCb) {
+          errorCb();
+        }
+      });
+  } else if (document.execCommand("copy")) {
+    var textArea = document.createElement("textarea");
+    textArea.value = value;
+    textArea.style.position = "fixed";
+    textArea.style.opacity = "0";
+    textArea.style.left = "-999999px";
+    textArea.style.top = "-999999px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    const isCopy = document.execCommand("copy");
+    if (isCopy) {
+      if (successCb) {
+        successCb();
+      }
+    } else {
+      if (errorCb) {
+        errorCb();
+      }
+    }
+    textArea.remove();
+  }
+};
+
 //深拷贝
 export const deepClone = <T>(obj: T): T => {
   if (!obj || typeof obj !== "object") {
