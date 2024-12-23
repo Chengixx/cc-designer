@@ -10,7 +10,7 @@ import {
 import ElementBuilderNode from "./ElementBuilderNode";
 import { ElEmpty, ElForm, FormInstance } from "element-plus";
 import { BuilderSchema, FormSetting, IEditorElement } from "../../types";
-import { deepCompareAndModify } from "@cgx-designer/utils";
+import { deepCompareAndModify, stringFirstBigger } from "@cgx-designer/utils";
 import { useElement, useFunction } from "@cgx-designer/hooks";
 import { isEmpty } from "lodash";
 
@@ -85,6 +85,19 @@ const ElementBuilder = defineComponent({
     const useScript = computed(() => {
       return props.builderSchema.script || props.script;
     });
+    //获取表单的方法 事件
+    const getFormFunction = computed(() => {
+      const formFunctionOn = !isEmpty(props.builderSchema)
+        ? props.builderSchema.formSetting.on
+        : props.formSetting.on;
+      const onEvent: Record<string, Function> = {};
+      formFunctionOn &&
+        Object.keys(formFunctionOn).forEach((item) => {
+          onEvent["on" + stringFirstBigger(item)] = (...args: any[]) =>
+            functionManage.executeFunctions(formFunctionOn[item], ...args);
+        });
+      return { ...onEvent };
+    });
 
     watch(
       () => useScript.value,
@@ -115,6 +128,7 @@ const ElementBuilder = defineComponent({
               ref={formRef}
               model={formData}
               {...useFormSettingAttrs.value}
+              {...getFormFunction.value}
             >
               {slots.before && slots.before()}
               {useElementSchemaList.value.map((elementSchema) => {
