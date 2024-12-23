@@ -24,15 +24,19 @@ export let defaultJs = `
       };
 
       window.alert = (value) => {
-            this.ElMessageBox({
-              message: value,
-              confirmButtonText: '确定',
-              autofocus: false,
-              beforeClose: (action, instance, done) => {
-                  removeAllFocus();
-                  done();
-              },
-            })
+            if(typeof value === "string"){
+              this.ElMessageBox({
+                message: value,
+                confirmButtonText: '确定',
+                autofocus: false,
+                beforeClose: (action, instance, done) => {
+                    removeAllFocus();
+                    done();
+                },
+              })
+            }else{
+              this.ElMessageBox(value)
+            }
       }
       `;
 
