@@ -22,6 +22,7 @@ export const useForm = () => {
     formSetting.labelWidth = newSetting.labelWidth;
     formSetting.size = newSetting.size;
     formSetting.disabled = newSetting.disabled;
+    formSetting.on = newSetting.on;
   };
 
   return {

@@ -1,5 +1,4 @@
-import { ElementManage, FocusManage } from "@cgx-designer/hooks";
-import { ElEmpty } from "element-plus";
+import { FocusManage, FormManage } from "@cgx-designer/hooks";
 import { computed, defineComponent, inject } from "vue";
 import { getValueByPath, setValueByPath } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
@@ -8,7 +7,7 @@ import { defaultEvents } from "./constant";
 const ElementEvent = defineComponent({
   setup() {
     const elementMap = elementController.elementMap;
-    const elementManage = inject("elementManage") as ElementManage;
+    const formManage = inject("formManage") as FormManage;
     const focusManage = inject("focusManage") as FocusManage;
 
     const focusedElement = computed(() => {
@@ -16,6 +15,7 @@ const ElementEvent = defineComponent({
     });
 
     const eventList = computed(() => {
+      if (!focusedElement.value) return defaultEvents;
       const elementEvents =
         elementMap[focusedElement.value!.key].config?.event ?? [];
       return elementEvents.length
@@ -28,22 +28,21 @@ const ElementEvent = defineComponent({
 
     return () => (
       <div>
-        {focusedElement.value ? (
-          <div>
-            <EventSetting
-              key={focusedElement.value.id}
-              eventList={eventList.value}
-              modelValue={getValueByPath(focusedElement.value!, `on`)}
-              onUpdateModelValue={(v: any) => {
-                setValueByPath(focusedElement.value!, `on`, v);
-              }}
-            />
-          </div>
-        ) : (
-          <div>
-            <ElEmpty description="暂无选中元素" />
-          </div>
-        )}
+        <EventSetting
+          key={focusedElement.value?.id}
+          eventList={eventList.value}
+          modelValue={getValueByPath(
+            focusedElement.value || formManage.formSetting,
+            `on`
+          )}
+          onUpdateModelValue={(v: any) => {
+            setValueByPath(
+              focusedElement.value || formManage.formSetting,
+              `on`,
+              v
+            );
+          }}
+        />
       </div>
     );
   },

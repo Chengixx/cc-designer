@@ -35,6 +35,7 @@ export interface FormSetting {
   labelPosition?: "top" | "left" | "right";
   size?: "default" | "small" | "large";
   disabled?: boolean;
+  on?: Record<string, EventInstance[]>;
 }
 
 //表单校验规则
@@ -71,9 +72,8 @@ export interface EventPrototype {
 export interface EventItem {
   type: string;
   describe: string;
-  argsConfigs?:any
+  argsConfigs?: any;
 }
-
 
 //事件的实例
 export interface EventInstance {

@@ -51,7 +51,7 @@ const builderSchema: BuilderSchema = ${JSON.stringify(builderSchema)};
 
   const createSFCSourceCode = () => {
     const { script, elementList, formSetting } = builderSchema;
-    console.log(createFormItem(formSetting));
+    // console.log(createFormItem(formSetting));
 
     //总和
     return `
