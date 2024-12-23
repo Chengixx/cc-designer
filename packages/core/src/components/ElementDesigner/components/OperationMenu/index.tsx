@@ -19,10 +19,10 @@ const Icon = (Iconfig: OperationButtonSetting, disabled: boolean = false) => {
     <div title={Iconfig.label}>
       <Iconfig.icon
         class={[
-          "h-5 w-5 cursor-pointer",
+          "h-5 w-5",
           disabled
             ? "fill-gray-500 cursor-not-allowed"
-            : "dark:fill-white hover:fill-blue-500 dark:hover:fill-blue-500",
+            : "dark:fill-white hover:fill-blue-500 dark:hover:fill-blue-500 cursor-pointer",
         ]}
         onclick={handleClick}
       />
