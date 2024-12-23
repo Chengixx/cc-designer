@@ -53,7 +53,7 @@ const ElementBuilder = defineComponent({
     let formData = reactive(props.formData);
     provide("formData", formData);
     //表单配置
-    const useFormSettingAttrs = computed(() => {
+    const getFormAttrs = computed(() => {
       // 用于判断用哪个
       if (!isEmpty(props.builderSchema)) {
         return {
@@ -127,7 +127,7 @@ const ElementBuilder = defineComponent({
             <ElForm
               ref={formRef}
               model={formData}
-              {...useFormSettingAttrs.value}
+              {...getFormAttrs.value}
               {...getFormFunction.value}
             >
               {slots.before && slots.before()}
