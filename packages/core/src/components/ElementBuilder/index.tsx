@@ -54,27 +54,22 @@ const ElementBuilder = defineComponent({
     provide("formData", formData);
     //表单配置
     const getFormAttrs = computed(() => {
-      // 用于判断用哪个
-      if (!isEmpty(props.builderSchema)) {
-        return {
-          labelWidth: props.builderSchema.formSetting.labelWidth || undefined,
-          labelPosition:
-            props.builderSchema.formSetting.labelPosition || undefined,
-          size: props.builderSchema.formSetting.size || undefined,
-          disabled: props.builderSchema.formSetting.disabled || undefined,
-        };
-      }
+      const { builderSchema, formSetting } = props;
+      const formSettings = !isEmpty(builderSchema)
+        ? builderSchema.formSetting
+        : formSetting;
+
       return {
-        labelWidth: props.formSetting.labelWidth || undefined,
-        labelPosition: props.formSetting.labelPosition || undefined,
-        size: props.formSetting.size || undefined,
-        disabled: props.formSetting.disabled || undefined,
+        labelWidth: formSettings.labelWidth || undefined,
+        labelPosition: formSettings.labelPosition || undefined,
+        size: formSettings.size || undefined,
+        disabled: formSettings.disabled || undefined,
       };
     });
     //元素配置
     const useElementSchemaList = computed(() => {
       return !isEmpty(props.builderSchema) &&
-        props.builderSchema.elementList.length
+        Array.isArray(props.builderSchema.elementList)
         ? props.builderSchema.elementList
         : props.elementSchemaList;
     });
