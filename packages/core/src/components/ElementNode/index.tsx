@@ -200,59 +200,60 @@ const ElementNode = defineComponent({
     });
     onMounted(initComponentInstance);
     onUnmounted(handleRemoveElementInstance);
+
+    //组件的外层
+    const ElementShell = (children: any) => (
+      <>
+        {localSchema.formItem ? (
+          <ElFormItem
+            for="-"
+            label={
+              !!localSchema.props!.label
+                ? localSchema.props!.label
+                : localSchema.key
+            }
+            ref={formItemRef}
+            class="w-full"
+            labelPosition={localSchema.props!.labelPosition}
+            prop={localSchema.field}
+            rules={localSchema.rules}
+          >
+            {children}
+          </ElFormItem>
+        ) : (
+          <>{children}</>
+        )}
+      </>
+    );
     return () => {
       //渲染出来的组件
       const ElementRender = elementController.elementRenderMap[localSchema.key];
       return (
         <>
-          {localSchema.formItem ? (
-            <ElFormItem
-              for="-"
-              label={
-                !!localSchema.props!.label
-                  ? localSchema.props!.label
-                  : localSchema.key
-              }
-              ref={formItemRef}
-              class="w-full"
-              labelPosition={localSchema.props!.labelPosition}
-              prop={localSchema.field}
-              rules={localSchema.rules}
+          {ElementShell(
+            <ElementRender
+              ref={elementRef}
+              {...getElementFunction.value}
+              {...getElementModel.value}
+              {...getElementStyle.value}
+              elementSchema={localSchema}
             >
-              <ElementRender
-                ref={elementRef}
-                {...getElementFunction.value}
-                {...getElementModel.value}
-                {...getElementStyle.value}
-                elementSchema={localSchema}
-              />
-            </ElFormItem>
-          ) : (
-            <>
-              <ElementRender
-                ref={elementRef}
-                {...getElementFunction.value}
-                {...getElementModel.value}
-                {...getElementStyle.value}
-                elementSchema={localSchema}
-              >
-                {{
-                  // 这个是普通的插槽,就是给他一个个循环出来就好了不用过多的操作
-                  node: (childElementSchema: IEditorElement) => {
-                    return (
-                      <ElementNode
-                        elementSchema={childElementSchema}
-                        isPreview={props.isPreview}
-                      />
-                    );
-                  },
-                  //这个是拖拽的插槽，应该要用draggle,这里会提供一个插槽 到外面如果需要拖拽的话 是用插槽穿进来的
-                  editNode: () => {
-                    return <>{slots.editNode ? slots.editNode() : null}</>;
-                  },
-                }}
-              </ElementRender>
-            </>
+              {{
+                // 这个是普通的插槽,就是给他一个个循环出来就好了不用过多的操作
+                node: (childElementSchema: IEditorElement) => {
+                  return (
+                    <ElementNode
+                      elementSchema={childElementSchema}
+                      isPreview={props.isPreview}
+                    />
+                  );
+                },
+                //这个是拖拽的插槽，应该要用draggle,这里会提供一个插槽 到外面如果需要拖拽的话 是用插槽穿进来的
+                editNode: () => {
+                  return <>{slots.editNode ? slots.editNode() : null}</>;
+                },
+              }}
+            </ElementRender>
           )}
         </>
       );
