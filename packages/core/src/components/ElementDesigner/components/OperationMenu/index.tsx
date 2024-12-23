@@ -89,25 +89,16 @@ const OperationMenu = defineComponent({
     });
 
     const undoDisabled = computed(() => {
-      if (commandManage.queue?.length === 0) {
-        return true;
-      }
-      if (commandManage.queue?.length > 0 && commandManage.current === -1) {
-        return true;
-      }
-      return false;
+      const { queue, current } = commandManage;
+      return queue?.length === 0 || (queue?.length > 0 && current === -1);
     });
-    const RedoDisabled = computed(() => {
-      if (commandManage.queue?.length === 0) {
-        return true;
-      }
-      if (
-        commandManage.queue?.length > 0 &&
-        commandManage.current === commandManage.queue?.length - 1
-      ) {
-        return true;
-      }
-      return false;
+
+    const redoDisabled = computed(() => {
+      const { queue, current } = commandManage;
+      return (
+        queue?.length === 0 ||
+        (queue?.length > 0 && current === queue.length - 1)
+      );
     });
 
     return () => {
@@ -124,7 +115,7 @@ const OperationMenu = defineComponent({
           </div>
           <div class="h-full flex-1 flex items-center gap-x-4 pl-4">
             {Icon(Undo, undoDisabled.value)}
-            {Icon(Redo, RedoDisabled.value)}
+            {Icon(Redo, redoDisabled.value)}
             <Icon {...Clear} />
             <Icon {...Message} />
           </div>
