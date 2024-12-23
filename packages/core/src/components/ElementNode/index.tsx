@@ -129,23 +129,15 @@ const ElementNode = defineComponent({
       //如果有id 说明是主要的 而且有实例 就放进去
       if (localSchema.id && instance) {
         // 添加属性设置方法
-        instance.setAttr = (key: string, value: any) => {
-          //保底机制
-          if (!localSchema.props) {
-            localSchema.props = {};
-          }
-          return (localSchema.props[key] = value);
-        };
+        instance.setAttr = (key: string, value: any) =>
+          ((localSchema.props ??= {})[key] = value);
 
-        instance.getAttr = (key: string) => {
-          return localSchema.props![key];
-        };
+        instance.getAttr = (key: string) => localSchema.props![key];
         //如果是表单组件 把输入值和获取值方法也放一下
         if (localSchema.formItem) {
           instance.setValue = handleUpdate;
-          instance.getValue = () => {
-            return formData[localSchema.field!] || props.provideValue;
-          };
+          instance.getValue = () =>
+            formData[localSchema.field!] || props.provideValue;
         }
 
         elementManage.addElementInstance(localSchema.id, instance);
