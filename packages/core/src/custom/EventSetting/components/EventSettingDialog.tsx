@@ -45,6 +45,8 @@ const EventSettingDialog = defineComponent({
     const cacheData = ref<any>({});
     //当前选中的组件
     const elementSchema = ref<IEditorElement | null>(null);
+    //当前选中的组件（tree）
+    const selectedElementKey = ref<string>("");
     //渲染的方法列表 拿来用的
     const methodsList = computed(() => {
       //用户自己写的script的情况
@@ -110,6 +112,7 @@ const EventSettingDialog = defineComponent({
       eventInstance.type = "component";
       eventInstance.methodName = null;
       elementSchema.value = data;
+      selectedElementKey.value = data.id!;
     };
     //选中方法
     const handleSelectMethod = (method: string) => {
@@ -163,11 +166,13 @@ const EventSettingDialog = defineComponent({
           eventInstance.methodName = newEventInstance!.methodName;
           eventInstance.type = newEventInstance!.type;
           eventInstance.args = newEventInstance!.args;
+          selectedElementKey.value = newEventInstance!.componentId!;
         });
       }
     };
     const handleClose = () => {
       dialogShow.value = false;
+      selectedElementKey.value = "";
     };
 
     expose({
@@ -214,6 +219,7 @@ const EventSettingDialog = defineComponent({
                             onNode-click={handleNodeClick}
                             data={elementManage.elementList.value}
                             node-key="id"
+                            currentNodeKey={selectedElementKey.value!}
                             props={{ label: "key", children: "elementList" }}
                           />
                         </div>
