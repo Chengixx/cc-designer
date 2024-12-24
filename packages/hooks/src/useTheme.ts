@@ -1,5 +1,6 @@
 import { onMounted, onUnmounted, ref, watch } from "vue";
 import { useObserve } from "./useObserve";
+import { useToggle } from "./useToggle";
 
 export type ThemeManage = ReturnType<typeof useTheme>;
 
@@ -9,10 +10,7 @@ export const useTheme = () => {
     attributes: true,
     attributeFilter: ["class"],
   };
-  const isDark = ref<boolean>(false);
-  const toggleThemeMode = () => {
-    isDark.value = !isDark.value;
-  };
+  const [isDark, toggleThemeMode] = useToggle(false);
   watch(
     () => isDark.value,
     () => {

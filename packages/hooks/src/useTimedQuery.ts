@@ -1,3 +1,8 @@
+export interface TimedQuery {
+  startTimedQuery: () => void;
+  stopTimedQuery: () => void;
+}
+
 export const useTimedQuery = (handler: () => void, timeout = 16.66) => {
   let timer: number;
 

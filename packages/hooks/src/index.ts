@@ -11,3 +11,4 @@ export * from "./useExpose";
 export * from "./useCollapse";
 export * from "./useTheme";
 export * from "./useMode";
+export * from "./useToggle";
