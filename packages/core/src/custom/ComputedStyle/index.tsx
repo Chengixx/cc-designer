@@ -1,7 +1,7 @@
 import { ElDivider } from "element-plus";
 import { defineComponent, PropType, ref, watch } from "vue";
-import ComputedStyleInput from "./ComputedStyleInput";
-import { deepClone, getValueByPath, setValueByPath } from "@cgx-designer/utils";
+import ComputedStyleInput from "./components/ComputedStyleInput";
+import { getValueByPath, setValueByPath } from "@cgx-designer/utils";
 
 const ComputedStyleWidget = defineComponent({
   props: {
@@ -11,14 +11,15 @@ const ComputedStyleWidget = defineComponent({
       default: () => {},
     },
   },
-  emits: ["updateModelValue"],
+  emits: ["update:modelValue"],
   setup(props, { emit }) {
     const styleState = ref<Record<string, string>>(props.modelValue ?? {});
 
     watch(
       () => styleState.value,
       (nv) => {
-        emit("updateModelValue", nv);
+        console.log(nv);
+        emit("update:modelValue", nv);
       },
       { deep: true }
     );

@@ -5,6 +5,7 @@ import EventSetting from "./EventSetting";
 import TabList from "./TabList";
 import StyleInput from "./StyleInput";
 import IdInput from "./IdInput";
+import ComputedStyle from "./ComputedStyle";
 
 export {
   SelectOption,
@@ -13,5 +14,6 @@ export {
   EventSetting,
   TabList,
   StyleInput,
-  IdInput
+  IdInput,
+  ComputedStyle,
 };
