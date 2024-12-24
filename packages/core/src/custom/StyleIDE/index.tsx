@@ -16,7 +16,6 @@ const StyleIDE = defineComponent({
       () => attrs.modelValue,
       (nv) => {
         if (!nv) return;
-        console.log(nv, 6666);
         bindValue.value = JSON.stringify(nv);
         styleIDERef.value?.setEditorValue(bindValue.value);
       },
@@ -30,7 +29,7 @@ const StyleIDE = defineComponent({
             保存
           </ElButton>
         </div>
-        <div class="w-full h-40 border">
+        <div class="w-full h-40 border transition-all duration-300 hover:border-blue-500 dark:border-gray-600 dark:hover:border-blue-500 border-solid rounded-md overflow-hidden">
           <IDE
             ref={styleIDERef}
             v-model={bindValue.value}
