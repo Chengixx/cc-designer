@@ -8,6 +8,7 @@ import {
   StyleInput,
   IdInput,
   ComputedStyle,
+  StyleIDE
 } from "./src/custom";
 import { elementController } from "@cgx-designer/controller";
 
@@ -18,6 +19,7 @@ elementController.registerElementRenderMap("tabList", TabList);
 elementController.registerElementRenderMap("styleInput", StyleInput);
 elementController.registerElementRenderMap("idInput", IdInput);
 elementController.registerElementRenderMap("computedStyle", ComputedStyle);
+elementController.registerElementRenderMap("styleIDE", StyleIDE);
 
 export * from "./src/types/index";
 export * from "./src/components/ElementBuilder/type";

@@ -2,6 +2,11 @@ import { IEditorElement } from "../../../../../../types";
 
 export const defaultStyleSchema: IEditorElement[] = [
   {
+    key: "styleIDE",
+    field: "style",
+    props: {},
+  },
+  {
     label: "宽度",
     key: "styleInput",
     field: "style.width",

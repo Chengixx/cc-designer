@@ -11,7 +11,7 @@ import workerJavascriptUrl from "ace-builds/src-noconflict/worker-javascript?url
 import workerHtmlUrl from "ace-builds/src-noconflict/worker-html?url";
 import { js_beautify, html_beautify } from "js-beautify";
 import { ElButton, ElIcon, ElTooltip } from "element-plus";
-import { FormatIcon } from "@cgx-designer/icons"
+import { FormatIcon } from "@cgx-designer/icons";
 import { ThemeManage } from "@cgx-designer/hooks/src/useTheme";
 
 import "ace-builds/src-min-noconflict/theme-monokai"; // 默认设置的主题
@@ -27,7 +27,6 @@ import "ace-builds/src-noconflict/snippets/javascript";
 import "ace-builds/src-noconflict/snippets/html";
 import "ace-builds/src-noconflict/snippets/json";
 import "ace-builds/src-noconflict/snippets/css";
-
 
 const IDE = defineComponent({
   props: {
@@ -46,6 +45,10 @@ const IDE = defineComponent({
     mode: {
       type: String,
       default: "javascript",
+    },
+    showFormatButton: {
+      type: Boolean,
+      default: true,
     },
   },
   emits: ["update:modelValue"],
@@ -145,15 +148,17 @@ const IDE = defineComponent({
       return (
         <div class="h-full relative">
           <div ref={aceRef} class="h-full" />
-          <div class="absolute right-[8px] bottom-[8px]">
-            <ElTooltip content="格式化" effect="light" placement="top">
-              <ElButton onClick={formatCode} circle>
-                <ElIcon>
-                  <FormatIcon />
-                </ElIcon>
-              </ElButton>
-            </ElTooltip>
-          </div>
+          {props.showFormatButton && (
+            <div class="absolute right-[8px] bottom-[8px]">
+              <ElTooltip content="格式化" effect="light" placement="top">
+                <ElButton onClick={formatCode} circle>
+                  <ElIcon>
+                    <FormatIcon />
+                  </ElIcon>
+                </ElButton>
+              </ElTooltip>
+            </div>
+          )}
         </div>
       );
     };

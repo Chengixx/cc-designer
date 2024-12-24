@@ -18,7 +18,6 @@ const ComputedStyleWidget = defineComponent({
     watch(
       () => styleState.value,
       (nv) => {
-        console.log(nv);
         emit("update:modelValue", nv);
       },
       { deep: true }
@@ -35,7 +34,7 @@ const ComputedStyleWidget = defineComponent({
         };
         return (
           <>
-            <span class="absolute top-[2px] left-[4px] text-xs">
+            <span class="absolute top-[2px] left-[4px] text-xs text-gray-800 font-medium">
               {labelMap[prefix]}
             </span>
             <ComputedStyleInput
