@@ -14,6 +14,14 @@ const ComputedStyleWidget = defineComponent({
   emits: ["update:modelValue"],
   setup(props, { emit }) {
     const styleState = ref<Record<string, string>>(props.modelValue ?? {});
+    //!这里是一定要加这个的 因为外部变化了 这里也要变化 否则这里的本地state会直接覆盖
+    watch(
+      () => props.modelValue,
+      () => {
+        styleState.value = props.modelValue;
+      },
+      { deep: true, immediate: true }
+    );
 
     watch(
       () => styleState.value,
