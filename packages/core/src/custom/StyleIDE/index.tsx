@@ -15,6 +15,7 @@ const StyleIDE = defineComponent({
         bindValue.value = JSON.stringify({});
       }
       try {
+        styleIDERef.value?.formatCode();
         const target = JSON.parse(bindValue.value!);
         emit("update:modelValue", target);
         ElMessage.success("保存成功");

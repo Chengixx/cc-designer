@@ -133,6 +133,7 @@ const IDE = defineComponent({
 
     expose({
       setEditorValue,
+      formatCode,
     });
     onMounted(() => {
       initEditor();
