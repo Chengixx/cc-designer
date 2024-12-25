@@ -30,6 +30,7 @@ const EventSettingDialog = defineComponent({
   setup(_, { expose, emit }) {
     const functionManage = inject("functionManage") as FunctionManage;
     const elementManage = inject("elementManage") as ElementManage;
+    const nodeTree = ref<InstanceType<typeof ElTree>>();
     const dialogShow = ref<boolean>(false);
     const isAdd = ref<boolean>(true);
     //实例
@@ -46,7 +47,6 @@ const EventSettingDialog = defineComponent({
     //当前选中的组件
     const elementSchema = ref<IEditorElement | null>(null);
     //当前选中的组件（tree）
-    const selectedElementKey = ref<string>("");
     //渲染的方法列表 拿来用的
     const methodsList = computed(() => {
       //用户自己写的script的情况
@@ -112,7 +112,6 @@ const EventSettingDialog = defineComponent({
       eventInstance.type = "component";
       eventInstance.methodName = null;
       elementSchema.value = data;
-      selectedElementKey.value = data.id!;
     };
     //选中方法
     const handleSelectMethod = (method: string) => {
@@ -166,13 +165,12 @@ const EventSettingDialog = defineComponent({
           eventInstance.methodName = newEventInstance!.methodName;
           eventInstance.type = newEventInstance!.type;
           eventInstance.args = newEventInstance!.args;
-          selectedElementKey.value = newEventInstance!.componentId!;
+          nodeTree.value?.setCurrentKey(newEventInstance!.componentId!);
         });
       }
     };
     const handleClose = () => {
       dialogShow.value = false;
-      selectedElementKey.value = "";
     };
 
     expose({
@@ -212,6 +210,7 @@ const EventSettingDialog = defineComponent({
                       <div class="px-2 pt-2 flex flex-col h-[calc(70vh-40px-.5rem)]">
                         <div class="h-[40vh] overflow-y-auto w-full border-b dark:border-darkMode">
                           <ElTree
+                            ref={nodeTree}
                             default-expand-all
                             highlight-current
                             class="node-tree"
@@ -219,7 +218,6 @@ const EventSettingDialog = defineComponent({
                             onNode-click={handleNodeClick}
                             data={elementManage.elementList.value}
                             node-key="id"
-                            currentNodeKey={selectedElementKey.value!}
                             props={{ label: "key", children: "elementList" }}
                           />
                         </div>
