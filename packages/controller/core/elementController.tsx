@@ -11,7 +11,7 @@ export class ElementController {
   //能用的是哪些,用于渲染左侧物料列表
   elementList: IElementBaseSetting[] = [];
   //根据key去做能用的是哪些
-  elementMap: Record<string, IElementBaseSetting> = {};
+  elementConfigMap: Record<string, IElementBaseSetting> = {};
   //用于渲染的map
   elementRenderMap: Record<string, any> = {};
   //注册元素到左侧菜单栏，必须走这里过
@@ -30,14 +30,15 @@ export class ElementController {
     );
 
     this.addElementBaseConfigExtraContent(elementBaseConfig);
-    this.registerElementMap(elementBaseConfig);
+    this.registerElementConfigMap(elementBaseConfig);
   };
   //注册元素基础config的Map
-  registerElementMap = (
+  registerElementConfigMap = (
     elementBaseConfig: IElementBaseSetting,
     key?: string
   ) => {
-    this.elementMap[key ? key : elementBaseConfig.key] = elementBaseConfig;
+    this.elementConfigMap[key ? key : elementBaseConfig.key] =
+      elementBaseConfig;
   };
   //注册元素基础schema
   registerElementTemplate = (

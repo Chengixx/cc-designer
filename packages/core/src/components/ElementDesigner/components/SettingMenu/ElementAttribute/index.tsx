@@ -12,7 +12,7 @@ import { ElCol, ElEmpty, ElRow } from "element-plus";
 
 const ElementAttribute = defineComponent({
   setup() {
-    const elementControllerMap = elementController.elementMap;
+    const elementControllerMap = elementController.elementConfigMap;
     const focusManage = inject("focusManage") as FocusManage;
     const currentFocusElement = ref<IEditorElement | null>(null);
     // 获取当前选中元素的属性

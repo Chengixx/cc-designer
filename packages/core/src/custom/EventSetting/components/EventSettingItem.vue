@@ -77,7 +77,7 @@ const getElementSetting = (id: string) => {
 };
 
 const getElementSvg = (tag: string) => {
-  return elementController!.elementMap[tag].icon;
+  return elementController!.elementConfigMap[tag].icon;
 };
 </script>
 

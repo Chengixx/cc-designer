@@ -33,7 +33,7 @@ const handleClone = (elementBaseSetting: IElementBaseSetting) => {
 };
 
 const getElementSvg = (tag: string) => {
-  return elementController!.elementMap[tag].icon;
+  return elementController!.elementConfigMap[tag].icon;
 };
 
 const hoverIndex = ref<number>(-1);

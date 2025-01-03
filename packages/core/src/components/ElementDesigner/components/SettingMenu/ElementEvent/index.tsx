@@ -6,7 +6,7 @@ import { EventSetting } from "../../../../../custom";
 import { defaultEvents } from "./constant";
 const ElementEvent = defineComponent({
   setup() {
-    const elementMap = elementController.elementMap;
+    const elementConfigMap = elementController.elementConfigMap;
     const formManage = inject("formManage") as FormManage;
     const focusManage = inject("focusManage") as FocusManage;
 
@@ -17,11 +17,11 @@ const ElementEvent = defineComponent({
     const eventList = computed(() => {
       if (!focusedElement.value) return defaultEvents;
       const elementEvents =
-        elementMap[focusedElement.value!.key].config?.event ?? [];
+        elementConfigMap[focusedElement.value!.key].config?.event ?? [];
       return elementEvents.length
         ? defaultEvents.concat({
             title: "组件事件",
-            events: elementMap[focusedElement.value!.key].config?.event ?? [],
+            events: elementConfigMap[focusedElement.value!.key].config?.event ?? [],
           })
         : defaultEvents;
     });

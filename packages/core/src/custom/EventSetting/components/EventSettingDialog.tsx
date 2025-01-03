@@ -58,7 +58,7 @@ const EventSettingDialog = defineComponent({
       //组件的情况
       if (eventInstance.type === "component") {
         if (elementSchema.value) {
-          const elementMethodsList = elementController.elementMap[
+          const elementMethodsList = elementController.elementConfigMap[
             elementSchema.value.key
           ].config!.action?.map((item) => ({
             label: item.describe,
@@ -75,7 +75,7 @@ const EventSettingDialog = defineComponent({
       if (eventInstance.type === "component") {
         if (elementSchema.value) {
           const action =
-            elementController.elementMap[elementSchema.value.key].config!
+            elementController.elementConfigMap[elementSchema.value.key].config!
               .action;
           const actionItem = action?.find(
             (item) => item.type === eventInstance.methodName
