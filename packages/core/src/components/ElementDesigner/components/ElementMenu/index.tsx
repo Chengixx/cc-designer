@@ -11,8 +11,8 @@ const ElementMenu = defineComponent({
 
     return () => {
       return (
-        <div class="c-overflow-x-hidden c-border-r c-border-gray-200 dark:border-darkMode dark:bg-darkMode">
-          <div class="c-w-full c-h-10 c-flex c-justify-center c-items-center c-border-y c-min-w-[280px] dark:border-darkMode">
+        <div class="c-overflow-x-hidden c-border-r c-border-gray-200 dark:c-border-darkMode dark:c-bg-darkMode">
+          <div class="c-w-full c-h-10 c-flex c-justify-center c-items-center c-border-y c-min-w-[280px] dark:c-border-darkMode">
             <span>组件菜单</span>
           </div>
           <div class="c-w-full c-h-[calc(100vh-80px)] c-overflow-y-auto c-overflow-x-hidden c-min-w-[280px]">

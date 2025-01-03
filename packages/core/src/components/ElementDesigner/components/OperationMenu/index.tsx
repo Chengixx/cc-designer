@@ -22,7 +22,7 @@ const Icon = (Iconfig: OperationButtonSetting, disabled: boolean = false) => {
           "c-h-5 c-w-5",
           disabled
             ? "c-fill-gray-500 c-cursor-not-allowed"
-            : "dark:fill-white hover:c-fill-blue-500 dark:hover:fill-blue-500 c-cursor-pointer",
+            : "dark:c-fill-white hover:c-fill-blue-500 dark:hover:c-fill-blue-500 c-cursor-pointer",
         ]}
         onclick={handleClick}
       />
@@ -103,9 +103,9 @@ const OperationMenu = defineComponent({
 
     return () => {
       return (
-        <div class="c-h-12 c-flex c-items-center c-border-y c-bg-white c-border-gray-200 dark:bg-darkMode dark:border-darkMode">
+        <div class="c-h-12 c-flex c-items-center c-border-y c-bg-white c-border-gray-200 dark:c-bg-darkMode dark:c-border-darkMode">
           <div class="c-h-full c-flex c-justify-center c-items-center c-py-2">
-            <div class="c-border-r c-px-4 c-flex c-justify-center c-items-center dark:border-[#3e434c]">
+            <div class="c-border-r c-px-4 c-flex c-justify-center c-items-center dark:c-border-[#3e434c]">
               <ElRadioGroup v-model={modeComputed.value} size="small">
                 <ElRadioButton label="Pc" value="pc" />
                 <ElRadioButton label="Pad" value="ipad" />

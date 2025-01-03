@@ -69,10 +69,10 @@ const ComputedStyleWidget = defineComponent({
         <ElDivider content-position="center">计算样式</ElDivider>
         <div class="c-w-full c-h-[180px] c-m-auto">
           {/* margin的在最外面 */}
-          <div class="c-w-full c-h-[180px] c-bg-[#f2cea5] c-px-14 c-py-10 c-box-border c-relative dark:bg-[#b08354]">
+          <div class="c-w-full c-h-[180px] c-bg-[#f2cea5] c-px-14 c-py-10 c-box-border c-relative dark:c-bg-[#b08354]">
             {InputRenderHelper("margin")}
             {/* padding的在里面 */}
-            <div class="c-w-full c-h-[100px] c-bg-[#c6cf92] c-px-14 c-py-10 c-box-border c-relative dark:bg-[#b8c480]">
+            <div class="c-w-full c-h-[100px] c-bg-[#c6cf92] c-px-14 c-py-10 c-box-border c-relative dark:c-bg-[#b8c480]">
               {InputRenderHelper("padding")}
               <div class="c-bg-[#88b2bd] c-w-full c-h-full"></div>
             </div>

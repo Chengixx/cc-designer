@@ -21,7 +21,7 @@ const ElementStyle = defineComponent({
                 <ElRow class="c-w-full">
                   {styleConfig.label && (
                     <ElCol span={6}>
-                      <div class="c-font-medium c-text-sm c-text-gray-600 c-h-full c-flex c-items-center dark:text-gray-300">
+                      <div class="c-font-medium c-text-sm c-text-gray-600 c-h-full c-flex c-items-center dark:c-text-gray-300">
                         {styleConfig.label}:
                       </div>
                     </ElCol>

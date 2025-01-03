@@ -38,7 +38,7 @@ const ElementIDE = defineComponent({
             <div key={item.key + item.field}>
               <ElRow class="c-w-full">
                 <ElCol span={6}>
-                  <div class="c-font-medium c-text-sm c-text-gray-600 c-h-full c-flex c-items-center dark:text-gray-300">
+                  <div class="c-font-medium c-text-sm c-text-gray-600 c-h-full c-flex c-items-center dark:c-text-gray-300">
                     {!!item.props!.label ? item.props!.label : item.key}
                   </div>
                 </ElCol>

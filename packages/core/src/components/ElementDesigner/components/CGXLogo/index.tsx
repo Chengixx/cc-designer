@@ -19,7 +19,7 @@ const CGXLogo = () => {
           }}
         />
         <span
-          class="dark:text-[#5a9cf8] c-font-semibold"
+          class="dark:c-text-[#5a9cf8] c-font-semibold"
           style={{
             filter: themeManage.isDark.value
               ? "drop-shadow(2px 2px 6px #409eff)"

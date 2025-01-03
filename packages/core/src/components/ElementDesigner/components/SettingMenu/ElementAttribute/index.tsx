@@ -78,7 +78,7 @@ const ElementAttribute = defineComponent({
                   <ElRow class="c-w-full">
                     {attributeConfig.label && (
                       <ElCol span={6}>
-                        <div class="c-font-medium c-text-sm c-text-gray-600 c-h-full c-flex c-items-center dark:text-gray-300">
+                        <div class="c-font-medium c-text-sm c-text-gray-600 c-h-full c-flex c-items-center dark:c-text-gray-300">
                           {attributeConfig.label}:
                         </div>
                       </ElCol>

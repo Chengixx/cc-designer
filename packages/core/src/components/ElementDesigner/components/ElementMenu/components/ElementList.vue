@@ -73,7 +73,7 @@ const handleMouseLeave = () => {
     >
       <template #item="{ element, index }">
         <div
-          class="c-relative c-w-[120px] c-h-[36px] c-mt-2 c-flex c-justify-start c-items-center c-py-1 c-px-[8px] c-bg-white c-box-border c-cursor-move c-select-none c-rounded c-border c-border-[#d9d9d9] hover:c-border-blue-500 hover:c-bg-[#f4f8fe] dark:bg-darkMode dark:hover:bg-[#272b32] dark:border-darkMode"
+          class="c-relative c-w-[120px] c-h-[36px] c-mt-2 c-flex c-justify-start c-items-center c-py-1 c-px-[8px] c-bg-white c-box-border c-cursor-move c-select-none c-rounded c-border c-border-[#d9d9d9] hover:c-border-blue-500 hover:c-bg-[#f4f8fe] dark:c-bg-darkMode dark:hover:c-bg-[#272b32] dark:c-border-darkMode"
           @click="handleClick(element)"
           @mouseenter="handleMouseEnter(index)"
           @mouseleave="handleMouseLeave"
@@ -82,8 +82,8 @@ const handleMouseLeave = () => {
             <SvgIcon
               :name="element.icon"
               :class="[
-                { 'c-fill-blue-500 dark:fill-blue-500': hoverIndex === index },
-                { 'dark:fill-white': hoverIndex !== index },
+                { 'c-fill-blue-500 dark:c-fill-blue-500': hoverIndex === index },
+                { 'dark:c-fill-white': hoverIndex !== index },
               ]"
             />
           </template>
@@ -91,8 +91,8 @@ const handleMouseLeave = () => {
             <component
               :class="[
                 'c-w-[16px] c-h-[16px]',
-                { 'c-fill-blue-500 dark:fill-blue-500': hoverIndex === index },
-                { 'dark:fill-white': hoverIndex !== index },
+                { 'c-fill-blue-500 dark:c-fill-blue-500': hoverIndex === index },
+                { 'dark:c-fill-white': hoverIndex !== index },
               ]"
               :is="getElementSvg(element.key)"
             />

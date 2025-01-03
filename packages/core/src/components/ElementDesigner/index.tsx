@@ -77,7 +77,7 @@ const ElementDesigner = defineComponent({
             <CGXLogo />
           </div>
           <CollapseWidget />
-          <div class="c-w-full c-h-full c-flex c-justify-between c-overflow-hidden c-bg-gray-100 dark:bg-black">
+          <div class="c-w-full c-h-full c-flex c-justify-between c-overflow-hidden c-bg-gray-100 dark:c-bg-black">
             {/* 编辑器左侧，可选择的组件列表 */}
             <div
               ref={leftMenuRef}
@@ -91,7 +91,7 @@ const ElementDesigner = defineComponent({
               <ElementMenu />
             </div>
             {/* 中间部分 */}
-            <div class="c-h-full c-flex-1 dark:bg-black">
+            <div class="c-h-full c-flex-1 dark:c-bg-black">
               {/* 编辑器顶部 */}
               <OperationMenu buttonMap={buttonMap} />
               {/* 编辑器画布的地方 */}

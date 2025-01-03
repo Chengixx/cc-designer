@@ -56,7 +56,7 @@ const EditorCanvas = defineComponent({
             class={[
               "c-overflow-y-auto c-h-[calc(100vh-108px)] c-relative c-transition-all",
               modeManage.mode.value !== "pc"
-                ? "c-border-[10px] c-border-black dark:border-gray-700 c-box-border c-rounded-2xl"
+                ? "c-border-[10px] c-border-black dark:c-border-gray-700 c-box-border c-rounded-2xl"
                 : "c-rounded-md",
             ]}
             style={{ width: ModeSize[modeManage.mode.value] }}

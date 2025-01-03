@@ -85,7 +85,7 @@ const getElementSvg = (tag: string) => {
   <div v-for="item in eventItem" :key="item.type">
     <!-- item的上面 也就是个体 -->
     <div
-      class="c-h-10 c-w-full c-border c-flex c-items-center c-justify-between c-rounded-md c-mt-1 c-bg-gray-50 dark:bg-darkMode dark:border-darkMode"
+      class="c-h-10 c-w-full c-border c-flex c-items-center c-justify-between c-rounded-md c-mt-1 c-bg-gray-50 dark:c-bg-darkMode dark:c-border-darkMode"
     >
       <div class="c-ml-2">{{ item.describe }}</div>
       <div class="c-mr-2">
@@ -107,7 +107,7 @@ const getElementSvg = (tag: string) => {
       >
         <template #item="{ element: eventInstance, index }">
           <div
-            class="c-p-2 c-rounded-md c-border c-flex c-my-2 hover:c-border-blue-500 c-transition-all dark:border-darkMode dark:hover:border-blue-500"
+            class="c-p-2 c-rounded-md c-border c-flex c-my-2 hover:c-border-blue-500 c-transition-all dark:c-border-darkMode dark:hover:c-border-blue-500"
           >
             <div class="c-flex-1">
               <div v-if="eventInstance.type === 'custom'">自定义函数</div>
