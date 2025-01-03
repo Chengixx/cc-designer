@@ -18,7 +18,7 @@ const SvgIcon = defineComponent({
       return (
         <svg class={[
           props.className,
-          "w-[16px] h-[16px] fill-current overflow-hidden inline-block"
+          "c-w-[16px] c-h-[16px] c-fill-current c-overflow-hidden c-inline-block"
         ]} aria-hidden="true">
           <use xlinkHref={iconName.value} />
         </svg>

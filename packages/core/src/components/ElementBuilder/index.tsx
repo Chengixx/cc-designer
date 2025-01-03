@@ -136,7 +136,7 @@ const ElementBuilder = defineComponent({
               {slots.default && slots.default()}
             </ElForm>
           ) : (
-            <div class="h-full flex justify-center items-center">
+            <div class="c-h-full c-flex c-justify-center c-items-center">
               <ElEmpty description="暂无表单元素" />
             </div>
           )}

@@ -38,20 +38,20 @@ const CollapseButton = defineComponent({
           ? ToRightIcon
           : ToLeftIcon;
       const hoverClass = widgetHover.value
-        ? "fill-blue-500"
+        ? "c-fill-blue-500"
         : "dark:fill-white";
       const sideClass = props.isLeft
         ? props.collapseState
-          ? "left-[280px]"
-          : "left-0"
+          ? "c-left-[280px]"
+          : "c-left-0"
         : props.collapseState
-          ? "right-[280px]"
-          : "right-0";
-      const sideRoundedClass = props.isLeft ? "rounded-r-lg" : "rounded-l-lg";
+          ? "c-right-[280px]"
+          : "c-right-0";
+      const sideRoundedClass = props.isLeft ? "c-rounded-r-lg" : "c-rounded-l-lg";
       return (
         <div
           class={[
-            "absolute transition-all duration-300 z-20 cursor-pointer top-[calc(50%-40px)] translate-y--1/2 w-3 h-16 bg-white hover:bg-[#f5f8fd] flex justify-center items-center dark:bg-[#141414] dark:hover:bg-[#282b31]",
+            "c-absolute c-transition-all c-duration-300 c-z-20 c-cursor-pointer c-top-[calc(50%-40px)] c-translate-y--1/2 c-w-3 c-h-16 c-bg-white hover:c-bg-[#f5f8fd] c-flex c-justify-center c-items-center dark:bg-[#141414] dark:hover:bg-[#282b31]",
             sideClass,
             sideRoundedClass,
           ]}

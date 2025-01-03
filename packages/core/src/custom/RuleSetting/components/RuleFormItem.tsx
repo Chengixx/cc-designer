@@ -10,11 +10,11 @@ const RuleFormItem = defineComponent({
   },
   setup(props, { slots }) {
     return () => (
-      <div class="w-full flex items-center">
-        <ElRow class="w-full">
+      <div class="c-w-full c-flex c-items-center">
+        <ElRow class="c-w-full">
           {props.label && (
             <ElCol span={8}>
-              <div class="font-medium text-sm text-gray-600 h-full flex items-center dark:text-gray-300">
+              <div class="c-font-medium c-text-sm c-text-gray-600 c-h-full c-flex c-items-center dark:text-gray-300">
                 {props.label}:
               </div>
             </ElCol>

@@ -40,10 +40,10 @@ const handleAdd = (index: number) => {
     }"
     :class="[
       props.isNested
-        ? 'min-h-[60px] border-dashed border border-[#d9d9d9] h-full'
+        ? 'c-min-h-[60px] c-border-dashed c-border c-border-[#d9d9d9] c-h-full'
         : modeManage.mode.value === 'pc'
-          ? 'min-h-[calc(100vh-108px)] w-full bg-white p-2 dark:bg-darkMode'
-          : 'min-h-[calc(100vh-128px)] w-full bg-white p-2 dark:bg-darkMode',
+          ? 'c-min-h-[calc(100vh-108px)] c-w-full c-bg-white c-p-2 dark:bg-darkMode'
+          : 'c-min-h-[calc(100vh-128px)] c-w-full c-bg-white c-p-2 dark:bg-darkMode',
       ,
     ]"
     @start="() => handleDropStart(hoverManage, focusManage)"
@@ -55,9 +55,9 @@ const handleAdd = (index: number) => {
     <template #item="{ element }">
       <div
         :class="[
-          _needMarginBottom(element) ? 'mb-0' : 'mb-4',
-          element.key === 'row' ? 'border border-[#d9d9d9] border-dashed' : '',
-          element.key === 'divider' ? 'inline-block' : '',
+          _needMarginBottom(element) ? 'c-mb-0' : 'c-mb-4',
+          element.key === 'row' ? 'c-border c-border-[#d9d9d9] c-border-dashed' : '',
+          element.key === 'divider' ? 'c-inline-block' : '',
           'editor-element-item',
         ]"
         :key="element.id"

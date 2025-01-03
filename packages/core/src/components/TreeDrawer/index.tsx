@@ -108,10 +108,10 @@ const TreeDrawerDom = defineComponent({
                     node: Node;
                     data: IEditorElement;
                   }) => (
-                    <div class="flex flex-1 justify-between items-center pr-2">
+                    <div class="c-flex c-flex-1 c-justify-between c-items-center c-pr-2">
                       <span>
                         {node.label}{" "}
-                        <span class="text-gray-400">{data.id}</span>
+                        <span class="c-text-gray-400">{data.id}</span>
                       </span>
                       <div>
                         <ElButton

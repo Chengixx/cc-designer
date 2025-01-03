@@ -13,15 +13,15 @@ const ElementStyle = defineComponent({
     });
 
     return () => (
-      <div class="w-full h-full" key={focusedElement.value?.id}>
+      <div class="c-w-full c-h-full" key={focusedElement.value?.id}>
         {focusedElement.value ? (
           <>
             {defaultStyleSchema.map((styleConfig) => (
-              <div class="w-full flex mb-3 items-center">
-                <ElRow class="w-full">
+              <div class="c-w-full c-flex c-mb-3 c-items-center">
+                <ElRow class="c-w-full">
                   {styleConfig.label && (
                     <ElCol span={6}>
-                      <div class="font-medium text-sm text-gray-600 h-full flex items-center dark:text-gray-300">
+                      <div class="c-font-medium c-text-sm c-text-gray-600 c-h-full c-flex c-items-center dark:text-gray-300">
                         {styleConfig.label}:
                       </div>
                     </ElCol>

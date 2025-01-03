@@ -65,17 +65,17 @@ export const ExportSourceCodeDialog = defineComponent({
                 type="border-card"
               >
                 <ElTabPane label="json代码" name={1}>
-                  <div class="h-[70vh]">
+                  <div class="c-h-[70vh]">
                     <IDE ref={IDERef} v-model={jsonContent.value} />
                   </div>
                 </ElTabPane>
                 <ElTabPane label="vue代码" name={2}>
-                  <div class="h-[70vh]">
+                  <div class="c-h-[70vh]">
                     <IDE ref={IDERef} v-model={cgxContent.value} mode="html" />
                   </div>
                 </ElTabPane>
                 <ElTabPane label="SFC代码" name={3}>
-                  <div class="h-[70vh]">
+                  <div class="c-h-[70vh]">
                     <IDE ref={IDERef} v-model={sfcContent.value} mode="html" />
                   </div>
                 </ElTabPane>

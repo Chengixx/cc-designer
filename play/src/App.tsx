@@ -29,11 +29,11 @@ const App = defineComponent({
 
     return () => {
       return (
-        <div class="app overflow-x-hidden relative">
+        <div class="c-app c-overflow-x-hidden c-relative">
           {flag.value ? (
             <ElementDesigner />
           ) : (
-            <div class="p-4">
+            <div class="c-p-4">
               {JSON.stringify(formData)}
               <ElementBuilder
                 formData={formData}
@@ -105,7 +105,7 @@ const App = defineComponent({
               </ElButton>
             </div>
           )}
-          <div class="fixed left-10 bottom-10">
+          <div class="c-fixed c-left-10 c-bottom-10">
             <ElButton
               type="primary"
               icon={Switch}

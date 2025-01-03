@@ -31,7 +31,7 @@ const IdInput = defineComponent({
         <ElInput {...renderProps} class="no-padding-elInput">
           {{
             append: () => (
-              <div class="cursor-pointer" onClick={handleCopy}>
+              <div class="c-cursor-pointer" onClick={handleCopy}>
                 复制
               </div>
             ),

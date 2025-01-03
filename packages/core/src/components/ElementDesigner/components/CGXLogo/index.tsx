@@ -8,10 +8,10 @@ import { MoveIcon } from "@cgx-designer/extensions";
 const CGXLogo = () => {
   const themeManage = inject("themeManage") as ThemeManage;
   return (
-    <div class="w-full h-10 bg-white flex items-center dark:bg-darkMode px-8">
-      <div class="flex-1 flex items-center">
+    <div class="c-w-full c-h-10 c-bg-white c-flex c-items-center dark:c-bg-[#141414] c-px-8">
+      <div class="c-flex-1 c-flex c-items-center">
         <CcIcon
-          class="mr-1 w-[24px] h-[24px]"
+          class="c-mr-1 c-w-[24px] c-h-[24px]"
           style={{
             filter: themeManage.isDark.value
               ? "drop-shadow(2px 2px 6px #409eff)"
@@ -19,7 +19,7 @@ const CGXLogo = () => {
           }}
         />
         <span
-          class="dark:text-[#5a9cf8] font-semibold"
+          class="dark:text-[#5a9cf8] c-font-semibold"
           style={{
             filter: themeManage.isDark.value
               ? "drop-shadow(2px 2px 6px #409eff)"
@@ -29,8 +29,8 @@ const CGXLogo = () => {
           {logoName}
         </span>
       </div>
-      <div class="flex-1 flex justify-end items-center gap-x-6">
-        <span class="cursor-pointer">文档</span>
+      <div class="c-flex-1 c-flex c-justify-end c-items-center c-gap-x-6">
+        <span class="c-cursor-pointer">文档</span>
         <ElSwitch
           size="large"
           v-model={themeManage.isDark.value}
@@ -39,7 +39,7 @@ const CGXLogo = () => {
           inactive-action-icon={LightIcon}
         />
         <MoveIcon label="Github" onClick={() => window.open("/")}>
-          <GithubIcon class="w-[26px] h-[26px] fill-black dark:fill-white" />
+          <GithubIcon class="c-w-[26px] c-h-[26px] c-fill-black dark:c-fill-white" />
         </MoveIcon>
       </div>
     </div>

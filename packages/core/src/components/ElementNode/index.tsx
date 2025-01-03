@@ -205,7 +205,7 @@ const ElementNode = defineComponent({
                 : localSchema.key
             }
             ref={formItemRef}
-            class="w-full"
+            class="c-w-full"
             labelPosition={localSchema.props!.labelPosition}
             prop={localSchema.field}
             rules={localSchema.rules}

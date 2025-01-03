@@ -72,9 +72,9 @@ const RuleSetting = defineComponent({
       handleUpdate();
     };
     return () => (
-      <div class="w-full">
+      <div class="c-w-full">
         <ElDivider>校验管理</ElDivider>
-        <div class="mt-2">
+        <div class="c-mt-2">
           <CCard>
             {{
               default: () => {
@@ -85,7 +85,7 @@ const RuleSetting = defineComponent({
                     </RuleFormItem>
                     {requiredRule.value.required && (
                       <>
-                        <RuleFormItem label="校验时机" class="mt-2">
+                        <RuleFormItem label="校验时机" class="c-mt-2">
                           <ElSelect
                             v-model={requiredRule.value.trigger}
                             multiple
@@ -101,7 +101,7 @@ const RuleSetting = defineComponent({
                             })}
                           </ElSelect>
                         </RuleFormItem>
-                        <RuleFormItem label="类型" class="mt-2">
+                        <RuleFormItem label="类型" class="c-mt-2">
                           <ElSelect v-model={requiredRule.value.type}>
                             {typeOptions.map((item) => {
                               return (
@@ -114,7 +114,7 @@ const RuleSetting = defineComponent({
                             })}
                           </ElSelect>
                         </RuleFormItem>
-                        <RuleFormItem label="提示信息" class="mt-2">
+                        <RuleFormItem label="提示信息" class="c-mt-2">
                           <ElInput v-model={requiredRule.value.message} />
                         </RuleFormItem>
                       </>
@@ -144,7 +144,7 @@ const RuleSetting = defineComponent({
                             })}
                           </ElSelect>
                         </RuleFormItem>
-                        <RuleFormItem label="类型" class="mt-2">
+                        <RuleFormItem label="类型" class="c-mt-2">
                           <ElSelect v-model={rule.type}>
                             {typeOptions.map((item) => {
                               return (
@@ -157,17 +157,17 @@ const RuleSetting = defineComponent({
                             })}
                           </ElSelect>
                         </RuleFormItem>
-                        <RuleFormItem label="正则校验" class="mt-2">
+                        <RuleFormItem label="正则校验" class="c-mt-2">
                           <ElInput v-model={rule.pattern} />
                         </RuleFormItem>
-                        <RuleFormItem label="提示信息" class="mt-2">
+                        <RuleFormItem label="提示信息" class="c-mt-2">
                           <ElInput v-model={rule.message} />
                         </RuleFormItem>
                       </>
                     );
                   },
                   footer: () => (
-                    <div class="w-full flex justify-end">
+                    <div class="c-w-full c-flex c-justify-end">
                       <ElButton
                         link
                         type="danger"

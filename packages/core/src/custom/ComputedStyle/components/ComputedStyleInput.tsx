@@ -38,7 +38,7 @@ const ComputedStyleInput = defineComponent({
           emit("update:modelValue", (e.target as HTMLInputElement).value)
         }
         placeholder="      "
-        class="inline-block w-1/3 max-w-10 h-5 border-none p-0 m-0 outline-none text-center text-sm bg-transparent underline hover:bg-gray-200"
+        class="c-inline-block c-w-1/3 c-max-w-10 c-h-5 c-border-none c-p-0 c-m-0 c-outline-none c-text-center c-text-sm c-bg-transparent c-underline hover:c-bg-gray-200"
         type="text"
       />
     );

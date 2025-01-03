@@ -15,7 +15,7 @@ import { stringFirstBigger } from "@cgx-designer/utils";
 
 const Empty = () => {
   return (
-    <div class="pointer-events-none z-10 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-400 text-lg">
+    <div class="c-pointer-events-none c-z-10 c-absolute c-left-1/2 c-top-1/2 c-transform -c-translate-x-1/2 -c-translate-y-1/2 c-text-gray-400 c-text-lg">
       <ElEmpty description="目前还没有元素哦，从左侧组件拖拽或点击添加吧！" />
     </div>
   );
@@ -54,10 +54,10 @@ const EditorCanvas = defineComponent({
           {elementManage.elementList.value.length == 0 && <Empty />}
           <div
             class={[
-              "overflow-y-auto h-[calc(100vh-108px)] relative transition-all",
+              "c-overflow-y-auto c-h-[calc(100vh-108px)] c-relative c-transition-all",
               modeManage.mode.value !== "pc"
-                ? "border-[10px] border-black dark:border-gray-700 box-border rounded-2xl"
-                : "rounded-md",
+                ? "c-border-[10px] c-border-black dark:border-gray-700 c-box-border c-rounded-2xl"
+                : "c-rounded-md",
             ]}
             style={{ width: ModeSize[modeManage.mode.value] }}
             ref={editorCanvasRef}
@@ -71,7 +71,7 @@ const EditorCanvas = defineComponent({
               labelPosition={formManage.formSetting.labelPosition}
               size={formManage.formSetting.size}
               disabled={formManage.formSetting.disabled}
-              class="w-full"
+              class="c-w-full"
             >
               <Draggle
                 elementSchemaList={elementManage.elementList.value}

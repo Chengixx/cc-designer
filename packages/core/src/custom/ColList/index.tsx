@@ -32,21 +32,21 @@ const ColList = defineComponent({
     };
 
     return () => (
-      <div class="w-full">
+      <div class="c-w-full">
         <ElDivider content-position="center">栅格管理</ElDivider>
-        <div class="mt-2">
+        <div class="c-mt-2">
           {bindValue.value.map((col, index) => {
             return (
-              <div key={index} class="w-full flex items-center mb-2">
-                <div class="font-medium text-sm text-gray-600">
+              <div key={index} class="c-w-full c-flex c-items-center c-mb-2">
+                <div class="c-font-medium c-text-sm c-text-gray-600">
                   栅格{index + 1}:
                 </div>
-                <div class="ml-2">
+                <div class="c-ml-2">
                   <ElInputNumber v-model={col.props!.span} max={24} min={1} />
                 </div>
                 <ElTooltip effect="dark" content="删除组件" placement="bottom">
                   <div
-                    class="ml-2 cursor-pointer"
+                    class="c-ml-2 c-cursor-pointer"
                     onClick={(_) => handleDeleteCol(index)}
                   >
                     <ElIcon>

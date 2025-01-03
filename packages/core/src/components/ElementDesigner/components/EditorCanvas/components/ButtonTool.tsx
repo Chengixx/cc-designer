@@ -45,17 +45,17 @@ const ButtonTool = defineComponent({
 
     return () => {
       return (
-        <div class="absolute bottom-1 right-1 cursor-pointer flex">
-          <div class="mr-1 flex items-center text-xs text-gray-500 pointer-events-none">
+        <div class="c-absolute c-bottom-1 c-right-1 c-cursor-pointer c-flex">
+          <div class="c-mr-1 c-flex c-items-center c-text-xs c-text-gray-500 c-pointer-events-none">
             {elementTag.value}
           </div>
-          <div class="pointer-events-auto flex items-center">
+          <div class="c-pointer-events-auto c-flex c-items-center">
             {!noCopyDomList.includes(
               focusManage.focusedElement.value?.key!
             ) && (
               <ElTooltip effect="dark" content="复制组件" placement="bottom">
                 <div
-                  class="mr-1 flex items-center"
+                  class="c-mr-1 c-flex c-items-center"
                   onClick={(e: MouseEvent) => handleCopy(e)}
                 >
                   <ElIcon>
@@ -69,7 +69,7 @@ const ButtonTool = defineComponent({
             ) && (
               <ElTooltip effect="dark" content="父级元素" placement="bottom">
                 <div
-                  class="mr-1 flex items-center"
+                  class="c-mr-1 c-flex c-items-center"
                   onClick={(e: MouseEvent) => handleTop(e)}
                 >
                   <ElIcon>
@@ -81,7 +81,7 @@ const ButtonTool = defineComponent({
             <ElTooltip effect="dark" content="删除组件" placement="bottom">
               <div
                 onClick={(e: MouseEvent) => handleDelete(e)}
-                class="flex items-center"
+                class="c-flex c-items-center"
               >
                 <ElIcon>
                   <Delete />

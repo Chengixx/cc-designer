@@ -21,10 +21,10 @@ const PanelWidget = defineComponent({
             v-show={focusManage.focusedElement.value !== null}
             ref={focusWidgetRef}
             class={[
-              "absolute z-20 border border-dashed border-blue-700 pointer-events-none bg-[rgba(62,139,242,.06)]",
+              "c-absolute c-z-20 c-border c-border-dashed c-border-blue-700 c-pointer-events-none c-bg-[rgba(62,139,242,.06)]",
               focusManage.focusTransition.value
-                ? "transition-all"
-                : "transition-none",
+                ? "c-transition-all"
+                : "c-transition-none",
             ]}
           >
             <ButtonTool />
@@ -37,7 +37,7 @@ const PanelWidget = defineComponent({
                 focusManage.focusedElement.value?.id
             }
             ref={hoverWidgetRef}
-            class="absolute z-20 border border-dashed border-blue-500 pointer-events-none transition-all"
+            class="c-absolute c-z-20 c-border c-border-dashed c-border-blue-500 c-pointer-events-none c-transition-all"
           />
         </>
       );

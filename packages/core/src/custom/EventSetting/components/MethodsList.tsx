@@ -22,9 +22,9 @@ const MethodsList = defineComponent({
                 <div
                   key={method.value}
                   class={[
-                    "p-1 border rounded-md cursor-pointer flex justify-center items-center my-1",
+                    "c-p-1 c-border c-rounded-md c-cursor-pointer c-flex c-justify-center c-items-center c-my-1",
                     props.currentMethod === method.value &&
-                      "border-blue-500 dark:border-blue-500",
+                      "c-border-blue-500 dark:border-blue-500",
                     props.currentMethod !== method.value &&
                       "dark:border-darkMode",
                   ]}

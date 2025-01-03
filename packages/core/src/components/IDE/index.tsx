@@ -147,10 +147,10 @@ const IDE = defineComponent({
     });
     return () => {
       return (
-        <div class="h-full relative">
-          <div ref={aceRef} class="h-full" />
+        <div class="c-h-full c-relative">
+          <div ref={aceRef} class="c-h-full" />
           {props.showFormatButton && (
-            <div class="absolute right-[8px] bottom-[8px]">
+            <div class="c-absolute c-right-[8px] c-bottom-[8px]">
               <ElTooltip content="格式化" effect="light" placement="top">
                 <ElButton onClick={formatCode} circle>
                   <ElIcon>

@@ -55,7 +55,7 @@ export const ImportSourceCodeDialog = defineComponent({
         >
           {{
             default: () => (
-              <div class="h-[70vh]">
+              <div class="c-h-[70vh]">
                 <IDE ref={IDERef} v-model={jsonContent.value} />
               </div>
             ),

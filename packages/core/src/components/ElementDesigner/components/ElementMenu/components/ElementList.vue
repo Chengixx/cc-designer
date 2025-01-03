@@ -49,7 +49,7 @@ const handleMouseLeave = () => {
 
 <template>
   <template v-if="!renderElementList.length">
-    <div class="w-full flex justify-center items-center text-gray-400 mt-10">
+    <div class="c-w-full c-flex c-justify-center c-items-center c-text-gray-400 c-mt-10">
       无此关键字组件
     </div>
   </template>
@@ -69,11 +69,11 @@ const handleMouseLeave = () => {
           handleClone(elementBaseSetting)
       "
       item-key="id"
-      class="grid grid-cols-[auto_auto] px-[14px] gap-2"
+      class="c-grid c-grid-cols-[auto_auto] c-px-[14px] c-gap-2"
     >
       <template #item="{ element, index }">
         <div
-          class="relative w-[120px] h-[36px] mt-2 flex justify-start items-center py-1 px-[8px] bg-white box-border cursor-move select-none rounded border border-[#d9d9d9] hover:border-blue-500 hover:bg-[#f4f8fe] dark:bg-darkMode dark:hover:bg-[#272b32] dark:border-darkMode"
+          class="c-relative c-w-[120px] c-h-[36px] c-mt-2 c-flex c-justify-start c-items-center c-py-1 c-px-[8px] c-bg-white c-box-border c-cursor-move c-select-none c-rounded c-border c-border-[#d9d9d9] hover:c-border-blue-500 hover:c-bg-[#f4f8fe] dark:bg-darkMode dark:hover:bg-[#272b32] dark:border-darkMode"
           @click="handleClick(element)"
           @mouseenter="handleMouseEnter(index)"
           @mouseleave="handleMouseLeave"
@@ -82,7 +82,7 @@ const handleMouseLeave = () => {
             <SvgIcon
               :name="element.icon"
               :class="[
-                { 'fill-blue-500 dark:fill-blue-500': hoverIndex === index },
+                { 'c-fill-blue-500 dark:fill-blue-500': hoverIndex === index },
                 { 'dark:fill-white': hoverIndex !== index },
               ]"
             />
@@ -90,15 +90,15 @@ const handleMouseLeave = () => {
           <template v-else>
             <component
               :class="[
-                'w-[16px] h-[16px]',
-                { 'fill-blue-500 dark:fill-blue-500': hoverIndex === index },
+                'c-w-[16px] c-h-[16px]',
+                { 'c-fill-blue-500 dark:fill-blue-500': hoverIndex === index },
                 { 'dark:fill-white': hoverIndex !== index },
               ]"
               :is="getElementSvg(element.key)"
             />
           </template>
           <span
-            :class="['text-sm ml-1', { 'text-blue-500': hoverIndex === index }]"
+            :class="['c-text-sm c-ml-1', { 'c-text-blue-500': hoverIndex === index }]"
             >{{ element.label }}</span
           >
         </div>

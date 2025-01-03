@@ -36,9 +36,9 @@ const ElementIDE = defineComponent({
         {props.actionArgsConfigs.map((item) => {
           return (
             <div key={item.key + item.field}>
-              <ElRow class="w-full">
+              <ElRow class="c-w-full">
                 <ElCol span={6}>
-                  <div class="font-medium text-sm text-gray-600 h-full flex items-center dark:text-gray-300">
+                  <div class="c-font-medium c-text-sm c-text-gray-600 c-h-full c-flex c-items-center dark:text-gray-300">
                     {!!item.props!.label ? item.props!.label : item.key}
                   </div>
                 </ElCol>

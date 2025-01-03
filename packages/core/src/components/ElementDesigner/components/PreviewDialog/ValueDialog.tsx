@@ -38,7 +38,7 @@ export const ValueDialog = defineComponent({
           {{
             default: () => {
               return (
-                <div class="h-[60vh] overflow-y-auto">
+                <div class="c-h-[60vh] c-overflow-y-auto">
                   <IDE readonly v-model={IDEValue.value} />
                 </div>
               );

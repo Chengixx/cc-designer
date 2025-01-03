@@ -61,7 +61,7 @@ const PreviewDialog = defineComponent({
             {{
               default: () => {
                 return (
-                  <div class="h-[70vh] overflow-y-auto">
+                  <div class="c-h-[70vh] c-overflow-y-auto">
                     <ElementBuilder
                       key={ElementBuilderKey.value}
                       ref={elementBuilderRef}

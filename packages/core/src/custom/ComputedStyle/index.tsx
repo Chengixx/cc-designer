@@ -42,7 +42,7 @@ const ComputedStyleWidget = defineComponent({
         };
         return (
           <>
-            <span class="absolute top-[2px] left-[4px] text-xs text-gray-800 font-medium">
+            <span class="c-absolute c-top-[2px] c-left-[4px] c-text-xs c-text-gray-800 c-font-medium">
               {labelMap[prefix]}
             </span>
             <ComputedStyleInput
@@ -53,10 +53,10 @@ const ComputedStyleWidget = defineComponent({
               }
               class={[
                 "absolute transform",
-                direction === "Top" && "left-1/2 top-1 -translate-x-1/2",
-                direction === "Left" && "left-[2px] top-1/2 -translate-y-1/2",
-                direction === "Bottom" && "left-1/2 bottom-3 -translate-x-1/2",
-                direction === "Right" && "right-[2px] top-1/2 -translate-y-1/2",
+                direction === "Top" && "c-left-1/2 c-top-1 -c-translate-x-1/2",
+                direction === "Left" && "c-left-[2px] c-top-1/2 -c-translate-y-1/2",
+                direction === "Bottom" && "c-left-1/2 c-bottom-3 -c-translate-x-1/2",
+                direction === "Right" && "c-right-[2px] c-top-1/2 -c-translate-y-1/2",
               ]}
             />
           </>
@@ -65,16 +65,16 @@ const ComputedStyleWidget = defineComponent({
     };
 
     return () => (
-      <div class="w-full h-fit">
+      <div class="c-w-full c-h-fit">
         <ElDivider content-position="center">计算样式</ElDivider>
-        <div class="w-full h-[180px] m-auto">
+        <div class="c-w-full c-h-[180px] c-m-auto">
           {/* margin的在最外面 */}
-          <div class="w-full h-[180px] bg-[#f2cea5] px-14 py-10 box-border relative dark:bg-[#b08354]">
+          <div class="c-w-full c-h-[180px] c-bg-[#f2cea5] c-px-14 c-py-10 c-box-border c-relative dark:bg-[#b08354]">
             {InputRenderHelper("margin")}
             {/* padding的在里面 */}
-            <div class="w-full h-[100px] bg-[#c6cf92] px-14 py-10 box-border relative dark:bg-[#b8c480]">
+            <div class="c-w-full c-h-[100px] c-bg-[#c6cf92] c-px-14 c-py-10 c-box-border c-relative dark:bg-[#b8c480]">
               {InputRenderHelper("padding")}
-              <div class="bg-[#88b2bd] w-full h-full"></div>
+              <div class="c-bg-[#88b2bd] c-w-full c-h-full"></div>
             </div>
           </div>
         </div>

@@ -72,32 +72,32 @@ const ElementDesigner = defineComponent({
     });
     return () => {
       return (
-        <div class="relative">
-          <div class="h-10">
+        <div class="c-relative">
+          <div class="c-h-10">
             <CGXLogo />
           </div>
           <CollapseWidget />
-          <div class="w-full h-full flex justify-between overflow-hidden bg-gray-100 dark:bg-black">
+          <div class="c-w-full c-h-full c-flex c-justify-between c-overflow-hidden c-bg-gray-100 dark:bg-black">
             {/* 编辑器左侧，可选择的组件列表 */}
             <div
               ref={leftMenuRef}
               class={[
                 collapseManage.leftMenuCollapseState.value
-                  ? "w-[280px]"
-                  : "w-0",
-                " bg-white h-full transition-all duration-300",
+                  ? "c-w-[280px]"
+                  : "c-w-0",
+                " c-bg-white c-h-full c-transition-all c-duration-300",
               ]}
             >
               <ElementMenu />
             </div>
             {/* 中间部分 */}
-            <div class="h-full flex-1 dark:bg-black">
+            <div class="c-h-full c-flex-1 dark:bg-black">
               {/* 编辑器顶部 */}
               <OperationMenu buttonMap={buttonMap} />
               {/* 编辑器画布的地方 */}
-              <div class="box-border">
+              <div class="c-box-border">
                 {/* 滚动条 */}
-                <div class="h-full relative flex justify-center px-5 py-2">
+                <div class="c-h-full c-relative c-flex c-justify-center c-px-5 c-py-2">
                   <EditorCanvas />
                 </div>
               </div>
@@ -106,9 +106,9 @@ const ElementDesigner = defineComponent({
             <div
               class={[
                 collapseManage.rightMenuCollapseState.value
-                  ? "w-[280px]"
-                  : "w-0",
-                " bg-white h-full transition-all duration-300",
+                  ? "c-w-[280px]"
+                  : "c-w-0",
+                " c-bg-white c-h-full c-transition-all c-duration-300",
               ]}
               ref={rightMenuRef}
             >

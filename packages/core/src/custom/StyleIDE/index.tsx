@@ -34,16 +34,16 @@ const StyleIDE = defineComponent({
     );
     return () => (
       <>
-        <div class="flex items-center h-10 justify-between px-2">
-          <div class="flex items-center">
+        <div class="c-flex c-items-center c-h-10 c-justify-between c-px-2">
+          <div class="c-flex c-items-center">
             <ElTooltip
               effect="dark"
               content={`编写的代码必须为JSX的style样式写法\n请在编写完成后进行保存`}
               placement="top"
             >
-              <CssIcon class="fill-blue-500 w-5 h-5" />
+              <CssIcon class="c-fill-blue-500 c-w-5 c-h-5" />
             </ElTooltip>
-            <span class="font-medium text-sm text-gray-600 dark:text-gray-300">
+            <span class="c-font-medium c-text-sm c-text-gray-600 dark:text-gray-300">
               样式
             </span>
           </div>
@@ -51,7 +51,7 @@ const StyleIDE = defineComponent({
             保存
           </ElButton>
         </div>
-        <div class="w-full h-40 border-2 transition-all duration-300 hover:border-blue-500 dark:border-gray-600 dark:hover:border-blue-500 border-solid rounded-md overflow-hidden">
+        <div class="c-w-full c-h-40 c-border-2 c-transition-all c-duration-300 hover:c-border-blue-500 dark:border-gray-600 dark:hover:border-blue-500 border-solid rounded-md overflow-hidden">
           <IDE
             ref={styleIDERef}
             v-model={bindValue.value}

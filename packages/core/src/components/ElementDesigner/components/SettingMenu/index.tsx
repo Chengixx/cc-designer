@@ -13,14 +13,14 @@ const SettingMenu = defineComponent({
     const settingTab = ref<number>(1);
     return () => {
       return (
-        <div class="h-full w-full border-l border-gray-200 overflow-x-hidden dark:bg-darkMode dark:border-darkMode">
-          <div class="min-w-[280px] w-full h-10 flex justify-center items-center border border-l-0 dark:border-darkMode">
+        <div class="c-h-full c-w-full c-border-l c-border-gray-200 c-overflow-x-hidden dark:bg-darkMode dark:border-darkMode">
+          <div class="c-min-w-[280px] c-w-full c-h-10 c-flex c-justify-center c-items-center c-border c-border-l-0 dark:border-darkMode">
             <span>配置菜单</span>
           </div>
-          <div class="h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden w-[280px]">
+          <div class="c-h-[calc(100vh-80px)] c-overflow-y-auto c-overflow-x-hidden c-w-[280px]">
             <ElTabs v-model={settingTab.value} stretch class="no-padding-tabs">
               <ElTabPane label="属性" name={1}>
-                <div class="px-2 pt-2">
+                <div class="c-px-2 c-pt-2">
                   {focusManage.focusedElement.value ? (
                     <ElementAttribute />
                   ) : (
@@ -29,12 +29,12 @@ const SettingMenu = defineComponent({
                 </div>
               </ElTabPane>
               <ElTabPane label="事件" name={2}>
-                <div class="px-2 pt-2">
+                <div class="c-px-2 c-pt-2">
                   <ElementEvent />
                 </div>
               </ElTabPane>
               <ElTabPane label="样式" name={3}>
-                <div class="px-2 pt-2">
+                <div class="c-px-2 c-pt-2">
                   <ElementStyle />
                 </div>
               </ElTabPane>

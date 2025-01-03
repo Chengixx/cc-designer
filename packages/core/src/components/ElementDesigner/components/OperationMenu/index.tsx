@@ -19,10 +19,10 @@ const Icon = (Iconfig: OperationButtonSetting, disabled: boolean = false) => {
     <div title={Iconfig.label}>
       <Iconfig.icon
         class={[
-          "h-5 w-5",
+          "c-h-5 c-w-5",
           disabled
-            ? "fill-gray-500 cursor-not-allowed"
-            : "dark:fill-white hover:fill-blue-500 dark:hover:fill-blue-500 cursor-pointer",
+            ? "c-fill-gray-500 c-cursor-not-allowed"
+            : "dark:fill-white hover:c-fill-blue-500 dark:hover:fill-blue-500 c-cursor-pointer",
         ]}
         onclick={handleClick}
       />
@@ -103,9 +103,9 @@ const OperationMenu = defineComponent({
 
     return () => {
       return (
-        <div class="h-12 flex items-center border-y bg-white border-gray-200 dark:bg-darkMode dark:border-darkMode">
-          <div class="h-full flex justify-center items-center py-2">
-            <div class="border-r px-4 flex justify-center items-center dark:border-[#3e434c]">
+        <div class="c-h-12 c-flex c-items-center c-border-y c-bg-white c-border-gray-200 dark:bg-darkMode dark:border-darkMode">
+          <div class="c-h-full c-flex c-justify-center c-items-center c-py-2">
+            <div class="c-border-r c-px-4 c-flex c-justify-center c-items-center dark:border-[#3e434c]">
               <ElRadioGroup v-model={modeComputed.value} size="small">
                 <ElRadioButton label="Pc" value="pc" />
                 <ElRadioButton label="Pad" value="ipad" />
@@ -113,13 +113,13 @@ const OperationMenu = defineComponent({
               </ElRadioGroup>
             </div>
           </div>
-          <div class="h-full flex-1 flex items-center gap-x-4 pl-4">
+          <div class="c-h-full c-flex-1 c-flex c-items-center c-gap-x-4 c-pl-4">
             {Icon(Undo, undoDisabled.value)}
             {Icon(Redo, redoDisabled.value)}
             <Icon {...Clear} />
             <Icon {...Message} />
           </div>
-          <div class="h-full flex-1 flex justify-end items-center pr-4">
+          <div class="c-h-full c-flex-1 c-flex c-justify-end c-items-center c-pr-4">
             {IconButton(Tree, true)}
             {IconButton(Import, true)}
             {IconButton(Export, true)}

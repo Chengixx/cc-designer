@@ -46,19 +46,19 @@ const TabList = defineComponent({
       }
     };
     return () => (
-      <div class="w-full">
+      <div class="c-w-full">
         <ElDivider content-position="center">标签管理</ElDivider>
-        <div class="mt-2">
+        <div class="c-mt-2">
           {bindValue.value.map((tabPane, index) => {
             return (
-              <div key={tabPane.id} class="w-full flex items-center mb-2">
-                <div class="ml-1">
+              <div key={tabPane.id} class="c-w-full c-flex c-items-center c-mb-2">
+                <div class="c-ml-1">
                   <ElInput
                     v-model={tabPane.props!.label}
                     placeholder="标签名称"
                   />
                 </div>
-                <div class="ml-1">
+                <div class="c-ml-1">
                   <ElButton
                     link
                     type="primary"
@@ -69,7 +69,7 @@ const TabList = defineComponent({
                 </div>
                 <ElTooltip effect="dark" content="删除组件" placement="bottom">
                   <div
-                    class="ml-2 cursor-pointer flex items-center"
+                    class="c-ml-2 c-cursor-pointer c-flex c-items-center"
                     onClick={(_) => handleDeleteTab(index)}
                   >
                     <ElIcon>

@@ -27,7 +27,7 @@ const EditFormSetting = defineComponent({
     ];
     return () => {
       return (
-        <div class="h-full overflow-y-auto">
+        <div class="c-h-full c-overflow-y-auto">
           <ElForm label-width="80">
             <ElFormItem label="标签宽度:">
               <ElInputNumber
@@ -64,7 +64,7 @@ const EditFormSetting = defineComponent({
                 ))}
               </ElRadioGroup>
             </ElFormItem>
-            <div class="mb-[18px]">
+            <div class="c-mb-[18px]">
               <ElAlert title="请注意!" type="success">
                 <>
                   以下表单配置：

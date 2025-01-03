@@ -11,11 +11,11 @@ const ElementMenu = defineComponent({
 
     return () => {
       return (
-        <div class="overflow-x-hidden border-r border-gray-200 dark:border-darkMode dark:bg-darkMode">
-          <div class="w-full h-10 flex justify-center items-center border-y min-w-[280px] dark:border-darkMode">
+        <div class="c-overflow-x-hidden c-border-r c-border-gray-200 dark:border-darkMode dark:bg-darkMode">
+          <div class="c-w-full c-h-10 c-flex c-justify-center c-items-center c-border-y c-min-w-[280px] dark:border-darkMode">
             <span>组件菜单</span>
           </div>
-          <div class="w-full h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden min-w-[280px]">
+          <div class="c-w-full c-h-[calc(100vh-80px)] c-overflow-y-auto c-overflow-x-hidden c-min-w-[280px]">
             <ElTabs v-model={settingTab.value} stretch>
               <ElTabPane label="组件" name={1}>
                 <div>
@@ -24,7 +24,7 @@ const ElementMenu = defineComponent({
                 </div>
               </ElTabPane>
               <ElTabPane label="源码" name={2}>
-                <div class="h-[calc(100vh-120px)] w-full">
+                <div class="c-h-[calc(100vh-120px)] c-w-full">
                   <ElementSource />
                 </div>
               </ElTabPane>

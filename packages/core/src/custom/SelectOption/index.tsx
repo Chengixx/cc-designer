@@ -36,23 +36,23 @@ const SelectOption = defineComponent({
       bindValue.value.splice(index, 1);
     };
     return () => (
-      <div class="w-full">
-        <ElDivider content-position="center">选项配置</ElDivider>
+      <div class="c-w-full">
+        <ElDivider content-position="c-center">选项配置</ElDivider>
         {bindValue.value?.map((option: GroupOption, index: number) => {
           return (
-            <div class="flex justify-center items-center my-2">
+            <div class="c-flex c-justify-center c-items-center c-my-2">
               <ElInput
-                class="w-2/5"
+                class="c-w-2/5"
                 v-model={option.label}
                 placeholder="label"
               />
               <ElInput
-                class="w-2/5 ml-1"
+                class="c-w-2/5 c-ml-1"
                 v-model={option.value}
                 placeholder="value"
               />
 
-              <ElSwitch v-model={option.disabled} class="w-1/5 ml-1" />
+              <ElSwitch v-model={option.disabled} class="c-w-1/5 c-ml-1" />
               <ElPopconfirm
                 title="确定删除吗？"
                 onConfirm={() => handleDeleteOption(index)}
@@ -60,7 +60,7 @@ const SelectOption = defineComponent({
                 {{
                   reference: () => {
                     return (
-                      <div class="w-1/5 ml-1 cursor-pointer">
+                      <div class="c-w-1/5 c-ml-1 c-cursor-pointer">
                         <ElIcon>
                           <Delete />
                         </ElIcon>
@@ -72,7 +72,7 @@ const SelectOption = defineComponent({
             </div>
           );
         })}
-        <div class="flex items-center gap-1">
+        <div class="c-flex c-items-center c-gap-1">
           <ElButton link type="primary" onClick={() => handleAddOption()}>
             新增选项
           </ElButton>
