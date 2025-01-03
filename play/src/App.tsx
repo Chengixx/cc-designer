@@ -15,6 +15,7 @@ import {
   javaScript,
   builderSchema,
 } from "./data";
+import { VBtn } from "vuetify/components";
 
 const App = defineComponent({
   setup() {
@@ -34,6 +35,7 @@ const App = defineComponent({
             <ElementDesigner />
           ) : (
             <div class="c-p-4">
+              <VBtn>安娜</VBtn>
               {JSON.stringify(formData)}
               <ElementBuilder
                 formData={formData}

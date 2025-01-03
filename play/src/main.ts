@@ -1,13 +1,26 @@
 import { createApp } from "vue";
 import App from "./App";
 import "./style/index";
+
+//引入element plus
 import "element-plus/dist/index.css";
-import 'element-plus/theme-chalk/dark/css-vars.css'
+import "element-plus/theme-chalk/dark/css-vars.css";
+
+//引入vuetify
+import "vuetify/styles";
+import { createVuetify } from "vuetify";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
+
+const vuetify = createVuetify({
+  components,
+  directives,
+});
+
 //引入svg
 import "virtual:svg-icons-register";
 import { elementController } from "@cgx-designer/controller";
 import Kobe from "./components/Kobe.vue";
-// import { elementController } from "cgx-designer";
 
 //注册自定义组件
 elementController.register({
@@ -20,9 +33,7 @@ elementController.register({
       id: uuid(),
       key: "manContainer",
       props: {},
-      elementList: [
-
-      ],
+      elementList: [],
     };
   },
   config: {
@@ -55,5 +66,5 @@ elementController.register({
   },
 });
 
-const app = createApp(App);
+const app = createApp(App).use(vuetify);
 app.mount("#app");

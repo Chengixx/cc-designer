@@ -52,7 +52,7 @@ const ComputedStyleWidget = defineComponent({
                 setValueByPath(styleState.value, key, v)
               }
               class={[
-                "absolute transform",
+                "c-absolute c-transform",
                 direction === "Top" && "c-left-1/2 c-top-1 -c-translate-x-1/2",
                 direction === "Left" && "c-left-[2px] c-top-1/2 -c-translate-y-1/2",
                 direction === "Bottom" && "c-left-1/2 c-bottom-3 -c-translate-x-1/2",
