@@ -13,7 +13,7 @@ const TabPane = defineComponent({
           label={props.elementSchema.props!.label}
           name={props.elementSchema.props!.name}
         >
-          <div class="w-full min-h-[60px]">{renderSlot(slots, "editNode")}</div>
+          <div class="c-w-full c-min-h-[60px]">{renderSlot(slots, "editNode")}</div>
         </ElTabPane>
       );
     };

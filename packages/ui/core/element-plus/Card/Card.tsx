@@ -9,8 +9,8 @@ const Card = defineComponent({
   setup(props, { slots }) {
     return () => {
       return (
-        <div class="p-1 w-full">
-          <ElCard class="w-full" shadow={props.elementSchema.props!.shadow}>
+        <div class="c-p-1 c-w-full">
+          <ElCard class="c-w-full" shadow={props.elementSchema.props!.shadow}>
             {{
               header: () => {
                 return <>{props.elementSchema.props!.label}</>;

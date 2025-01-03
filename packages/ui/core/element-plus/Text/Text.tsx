@@ -9,7 +9,7 @@ const Text = defineComponent({
     return () => {
       return (
         <div
-          class="h-fit w-fit"
+          class="c-h-fit c-w-fit"
           style={{
             fontSize: props.elementSchema.props!.size,
             color: props.elementSchema.props!.color,
