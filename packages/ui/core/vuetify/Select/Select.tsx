@@ -1,4 +1,6 @@
 import { ElOption, ElSelect } from "element-plus";
+import { VSwitch } from "vuetify/components";
+
 import { defineComponent, PropType } from "vue";
 import { IEditorElement } from "@cgx-designer/core";
 import { GroupOption } from "../../../types";

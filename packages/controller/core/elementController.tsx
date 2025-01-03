@@ -1,5 +1,5 @@
 import { defineAsyncComponent } from "vue";
-import { template } from "@cgx-designer/ui";
+import { elementPlusBaseTemplate, vuetifyBaseTemplate } from "@cgx-designer/ui";
 import { IElementBaseSetting } from "../types/index";
 import { getRandomId } from "@cgx-designer/utils";
 import { IEditorElement } from "@cgx-designer/core";
@@ -96,8 +96,8 @@ export const elementController = new ElementController();
 
 //注册提供默认的模板
 (function () {
-  for (let key in template) {
-    elementController.register(template[key]);
+  for (let key in vuetifyBaseTemplate) {
+    elementController.register(vuetifyBaseTemplate[key]);
   }
   console.log("元素配置菜单注册完成", elementController);
 })();
