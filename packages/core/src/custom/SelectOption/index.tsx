@@ -1,6 +1,6 @@
 import { IEditorElement } from "../../types";
 import { defineComponent, PropType, ref, watch } from "vue";
-import { GroupOption } from "@cgx-designer/ui";
+import { GroupOption } from "@cgx-designer/materials";
 import {
   ElButton,
   ElDivider,

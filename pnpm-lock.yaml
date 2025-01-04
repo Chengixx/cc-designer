@@ -23,9 +23,9 @@ importers:
       '@cgx-designer/icons':
         specifier: workspace:*
         version: link:packages/icons
-      '@cgx-designer/ui':
+      '@cgx-designer/materials':
         specifier: workspace:*
-        version: link:packages/ui
+        version: link:packages/materials
       '@cgx-designer/utils':
         specifier: workspace:*
         version: link:packages/utils
@@ -281,7 +281,7 @@ importers:
 
   packages/icons: {}
 
-  packages/ui:
+  packages/materials:
     dependencies:
       element-plus:
         specifier: ^2.8.0

@@ -1,5 +1,5 @@
 import { defineAsyncComponent } from "vue";
-import { elementPlusBaseTemplate, vuetifyBaseTemplate } from "@cgx-designer/ui";
+import { elementPlusBaseTemplate, vuetifyBaseTemplate } from "@cgx-designer/materials";
 import { IElementBaseSetting } from "../types/index";
 import { getRandomId } from "@cgx-designer/utils";
 import { IEditorElement } from "@cgx-designer/core";

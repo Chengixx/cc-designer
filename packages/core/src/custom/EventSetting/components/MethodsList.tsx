@@ -1,4 +1,4 @@
-import { GroupOption } from "@cgx-designer/ui";
+import { GroupOption } from "@cgx-designer/materials";
 import { ElEmpty } from "element-plus";
 import { defineComponent, PropType } from "vue";
 

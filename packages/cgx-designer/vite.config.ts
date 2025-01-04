@@ -17,7 +17,7 @@ export default defineConfig({
     alias: {
       "@cgx-designer/core": path.resolve(__dirname, "../core"),
       "@cgx-designer/controller": path.resolve(__dirname, "../controller"),
-      "@cgx-designer/ui": path.resolve(__dirname, "../ui"),
+      "@cgx-designer/materials": path.resolve(__dirname, "../materials"),
       "@cgx-designer/utils": path.resolve(__dirname, "../utils"),
       "@cgx-designer/hooks": path.resolve(__dirname, "../hooks"),
       "@cgx-designer/extensions": path.resolve(__dirname, "../extensions"),

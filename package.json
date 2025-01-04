@@ -24,7 +24,7 @@
     "@cgx-designer/extensions": "workspace:*",
     "@cgx-designer/hooks": "workspace:*",
     "@cgx-designer/icons": "workspace:*",
-    "@cgx-designer/ui": "workspace:*",
+    "@cgx-designer/materials": "workspace:*",
     "@cgx-designer/utils": "workspace:*",
     "@vitejs/plugin-vue-jsx": "^4.0.0",
     "cgx-designer": "workspace:*",
