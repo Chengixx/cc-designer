@@ -1,6 +1,5 @@
 import { ElOption, ElSelect } from "element-plus";
-import { VSwitch } from "vuetify/components";
-
+import { VSelect } from "vuetify/components";
 import { defineComponent, PropType } from "vue";
 import { IEditorElement } from "@cgx-designer/core";
 import { GroupOption } from "../../../types";
@@ -23,7 +22,7 @@ const Select = defineComponent({
       const optionsList: GroupOption[] =
         props.elementSchema.props!.options ?? [];
       return (
-        <ElSelect
+        <VSelect
           {...renderProps}
           //!重新渲染
           key={String(props.elementSchema.props!.multiple)}
@@ -31,7 +30,7 @@ const Select = defineComponent({
           {optionsList.map((option: GroupOption) => (
             <ElOption {...option} key={option.value} />
           ))}
-        </ElSelect>
+        </VSelect>
       );
     };
   },

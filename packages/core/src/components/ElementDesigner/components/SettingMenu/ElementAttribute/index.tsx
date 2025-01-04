@@ -9,6 +9,7 @@ import {
   getValueByPath,
 } from "./../../../../../../../utils/common/util";
 import { ElCol, ElEmpty, ElRow } from "element-plus";
+import { vuetifyConfig, vuetifyProps } from "./vuetify";
 
 const ElementAttribute = defineComponent({
   setup() {
@@ -79,7 +80,7 @@ const ElementAttribute = defineComponent({
                     {attributeConfig.label && (
                       <ElCol span={6}>
                         <div class="c-font-medium c-text-sm c-text-gray-600 c-h-full c-flex c-items-center dark:c-text-gray-300">
-                          {attributeConfig.label}:
+                          {attributeConfig.label}
                         </div>
                       </ElCol>
                     )}
@@ -96,6 +97,8 @@ const ElementAttribute = defineComponent({
                             ...(attributeConfig.field === "props.defaultValue"
                               ? currentFocusElement.value?.props
                               : {}),
+                            //vuetify在这里一定哟啊hide-details属性
+                            ...vuetifyProps(attributeConfig.key),
                           },
                           field: undefined,
                           formItem: false,
