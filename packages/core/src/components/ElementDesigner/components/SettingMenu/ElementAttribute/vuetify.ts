@@ -3,6 +3,7 @@ export const vuetifyConfig: Record<string, any> = {
   variant: "outlined",
   inset: true,
   color: "primary",
+  density: 'compact',
   // tile: true,
   // style: {
   //   transform: "scale(0.875)",

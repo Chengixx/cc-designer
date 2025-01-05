@@ -47,7 +47,6 @@ const ColorPicker: IElementBaseSetting = {
         key: "select",
         field: "props.size",
         props: {
-          label: "select",
           multiple: false,
           placeholder:"请选择大小",
           options: [

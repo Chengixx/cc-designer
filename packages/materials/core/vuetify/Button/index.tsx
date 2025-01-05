@@ -20,7 +20,6 @@ const Button: IElementBaseSetting = {
         key: "input",
         field: "props.label",
         props: {
-          label: "标题",
           placeholder: "请输入标题",
         },
       },
@@ -29,7 +28,6 @@ const Button: IElementBaseSetting = {
         key: "select",
         field: "props.type",
         props: {
-          label: "select",
           multiple: false,
           options: [
             { label: "主要", value: "primary" },
@@ -47,7 +45,6 @@ const Button: IElementBaseSetting = {
         key: "select",
         field: "props.size",
         props: {
-          label: "select",
           multiple: false,
           placeholder: "请选择大小",
           options: [
@@ -63,7 +60,6 @@ const Button: IElementBaseSetting = {
         field: "props.color",
         props: {
           width: 195,
-          // hideCanvas: true,
           hideInputs: true,
         },
       },

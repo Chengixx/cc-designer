@@ -116,7 +116,6 @@ const Select: IElementBaseSetting = {
         key: "select",
         field: "props.size",
         props: {
-          label: "select",
           placeholder: "请选择大小",
           multiple: false,
           options: [

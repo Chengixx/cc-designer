@@ -37,7 +37,7 @@ const SelectOption = defineComponent({
     };
     return () => (
       <div class="c-w-full">
-        <ElDivider content-position="c-center">选项配置</ElDivider>
+        <ElDivider content-position="center">选项配置</ElDivider>
         {bindValue.value?.map((option: GroupOption, index: number) => {
           return (
             <div class="c-flex c-justify-center c-items-center c-my-2">

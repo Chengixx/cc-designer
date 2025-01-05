@@ -16,7 +16,6 @@ const Input: IElementBaseSetting = {
       props: {
         label: "input",
         placeholder: "placeholder",
-        size: "",
         labelPosition: "",
       },
     };
@@ -57,7 +56,6 @@ const Input: IElementBaseSetting = {
         key: "select",
         field: "props.size",
         props: {
-          label: "select",
           multiple: false,
           placeholder: "请选择大小",
           options: [

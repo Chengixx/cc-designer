@@ -1,4 +1,3 @@
-import { ElOption, ElSelect } from "element-plus";
 import { VSelect } from "vuetify/components";
 import { defineComponent, PropType } from "vue";
 import { IEditorElement } from "@cgx-designer/core";
@@ -26,11 +25,10 @@ const Select = defineComponent({
           {...renderProps}
           //!重新渲染
           key={String(props.elementSchema.props!.multiple)}
-        >
-          {optionsList.map((option: GroupOption) => (
-            <ElOption {...option} key={option.value} />
-          ))}
-        </VSelect>
+          itemTitle="label"
+          itemValue="value"
+          items={optionsList}
+        />
       );
     };
   },

@@ -96,9 +96,7 @@ const ElementAttribute = defineComponent({
                             ...attributeConfig.props,
                             ...(attributeConfig.field === "props.defaultValue"
                               ? currentFocusElement.value?.props
-                              : {}),
-                            //vuetify在这里一定哟啊hide-details属性
-                            ...vuetifyProps(attributeConfig.key),
+                              : { ...vuetifyProps(attributeConfig.key) }),
                           },
                           field: undefined,
                           formItem: false,
