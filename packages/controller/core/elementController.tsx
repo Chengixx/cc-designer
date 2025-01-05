@@ -1,11 +1,19 @@
 import { defineAsyncComponent } from "vue";
-import { elementPlusBaseTemplate, vuetifyBaseTemplate } from "@cgx-designer/materials";
+import { elementPlusPlugin, vuetifyPlugin } from "@cgx-designer/materials";
 import { IElementBaseSetting } from "../types/index";
 import { getRandomId } from "@cgx-designer/utils";
 import { IEditorElement } from "@cgx-designer/core";
 
+export interface ElementPlugin {
+  name: ElementLib;
+  template: Record<string, IElementBaseSetting>;
+}
+
+export type ElementLib = "element-plus" | "vuetify";
 //创建组件基础配置的东西
 export class ElementController {
+  //当前使用的是哪个组件库(内部)
+  elementLibrary: ElementLib | null = null;
   //初始的模板，初始的schema
   elementTemplate: Record<string, (uuid: Function) => IEditorElement> = {};
   //能用的是哪些,用于渲染左侧物料列表
@@ -14,6 +22,15 @@ export class ElementController {
   elementConfigMap: Record<string, IElementBaseSetting> = {};
   //用于渲染的map
   elementRenderMap: Record<string, any> = {};
+  //总的install(这个主要是实际生产用的时候注册插件
+  install = (elementPlugin: ElementPlugin) => {
+    const { name, template } = elementPlugin;
+    for (let key in template) {
+      elementController.register(template[key]);
+    }
+    //所有组件都安装完毕之后，设置控制器告诉它当前使用的组件库
+    this.elementLibrary = name;
+  };
   //注册元素到左侧菜单栏，必须走这里过
   register = (elementBaseConfig: IElementBaseSetting) => {
     if (!elementBaseConfig.noPushList) {
@@ -94,10 +111,5 @@ export class ElementController {
 //提供一个实例
 export const elementController = new ElementController();
 
-//注册提供默认的模板
-(function () {
-  for (let key in vuetifyBaseTemplate) {
-    elementController.register(vuetifyBaseTemplate[key]);
-  }
-  console.log("元素配置菜单注册完成", elementController);
-})();
+//开发环境测试用
+elementController.install(vuetifyPlugin);
