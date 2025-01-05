@@ -2,6 +2,7 @@ import { ref, watchEffect } from "vue";
 import { ElementManage } from "./useElement";
 import { ElementInstance, EventInstance } from "@cgx-designer/core";
 import { ElMessage, ElMessageBox } from "element-plus";
+import { elementController } from "@cgx-designer/controller";
 
 //默认js
 export let defaultJs = `
@@ -87,6 +88,7 @@ export const useFunction = (elementManage: ElementManage) => {
         elementManage,
         ElMessage,
         ElMessageBox,
+        elementController,
       })();
     } catch (e) {
       if (needShowError) {
