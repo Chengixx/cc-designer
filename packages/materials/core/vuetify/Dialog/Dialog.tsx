@@ -1,4 +1,4 @@
-import { defineComponent } from "vue";
+import { defineComponent, inject } from "vue";
 import {
   VCard,
   VCardActions,
@@ -7,6 +7,7 @@ import {
   VDialog,
 } from "vuetify/components";
 import { CloseIcon } from "@cgx-designer/icons";
+import { ThemeManage } from "@cgx-designer/hooks";
 
 const Dialog = defineComponent({
   props: {
@@ -22,6 +23,7 @@ const Dialog = defineComponent({
   emits: ["update:modelValue"],
   setup(props, { attrs, slots, emit }) {
     return () => {
+      const themeManage = inject("themeManage") as ThemeManage;
       const handleLeave = () => {
         emit("update:modelValue", false);
       };
@@ -38,7 +40,12 @@ const Dialog = defineComponent({
             marginTop: "0vh !important",
           }}
         >
-          <VCard minHeight={"80vh"} minWidth={"50vw"} maxWidth={"50vw"}>
+          <VCard
+            minHeight={"80vh"}
+            minWidth={"50vw"}
+            maxWidth={"50vw"}
+            color={themeManage.isDark.value ? "#141414" : "#fff"}
+          >
             {/* 标题,有才显示,为了兼容element */}
             {props.title && (
               <VCardTitle class="c-flex c-justify-between c-items-center">
@@ -47,7 +54,7 @@ const Dialog = defineComponent({
                   class="c-h-fit c-w-fit c-cursor-pointer"
                   onClick={handleLeave}
                 >
-                  <CloseIcon class="c-w-5 c-h-5 hover:c-fill-blue-500" />
+                  <CloseIcon class="c-w-5 c-h-5 c-fill-gray-500 hover:c-fill-blue-500" />
                 </div>
               </VCardTitle>
             )}
