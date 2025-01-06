@@ -1,4 +1,4 @@
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent, ref } from "vue";
 import { elementPlusPlugin, vuetifyPlugin } from "@cgx-designer/materials";
 import { IElementBaseSetting } from "../types/index";
 import { getRandomId } from "@cgx-designer/utils";
@@ -12,6 +12,8 @@ export interface ElementPlugin {
 export type ElementLib = "element-plus" | "vuetify";
 //创建组件基础配置的东西
 export class ElementController {
+  //是否已经初始化完成
+  isReady = ref<boolean>(false);
   //当前使用的是哪个组件库(内部)
   elementLibrary: ElementLib | null = null;
   //初始的模板，初始的schema
@@ -30,6 +32,7 @@ export class ElementController {
     }
     //所有组件都安装完毕之后，设置控制器告诉它当前使用的组件库
     this.elementLibrary = name;
+    this.isReady.value = true;
   };
   //注册元素到左侧菜单栏，必须走这里过
   register = (elementBaseConfig: IElementBaseSetting) => {
@@ -105,6 +108,10 @@ export class ElementController {
         }
       );
     }
+  };
+  //获取element渲染
+  getElementRender = (key: string) => {
+    return this.elementRenderMap[key];
   };
 }
 

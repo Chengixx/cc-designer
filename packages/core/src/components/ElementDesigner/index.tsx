@@ -22,6 +22,7 @@ import {
   useMode,
 } from "@cgx-designer/hooks";
 import CollapseWidget from "./components/CollapseWidget";
+import { elementController } from "@cgx-designer/controller";
 //设计器
 const ElementDesigner = defineComponent({
   setup() {
@@ -72,55 +73,59 @@ const ElementDesigner = defineComponent({
     });
     return () => {
       return (
-        <div class="c-relative">
-          <div class="c-h-10">
-            <CGXLogo />
-          </div>
-          <CollapseWidget />
-          <div class="c-w-full c-h-full c-flex c-justify-between c-overflow-hidden c-bg-gray-100 dark:c-bg-black">
-            {/* 编辑器左侧，可选择的组件列表 */}
-            <div
-              ref={leftMenuRef}
-              class={[
-                collapseManage.leftMenuCollapseState.value
-                  ? "c-w-[280px]"
-                  : "c-w-0",
-                " c-bg-white c-h-full c-transition-all c-duration-300",
-              ]}
-            >
-              <ElementMenu />
-            </div>
-            {/* 中间部分 */}
-            <div class="c-h-full c-flex-1 dark:c-bg-black">
-              {/* 编辑器顶部 */}
-              <OperationMenu buttonMap={buttonMap} />
-              {/* 编辑器画布的地方 */}
-              <div class="c-box-border">
-                {/* 滚动条 */}
-                <div class="c-h-full c-relative c-flex c-justify-center c-px-5 c-py-2">
-                  <EditorCanvas />
+        <>
+          {elementController.isReady.value && (
+            <div class="c-relative">
+              <div class="c-h-10">
+                <CGXLogo />
+              </div>
+              <CollapseWidget />
+              <div class="c-w-full c-h-full c-flex c-justify-between c-overflow-hidden c-bg-gray-100 dark:c-bg-black">
+                {/* 编辑器左侧，可选择的组件列表 */}
+                <div
+                  ref={leftMenuRef}
+                  class={[
+                    collapseManage.leftMenuCollapseState.value
+                      ? "c-w-[280px]"
+                      : "c-w-0",
+                    " c-bg-white c-h-full c-transition-all c-duration-300",
+                  ]}
+                >
+                  <ElementMenu />
                 </div>
+                {/* 中间部分 */}
+                <div class="c-h-full c-flex-1 dark:c-bg-black">
+                  {/* 编辑器顶部 */}
+                  <OperationMenu buttonMap={buttonMap} />
+                  {/* 编辑器画布的地方 */}
+                  <div class="c-box-border">
+                    {/* 滚动条 */}
+                    <div class="c-h-full c-relative c-flex c-justify-center c-px-5 c-py-2">
+                      <EditorCanvas />
+                    </div>
+                  </div>
+                </div>
+                {/* 编辑器右侧 */}
+                <div
+                  class={[
+                    collapseManage.rightMenuCollapseState.value
+                      ? "c-w-[280px]"
+                      : "c-w-0",
+                    " c-bg-white c-h-full c-transition-all c-duration-300",
+                  ]}
+                  ref={rightMenuRef}
+                >
+                  <SettingMenu />
+                </div>
+                {/* 预览dialog */}
+                <PreviewDialog ref={previewDialogRef} />
+                {/* 导入导出dialog */}
+                <ExportSourceCodeDialog ref={exportSourceCodeDialogRef} />
+                <ImportSourceCodeDialog ref={importSourceCodeDialogRef} />
               </div>
             </div>
-            {/* 编辑器右侧 */}
-            <div
-              class={[
-                collapseManage.rightMenuCollapseState.value
-                  ? "c-w-[280px]"
-                  : "c-w-0",
-                " c-bg-white c-h-full c-transition-all c-duration-300",
-              ]}
-              ref={rightMenuRef}
-            >
-              <SettingMenu />
-            </div>
-            {/* 预览dialog */}
-            <PreviewDialog ref={previewDialogRef} />
-            {/* 导入导出dialog */}
-            <ExportSourceCodeDialog ref={exportSourceCodeDialogRef} />
-            <ImportSourceCodeDialog ref={importSourceCodeDialogRef} />
-          </div>
-        </div>
+          )}
+        </>
       );
     };
   },
