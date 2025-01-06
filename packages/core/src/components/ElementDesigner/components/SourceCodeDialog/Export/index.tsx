@@ -7,6 +7,7 @@ import {
   createSFCSourceCode,
   createSourceCode,
 } from "@cgx-designer/utils";
+import { elementController } from "@cgx-designer/controller";
 
 export interface ExportSourceCodeDialogExpose {
   handleOpen: (builderSchema: BuilderSchema) => void;
@@ -14,6 +15,7 @@ export interface ExportSourceCodeDialogExpose {
 
 export const ExportSourceCodeDialog = defineComponent({
   setup(_, { expose }) {
+    const Dialog = elementController.getElementRender("dialog");
     const currentTab = ref<number>(1);
     const jsonContent = ref<string>("");
     const cgxContent = ref<string>("");
@@ -49,7 +51,8 @@ export const ExportSourceCodeDialog = defineComponent({
     });
     return () => {
       return (
-        <ElDialog
+        <Dialog
+          title="导出"
           v-model={isShow.value}
           destroyOnClose
           style={{
@@ -81,9 +84,6 @@ export const ExportSourceCodeDialog = defineComponent({
                 </ElTabPane>
               </ElTabs>
             ),
-            header: () => {
-              return <div>导出</div>;
-            },
             footer: () => (
               <>
                 <ElButton onClick={handleCancel}>取消</ElButton>
@@ -93,7 +93,7 @@ export const ExportSourceCodeDialog = defineComponent({
               </>
             ),
           }}
-        </ElDialog>
+        </Dialog>
       );
     };
   },

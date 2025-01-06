@@ -34,8 +34,8 @@ const IdInput = defineComponent({
         <Input {...renderProps} class="no-padding-elInput">
           {{
             append: () => (
-              <div class="c-cursor-pointer" onClick={handleCopy}>
-                <CopyIcon class="c-h-[18px] c-w-[18px]"></CopyIcon>
+              <div class="c-cursor-pointer" onClick={handleCopy} title="复制">
+                <CopyIcon class="c-h-[18px] c-w-[18px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500"></CopyIcon>
               </div>
             ),
           }}

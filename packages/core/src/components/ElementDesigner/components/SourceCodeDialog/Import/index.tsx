@@ -3,6 +3,7 @@ import { ref, defineComponent, nextTick, inject } from "vue";
 import IDE from "../../../../IDE";
 import { checkCJsonType } from "@cgx-designer/utils";
 import { FormManage, FunctionManage } from "@cgx-designer/hooks";
+import { elementController } from "@cgx-designer/controller";
 
 export interface ImportSourceCodeDialogExpose {
   handleOpen: () => void;
@@ -10,6 +11,7 @@ export interface ImportSourceCodeDialogExpose {
 
 export const ImportSourceCodeDialog = defineComponent({
   setup(_, { expose }) {
+    const Dialog = elementController.getElementRender("dialog");
     const commands: Record<string, Function> | undefined = inject("commands");
     const formManage = inject("formManage") as FormManage;
     const functionManage = inject("functionManage") as FunctionManage;
@@ -46,7 +48,8 @@ export const ImportSourceCodeDialog = defineComponent({
     });
     return () => {
       return (
-        <ElDialog
+        <Dialog
+          title="导入"
           v-model={isShow.value}
           destroyOnClose
           style={{
@@ -59,9 +62,6 @@ export const ImportSourceCodeDialog = defineComponent({
                 <IDE ref={IDERef} v-model={jsonContent.value} />
               </div>
             ),
-            header: () => {
-              return <div>导入</div>;
-            },
             footer: () => (
               <>
                 <ElButton onClick={handleCancel}>取消</ElButton>
@@ -71,7 +71,7 @@ export const ImportSourceCodeDialog = defineComponent({
               </>
             ),
           }}
-        </ElDialog>
+        </Dialog>
       );
     };
   },

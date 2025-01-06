@@ -8,6 +8,7 @@ export interface IElementBaseSetting {
   icon?: any;
   template?: any;
   formItem?: boolean;
+  noPushList?: boolean;
   [key: string]: any;
   config?: {
     //全部变成可选的

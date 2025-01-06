@@ -28,6 +28,7 @@ import ElementIDE from "./ElementIDE";
 const EventSettingDialog = defineComponent({
   emits: ["add", "edit"],
   setup(_, { expose, emit }) {
+    const Dialog = elementController.getElementRender("dialog");
     const functionManage = inject("functionManage") as FunctionManage;
     const elementManage = inject("elementManage") as ElementManage;
     const nodeTree = ref<InstanceType<typeof ElTree>>();
@@ -178,7 +179,7 @@ const EventSettingDialog = defineComponent({
       handleClose,
     });
     return () => (
-      <ElDialog
+      <Dialog
         destroyOnClose
         v-model={dialogShow.value}
         title="组件事件编辑"
@@ -267,7 +268,7 @@ const EventSettingDialog = defineComponent({
             );
           },
         }}
-      </ElDialog>
+      </Dialog>
     );
   },
 });

@@ -1,5 +1,6 @@
+import { elementController } from "@cgx-designer/controller";
 import IDE from "../../../IDE/index";
-import { ElButton, ElDialog } from "element-plus";
+import { ElButton } from "element-plus";
 import { defineComponent, ref } from "vue";
 
 export interface ValueDialogExpose {
@@ -9,6 +10,7 @@ export interface ValueDialogExpose {
 
 export const ValueDialog = defineComponent({
   setup(_, { expose }) {
+    const Dialog = elementController.getElementRender("dialog");
     const IDEValue = ref<string>("");
     const dialogShow = ref<boolean>(false);
     const handleOpen = (formDataString: string) => {
@@ -26,7 +28,7 @@ export const ValueDialog = defineComponent({
     });
     return () => {
       return (
-        <ElDialog
+        <Dialog
           destroyOnClose
           title="预览表单数据"
           v-model={dialogShow.value}
@@ -51,7 +53,7 @@ export const ValueDialog = defineComponent({
               );
             },
           }}
-        </ElDialog>
+        </Dialog>
       );
     };
   },
