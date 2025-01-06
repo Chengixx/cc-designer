@@ -1,7 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  // tailwind和vuetify会有冲突 所以需要设置prefix
   prefix: "c-",
-  darkMode: ['class', '[class="dark"]'],
+  darkMode: ["class", '[class~="dark"]'],
   content: [
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",

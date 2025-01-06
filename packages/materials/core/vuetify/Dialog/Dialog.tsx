@@ -1,12 +1,12 @@
 import { defineComponent } from "vue";
 import {
-  VBtn,
   VCard,
   VCardActions,
   VCardText,
   VCardTitle,
   VDialog,
 } from "vuetify/components";
+import { CloseIcon } from "@cgx-designer/icons";
 
 const Dialog = defineComponent({
   props: {
@@ -18,6 +18,7 @@ const Dialog = defineComponent({
       type: String,
     },
   },
+  inheritAttrs: false,
   emits: ["update:modelValue"],
   setup(props, { attrs, slots, emit }) {
     return () => {
@@ -29,13 +30,25 @@ const Dialog = defineComponent({
         ...attrs,
       };
       return (
-        <VDialog {...renderProps} onAfterLeave={handleLeave}>
-          <VCard minHeight={"85vh"} minWidth={"50vw"}>
+        <VDialog
+          {...renderProps}
+          onAfterLeave={handleLeave}
+          width="auto"
+          style={{
+            marginTop: "0vh !important",
+          }}
+        >
+          <VCard minHeight={"80vh"} minWidth={"50vw"} maxWidth={"50vw"}>
             {/* 标题,有才显示,为了兼容element */}
             {props.title && (
               <VCardTitle class="c-flex c-justify-between c-items-center">
-                <div>{props.title}</div>
-                <div>X</div>
+                <span class="c-text-base c-font-medium">{props.title}</span>
+                <div
+                  class="c-h-fit c-w-fit c-cursor-pointer"
+                  onClick={handleLeave}
+                >
+                  <CloseIcon class="c-w-5 c-h-5 hover:c-fill-blue-500" />
+                </div>
               </VCardTitle>
             )}
 

@@ -3,11 +3,10 @@
 export default {
   // tailwind和vuetify会有冲突 所以需要设置prefix
   prefix: "c-",
-  darkMode: ["class", '[class="dark"]'],
+  darkMode: ["class", '[class~="dark"]'],
   content: [
     "./packages/core/src/**/*.{vue,js,ts,jsx,tsx}",
-    "./packages/ui/template/**/*.{vue,js,ts,jsx,tsx}",
-    "./packages/ui/base/**/*.{vue,js,ts,jsx,tsx}",
+    "./packages/materials/core/**/*.{vue,js,ts,jsx,tsx}",
     "./packages/extensions/src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {

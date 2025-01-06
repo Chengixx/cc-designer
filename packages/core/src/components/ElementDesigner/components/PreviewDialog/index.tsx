@@ -5,9 +5,11 @@ import { ElementManage, FormManage, FunctionManage } from "@cgx-designer/hooks";
 import { deepClone } from "@cgx-designer/utils";
 import { ElementBuilderExpose } from "../../../ElementBuilder/type";
 import { ValueDialogExpose, ValueDialog } from "./ValueDialog";
+import { elementController } from "@cgx-designer/controller";
 
 const PreviewDialog = defineComponent({
   setup(_, { expose }) {
+    const Dialog = elementController.getElementRender("dialog");
     const elementManage = inject("elementManage") as ElementManage;
     const formManage = inject("formManage") as FormManage;
     const functionManage = inject("functionManage") as FunctionManage;
@@ -27,7 +29,9 @@ const PreviewDialog = defineComponent({
     const handleGetFormData = () => {
       console.log("look", elementBuilderRef.value!.formRef);
       console.log("查看表单的数据", elementBuilderRef.value!.formData);
-      ValueDialogRef.value?.handleOpen(JSON.stringify(elementBuilderRef.value!.formData));
+      ValueDialogRef.value?.handleOpen(
+        JSON.stringify(elementBuilderRef.value!.formData)
+      );
     };
     const handleValidFormData = () => {
       //防抖节流一下 防止一直点
@@ -49,7 +53,7 @@ const PreviewDialog = defineComponent({
     return () => {
       return (
         <>
-          <ElDialog
+          <Dialog
             destroyOnClose
             title="预览"
             v-model={dialogShow.value}
@@ -88,7 +92,7 @@ const PreviewDialog = defineComponent({
                 );
               },
             }}
-          </ElDialog>
+          </Dialog>
           <ValueDialog ref={ValueDialogRef} />
         </>
       );
