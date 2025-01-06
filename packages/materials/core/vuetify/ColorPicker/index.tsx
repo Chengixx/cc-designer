@@ -12,10 +12,9 @@ const ColorPicker: IElementBaseSetting = {
       id,
       field: "colorPicker-" + id,
       key: "colorPicker",
-      formItem: true,
       props: {
         defaultValue: "#409EFF",
-        labelPosition: "",
+        hideDetails: true,
       },
     };
   },
@@ -26,8 +25,8 @@ const ColorPicker: IElementBaseSetting = {
         key: "input",
         field: "field",
         props: {
-          placeholder: "请输入字段名"
-        }
+          placeholder: "请输入字段名",
+        },
       },
       {
         label: "标题名称",
@@ -48,7 +47,7 @@ const ColorPicker: IElementBaseSetting = {
         field: "props.size",
         props: {
           multiple: false,
-          placeholder:"请选择大小",
+          placeholder: "请选择大小",
           options: [
             { label: "大", value: "large" },
             { label: "中", value: "default" },

@@ -12,11 +12,10 @@ const Input: IElementBaseSetting = {
       id,
       field: "input-" + id,
       key: "input",
-      formItem: true,
       props: {
         label: "input",
         placeholder: "placeholder",
-        labelPosition: "",
+        hideDetails: true,
       },
     };
   },
