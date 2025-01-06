@@ -23,6 +23,7 @@ import {
 } from "@cgx-designer/hooks";
 import CollapseWidget from "./components/CollapseWidget";
 import { elementController } from "@cgx-designer/controller";
+import { Message } from "@cgx-designer/extensions";
 //设计器
 const ElementDesigner = defineComponent({
   setup() {
@@ -74,6 +75,7 @@ const ElementDesigner = defineComponent({
     return () => {
       return (
         <>
+          <div onClick={() => Message.info("hello 你号message")}>按钮</div>
           {elementController.isReady.value && (
             <div class="c-relative">
               <div class="c-h-10">
