@@ -1,8 +1,10 @@
-import { defineComponent, PropType, ref, watch } from "vue";
+import { defineComponent, PropType } from "vue";
 import { IEditorElement } from "../../../../cgx-designer/dist/core";
-import { ElInput, ElMessage } from "element-plus";
+import { ElMessage } from "element-plus";
 import "../../style/index.css";
 import { copyToClipboard } from "@cgx-designer/utils";
+import { elementController } from "../../../../controller/core/elementController";
+import { CopyIcon } from "@cgx-designer/icons";
 
 const IdInput = defineComponent({
   props: {
@@ -11,6 +13,7 @@ const IdInput = defineComponent({
   emits: ["update:modelValue"],
   inheritAttrs: true,
   setup(props, { attrs }) {
+    const Input = elementController.getElementRender("input");
     const handleCopy = () => {
       const inputValue = attrs.modelValue;
       if (inputValue !== undefined && inputValue !== null) {
@@ -28,15 +31,15 @@ const IdInput = defineComponent({
         ...attrs,
       };
       return (
-        <ElInput {...renderProps} class="no-padding-elInput">
+        <Input {...renderProps} class="no-padding-elInput">
           {{
             append: () => (
               <div class="c-cursor-pointer" onClick={handleCopy}>
-                复制
+                <CopyIcon class="c-h-[18px] c-w-[18px]"></CopyIcon>
               </div>
             ),
           }}
-        </ElInput>
+        </Input>
       );
     };
   },
