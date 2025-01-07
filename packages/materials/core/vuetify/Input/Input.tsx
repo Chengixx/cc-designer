@@ -23,6 +23,9 @@ const Input = defineComponent({
       return (
         <VTextField {...renderProps} ref={elementRef as any}>
           {{
+            "prepend-inner": () => {
+              return slots.prefix && slots.prefix();
+            },
             "append-inner": () => {
               return slots.append && slots.append();
             },

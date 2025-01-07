@@ -1,5 +1,6 @@
+import { elementController } from "@cgx-designer/controller";
 import { Search } from "@element-plus/icons-vue";
-import { ElIcon, ElInput } from "element-plus";
+import { ElIcon } from "element-plus";
 import { computed, defineComponent } from "vue";
 
 const SearchBox = defineComponent({
@@ -10,6 +11,7 @@ const SearchBox = defineComponent({
     },
   },
   setup(props, { emit }) {
+    const Input = elementController.getElementRender("input");
     const inputWidgetName = computed({
       get() {
         return props.widgetName;
@@ -21,10 +23,14 @@ const SearchBox = defineComponent({
     return () => {
       return (
         <div class="c-w-full c-border c-box-border c-p-1 dark:c-border-darkMode">
-          <ElInput
+          <Input
             placeholder="搜索组件"
             v-model={inputWidgetName.value}
             clearable
+            density="compact"
+            variant="outlined"
+            hide-details
+            single-line
           >
             {{
               prefix: () => {
@@ -35,7 +41,7 @@ const SearchBox = defineComponent({
                 );
               },
             }}
-          </ElInput>
+          </Input>
         </div>
       );
     };
