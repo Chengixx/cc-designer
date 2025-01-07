@@ -1,0 +1,4 @@
+/* 否则vuetify禁用后无法选中 */
+.v-input--disabled {
+  pointer-events: auto !important;
+}

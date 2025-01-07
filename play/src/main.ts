@@ -21,6 +21,7 @@ const vuetify = createVuetify({
 import "virtual:svg-icons-register";
 import { elementController } from "@cgx-designer/controller";
 import Kobe from "./components/Kobe.vue";
+import "@cgx-designer/materials/core/vuetify/index.css";
 
 //注册自定义组件
 elementController.register({
