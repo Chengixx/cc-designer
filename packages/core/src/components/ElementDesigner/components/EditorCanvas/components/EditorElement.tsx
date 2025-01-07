@@ -14,7 +14,7 @@ import { IEditorElement } from "../../../../../types";
 import Draggle from "./Draggle.vue";
 import ElementNode from "../../../../ElementNode";
 import { useParentDomList } from "../../../../../constant";
-import { DragIcon } from "@cgx-designer/icons";
+import DragWidget from "./DragWidget";
 
 const EditorElement = defineComponent({
   props: {
@@ -23,6 +23,8 @@ const EditorElement = defineComponent({
   setup(props) {
     const hoverManage = inject("hoverManage") as HoverManage;
     const elementManage = inject("elementManage") as ElementManage;
+    const focusManage = inject("focusManage") as FocusManage;
+    const elementRef = ref<HTMLBaseElement | null>(null);
     const getComponentInstance = computed(() => {
       const id = props.elementSchema.id!;
       const elementInstance = elementManage.getElementInstanceById(id);
@@ -73,33 +75,19 @@ const EditorElement = defineComponent({
         );
       }
     });
-    const focusManage = inject("focusManage") as FocusManage;
-    const elementRef = ref<HTMLBaseElement | null>(null);
+
     const handleClick = (e: MouseEvent) => {
       focusManage.handleFocus(props.elementSchema, e);
     };
+
     const isFocus = computed(() => {
       return focusManage.focusedElement.value?.id === props.elementSchema.id;
     });
-    const isDragWidgetHovered = ref<boolean>(false);
+    
     return () => {
       return (
         <>
-          {isFocus.value && (
-            <div
-              class={[
-                "c-absolute c-z-10 c-top-0 c-left-0 c-h-6 c-p-1 c-flex c-gap-x-1 c-justify-center c-items-center c-cursor-move c-rounded-br-sm c-transition-all",
-                isDragWidgetHovered.value ? "c-bg-[#409eff]" : "c-bg-[rgba(64,158,255,.3)]",
-              ]}
-              onClick={handleClick}
-              onMouseenter={() => (isDragWidgetHovered.value = true)}
-              onMouseleave={() => (isDragWidgetHovered.value = false)}
-            >
-              <DragIcon class="c-fill-white c-w-4 c-h-4" />
-              <span class="c-text-white">{props.elementSchema.key}</span>
-            </div>
-          )}
-
+          {isFocus.value && <DragWidget elementSchema={props.elementSchema} />}
           <ElementNode elementSchema={props.elementSchema} ref={elementRef}>
             {{
               editNode: () => {
