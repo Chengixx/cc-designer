@@ -23,8 +23,6 @@ const Select = defineComponent({
       return (
         <VSelect
           {...renderProps}
-          //!重新渲染
-          key={String(props.elementSchema.props!.multiple)}
           itemTitle="label"
           itemValue="value"
           items={optionsList}
