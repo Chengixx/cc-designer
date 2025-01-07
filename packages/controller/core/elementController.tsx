@@ -1,7 +1,11 @@
 import { defineAsyncComponent, ref } from "vue";
 import { elementPlusPlugin, vuetifyPlugin } from "@cgx-designer/materials";
 import { IElementBaseSetting } from "../types/index";
-import { deepClone, getRandomId } from "@cgx-designer/utils";
+import {
+  deepClone,
+  getRandomId,
+  stringFirstSmaller,
+} from "@cgx-designer/utils";
 import { IEditorElement } from "@cgx-designer/core";
 
 export interface ElementPlugin {
@@ -64,7 +68,7 @@ export class ElementController {
     delete this.elementTemplate[key];
     //删除列表里的
     this.elementList.value = this.elementList.value.filter(
-      (element) => element.key === key
+      (element) => element.key !== key
     );
   };
   //获取当前是什么组件库
@@ -73,7 +77,7 @@ export class ElementController {
   };
   //增加当前组件库的key
   addLibElementKey = (key: string) => {
-    this.libElementKeys.push(key);
+    this.libElementKeys.push(stringFirstSmaller(key));
   };
   //注册元素到左侧菜单栏，必须走这里过
   register = (elementBaseConfig: IElementBaseSetting) => {

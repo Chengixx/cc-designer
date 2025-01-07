@@ -92,6 +92,11 @@ export const stringFirstBigger = (str: string): string => {
   if (!str) return str;
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+//字符串第一个字母变小写
+export const stringFirstSmaller = (str: string): string => {
+  if (!str) return str;
+  return str.charAt(0).toLowerCase() + str.slice(1);
+};
 
 //生成不重复的id
 export const getRandomId = (length: number = 8): string => {
