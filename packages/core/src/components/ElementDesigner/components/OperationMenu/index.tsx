@@ -33,34 +33,37 @@ const IconButton = (
   type: ButtonType = ""
 ) => {
   const Button = elementController.getElementRender("button");
+  const renderProps = {
+    icon:
+      elementController.getCurrentElementLibrary() !== "vuetify" &&
+      Iconfig.icon,
+    variant: "outlined",
+    onClick: Iconfig.handler,
+    disabled,
+    type,
+    size: "small",
+  };
   return (
     <>
       {showLabel ? (
-        <Button
-          icon={
-            elementController.getCurrentElementLibrary() !== "vuetify" &&
-            Iconfig.icon
-          }
-          prependIcon={Iconfig.icon}
-          onClick={Iconfig.handler}
-          disabled={disabled}
-          type={type}
-          size="small"
-        >
-          <span>{Iconfig.label}</span>
+        <Button {...renderProps}>
+          {{
+            prepend: () => {
+              return <Iconfig.icon class="c-h-4 c-w-4 dark:c-fill-white" />;
+            },
+            default: () => {
+              return <span>{Iconfig.label}</span>;
+            },
+          }}
         </Button>
       ) : (
-        <Button
-          icon={
-            elementController.getCurrentElementLibrary() !== "vuetify" &&
-            Iconfig.icon
-          }
-          prependIcon={Iconfig.icon}
-          onClick={Iconfig.handler}
-          disabled={disabled}
-          type={type}
-          size="small"
-        />
+        <Button {...renderProps}>
+          {{
+            Prepend: () => {
+              return <Iconfig.icon class="c-h-5 c-w-5" />;
+            },
+          }}
+        </Button>
       )}
     </>
   );
