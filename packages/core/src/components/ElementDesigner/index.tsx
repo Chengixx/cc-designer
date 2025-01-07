@@ -23,6 +23,7 @@ import {
 } from "@cgx-designer/hooks";
 import CollapseWidget from "./components/CollapseWidget";
 import { elementController } from "@cgx-designer/controller";
+import Loading from "../Loading/index.vue";
 //设计器
 const ElementDesigner = defineComponent({
   setup() {
@@ -74,6 +75,8 @@ const ElementDesigner = defineComponent({
     return () => {
       return (
         <>
+          {!elementController.isReady.value && <Loading />}
+
           {elementController.isReady.value && (
             <div
               class="c-relative"
