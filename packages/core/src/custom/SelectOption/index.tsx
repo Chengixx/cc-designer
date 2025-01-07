@@ -1,6 +1,6 @@
 import { IEditorElement } from "../../types";
 import { defineComponent, PropType, ref, watch } from "vue";
-import { GroupOption } from "@cgx-designer/materials";
+import { GroupOption, VBtnColorType } from "@cgx-designer/materials";
 import {
   ElDivider,
   ElIcon,
@@ -74,9 +74,13 @@ const SelectOption = defineComponent({
           );
         })}
         <div class="c-flex c-items-center c-gap-1">
-          <Button 
+          <Button
             variant="text"
-            link type="primary" onClick={() => handleAddOption()}>
+            link
+            type="primary"
+            color={VBtnColorType.primary}
+            onClick={() => handleAddOption()}
+          >
             新增选项
           </Button>
           <ElTooltip

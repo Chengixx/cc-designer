@@ -5,6 +5,7 @@ import { elementController } from "@cgx-designer/controller";
 import { Delete } from "@element-plus/icons-vue";
 import { ElDivider, ElIcon, ElInput, ElTooltip } from "element-plus";
 import { computed, defineComponent, inject, PropType, ref } from "vue";
+import { VBtnColorType } from "@cgx-designer/materials";
 
 const TabList = defineComponent({
   props: {
@@ -65,6 +66,7 @@ const TabList = defineComponent({
                 <div class="c-ml-1">
                   <Button
                     link
+                    color={VBtnColorType.primary}
                     type="primary"
                     onClick={() => handleSetTabActiveName(tabPane)}
                   >
@@ -84,7 +86,12 @@ const TabList = defineComponent({
               </div>
             );
           })}
-          <Button link type="primary" onClick={handleAddTab}>
+          <Button
+            link
+            type="primary"
+            color={VBtnColorType.primary}
+            onClick={handleAddTab}
+          >
             新增标签
           </Button>
         </div>

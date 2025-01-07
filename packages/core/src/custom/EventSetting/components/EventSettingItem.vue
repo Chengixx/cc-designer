@@ -5,6 +5,7 @@ import draggable from "vuedraggable";
 import { ElementManage } from "@cgx-designer/hooks";
 import SvgIcon from "../../../components/SvgIcon/index";
 import { EventInstance, EventItem } from "../../../types/index";
+import { VBtnColorType } from "@cgx-designer/materials";
 
 const Button = elementController.getElementRender("button");
 const elementManage = inject("elementManage") as ElementManage;
@@ -92,6 +93,7 @@ const getElementSvg = (tag: string) => {
         <Button
           link
           variant="text"
+          :color="VBtnColorType.primary"
           type="primary"
           @click="handleAddEvent(item.type)"
           >新增</Button
@@ -155,6 +157,7 @@ const getElementSvg = (tag: string) => {
               link
               variant="text"
               type="primary"
+              :color="VBtnColorType.primary"
               @click="handleEditEvent(index, item.type, eventInstance)"
               >编辑</Button
             >
@@ -162,6 +165,7 @@ const getElementSvg = (tag: string) => {
               link
               variant="text"
               type="danger"
+              :color="VBtnColorType.danger"
               @click="handleDeleteEvent(index, item.type)"
               >删除</Button
             >

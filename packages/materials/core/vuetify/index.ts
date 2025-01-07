@@ -16,3 +16,5 @@ export let vuetifyPlugin: ElementPlugin = {
   name: "vuetify",
   template: vuetifyBaseTemplate,
 };
+
+export * from "./Button/VBtnColorType";

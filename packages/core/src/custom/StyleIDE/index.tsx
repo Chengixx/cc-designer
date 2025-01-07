@@ -4,6 +4,7 @@ import { defineComponent, ref, watch } from "vue";
 import { CssIcon } from "@cgx-designer/icons";
 import { Message } from "@cgx-designer/extensions";
 import { elementController } from "@cgx-designer/controller";
+import { VBtnColorType } from "@cgx-designer/materials";
 
 const StyleIDE = defineComponent({
   inheritAttrs: false,
@@ -50,7 +51,13 @@ const StyleIDE = defineComponent({
               样式
             </span>
           </div>
-          <Button link variant="text" type="primary" onClick={handleSave}>
+          <Button
+            link
+            variant="text"
+            type="primary"
+            color={VBtnColorType.primary}
+            onClick={handleSave}
+          >
             保存
           </Button>
         </div>

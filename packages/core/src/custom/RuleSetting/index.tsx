@@ -7,6 +7,7 @@ import { triggerOptions, typeOptions } from "./constant";
 import RuleFormItem from "./components/RuleFormItem";
 import { deepClone } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
+import { VBtnColorType } from "@cgx-designer/materials";
 
 interface RuleSettingAttrs {
   modelValue: RuleItem[] | undefined;
@@ -172,6 +173,7 @@ const RuleSetting = defineComponent({
                     <div class="c-w-full c-flex c-justify-end">
                       <Button
                         link
+                        color={VBtnColorType.danger}
                         variant="text"
                         type="danger"
                         onClick={() => handleDeleteRule(index)}
@@ -189,6 +191,7 @@ const RuleSetting = defineComponent({
           <Button
             link
             variant="text"
+            color={VBtnColorType.primary}
             type="primary"
             onClick={() => {
               handleAddRule();
