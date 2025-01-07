@@ -1,12 +1,8 @@
 import { computed, defineComponent, inject, PropType } from "vue";
 import { OperationButtonSetting } from "./operationButtonSetting";
-import {
-  ElButton,
-  ButtonType,
-  ElRadioGroup,
-  ElRadioButton,
-} from "element-plus";
+import { ButtonType, ElRadioGroup, ElRadioButton } from "element-plus";
 import { FocusManage, ModeManage } from "@cgx-designer/hooks";
+import { elementController } from "@cgx-designer/controller";
 
 const Icon = (Iconfig: OperationButtonSetting, disabled: boolean = false) => {
   const handleClick = () => {
@@ -36,21 +32,30 @@ const IconButton = (
   disabled: boolean = false,
   type: ButtonType = ""
 ) => {
+  const Button = elementController.getElementRender("button");
   return (
     <>
       {showLabel ? (
-        <ElButton
-          icon={Iconfig.icon}
+        <Button
+          icon={
+            elementController.getCurrentElementLibrary() !== "vuetify" &&
+            Iconfig.icon
+          }
+          prependIcon={Iconfig.icon}
           onClick={Iconfig.handler}
           disabled={disabled}
           type={type}
           size="small"
         >
           <span>{Iconfig.label}</span>
-        </ElButton>
+        </Button>
       ) : (
-        <ElButton
-          icon={Iconfig.icon}
+        <Button
+          icon={
+            elementController.getCurrentElementLibrary() !== "vuetify" &&
+            Iconfig.icon
+          }
+          prependIcon={Iconfig.icon}
           onClick={Iconfig.handler}
           disabled={disabled}
           type={type}
@@ -119,7 +124,7 @@ const OperationMenu = defineComponent({
             <Icon {...Clear} />
             <Icon {...Message} />
           </div>
-          <div class="c-h-full c-flex-1 c-flex c-justify-end c-items-center c-pr-4">
+          <div class="c-h-full c-flex-1 c-flex c-justify-end c-items-center c-pr-4 c-gap-x-2">
             {IconButton(Tree, true)}
             {IconButton(Import, true)}
             {IconButton(Export, true)}

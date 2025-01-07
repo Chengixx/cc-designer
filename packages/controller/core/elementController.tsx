@@ -15,7 +15,7 @@ export class ElementController {
   //是否已经初始化完成
   isReady = ref<boolean>(false);
   //当前使用的是哪个组件库(内部)
-  elementLibrary: ElementLib | null = null;
+  elementLibrary = ref<ElementLib | null>(null) ;
   //初始的模板，初始的schema
   elementTemplate: Record<string, (uuid: Function) => IEditorElement> = {};
   //能用的是哪些,用于渲染左侧物料列表
@@ -31,9 +31,13 @@ export class ElementController {
       elementController.register(template[key]);
     }
     //所有组件都安装完毕之后，设置控制器告诉它当前使用的组件库
-    this.elementLibrary = name;
+    this.elementLibrary.value = name;
     this.isReady.value = true;
   };
+  //获取当前是什么组件库
+  getCurrentElementLibrary = () => {
+    return this.elementLibrary.value;
+  }
   //注册元素到左侧菜单栏，必须走这里过
   register = (elementBaseConfig: IElementBaseSetting) => {
     if (!elementBaseConfig.noPushList) {

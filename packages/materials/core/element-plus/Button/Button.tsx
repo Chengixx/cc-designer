@@ -1,19 +1,32 @@
 import { IEditorElement } from "@cgx-designer/core";
 import { ElButton } from "element-plus";
 import { defineComponent, PropType } from "vue";
+import { isEmpty } from "lodash";
 
 const Button = defineComponent({
   props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
+    elementSchema: {
+      type: Object as PropType<IEditorElement>,
+      default: () => {},
+    },
   },
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     return () => {
       const renderProps: Record<string, any> = {
-        ...props.elementSchema.props,
+        ...(!isEmpty(props.elementSchema) && props.elementSchema.props),
         ...attrs,
       };
       return (
-        <ElButton {...renderProps}>{props.elementSchema.props!.label}</ElButton>
+        <ElButton {...renderProps}>
+          {{
+            ...slots,
+            default: () => {
+              return !isEmpty(props.elementSchema)
+                ? props.elementSchema.props!.label
+                : slots.default?.();
+            },
+          }}
+        </ElButton>
       );
     };
   },

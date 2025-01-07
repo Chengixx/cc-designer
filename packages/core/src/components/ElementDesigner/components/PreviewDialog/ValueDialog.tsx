@@ -1,6 +1,5 @@
 import { elementController } from "@cgx-designer/controller";
 import IDE from "../../../IDE/index";
-import { ElButton } from "element-plus";
 import { defineComponent, ref } from "vue";
 
 export interface ValueDialogExpose {
@@ -10,6 +9,7 @@ export interface ValueDialogExpose {
 
 export const ValueDialog = defineComponent({
   setup(_, { expose }) {
+    const Button = elementController.getElementRender("button");
     const Dialog = elementController.getElementRender("dialog");
     const IDEValue = ref<string>("");
     const dialogShow = ref<boolean>(false);
@@ -48,7 +48,9 @@ export const ValueDialog = defineComponent({
             footer: () => {
               return (
                 <div>
-                  <ElButton onClick={handleClose}>关闭</ElButton>
+                  <Button variant="outlined" onClick={handleClose}>
+                    关闭
+                  </Button>
                 </div>
               );
             },

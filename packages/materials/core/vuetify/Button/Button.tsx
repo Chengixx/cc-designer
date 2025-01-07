@@ -1,18 +1,34 @@
 import { IEditorElement } from "@cgx-designer/core";
+import { isEmpty } from "lodash";
 import { defineComponent, PropType } from "vue";
 import { VBtn } from "vuetify/components";
 
 const Button = defineComponent({
   props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
+    elementSchema: {
+      type: Object as PropType<IEditorElement>,
+      default: () => {},
+    },
   },
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     return () => {
       const renderProps: Record<string, any> = {
-        ...props.elementSchema.props,
+        ...(!isEmpty(props.elementSchema) && props.elementSchema.props),
         ...attrs,
       };
-      return <VBtn {...renderProps}>{props.elementSchema.props!.label}</VBtn>;
+      return (
+        <VBtn {...renderProps}>
+          {/* {!isEmpty(props.elementSchema) && props.elementSchema.props!.label} */}
+          {{
+            ...slots,
+            default: () => {
+              return !isEmpty(props.elementSchema)
+                ? props.elementSchema.props!.label
+                : slots.default?.();
+            },
+          }}
+        </VBtn>
+      );
     };
   },
 });

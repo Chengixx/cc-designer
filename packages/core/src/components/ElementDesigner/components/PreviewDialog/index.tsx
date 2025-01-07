@@ -1,5 +1,4 @@
 import ElementBuilder from "../../../ElementBuilder";
-import { ElButton } from "element-plus";
 import { defineComponent, inject, ref } from "vue";
 import { ElementManage, FormManage, FunctionManage } from "@cgx-designer/hooks";
 import { deepClone } from "@cgx-designer/utils";
@@ -10,6 +9,7 @@ import { Message } from "@cgx-designer/extensions";
 
 const PreviewDialog = defineComponent({
   setup(_, { expose }) {
+    const Button = elementController.getElementRender("button");
     const Dialog = elementController.getElementRender("dialog");
     const elementManage = inject("elementManage") as ElementManage;
     const formManage = inject("formManage") as FormManage;
@@ -81,14 +81,24 @@ const PreviewDialog = defineComponent({
               },
               footer: () => {
                 return (
-                  <div>
-                    <ElButton onClick={handleClose}>关闭</ElButton>
-                    <ElButton type="primary" onClick={handleValidFormData}>
+                  <div class="c-flex c-gap-2">
+                    <Button variant="outlined" onClick={handleClose}>
+                      关闭
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      type="primary"
+                      onClick={handleValidFormData}
+                    >
                       模拟校验
-                    </ElButton>
-                    <ElButton type="primary" onClick={handleGetFormData}>
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      type="primary"
+                      onClick={handleGetFormData}
+                    >
                       查看数据
-                    </ElButton>
+                    </Button>
                   </div>
                 );
               },
