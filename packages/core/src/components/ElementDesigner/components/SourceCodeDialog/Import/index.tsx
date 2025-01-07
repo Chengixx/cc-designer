@@ -1,4 +1,3 @@
-import { ElButton } from "element-plus";
 import { ref, defineComponent, nextTick, inject } from "vue";
 import IDE from "../../../../IDE";
 import { checkCJsonType } from "@cgx-designer/utils";
@@ -12,6 +11,7 @@ export interface ImportSourceCodeDialogExpose {
 
 export const ImportSourceCodeDialog = defineComponent({
   setup(_, { expose }) {
+    const Button = elementController.getElementRender("button");
     const Dialog = elementController.getElementRender("dialog");
     const commands: Record<string, Function> | undefined = inject("commands");
     const formManage = inject("formManage") as FormManage;
@@ -65,10 +65,10 @@ export const ImportSourceCodeDialog = defineComponent({
             ),
             footer: () => (
               <>
-                <ElButton onClick={handleCancel}>取消</ElButton>
-                <ElButton type="primary" onClick={handleConfirm}>
+                <Button onClick={handleCancel}>取消</Button>
+                <Button type="primary" onClick={handleConfirm}>
                   确定
-                </ElButton>
+                </Button>
               </>
             ),
           }}

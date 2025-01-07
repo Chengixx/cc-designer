@@ -1,4 +1,4 @@
-import { ElButton, ElTabPane, ElTabs } from "element-plus";
+import { ElTabPane, ElTabs } from "element-plus";
 import { ref, defineComponent, nextTick } from "vue";
 import IDE from "../../../../IDE";
 import { BuilderSchema } from "../../../../../../../cgx-designer/dist/core";
@@ -16,7 +16,8 @@ export interface ExportSourceCodeDialogExpose {
 
 export const ExportSourceCodeDialog = defineComponent({
   setup(_, { expose }) {
-    const Dialog = elementController.getElementRender("dialog");
+  const Button = elementController.getElementRender("button");
+  const Dialog = elementController.getElementRender("dialog");
     const currentTab = ref<number>(1);
     const jsonContent = ref<string>("");
     const cgxContent = ref<string>("");
@@ -87,10 +88,10 @@ export const ExportSourceCodeDialog = defineComponent({
             ),
             footer: () => (
               <>
-                <ElButton onClick={handleCancel}>取消</ElButton>
-                <ElButton type="primary" onClick={handleConfirm}>
+                <Button onClick={handleCancel}>取消</Button>
+                <Button type="primary" onClick={handleConfirm}>
                   确定
-                </ElButton>
+                </Button>
               </>
             ),
           }}

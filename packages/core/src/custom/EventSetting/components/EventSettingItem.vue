@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { elementController } from "@cgx-designer/controller";
 import { inject, PropType } from "vue";
-import { ElButton } from "element-plus";
 import draggable from "vuedraggable";
 import { ElementManage } from "@cgx-designer/hooks";
 import SvgIcon from "../../../components/SvgIcon/index";
 import { EventInstance, EventItem } from "../../../types/index";
 
+const Button = elementController.getElementRender("button");
 const elementManage = inject("elementManage") as ElementManage;
 const props = defineProps({
   //用于循环渲染的事件item
@@ -89,8 +89,12 @@ const getElementSvg = (tag: string) => {
     >
       <div class="c-ml-2">{{ item.describe }}</div>
       <div class="c-mr-2">
-        <ElButton link type="primary" @click="handleAddEvent(item.type)"
-          >新增</ElButton
+        <Button
+          link
+          variant="text"
+          type="primary"
+          @click="handleAddEvent(item.type)"
+          >新增</Button
         >
       </div>
     </div>
@@ -107,7 +111,7 @@ const getElementSvg = (tag: string) => {
       >
         <template #item="{ element: eventInstance, index }">
           <div
-            class="c-p-2 c-rounded-md c-border c-flex c-my-2 hover:c-border-blue-500 c-transition-all dark:c-border-darkMode dark:hover:c-border-blue-500"
+            class="c-p-2 c-rounded-md c-border c-flex c-items-center c-my-2 hover:c-border-blue-500 c-transition-all dark:c-border-darkMode dark:hover:c-border-blue-500"
           >
             <div class="c-flex-1">
               <div v-if="eventInstance.type === 'custom'">自定义函数</div>
@@ -147,17 +151,19 @@ const getElementSvg = (tag: string) => {
                 {{ eventInstance.methodName }}
               </div>
             </div>
-            <el-button
+            <Button
               link
+              variant="text"
               type="primary"
               @click="handleEditEvent(index, item.type, eventInstance)"
-              >编辑</el-button
+              >编辑</Button
             >
-            <el-button
+            <Button
               link
+              variant="text"
               type="danger"
               @click="handleDeleteEvent(index, item.type)"
-              >删除</el-button
+              >删除</Button
             >
           </div>
         </template>

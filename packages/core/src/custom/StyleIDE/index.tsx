@@ -1,13 +1,15 @@
-import { ElButton, ElTooltip } from "element-plus";
+import { ElTooltip } from "element-plus";
 import IDE from "../../components/IDE/index";
 import { defineComponent, ref, watch } from "vue";
 import { CssIcon } from "@cgx-designer/icons";
 import { Message } from "@cgx-designer/extensions";
+import { elementController } from "@cgx-designer/controller";
 
 const StyleIDE = defineComponent({
   inheritAttrs: false,
   emits: ["update:modelValue"],
   setup(_, { attrs, emit }) {
+    const Button = elementController.getElementRender("button");
     const styleIDERef = ref<typeof IDE | null>(null);
     const bindValue = ref<string | null>(null);
     const handleSave = () => {
@@ -48,9 +50,9 @@ const StyleIDE = defineComponent({
               样式
             </span>
           </div>
-          <ElButton link type="primary" onClick={handleSave}>
+          <Button link variant="text" type="primary" onClick={handleSave}>
             保存
-          </ElButton>
+          </Button>
         </div>
         <div class="c-w-full c-h-40 c-border-2 c-transition-all c-duration-300 hover:c-border-blue-500 dark:c-border-gray-600 dark:hover:c-border-blue-500 border-solid rounded-md overflow-hidden">
           <IDE

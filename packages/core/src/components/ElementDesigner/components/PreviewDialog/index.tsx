@@ -81,22 +81,12 @@ const PreviewDialog = defineComponent({
               },
               footer: () => {
                 return (
-                  <div class="c-flex c-gap-2">
-                    <Button variant="outlined" onClick={handleClose}>
-                      关闭
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      type="primary"
-                      onClick={handleValidFormData}
-                    >
+                  <div>
+                    <Button onClick={handleClose}>关闭</Button>
+                    <Button type="primary" onClick={handleValidFormData}>
                       模拟校验
                     </Button>
-                    <Button
-                      variant="outlined"
-                      type="primary"
-                      onClick={handleGetFormData}
-                    >
+                    <Button type="primary" onClick={handleGetFormData}>
                       查看数据
                     </Button>
                   </div>

@@ -2,7 +2,6 @@ import { IEditorElement } from "../../types";
 import { defineComponent, PropType, ref, watch } from "vue";
 import { GroupOption } from "@cgx-designer/materials";
 import {
-  ElButton,
   ElDivider,
   ElIcon,
   ElInput,
@@ -12,12 +11,14 @@ import {
 } from "element-plus";
 import { Delete } from "@element-plus/icons-vue";
 import { QuestionMarkIcon } from "@cgx-designer/icons";
+import { elementController } from "@cgx-designer/controller";
 
 const SelectOption = defineComponent({
   props: {
     elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
   setup(_, { attrs, emit }) {
+    const Button = elementController.getElementRender("button");
     const bindValue = ref<GroupOption[]>(attrs.modelValue as GroupOption[]);
     watch(
       () => bindValue.value,
@@ -73,9 +74,11 @@ const SelectOption = defineComponent({
           );
         })}
         <div class="c-flex c-items-center c-gap-1">
-          <ElButton link type="primary" onClick={() => handleAddOption()}>
+          <Button 
+            variant="text"
+            link type="primary" onClick={() => handleAddOption()}>
             新增选项
-          </ElButton>
+          </Button>
           <ElTooltip
             effect="dark"
             content="switch控制是否禁用选项"

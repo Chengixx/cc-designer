@@ -1,11 +1,4 @@
-import {
-  ElButton,
-  ElEmpty,
-  ElTabPane,
-  ElTabs,
-  ElTree,
-  TabPaneName,
-} from "element-plus";
+import { ElEmpty, ElTabPane, ElTabs, ElTree, TabPaneName } from "element-plus";
 import {
   computed,
   defineComponent,
@@ -27,6 +20,7 @@ import { Message } from "@cgx-designer/extensions";
 const EventSettingDialog = defineComponent({
   emits: ["add", "edit"],
   setup(_, { expose, emit }) {
+    const Button = elementController.getElementRender("button");
     const Dialog = elementController.getElementRender("dialog");
     const functionManage = inject("functionManage") as FunctionManage;
     const elementManage = inject("elementManage") as ElementManage;
@@ -259,10 +253,10 @@ const EventSettingDialog = defineComponent({
           footer: () => {
             return (
               <>
-                <ElButton onClick={handleClose}>取消</ElButton>
-                <ElButton type="primary" onClick={handleConfirm}>
+                <Button onClick={handleClose}>取消</Button>
+                <Button type="primary" onClick={handleConfirm}>
                   确定
-                </ElButton>
+                </Button>
               </>
             );
           },

@@ -1,11 +1,12 @@
 import { RuleItem } from "../..//types";
 import { CCard } from "@cgx-designer/extensions";
 import { IEditorElement } from "@cgx-designer/core";
-import { ElButton, ElDivider, ElInput, ElOption, ElSelect, ElSwitch } from "element-plus";
+import { ElDivider, ElInput, ElOption, ElSelect, ElSwitch } from "element-plus";
 import { defineComponent, onMounted, PropType, ref, watch } from "vue";
 import { triggerOptions, typeOptions } from "./constant";
 import RuleFormItem from "./components/RuleFormItem";
 import { deepClone } from "@cgx-designer/utils";
+import { elementController } from "@cgx-designer/controller";
 
 interface RuleSettingAttrs {
   modelValue: RuleItem[] | undefined;
@@ -19,6 +20,7 @@ const RuleSetting = defineComponent({
     },
   },
   setup(_, { attrs }) {
+    const Button = elementController.getElementRender("button");
     const requiredRule = ref<RuleItem>({
       required: false,
       message: "必填项",
@@ -168,13 +170,14 @@ const RuleSetting = defineComponent({
                   },
                   footer: () => (
                     <div class="c-w-full c-flex c-justify-end">
-                      <ElButton
+                      <Button
                         link
+                        variant="text"
                         type="danger"
                         onClick={() => handleDeleteRule(index)}
                       >
                         删除规则
-                      </ElButton>
+                      </Button>
                     </div>
                   ),
                 }}
@@ -183,15 +186,16 @@ const RuleSetting = defineComponent({
           })}
         </div>
         <div>
-          <ElButton
+          <Button
             link
+            variant="text"
             type="primary"
             onClick={() => {
               handleAddRule();
             }}
           >
             新增校验
-          </ElButton>
+          </Button>
         </div>
       </div>
     );

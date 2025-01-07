@@ -3,7 +3,7 @@ import { IEditorElement } from "../../types";
 import { getRandomId } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
 import { Delete } from "@element-plus/icons-vue";
-import { ElButton, ElDivider, ElIcon, ElInput, ElTooltip } from "element-plus";
+import { ElDivider, ElIcon, ElInput, ElTooltip } from "element-plus";
 import { computed, defineComponent, inject, PropType, ref } from "vue";
 
 const TabList = defineComponent({
@@ -11,6 +11,7 @@ const TabList = defineComponent({
     elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
   setup(_, { attrs }) {
+    const Button = elementController.getElementRender("button");
     const elementManage = inject("elementManage") as ElementManage;
     const focusManage = inject("focusManage") as FocusManage;
     const bindValue = ref<IEditorElement[]>(
@@ -51,7 +52,10 @@ const TabList = defineComponent({
         <div class="c-mt-2">
           {bindValue.value.map((tabPane, index) => {
             return (
-              <div key={tabPane.id} class="c-w-full c-flex c-items-center c-mb-2">
+              <div
+                key={tabPane.id}
+                class="c-w-full c-flex c-items-center c-mb-2"
+              >
                 <div class="c-ml-1">
                   <ElInput
                     v-model={tabPane.props!.label}
@@ -59,13 +63,13 @@ const TabList = defineComponent({
                   />
                 </div>
                 <div class="c-ml-1">
-                  <ElButton
+                  <Button
                     link
                     type="primary"
-                    onClick={(_) => handleSetTabActiveName(tabPane)}
+                    onClick={() => handleSetTabActiveName(tabPane)}
                   >
                     设为默认
-                  </ElButton>
+                  </Button>
                 </div>
                 <ElTooltip effect="dark" content="删除组件" placement="bottom">
                   <div
@@ -80,9 +84,9 @@ const TabList = defineComponent({
               </div>
             );
           })}
-          <ElButton link type="primary" onClick={handleAddTab}>
+          <Button link type="primary" onClick={handleAddTab}>
             新增标签
-          </ElButton>
+          </Button>
         </div>
       </div>
     );

@@ -2,13 +2,7 @@ import { IEditorElement } from "../../types";
 import { getRandomId } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
 import { Delete } from "@element-plus/icons-vue";
-import {
-  ElButton,
-  ElDivider,
-  ElIcon,
-  ElInputNumber,
-  ElTooltip,
-} from "element-plus";
+import { ElDivider, ElIcon, ElInputNumber, ElTooltip } from "element-plus";
 import { defineComponent, inject, PropType, ref } from "vue";
 
 const ColList = defineComponent({
@@ -16,6 +10,7 @@ const ColList = defineComponent({
     elementSchema: { type: Object as PropType<IEditorElement>, required: true },
   },
   setup(_, { attrs }) {
+    const Button = elementController.getElementRender("button");
     const commandManage = inject("commandManage") as any;
     const bindValue = ref<IEditorElement[]>(
       attrs.modelValue as IEditorElement[]
@@ -57,9 +52,9 @@ const ColList = defineComponent({
               </div>
             );
           })}
-          <ElButton link type="primary" onClick={handleAddCol}>
+          <Button variant="text" link type="primary" onClick={handleAddCol}>
             新增栅格
-          </ElButton>
+          </Button>
         </div>
       </div>
     );
