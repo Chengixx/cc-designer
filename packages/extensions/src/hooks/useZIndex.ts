@@ -1,7 +1,7 @@
 import { computed, ref } from "vue";
 
 const zIndex = ref(0);
-export function useZIndex(initialValue = 2000) {
+export function useZIndex(initialValue = 2800) {
   const _initialValue = ref(initialValue);
   const currentZindex = computed(() => zIndex.value + _initialValue.value);
 

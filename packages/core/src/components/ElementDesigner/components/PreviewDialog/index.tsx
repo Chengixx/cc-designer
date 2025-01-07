@@ -1,11 +1,12 @@
 import ElementBuilder from "../../../ElementBuilder";
-import { ElButton, ElDialog, ElMessage } from "element-plus";
+import { ElButton } from "element-plus";
 import { defineComponent, inject, ref } from "vue";
 import { ElementManage, FormManage, FunctionManage } from "@cgx-designer/hooks";
 import { deepClone } from "@cgx-designer/utils";
 import { ElementBuilderExpose } from "../../../ElementBuilder/type";
 import { ValueDialogExpose, ValueDialog } from "./ValueDialog";
 import { elementController } from "@cgx-designer/controller";
+import { Message } from "@cgx-designer/extensions";
 
 const PreviewDialog = defineComponent({
   setup(_, { expose }) {
@@ -37,7 +38,7 @@ const PreviewDialog = defineComponent({
       //防抖节流一下 防止一直点
       elementBuilderRef.value!.formRef.validate((valid: boolean) => {
         if (valid) {
-          ElMessage.success({
+          Message.success({
             message: "校验通过",
             duration: 1000,
           });

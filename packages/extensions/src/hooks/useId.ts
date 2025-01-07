@@ -5,7 +5,7 @@ const defaultIdInjection = {
   current: 0,
 };
 
-export function useId(namespace: string = "er"): Ref<string> {
+export function useId(namespace: string = "cgx"): Ref<string> {
   const idRef = computed(
     () =>
       `${namespace}-id-${

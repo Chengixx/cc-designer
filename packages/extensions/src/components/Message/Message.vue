@@ -5,6 +5,7 @@ import { getLastBottomOffset } from "./methods";
 import { delay, bind } from "lodash";
 import { useEventListener, useOffset } from "../../hooks";
 import { RenderVnode } from "@cgx-designer/utils";
+import { MessageIcon } from "@cgx-designer/icons";
 
 defineOptions({
   name: "ErMessage",
@@ -35,7 +36,7 @@ const cssStyle = computed(() => ({
 }));
 
 let timer: number;
-function startTimmer() {
+function startTimer() {
   if (props.duration === 0) return;
   timer = delay(close, props.duration);
 }
@@ -50,7 +51,7 @@ function close() {
 
 onMounted(() => {
   visible.value = true;
-  startTimmer();
+  startTimer();
 });
 
 useEventListener(document, "keydown", (e: Event) => {
@@ -61,7 +62,7 @@ useEventListener(document, "keydown", (e: Event) => {
 });
 
 watch(visible, (val) => {
-  if (!val) boxHeight.value = -props.offset; // 退出动画更流畅
+  if (!val) boxHeight.value = -props.offset;
 });
 
 defineExpose({
@@ -88,8 +89,11 @@ defineExpose({
       v-show="visible"
       role="alert"
       @mouseenter="clearTimer"
-      @mouseleave="startTimmer"
+      @mouseleave="startTimer"
     >
+      <div class="c-mr-1">
+        <MessageIcon class="c-w-4 c-h-4 c-fill-gray-400" />
+      </div>
       <div class="cgx-message__content">
         <slot>
           <render-vnode v-if="message" :vNode="message" />

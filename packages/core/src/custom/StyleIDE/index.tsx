@@ -1,7 +1,8 @@
-import { ElButton, ElMessage, ElTooltip } from "element-plus";
+import { ElButton, ElTooltip } from "element-plus";
 import IDE from "../../components/IDE/index";
 import { defineComponent, ref, watch } from "vue";
 import { CssIcon } from "@cgx-designer/icons";
+import { Message } from "@cgx-designer/extensions";
 
 const StyleIDE = defineComponent({
   inheritAttrs: false,
@@ -18,9 +19,9 @@ const StyleIDE = defineComponent({
         styleIDERef.value?.formatCode();
         const target = JSON.parse(bindValue.value!);
         emit("update:modelValue", target);
-        ElMessage.success("保存成功");
+        Message.success("保存成功");
       } catch (error) {
-        ElMessage.error(`保存失败:${error}`);
+        Message.error(`保存失败:${error}`);
       }
     };
     watch(

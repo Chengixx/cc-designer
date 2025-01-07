@@ -1,4 +1,4 @@
-import { ElButton, ElDialog, ElMessage, ElTabPane, ElTabs } from "element-plus";
+import { ElButton, ElTabPane, ElTabs } from "element-plus";
 import { ref, defineComponent, nextTick } from "vue";
 import IDE from "../../../../IDE";
 import { BuilderSchema } from "../../../../../../../cgx-designer/dist/core";
@@ -8,6 +8,7 @@ import {
   createSourceCode,
 } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
+import { Message } from "@cgx-designer/extensions";
 
 export interface ExportSourceCodeDialogExpose {
   handleOpen: (builderSchema: BuilderSchema) => void;
@@ -42,8 +43,8 @@ export const ExportSourceCodeDialog = defineComponent({
 
       copyToClipboard(
         targetValue as string,
-        () => ElMessage.success("复制成功"),
-        () => ElMessage.warning("复制失败")
+        () => Message.success("复制成功"),
+        () => Message.warning("复制失败")
       );
     };
     expose({

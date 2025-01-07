@@ -1,8 +1,6 @@
 import {
   ElButton,
-  ElDialog,
   ElEmpty,
-  ElMessage,
   ElTabPane,
   ElTabs,
   ElTree,
@@ -24,6 +22,7 @@ import { EventInstance, IEditorElement } from "../../../types";
 import { deepClone, getRandomId } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
 import ElementIDE from "./ElementIDE";
+import { Message } from "@cgx-designer/extensions";
 
 const EventSettingDialog = defineComponent({
   emits: ["add", "edit"],
@@ -131,7 +130,7 @@ const EventSettingDialog = defineComponent({
     //dialog的方法
     const handleConfirm = () => {
       if (!eventInstance.methodName) {
-        ElMessage.warning("请先选择一个方法才能保存哦~");
+        Message.warning("请先选择一个方法才能保存哦~");
         return;
       }
       emit(isAdd.value ? "add" : "edit", deepClone(toRaw(eventInstance)));

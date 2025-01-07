@@ -1,10 +1,10 @@
 import { defineComponent, PropType } from "vue";
 import { IEditorElement } from "../../../../cgx-designer/dist/core";
-import { ElMessage } from "element-plus";
 import "../../style/index.css";
 import { copyToClipboard } from "@cgx-designer/utils";
 import { elementController } from "../../../../controller/core/elementController";
 import { CopyIcon } from "@cgx-designer/icons";
+import { Message } from "@cgx-designer/extensions";
 
 const IdInput = defineComponent({
   props: {
@@ -19,8 +19,8 @@ const IdInput = defineComponent({
       if (inputValue !== undefined && inputValue !== null) {
         copyToClipboard(
           inputValue as string,
-          () => ElMessage.success("复制成功"),
-          () => ElMessage.warning("复制失败")
+          () => Message.success("复制成功"),
+          () => Message.warning("复制失败")
         );
       }
     };

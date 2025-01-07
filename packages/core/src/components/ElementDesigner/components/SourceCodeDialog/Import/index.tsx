@@ -1,9 +1,10 @@
-import { ElButton, ElDialog, ElNotification } from "element-plus";
+import { ElButton } from "element-plus";
 import { ref, defineComponent, nextTick, inject } from "vue";
 import IDE from "../../../../IDE";
 import { checkCJsonType } from "@cgx-designer/utils";
 import { FormManage, FunctionManage } from "@cgx-designer/hooks";
 import { elementController } from "@cgx-designer/controller";
+import { Message } from "@cgx-designer/extensions";
 
 export interface ImportSourceCodeDialogExpose {
   handleOpen: () => void;
@@ -34,13 +35,13 @@ export const ImportSourceCodeDialog = defineComponent({
           commands!.handleImport(JSON.parse(value).elementList);
           formManage.setFormSetting(JSON.parse(value).formSetting);
           functionManage.setJavaScriptVal(JSON.parse(value).script);
-          ElNotification.success("导入成功");
+          Message.success("导入成功");
           isShow.value = false;
         } else {
-          ElNotification.warning("导入失败，请检查数据格式");
+          Message.warning("导入失败，请检查数据格式");
         }
       } catch (error) {
-        ElNotification.warning("导入失败，请检查数据格式");
+        Message.warning("导入失败，请检查数据格式");
       }
     };
     expose({
