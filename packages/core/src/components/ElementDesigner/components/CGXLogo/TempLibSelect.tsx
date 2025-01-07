@@ -4,11 +4,13 @@ import {
   ElementPlugin,
 } from "@cgx-designer/controller";
 import { ElOption, ElSelect } from "element-plus";
-import { defineComponent, ref } from "vue";
+import { defineComponent, inject, ref } from "vue";
 import { elementPlusPlugin, vuetifyPlugin } from "@cgx-designer/materials";
+import { ElementManage } from "@cgx-designer/hooks";
 
 const TempLibSelect = defineComponent({
   setup() {
+    const elementManage = inject("elementManage") as ElementManage;
     const lib = ref<ElementLib>(elementController.getCurrentElementLibrary()!);
 
     const libMap: Record<ElementLib, ElementPlugin> = {
@@ -17,7 +19,8 @@ const TempLibSelect = defineComponent({
     };
 
     const handleChange = (value: ElementLib) => {
-      elementController.clearElements();
+      elementManage.deleteAllElements();
+      elementController.clearLibElements();
       elementController.install(libMap[value]);
     };
 

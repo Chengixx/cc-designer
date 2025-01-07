@@ -75,7 +75,10 @@ const ElementDesigner = defineComponent({
       return (
         <>
           {elementController.isReady.value && (
-            <div class="c-relative">
+            <div
+              class="c-relative"
+              key={elementController.elementLibrary.value}
+            >
               <div class="c-h-10">
                 <CGXLogo />
               </div>

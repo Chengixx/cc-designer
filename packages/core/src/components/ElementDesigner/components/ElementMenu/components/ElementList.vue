@@ -16,7 +16,7 @@ const hoverManage = inject("hoverManage") as HoverManage;
 const commands: Record<string, Function> | undefined = inject("commands");
 //搜索过后用于渲染的
 const renderElementList = computed(() => {
-  return elementController!.elementList.filter((item) => {
+  return elementController!.elementList.value.filter((item) => {
     return item.label.includes(props.searchValue);
   });
 });
@@ -49,7 +49,9 @@ const handleMouseLeave = () => {
 
 <template>
   <template v-if="!renderElementList.length">
-    <div class="c-w-full c-flex c-justify-center c-items-center c-text-gray-400 c-mt-10">
+    <div
+      class="c-w-full c-flex c-justify-center c-items-center c-text-gray-400 c-mt-10"
+    >
       无此关键字组件
     </div>
   </template>
@@ -82,7 +84,9 @@ const handleMouseLeave = () => {
             <SvgIcon
               :name="element.icon"
               :class="[
-                { 'c-fill-blue-500 dark:c-fill-blue-500': hoverIndex === index },
+                {
+                  'c-fill-blue-500 dark:c-fill-blue-500': hoverIndex === index,
+                },
                 { 'dark:c-fill-white': hoverIndex !== index },
               ]"
             />
@@ -91,14 +95,19 @@ const handleMouseLeave = () => {
             <component
               :class="[
                 'c-w-[16px] c-h-[16px]',
-                { 'c-fill-blue-500 dark:c-fill-blue-500': hoverIndex === index },
+                {
+                  'c-fill-blue-500 dark:c-fill-blue-500': hoverIndex === index,
+                },
                 { 'dark:c-fill-white': hoverIndex !== index },
               ]"
               :is="getElementSvg(element.key)"
             />
           </template>
           <span
-            :class="['c-text-sm c-ml-1', { 'c-text-blue-500': hoverIndex === index }]"
+            :class="[
+              'c-text-sm c-ml-1',
+              { 'c-text-blue-500': hoverIndex === index },
+            ]"
             >{{ element.label }}</span
           >
         </div>
