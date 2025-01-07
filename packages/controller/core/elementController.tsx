@@ -15,7 +15,7 @@ export class ElementController {
   //是否已经初始化完成
   isReady = ref<boolean>(false);
   //当前使用的是哪个组件库(内部)
-  elementLibrary = ref<ElementLib | null>(null) ;
+  elementLibrary = ref<ElementLib | null>(null);
   //初始的模板，初始的schema
   elementTemplate: Record<string, (uuid: Function) => IEditorElement> = {};
   //能用的是哪些,用于渲染左侧物料列表
@@ -26,6 +26,7 @@ export class ElementController {
   elementRenderMap: Record<string, any> = {};
   //总的install(这个主要是实际生产用的时候注册插件
   install = (elementPlugin: ElementPlugin) => {
+    console.log("走到这了吗");
     const { name, template } = elementPlugin;
     for (let key in template) {
       elementController.register(template[key]);
@@ -34,10 +35,19 @@ export class ElementController {
     this.elementLibrary.value = name;
     this.isReady.value = true;
   };
+  //清空控制器
+  clearElements = () => {
+    this.elementList = [];
+    this.elementConfigMap = {};
+    this.elementRenderMap = {};
+    this.elementTemplate = {};
+    this.elementLibrary.value = null;
+    this.isReady.value = false;
+  };
   //获取当前是什么组件库
   getCurrentElementLibrary = () => {
     return this.elementLibrary.value;
-  }
+  };
   //注册元素到左侧菜单栏，必须走这里过
   register = (elementBaseConfig: IElementBaseSetting) => {
     if (!elementBaseConfig.noPushList) {
@@ -116,6 +126,10 @@ export class ElementController {
   //获取element渲染
   getElementRender = (key: string) => {
     return this.elementRenderMap[key];
+  };
+  //获取element配置
+  getElementConfig = (key: string) => {
+    return this.elementConfigMap[key];
   };
 }
 

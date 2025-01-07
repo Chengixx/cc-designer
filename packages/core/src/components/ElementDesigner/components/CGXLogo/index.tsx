@@ -4,6 +4,7 @@ import { inject } from "vue";
 import { ThemeManage } from "@cgx-designer/hooks/src/useTheme";
 import { ElSwitch } from "element-plus";
 import { MoveIcon } from "@cgx-designer/extensions";
+import TempLibSelect from "./TempLibSelect";
 
 const CGXLogo = () => {
   const themeManage = inject("themeManage") as ThemeManage;
@@ -30,6 +31,7 @@ const CGXLogo = () => {
         </span>
       </div>
       <div class="c-flex-1 c-flex c-justify-end c-items-center c-gap-x-6">
+        <TempLibSelect />
         <span class="c-cursor-pointer">文档</span>
         <ElSwitch
           size="large"

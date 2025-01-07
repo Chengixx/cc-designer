@@ -83,7 +83,7 @@ const EditorElement = defineComponent({
     const isFocus = computed(() => {
       return focusManage.focusedElement.value?.id === props.elementSchema.id;
     });
-    
+
     return () => {
       return (
         <>
