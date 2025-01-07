@@ -11,7 +11,7 @@
   top: 20px;
   transform: translateX(-50%);
   background-color: #e5f2ff;
-  padding: 15px 19px;
+  padding: 12px 19px;
   display: flex;
   align-items: center;
   transition:
@@ -19,7 +19,6 @@
     opacity 0.3s ease,
     transform 0.3s ease;
   .cgx-message__content {
-    color: #2c87d0;
     overflow-wrap: break-word;
   }
   &.is-close .cgx-message__content {
@@ -31,6 +30,7 @@
   .cgx-message__close {
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
   .cgx-message__close .cgx-icon {
     cursor: pointer;
@@ -49,12 +49,12 @@
 
 /* Success */
 .cgx-message--success {
-  background-color: #e5f7e5;
-  border-color: #b3d8b3;
-  color: #4caf50;
+  background-color: #f0f9eb;
+  border-color: #eff9ea;
+  color: #8ad067;
 }
 .cgx-message--success .cgx-message__close {
-  color: #4caf50;
+  color: #8ad067;
 }
 
 /* Warning */

@@ -5,7 +5,7 @@ import { getLastBottomOffset } from "./methods";
 import { delay, bind } from "lodash";
 import { useEventListener, useOffset } from "../../hooks";
 import { RenderVnode } from "@cgx-designer/utils";
-import { MessageIcon } from "@cgx-designer/icons";
+import { MessageIcon, CloseIcon } from "@cgx-designer/icons";
 
 defineOptions({
   name: "ErMessage",
@@ -100,7 +100,9 @@ defineExpose({
         </slot>
       </div>
       <div class="cgx-message__close" v-if="showClose">
-        <div @click.stop="close">X</div>
+        <div @click.stop="close">
+          <CloseIcon class="c-w-4 c-h-4 c-fill-gray-400" />
+        </div>
       </div>
     </div>
   </Transition>
