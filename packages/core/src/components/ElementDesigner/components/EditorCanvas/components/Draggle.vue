@@ -58,7 +58,7 @@ const handleAdd = (index: number) => {
           _needMarginBottom(element) ? 'c-mb-0' : 'c-mb-4',
           element.key === 'row' ? 'c-border c-border-[#d9d9d9] c-border-dashed' : '',
           element.key === 'divider' ? 'c-inline-block' : '',
-          'editor-element-item',
+          'editor-element-item c-relative',
         ]"
         :key="element.id"
       >

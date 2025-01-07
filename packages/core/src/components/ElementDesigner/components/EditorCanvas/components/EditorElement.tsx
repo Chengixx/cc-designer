@@ -14,6 +14,7 @@ import { IEditorElement } from "../../../../../types";
 import Draggle from "./Draggle.vue";
 import ElementNode from "../../../../ElementNode";
 import { useParentDomList } from "../../../../../constant";
+import { DragIcon } from "@cgx-designer/icons";
 
 const EditorElement = defineComponent({
   props: {
@@ -77,41 +78,62 @@ const EditorElement = defineComponent({
     const handleClick = (e: MouseEvent) => {
       focusManage.handleFocus(props.elementSchema, e);
     };
+    const isFocus = computed(() => {
+      return focusManage.focusedElement.value?.id === props.elementSchema.id;
+    });
+    const isDragWidgetHovered = ref<boolean>(false);
     return () => {
       return (
-        <ElementNode elementSchema={props.elementSchema} ref={elementRef}>
-          {{
-            editNode: () => {
-              if (
-                props.elementSchema?.key === "row" ||
-                props.elementSchema?.key === "tab"
-              ) {
-                //就返回循环的elementList啊
-                return (
-                  <>
-                    {props.elementSchema.elementList!.map(
-                      (childElementSchema: IEditorElement) => {
-                        return (
-                          <EditorElement
-                            elementSchema={childElementSchema}
-                            key={childElementSchema.id}
-                          />
-                        );
-                      }
-                    )}
-                  </>
-                );
-              } else {
-                return (
-                  <Draggle
-                    elementSchemaList={props.elementSchema.elementList!}
-                    isNested
-                  />
-                );
-              }
-            },
-          }}
-        </ElementNode>
+        <>
+          {isFocus.value && (
+            <div
+              class={[
+                "c-absolute c-z-10 c-top-0 c-left-0 c-h-6 c-p-1 c-flex c-gap-x-1 c-justify-center c-items-center c-cursor-move c-rounded-br-sm c-transition-all",
+                isDragWidgetHovered.value ? "c-bg-[#409eff]" : "c-bg-[rgba(64,158,255,.3)]",
+              ]}
+              onClick={handleClick}
+              onMouseenter={() => (isDragWidgetHovered.value = true)}
+              onMouseleave={() => (isDragWidgetHovered.value = false)}
+            >
+              <DragIcon class="c-fill-white c-w-4 c-h-4" />
+              <span class="c-text-white">{props.elementSchema.key}</span>
+            </div>
+          )}
+
+          <ElementNode elementSchema={props.elementSchema} ref={elementRef}>
+            {{
+              editNode: () => {
+                if (
+                  props.elementSchema?.key === "row" ||
+                  props.elementSchema?.key === "tab"
+                ) {
+                  //就返回循环的elementList啊
+                  return (
+                    <>
+                      {props.elementSchema.elementList!.map(
+                        (childElementSchema: IEditorElement) => {
+                          return (
+                            <EditorElement
+                              elementSchema={childElementSchema}
+                              key={childElementSchema.id}
+                            />
+                          );
+                        }
+                      )}
+                    </>
+                  );
+                } else {
+                  return (
+                    <Draggle
+                      elementSchemaList={props.elementSchema.elementList!}
+                      isNested
+                    />
+                  );
+                }
+              },
+            }}
+          </ElementNode>
+        </>
       );
     };
   },
