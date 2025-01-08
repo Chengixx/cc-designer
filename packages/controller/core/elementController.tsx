@@ -171,5 +171,5 @@ export class ElementController {
 export const elementController = new ElementController();
 
 //开发环境测试用
-elementController.install(vuetifyPlugin);
+// elementController.install(vuetifyPlugin);
 // elementController.install(elementPlusPlugin);

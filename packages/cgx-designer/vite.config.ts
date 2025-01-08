@@ -31,18 +31,23 @@ export default defineConfig({
     lib: {
       entry: {
         index: path.resolve(__dirname, "./index.ts"),
+        elementPlus: path.resolve(__dirname, "../materials/core/element-plus/index.ts"),
+        vuetify: path.resolve(__dirname, "../materials/core/vuetify/index.ts"),
       },
       name: "cgx-designer",
       // formats: ["es"],
       fileName: (ModuleFormat, entryName) => {
-        // console.log("文件name", ModuleFormat, entryName);
+        console.log("文件名",ModuleFormat, entryName);
         const extension = ModuleFormat === "es" ? "js" : ModuleFormat;
-        const path = `index.${extension}`;
+        const isIndexEntry = entryName === "index";
+        const path = isIndexEntry
+          ? `index.${extension}`
+          : `materials/core/${entryName}/index.${extension}`;
         return path;
       },
     },
     rollupOptions: {
-      external: ["vue", "element-plus"],
+      external: ["vue", "element-plus", "vuetify"],
       output: {
         globals: {
           vue: "Vue",
