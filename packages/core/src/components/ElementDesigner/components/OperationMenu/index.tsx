@@ -127,7 +127,13 @@ const OperationMenu = defineComponent({
             <Icon {...Clear} />
             <Icon {...Message} />
           </div>
-          <div class="c-h-full c-flex-1 c-flex c-justify-end c-items-center c-pr-4 c-gap-x-2">
+          <div
+            class={[
+              "c-h-full c-flex-1 c-flex c-justify-end c-items-center c-pr-4",
+              elementController.getCurrentElementLibrary() === "vuetify" &&
+                "c-gap-x-2",
+            ]}
+          >
             {IconButton(Tree, true)}
             {IconButton(Import, true)}
             {IconButton(Export, true)}
