@@ -18,3 +18,4 @@ export let vuetifyPlugin: ElementPlugin = {
 };
 
 export * from "./Button/VBtnColorType";
+export * from "./vuetify";

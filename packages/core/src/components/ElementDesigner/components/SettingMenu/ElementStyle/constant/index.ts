@@ -12,7 +12,6 @@ export const defaultStyleSchema: IEditorElement[] = [
     field: "style.width",
     props: {
       placeholder: "请输入宽度",
-      size: "default",
     },
   },
   {
@@ -21,7 +20,6 @@ export const defaultStyleSchema: IEditorElement[] = [
     field: "style.height",
     props: {
       placeholder: "请输入高度",
-      size: "default",
     },
   },
   {

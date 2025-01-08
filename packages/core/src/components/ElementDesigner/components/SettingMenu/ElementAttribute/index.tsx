@@ -9,7 +9,7 @@ import {
   getValueByPath,
 } from "./../../../../../../../utils/common/util";
 import { ElCol, ElEmpty, ElRow } from "element-plus";
-import { vuetifyConfig, vuetifyProps } from "./vuetify";
+import { vuetifyProps } from "@cgx-designer/materials";
 
 const ElementAttribute = defineComponent({
   setup() {

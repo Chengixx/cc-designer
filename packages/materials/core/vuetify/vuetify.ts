@@ -4,11 +4,6 @@ export const vuetifyConfig: Record<string, any> = {
   inset: true,
   color: "primary",
   density: 'compact',
-  // tile: true,
-  // style: {
-  //   transform: "scale(0.875)",
-  //   transformOrigin: "left",
-  // },
 };
 
 export const vuetifyProps = (key: string) => {

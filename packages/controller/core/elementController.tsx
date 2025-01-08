@@ -158,7 +158,8 @@ export class ElementController {
   };
   //获取element渲染
   getElementRender = (key: string) => {
-    return this.elementRenderMap[key];
+    //兜底 没有的话返回一个空
+    return this.elementRenderMap[key] ?? (() => <></>);
   };
   //获取element配置
   getElementConfig = (key: string) => {
