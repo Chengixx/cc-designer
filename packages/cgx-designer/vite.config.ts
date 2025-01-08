@@ -31,7 +31,7 @@ export default defineConfig({
     lib: {
       entry: {
         index: path.resolve(__dirname, "./index.ts"),
-        elementPlus: path.resolve(__dirname, "../materials/core/element-plus/index.ts"),
+        elementPlus: path.resolve(__dirname, "../materials/core/elementPlus/index.ts"),
         vuetify: path.resolve(__dirname, "../materials/core/vuetify/index.ts"),
       },
       name: "cgx-designer",

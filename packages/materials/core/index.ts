@@ -1,2 +1,2 @@
-export * from "./element-plus";
+export * from "./elementPlus";
 export * from "./vuetify"
