@@ -12,6 +12,8 @@ const Input: IElementBaseSetting = {
       id,
       field: "input-" + id,
       key: "input",
+      formItem: true,
+      noShowFormItem: true,
       props: {
         label: "input",
         placeholder: "placeholder",

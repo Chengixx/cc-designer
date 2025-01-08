@@ -27,7 +27,10 @@ export const useHover = (
     const elementInstance = elementManage.getElementInstanceById(id!);
     if (!id || !elementInstance) return null;
     //如果是表单组件,就给表单的item
-    if (hoveredElement.value?.formItem) {
+    if (
+      hoveredElement.value?.formItem &&
+      !!!hoveredElement.value.noShowFormItem
+    ) {
       return elementManage.elementInstanceList.value[
         hoveredElement.value?.id + "-form-item"
       ].$el;
@@ -74,9 +77,14 @@ export const useHover = (
       hoveredElementDom.value.getBoundingClientRect();
     const modeStyle =
       currentMode.value !== "pc" ? { left: 10, top: 10 } : { left: 0, top: 0 };
-    hoverWidgetRef.value!.style.left = left - containerLeft - modeStyle.left + "px";
+    hoverWidgetRef.value!.style.left =
+      left - containerLeft - modeStyle.left + "px";
     hoverWidgetRef.value!.style.top =
-      top - containerTop + containerRef.value?.scrollTop! - modeStyle.top + "px";
+      top -
+      containerTop +
+      containerRef.value?.scrollTop! -
+      modeStyle.top +
+      "px";
     hoverWidgetRef.value!.style.width = width + "px";
     hoverWidgetRef.value!.style.height = height + "px";
   };

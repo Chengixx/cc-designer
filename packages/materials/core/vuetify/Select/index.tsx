@@ -12,6 +12,8 @@ const Select: IElementBaseSetting = {
       id,
       key: "select",
       field: "select-" + id,
+      formItem: true,
+      noShowFormItem: true,
       props: {
         hideDetails: true,
         label: "select",

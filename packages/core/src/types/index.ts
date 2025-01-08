@@ -7,6 +7,7 @@ export interface IEditorElement {
   field?: string;
   elementList?: IEditorElement[];
   formItem?: boolean;
+  noShowFormItem?: boolean;
   props?: Record<string, any>;
   [key: string]: any;
 }

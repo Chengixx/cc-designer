@@ -11,6 +11,8 @@ const ColorPicker: IElementBaseSetting = {
     return {
       id,
       field: "colorPicker-" + id,
+      formItem: true,
+      noShowFormItem: true,
       key: "colorPicker",
       props: {
         defaultValue: "#409EFF",

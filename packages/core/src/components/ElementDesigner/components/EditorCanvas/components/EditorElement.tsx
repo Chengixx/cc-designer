@@ -29,7 +29,10 @@ const EditorElement = defineComponent({
       const id = props.elementSchema.id!;
       const elementInstance = elementManage.getElementInstanceById(id);
       if (!id || !elementInstance) return null;
-      if (props.elementSchema.formItem) {
+      if (
+        props.elementSchema.formItem &&
+        !!!props.elementSchema.noShowFormItem
+      ) {
         return elementManage.getElementInstanceById(id + "-form-item").$el;
       }
       if (elementInstance.$el.nodeName === "#text") {

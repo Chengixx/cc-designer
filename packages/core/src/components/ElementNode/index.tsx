@@ -141,7 +141,11 @@ const ElementNode = defineComponent({
         }
 
         elementManage.addElementInstance(localSchema.id, instance);
-        if (formItemRef.value && localSchema.formItem) {
+        if (
+          formItemRef.value &&
+          localSchema.formItem &&
+          !!!localSchema.noShowFormItem
+        ) {
           elementManage.addElementInstance(
             localSchema.id + "-form-item",
             formItemRef.value!
@@ -153,7 +157,7 @@ const ElementNode = defineComponent({
     const handleRemoveElementInstance = () => {
       if (localSchema.id) {
         elementManage.deleteElementInstance(localSchema.id);
-        if (localSchema.formItem) {
+        if (localSchema.formItem && !!!localSchema.noShowFormItem) {
           elementManage.deleteElementInstance(localSchema.id + "-form-item");
         }
       }
@@ -196,7 +200,7 @@ const ElementNode = defineComponent({
     //组件的外层
     const ElementShell = (children: any) => (
       <>
-        {localSchema.formItem ? (
+        {localSchema.formItem && !!!localSchema.noShowFormItem ? (
           <ElFormItem
             for="-"
             label={

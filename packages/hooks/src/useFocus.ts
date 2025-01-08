@@ -29,7 +29,10 @@ export const useFocus = (
     const elementInstance = elementManage.getElementInstanceById(id!);
     if (!id || !elementInstance) return null;
     //如果是表单组件,就给表单的item
-    if (focusedElement.value?.formItem) {
+    if (
+      focusedElement.value?.formItem &&
+      !!!focusedElement.value.noShowFormItem
+    ) {
       return elementManage.elementInstanceList.value[
         focusedElement.value?.id + "-form-item"
       ].$el;

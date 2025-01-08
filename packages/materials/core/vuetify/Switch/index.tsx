@@ -12,6 +12,8 @@ const Switch: IElementBaseSetting = {
       id,
       field: "switch-" + id,
       key: "switch",
+      formItem: true,
+      noShowFormItem: true,
       props: {
         hideDetails: true,
         label: "switch",
