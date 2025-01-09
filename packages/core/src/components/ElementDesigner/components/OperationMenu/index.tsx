@@ -1,8 +1,8 @@
 import { computed, defineComponent, inject, PropType } from "vue";
 import { OperationButtonSetting } from "./operationButtonSetting";
-import { ButtonType, ElRadioGroup, ElRadioButton } from "element-plus";
-import { FocusManage, ModeManage } from "@cgx-designer/hooks";
+import { ButtonType } from "element-plus";
 import { elementController } from "@cgx-designer/controller";
+import ModeButtonGroup from "./ModeButtonGroup";
 
 const Icon = (Iconfig: OperationButtonSetting, disabled: boolean = false) => {
   const handleClick = () => {
@@ -78,23 +78,8 @@ const OperationMenu = defineComponent({
   },
   setup({ buttonMap }) {
     const commandManage = inject("commandManage") as any;
-    const modeManage = inject("modeManage") as ModeManage;
-    const focusManage = inject("focusManage") as FocusManage;
     const { Message, Tree, Clear, Undo, Redo, Export, Import, Preview } =
       buttonMap;
-
-    const modeComputed = computed({
-      get() {
-        return modeManage.mode.value;
-      },
-      set(nv) {
-        focusManage.startFocusTimedQuery();
-        modeManage.setMode(nv);
-        setTimeout(() => {
-          focusManage.stopFocusTimedQuery();
-        }, 350);
-      },
-    });
 
     const undoDisabled = computed(() => {
       const { queue, current } = commandManage;
@@ -113,12 +98,8 @@ const OperationMenu = defineComponent({
       return (
         <div class="c-h-12 c-flex c-items-center c-border-y c-bg-white c-border-gray-200 dark:c-bg-darkMode dark:c-border-darkMode">
           <div class="c-h-full c-flex c-justify-center c-items-center c-py-2">
-            <div class="c-border-r c-px-4 c-flex c-justify-center c-items-center dark:c-border-[#3e434c]">
-              <ElRadioGroup v-model={modeComputed.value} size="small">
-                <ElRadioButton label="Pc" value="pc" />
-                <ElRadioButton label="Pad" value="ipad" />
-                <ElRadioButton label="Pe" value="pe" />
-              </ElRadioGroup>
+            <div class="c-h-full c-border-r c-px-4 c-flex c-justify-center c-items-center dark:c-border-[#3e434c] ">
+              <ModeButtonGroup />
             </div>
           </div>
           <div class="c-h-full c-flex-1 c-flex c-items-center c-gap-x-4 c-pl-4">
