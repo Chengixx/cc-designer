@@ -19,7 +19,7 @@ const vuetify = createVuetify({
 import { elementController } from "cgx-designer";
 import { elementPlusPlugin } from "cgx-designer/dist/materials/core/elementPlus";
 import "cgx-designer/dist/module.css";
-import "cgx-designer/dist/style.css";
+// import "cgx-designer/dist/style.css";
 
 elementController.install(elementPlusPlugin);
 

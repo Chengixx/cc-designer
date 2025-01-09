@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { elementController } from "@cgx-designer/controller";
-import { inject, PropType } from "vue";
+import { computed, inject, PropType } from "vue";
 import draggable from "vuedraggable";
 import { ElementManage } from "@cgx-designer/hooks";
 import SvgIcon from "../../../components/SvgIcon/index";
@@ -80,6 +80,10 @@ const getElementSetting = (id: string) => {
 const getElementSvg = (tag: string) => {
   return elementController!.elementConfigMap[tag].icon;
 };
+
+const isVuetify = computed(() => {
+  return elementController.getCurrentElementLibrary() === "vuetify";
+});
 </script>
 
 <template>
@@ -93,7 +97,7 @@ const getElementSvg = (tag: string) => {
         <Button
           link
           variant="text"
-          :color="VBtnColorType.primary"
+          :color="isVuetify && VBtnColorType.primary"
           type="primary"
           @click="handleAddEvent(item.type)"
           >新增</Button
@@ -157,7 +161,7 @@ const getElementSvg = (tag: string) => {
               link
               variant="text"
               type="primary"
-              :color="VBtnColorType.primary"
+              :color="isVuetify && VBtnColorType.primary"
               @click="handleEditEvent(index, item.type, eventInstance)"
               >编辑</Button
             >
@@ -165,7 +169,7 @@ const getElementSvg = (tag: string) => {
               link
               variant="text"
               type="danger"
-              :color="VBtnColorType.danger"
+              :color="isVuetify && VBtnColorType.danger"
               @click="handleDeleteEvent(index, item.type)"
               >删除</Button
             >
