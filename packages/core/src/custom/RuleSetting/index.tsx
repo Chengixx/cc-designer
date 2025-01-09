@@ -1,13 +1,12 @@
 import { RuleItem } from "../..//types";
-import { CCard } from "@cgx-designer/extensions";
+import { CCard, Divider } from "@cgx-designer/extensions";
 import { IEditorElement } from "@cgx-designer/core";
-import { ElDivider, ElInput, ElOption, ElSelect, ElSwitch } from "element-plus";
 import { defineComponent, onMounted, PropType, ref, watch } from "vue";
 import { triggerOptions, typeOptions } from "./constant";
 import RuleFormItem from "./components/RuleFormItem";
 import { deepClone } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
-import { VBtnColorType } from "@cgx-designer/materials";
+import { VBtnColorType, vuetifyConfig } from "@cgx-designer/materials";
 
 interface RuleSettingAttrs {
   modelValue: RuleItem[] | undefined;
@@ -22,6 +21,9 @@ const RuleSetting = defineComponent({
   },
   setup(_, { attrs }) {
     const Button = elementController.getElementRender("button");
+    const Input = elementController.getElementRender("input");
+    const Switch = elementController.getElementRender("switch");
+    const Select = elementController.getElementRender("select");
     const requiredRule = ref<RuleItem>({
       required: false,
       message: "必填项",
@@ -76,7 +78,7 @@ const RuleSetting = defineComponent({
     };
     return () => (
       <div class="c-w-full">
-        <ElDivider>校验配置</ElDivider>
+        <Divider label="校验配置" />
         <div class="c-mt-2">
           <CCard>
             {{
@@ -84,41 +86,47 @@ const RuleSetting = defineComponent({
                 return (
                   <>
                     <RuleFormItem label="必填">
-                      <ElSwitch v-model={requiredRule.value.required} />
+                      <Switch
+                        v-model={requiredRule.value.required}
+                        {...vuetifyConfig}
+                      />
                     </RuleFormItem>
                     {requiredRule.value.required && (
                       <>
                         <RuleFormItem label="校验时机" class="c-mt-2">
-                          <ElSelect
+                          <Select
                             v-model={requiredRule.value.trigger}
-                            multiple
-                          >
-                            {triggerOptions.map((item) => {
-                              return (
-                                <ElOption
-                                  label={item.label}
-                                  value={item.value}
-                                  key={item.value}
-                                />
-                              );
-                            })}
-                          </ElSelect>
+                            elementSchema={{
+                              props: {
+                                ...vuetifyConfig,
+                                multiple: true,
+                                options: triggerOptions,
+                                placeholder: "请选择时机",
+                              },
+                              field: undefined,
+                              formItem: false,
+                            }}
+                          />
                         </RuleFormItem>
                         <RuleFormItem label="类型" class="c-mt-2">
-                          <ElSelect v-model={requiredRule.value.type}>
-                            {typeOptions.map((item) => {
-                              return (
-                                <ElOption
-                                  label={item.label}
-                                  value={item.value}
-                                  key={item.value}
-                                />
-                              );
-                            })}
-                          </ElSelect>
+                          <Select
+                            v-model={requiredRule.value.type}
+                            elementSchema={{
+                              props: {
+                                ...vuetifyConfig,
+                                options: typeOptions,
+                                placeholder: "请选择类型",
+                              },
+                              field: undefined,
+                              formItem: false,
+                            }}
+                          />
                         </RuleFormItem>
                         <RuleFormItem label="提示信息" class="c-mt-2">
-                          <ElInput v-model={requiredRule.value.message} />
+                          <Input
+                            v-model={requiredRule.value.message}
+                            {...vuetifyConfig}
+                          />
                         </RuleFormItem>
                       </>
                     )}
@@ -135,36 +143,39 @@ const RuleSetting = defineComponent({
                     return (
                       <>
                         <RuleFormItem label="校验时机">
-                          <ElSelect v-model={rule.trigger} multiple>
-                            {triggerOptions.map((item) => {
-                              return (
-                                <ElOption
-                                  label={item.label}
-                                  value={item.value}
-                                  key={item.value}
-                                />
-                              );
-                            })}
-                          </ElSelect>
+                          <Select
+                            v-model={rule.trigger}
+                            elementSchema={{
+                              props: {
+                                ...vuetifyConfig,
+                                multiple: true,
+                                options: triggerOptions,
+                                placeholder: "请选择时机",
+                              },
+                              field: undefined,
+                              formItem: false,
+                            }}
+                          />
                         </RuleFormItem>
                         <RuleFormItem label="类型" class="c-mt-2">
-                          <ElSelect v-model={rule.type}>
-                            {typeOptions.map((item) => {
-                              return (
-                                <ElOption
-                                  label={item.label}
-                                  value={item.value}
-                                  key={item.value}
-                                />
-                              );
-                            })}
-                          </ElSelect>
+                          <Select
+                            v-model={rule.type}
+                            elementSchema={{
+                              props: {
+                                ...vuetifyConfig,
+                                options: typeOptions,
+                                placeholder: "请选择类型",
+                              },
+                              field: undefined,
+                              formItem: false,
+                            }}
+                          />
                         </RuleFormItem>
                         <RuleFormItem label="正则校验" class="c-mt-2">
-                          <ElInput v-model={rule.pattern} />
+                          <Input v-model={rule.pattern} {...vuetifyConfig} />
                         </RuleFormItem>
                         <RuleFormItem label="提示信息" class="c-mt-2">
-                          <ElInput v-model={rule.message} />
+                          <Input v-model={rule.message} {...vuetifyConfig} />
                         </RuleFormItem>
                       </>
                     );
