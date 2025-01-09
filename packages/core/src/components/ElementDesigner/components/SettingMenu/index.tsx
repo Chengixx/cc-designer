@@ -5,7 +5,6 @@ import ElementAttribute from "./ElementAttribute";
 import { FocusManage } from "@cgx-designer/hooks";
 import ElementEvent from "./ElementEvent";
 import ElementStyle from "./ElementStyle";
-import "../../../../style/index.css"
 
 const SettingMenu = defineComponent({
   setup() {

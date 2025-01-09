@@ -11,6 +11,8 @@ import {
   StyleIDE
 } from "./src/custom";
 import { elementController } from "@cgx-designer/controller";
+import "@cgx-designer/materials/core/elementPlus/index.css"
+import "@cgx-designer/materials/core/vuetify/index.css"
 
 elementController.registerElementRenderMap("selectOption", SelectOption);
 elementController.registerElementRenderMap("colList", ColList);
