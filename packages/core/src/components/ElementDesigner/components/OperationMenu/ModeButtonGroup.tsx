@@ -23,13 +23,15 @@ const ModeButtonGroup = defineComponent({
 
     return () => (
       <div class="c-w-32 c-h-full c-flex c-border c-rounded-md c-cursor-pointer c-box-border dark:c-p-[1px]">
-        {modeTypes.map((modeItem) => {
+        {modeTypes.map((modeItem, index) => {
           return (
             <div
               class={[
                 "c-flex-1 flex c-justify-center c-items-center c-text-center",
                 modeManage.mode.value === modeItem.value &&
                   "c-bg-gray-200 dark:c-bg-gray-700",
+                // 如果不是第一个和最后一个
+                index !== 0 && index !== modeTypes.length - 1 && "c-border-x",
               ]}
               onClick={(e: MouseEvent) => {
                 e.preventDefault();

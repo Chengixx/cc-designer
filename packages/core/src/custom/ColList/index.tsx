@@ -1,7 +1,7 @@
 import { IEditorElement } from "../../types";
 import { getRandomId } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
-import { defineComponent, inject, PropType, ref } from "vue";
+import { defineComponent, inject, PropType, ref, watch } from "vue";
 import { Divider } from "@cgx-designer/extensions";
 import { ClearIcon } from "@cgx-designer/icons";
 
@@ -17,6 +17,18 @@ const ColList = defineComponent({
       attrs.modelValue as IEditorElement[]
     );
 
+    watch(
+      () => attrs.modelValue,
+      (val) => {
+        bindValue.value = val as IEditorElement[];
+        console.log(bindValue.value);
+      },
+      {
+        immediate: true,
+        deep: true,
+      }
+    );
+
     const handleAddCol = () => {
       const colSchema = elementController.elementTemplate["col"](getRandomId);
       bindValue.value.push(colSchema);
@@ -24,6 +36,7 @@ const ColList = defineComponent({
 
     const handleDeleteCol = (index: number) => {
       const id = bindValue.value[index].id!;
+      //Todo 深拷贝问题
       commandManage.commands.handleDelete(id, bindValue.value.length === 1);
     };
 
