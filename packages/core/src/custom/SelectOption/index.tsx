@@ -1,14 +1,11 @@
 import { IEditorElement } from "../../types";
 import { defineComponent, PropType, ref, watch } from "vue";
-import { GroupOption, VBtnColorType } from "@cgx-designer/materials";
 import {
-  ElDivider,
-  ElIcon,
-  ElInput,
-  ElPopconfirm,
-  ElSwitch,
-  ElTooltip,
-} from "element-plus";
+  GroupOption,
+  VBtnColorType,
+  vuetifyConfig,
+} from "@cgx-designer/materials";
+import { ElDivider, ElIcon, ElSwitch, ElTooltip } from "element-plus";
 import { Delete } from "@element-plus/icons-vue";
 import { QuestionMarkIcon } from "@cgx-designer/icons";
 import { elementController } from "@cgx-designer/controller";
@@ -19,6 +16,7 @@ const SelectOption = defineComponent({
   },
   setup(_, { attrs, emit }) {
     const Button = elementController.getElementRender("button");
+    const Input = elementController.getElementRender("input");
     const bindValue = ref<GroupOption[]>(attrs.modelValue as GroupOption[]);
     watch(
       () => bindValue.value,
@@ -42,34 +40,29 @@ const SelectOption = defineComponent({
         {bindValue.value?.map((option: GroupOption, index: number) => {
           return (
             <div class="c-flex c-justify-center c-items-center c-my-2">
-              <ElInput
+              <Input
                 class="c-w-2/5"
+                {...vuetifyConfig}
                 v-model={option.label}
                 placeholder="label"
               />
-              <ElInput
+              <Input
                 class="c-w-2/5 c-ml-1"
+                {...vuetifyConfig}
                 v-model={option.value}
                 placeholder="value"
               />
-
-              <ElSwitch v-model={option.disabled} class="c-w-1/5 c-ml-1" />
-              <ElPopconfirm
-                title="确定删除吗？"
-                onConfirm={() => handleDeleteOption(index)}
-              >
-                {{
-                  reference: () => {
-                    return (
-                      <div class="c-w-1/5 c-ml-1 c-cursor-pointer">
-                        <ElIcon>
-                          <Delete />
-                        </ElIcon>
-                      </div>
-                    );
-                  },
-                }}
-              </ElPopconfirm>
+              <div class="c-flex c-items-center">
+                <ElSwitch v-model={option.disabled} class="c-ml-1" />
+                <div
+                  class="c-flex c-items-center c-h-full c-ml-1"
+                  onClick={() => handleDeleteOption(index)}
+                >
+                  <ElIcon>
+                    <Delete />
+                  </ElIcon>
+                </div>
+              </div>
             </div>
           );
         })}
