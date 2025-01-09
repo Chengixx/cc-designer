@@ -29,15 +29,17 @@ export default defineConfig({
       esmExternals: true,
     },
     lib: {
+      name: "cgx-designer",
       entry: {
         index: path.resolve(__dirname, "./index.ts"),
-        elementPlus: path.resolve(__dirname, "../materials/core/elementPlus/index.ts"),
+        elementPlus: path.resolve(
+          __dirname,
+          "../materials/core/elementPlus/index.ts"
+        ),
         vuetify: path.resolve(__dirname, "../materials/core/vuetify/index.ts"),
       },
-      name: "cgx-designer",
-      // formats: ["es"],
       fileName: (ModuleFormat, entryName) => {
-        console.log("文件名",ModuleFormat, entryName);
+        console.log("文件名", ModuleFormat, entryName);
         const extension = ModuleFormat === "es" ? "js" : ModuleFormat;
         const isIndexEntry = entryName === "index";
         const path = isIndexEntry

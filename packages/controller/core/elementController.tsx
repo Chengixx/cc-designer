@@ -1,5 +1,4 @@
 import { defineAsyncComponent, ref } from "vue";
-import { elementPlusPlugin, vuetifyPlugin } from "@cgx-designer/materials";
 import { IElementBaseSetting } from "../types/index";
 import {
   deepClone,
@@ -169,7 +168,3 @@ export class ElementController {
 
 //提供一个实例
 export const elementController = new ElementController();
-
-//开发环境测试用
-// elementController.install(vuetifyPlugin);
-// elementController.install(elementPlusPlugin);

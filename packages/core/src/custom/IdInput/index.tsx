@@ -1,5 +1,5 @@
 import { defineComponent, PropType } from "vue";
-import { IEditorElement } from "../../../../cgx-designer/dist/core";
+import { IEditorElement } from "../../types";
 import { copyToClipboard } from "@cgx-designer/utils";
 import { elementController } from "../../../../controller/core/elementController";
 import { CopyIcon } from "@cgx-designer/icons";
