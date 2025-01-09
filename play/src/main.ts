@@ -1,6 +1,6 @@
 import { createApp } from "vue";
-// import App from "./App";
-import App from "./App.vue";
+import App from "./App";
+// import App from "./App.vue";
 import "./style/index";
 
 //引入element plus

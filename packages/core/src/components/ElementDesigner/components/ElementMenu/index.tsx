@@ -1,13 +1,13 @@
 import { defineComponent, ref } from "vue";
 import ElementList from "./components/ElementList.vue";
 import SearchBox from "./components/SearchBox";
-import { ElTabPane, ElTabs } from "element-plus";
+import { TabPane, Tabs } from "@cgx-designer/extensions";
 import ElementSource from "./components/ElementSource";
 
 const ElementMenu = defineComponent({
   setup() {
     const searchValue = ref<string>("");
-    const settingTab = ref<number>(1);
+    const settingTab = ref<string>("0");
 
     return () => {
       return (
@@ -16,19 +16,19 @@ const ElementMenu = defineComponent({
             <span>组件菜单</span>
           </div>
           <div class="c-w-full c-h-[calc(100vh-80px)] c-overflow-y-auto c-overflow-x-hidden c-min-w-[280px]">
-            <ElTabs v-model={settingTab.value} stretch>
-              <ElTabPane label="组件" name={1}>
+            <Tabs v-model={settingTab.value}>
+              <TabPane label="组件">
                 <div>
                   <SearchBox v-model:widgetName={searchValue.value} />
                   <ElementList searchValue={searchValue.value} />
                 </div>
-              </ElTabPane>
-              <ElTabPane label="源码" name={2}>
+              </TabPane>
+              <TabPane label="源码">
                 <div class="c-h-[calc(100vh-120px)] c-w-full">
                   <ElementSource />
                 </div>
-              </ElTabPane>
-            </ElTabs>
+              </TabPane>
+            </Tabs>
           </div>
         </div>
       );

@@ -28,9 +28,9 @@ const TabNav = defineComponent({
         return (
           <div
             class={[
-              "c-flex-1",
+              "c-flex-1 c-cursor-pointer",
               props.currentName === tabName
-                ? "c-border-b c-border-b-blue-400 c-box-border"
+                ? "c-border-b-2 c-border-b-blue-400 c-box-border"
                 : "",
             ]}
             onClick={(e: MouseEvent) => emit("tabClick", pane, tabName, e)}

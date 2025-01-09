@@ -1,4 +1,4 @@
-import { ElTabPane, ElTabs } from "element-plus";
+import { TabPane, Tabs } from "@cgx-designer/extensions";
 import { defineComponent, inject, ref } from "vue";
 import EditorFormSetting from "./EditorFormSetting";
 import ElementAttribute from "./ElementAttribute";
@@ -9,7 +9,7 @@ import ElementStyle from "./ElementStyle";
 const SettingMenu = defineComponent({
   setup() {
     const focusManage = inject("focusManage") as FocusManage;
-    const settingTab = ref<number>(1);
+    const settingTab = ref<string>("0");
     return () => {
       return (
         <div class="c-h-full c-w-full c-border-l c-border-gray-200 c-overflow-x-hidden dark:c-bg-darkMode dark:c-border-darkMode">
@@ -17,8 +17,8 @@ const SettingMenu = defineComponent({
             <span>配置菜单</span>
           </div>
           <div class="c-h-[calc(100vh-80px)] c-overflow-y-auto c-overflow-x-hidden c-w-[280px]">
-            <ElTabs v-model={settingTab.value} stretch class="no-padding-tabs">
-              <ElTabPane label="属性" name={1}>
+            <Tabs v-model={settingTab.value} class="no-padding-tabs">
+              <TabPane label="属性">
                 <div class="c-px-2 c-pt-2">
                   {focusManage.focusedElement.value ? (
                     <ElementAttribute />
@@ -26,18 +26,18 @@ const SettingMenu = defineComponent({
                     <EditorFormSetting />
                   )}
                 </div>
-              </ElTabPane>
-              <ElTabPane label="事件" name={2}>
+              </TabPane>
+              <TabPane label="事件">
                 <div class="c-px-2 c-pt-2">
                   <ElementEvent />
                 </div>
-              </ElTabPane>
-              <ElTabPane label="样式" name={3}>
+              </TabPane>
+              <TabPane label="样式">
                 <div class="c-px-2 c-pt-2">
                   <ElementStyle />
                 </div>
-              </ElTabPane>
-            </ElTabs>
+              </TabPane>
+            </Tabs>
           </div>
         </div>
       );

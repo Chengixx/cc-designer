@@ -76,7 +76,7 @@ const Tabs = defineComponent({
       );
 
       const panels = <div>{renderSlot(slots, "default")}</div>;
-      return <div class="c-w-96 c-h-96">{[header, panels]}</div>;
+      return <div class="c-w-full">{[header, panels]}</div>;
     };
   },
 });

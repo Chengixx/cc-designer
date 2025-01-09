@@ -1,4 +1,4 @@
-import { ElTabPane, ElTabs } from "element-plus";
+import { TabPane, Tabs } from "@cgx-designer/extensions";
 import { ref, defineComponent, nextTick } from "vue";
 import IDE from "../../../../IDE";
 import { BuilderSchema } from "../../../../../../../cgx-designer/dist/core";
@@ -16,9 +16,9 @@ export interface ExportSourceCodeDialogExpose {
 
 export const ExportSourceCodeDialog = defineComponent({
   setup(_, { expose }) {
-  const Button = elementController.getElementRender("button");
-  const Dialog = elementController.getElementRender("dialog");
-    const currentTab = ref<number>(1);
+    const Button = elementController.getElementRender("button");
+    const Dialog = elementController.getElementRender("dialog");
+    const currentTab = ref<string>("0");
     const jsonContent = ref<string>("");
     const cgxContent = ref<string>("");
     const sfcContent = ref<string>("");
@@ -40,7 +40,7 @@ export const ExportSourceCodeDialog = defineComponent({
     const handleConfirm = () => {
       isShow.value = false;
       const targetValue: string =
-        currentTab.value === 1 ? jsonContent.value : cgxContent.value;
+        currentTab.value === "0" ? jsonContent.value : cgxContent.value;
 
       copyToClipboard(
         targetValue as string,
@@ -63,28 +63,23 @@ export const ExportSourceCodeDialog = defineComponent({
         >
           {{
             default: () => (
-              <ElTabs
-                v-model={currentTab.value}
-                stretch
-                class="no-padding-tabs"
-                type="border-card"
-              >
-                <ElTabPane label="json代码" name={1}>
+              <Tabs v-model={currentTab.value} class="no-padding-tabs">
+                <TabPane label="json代码">
                   <div class="c-h-[70vh]">
                     <IDE ref={IDERef} v-model={jsonContent.value} />
                   </div>
-                </ElTabPane>
-                <ElTabPane label="vue代码" name={2}>
+                </TabPane>
+                <TabPane label="vue代码">
                   <div class="c-h-[70vh]">
                     <IDE ref={IDERef} v-model={cgxContent.value} mode="html" />
                   </div>
-                </ElTabPane>
-                <ElTabPane label="SFC代码" name={3}>
+                </TabPane>
+                <TabPane label="SFC代码">
                   <div class="c-h-[70vh]">
                     <IDE ref={IDERef} v-model={sfcContent.value} mode="html" />
                   </div>
-                </ElTabPane>
-              </ElTabs>
+                </TabPane>
+              </Tabs>
             ),
             footer: () => (
               <>
