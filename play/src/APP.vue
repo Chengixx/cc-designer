@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import {
-  BuilderSchema,
-  ElementBuilder,
-  ElementBuilderExpose,
-} from "cgx-designer";
+import { TabPane, Tabs } from "@cgx-designer/extensions";
 import { ref } from "vue";
 
-const elementBuilderRef = ref<ElementBuilderExpose | null>(null);
-const builderSchema: BuilderSchema | undefined = undefined;
+const activeTab = ref("0");
+const handleClick = (tab: any, e: any) => {};
 </script>
 <template>
   <div>
-    <ElementBuilder ref="elementBuilderRef" :builderSchema="builderSchema" />
+    <Tabs v-model="activeTab" @tabClick="handleClick">
+      <TabPane label="第一个">1</TabPane>
+      <TabPane label="第二个">2</TabPane>
+      <TabPane label="第三个">3</TabPane>
+    </Tabs>
   </div>
 </template>
 

@@ -12,3 +12,5 @@ export * from "./useCollapse";
 export * from "./useTheme";
 export * from "./useMode";
 export * from "./useToggle";
+export * from "./useEagerComputed"
+export * from "./useOrderedChildren"
