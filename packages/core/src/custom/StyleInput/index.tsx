@@ -1,5 +1,5 @@
 import { computed, defineComponent, PropType, ref, watch } from "vue";
-import { IEditorElement } from "../../../../cgx-designer/dist/core";
+import { IEditorElement } from "../../types";
 import { ElOption, ElSelect } from "element-plus";
 import { OptionGroup } from "element-plus/es/components/select-v2/src/select.types.mjs";
 import { elementController } from "@cgx-designer/controller";
