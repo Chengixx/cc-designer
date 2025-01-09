@@ -84,6 +84,14 @@ const getElementSvg = (tag: string) => {
 const isVuetify = computed(() => {
   return elementController.getCurrentElementLibrary() === "vuetify";
 });
+
+const computedButtonColor = (type: keyof typeof VBtnColorType) => {
+  if (isVuetify.value) {
+    return VBtnColorType[type];
+  } else {
+    return undefined;
+  }
+};
 </script>
 
 <template>
@@ -97,7 +105,7 @@ const isVuetify = computed(() => {
         <Button
           link
           variant="text"
-          :color="isVuetify && VBtnColorType.primary"
+          :color="computedButtonColor('primary')"
           type="primary"
           @click="handleAddEvent(item.type)"
           >新增</Button
@@ -161,7 +169,7 @@ const isVuetify = computed(() => {
               link
               variant="text"
               type="primary"
-              :color="isVuetify && VBtnColorType.primary"
+              :color="computedButtonColor('primary')"
               @click="handleEditEvent(index, item.type, eventInstance)"
               >编辑</Button
             >
@@ -169,7 +177,7 @@ const isVuetify = computed(() => {
               link
               variant="text"
               type="danger"
-              :color="isVuetify && VBtnColorType.danger"
+              :color="computedButtonColor('danger')"
               @click="handleDeleteEvent(index, item.type)"
               >删除</Button
             >
