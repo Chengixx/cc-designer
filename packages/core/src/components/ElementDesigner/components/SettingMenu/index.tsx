@@ -19,7 +19,7 @@ const SettingMenu = defineComponent({
           <div class="c-h-[calc(100vh-80px)] c-overflow-y-auto c-overflow-x-hidden c-w-[280px]">
             <Tabs v-model={settingTab.value} class="no-padding-tabs">
               <TabPane label="属性">
-                <div class="c-px-2 c-pt-2">
+                <div class="c-px-2 c-pt-2 c-border-t">
                   {focusManage.focusedElement.value ? (
                     <ElementAttribute />
                   ) : (
@@ -28,12 +28,12 @@ const SettingMenu = defineComponent({
                 </div>
               </TabPane>
               <TabPane label="事件">
-                <div class="c-px-2 c-pt-2">
+                <div class="c-px-2 c-pt-2 c-border-t">
                   <ElementEvent />
                 </div>
               </TabPane>
               <TabPane label="样式">
-                <div class="c-px-2 c-pt-2">
+                <div class="c-px-2 c-pt-2 c-border-t">
                   <ElementStyle />
                 </div>
               </TabPane>

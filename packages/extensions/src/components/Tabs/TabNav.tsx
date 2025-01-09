@@ -1,6 +1,8 @@
-import { defineComponent, PropType } from "vue";
+import { defineComponent, onUpdated, PropType, ref } from "vue";
 import { TabPaneContext } from "./TabPane";
 import { vWaves } from "../../directives/waves/index";
+import TabBar from "./TabBar";
+import { useResizeObserver } from "@vueuse/core";
 
 const TabNav = defineComponent({
   directives: {
@@ -14,24 +16,36 @@ const TabNav = defineComponent({
     },
     panes: {
       type: Array as PropType<TabPaneContext[]>,
+      required: true,
     },
   },
   emits: ["tabClick"],
   setup(props, { emit }) {
+    const el$ = ref<HTMLDivElement>();
+    const tabBarRef = ref<InstanceType<typeof TabBar>>();
+    const update = () => {
+      //@ts-ignore
+      tabBarRef.value?.update();
+    };
+    useResizeObserver(el$.value, update);
+    onUpdated(() => update());
+
     return () => {
       //循环出来
       const tabs = props.panes?.map((pane, index) => {
+        const uid = pane.uid;
         //顺序 是 有name 没有index 还没有直接注册一下这里的index
         const tabName = pane.props.name ?? pane.index ?? `${index}`;
         pane.index = `${index}`;
 
         return (
           <div
+            // 此处给ref是给子tabbar用的
+            ref={`tab-${uid}`}
+            key={`tab-${uid}`}
             class={[
-              "c-flex-1 c-cursor-pointer",
-              props.currentName === tabName
-                ? "c-border-b-2 c-border-b-blue-400 c-box-border"
-                : "",
+              "c-flex-1 c-cursor-pointer hover:c-text-blue-400",
+              props.currentName === tabName && "c-text-blue-400",
             ]}
             onClick={(e: MouseEvent) => emit("tabClick", pane, tabName, e)}
           >
@@ -45,7 +59,12 @@ const TabNav = defineComponent({
         );
       });
 
-      return <div class="c-w-full c-h-full c-flex">{tabs}</div>;
+      return (
+        <div class="c-w-full c-h-full c-flex c-relative" ref={el$}>
+          {tabs}
+          <TabBar ref={tabBarRef} tabs={[...props.panes!]} />
+        </div>
+      );
     };
   },
 });

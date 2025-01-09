@@ -13,7 +13,7 @@ import {
   UnwrapRef,
 } from "vue";
 import { TabsRootContext } from "./Tabs";
-import { useEagerComputed } from "@cgx-designer/hooks";
+import { eagerComputed } from "@vueuse/core";
 
 export interface TabPaneContext {
   uid: number;
@@ -44,7 +44,7 @@ const TabPane = defineComponent({
     const instance = getCurrentInstance()!;
     const index = ref<string>();
     const paneName = computed(() => props.name ?? index.value);
-    const active = useEagerComputed(
+    const active = eagerComputed(
       () => tabsRoot.currentName.value === (props.name ?? index.value)
     );
     const pane = reactive({

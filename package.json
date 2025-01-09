@@ -27,6 +27,7 @@
     "@cgx-designer/materials": "workspace:*",
     "@cgx-designer/utils": "workspace:*",
     "@vitejs/plugin-vue-jsx": "^4.0.0",
+    "@vueuse/core": "^12.3.0",
     "cgx-designer": "workspace:*",
     "element-plus": "^2.8.0",
     "lodash": "^4.17.21",

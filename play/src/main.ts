@@ -25,7 +25,7 @@ import Kobe from "./components/Kobe.vue";
 import "@cgx-designer/materials/core/vuetify/index.css";
 import { vuetifyPlugin } from "@cgx-designer/materials";
 
-elementController.install(vuetifyPlugin)
+elementController.install(vuetifyPlugin);
 //注册自定义组件
 elementController.register({
   key: "manContainer",
