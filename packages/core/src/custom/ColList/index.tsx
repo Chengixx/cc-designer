@@ -29,7 +29,7 @@ const ColList = defineComponent({
 
     return () => (
       <div class="c-w-full">
-        <Divider label="栅格管理" />
+        <Divider label="栅格配置" />
         <div class="c-mt-2">
           {bindValue.value.map((col, index) => {
             return (

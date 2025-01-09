@@ -76,7 +76,7 @@ const RuleSetting = defineComponent({
     };
     return () => (
       <div class="c-w-full">
-        <ElDivider>校验管理</ElDivider>
+        <ElDivider>校验配置</ElDivider>
         <div class="c-mt-2">
           <CCard>
             {{

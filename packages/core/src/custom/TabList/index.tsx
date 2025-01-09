@@ -49,7 +49,7 @@ const TabList = defineComponent({
     };
     return () => (
       <div class="c-w-full">
-        <ElDivider content-position="center">标签管理</ElDivider>
+        <ElDivider content-position="center">标签配置</ElDivider>
         <div class="c-mt-2">
           {bindValue.value.map((tabPane, index) => {
             return (
