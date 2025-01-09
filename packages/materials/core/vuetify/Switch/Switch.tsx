@@ -1,15 +1,19 @@
 import { IEditorElement } from "@cgx-designer/core";
 import { VSwitch } from "vuetify/components";
 import { defineComponent, PropType } from "vue";
+import { isEmpty } from "lodash";
 
 const Switch = defineComponent({
   props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
+    elementSchema: {
+      type: Object as PropType<IEditorElement>,
+      default: () => {},
+    },
   },
   setup(props, { attrs }) {
     return () => {
       const renderProps: Record<string, any> = {
-        ...props.elementSchema.props,
+        ...(!isEmpty(props.elementSchema) && props.elementSchema.props),
         ...attrs,
       };
       return <VSwitch {...renderProps} />;

@@ -5,10 +5,9 @@ import {
   VBtnColorType,
   vuetifyConfig,
 } from "@cgx-designer/materials";
-import { ElDivider, ElIcon, ElSwitch, ElTooltip } from "element-plus";
-import { Delete } from "@element-plus/icons-vue";
-import { QuestionMarkIcon } from "@cgx-designer/icons";
 import { elementController } from "@cgx-designer/controller";
+import { ClearIcon } from "@cgx-designer/icons";
+import { Divider } from "@cgx-designer/extensions";
 
 const SelectOption = defineComponent({
   props: {
@@ -16,6 +15,7 @@ const SelectOption = defineComponent({
   },
   setup(_, { attrs, emit }) {
     const Button = elementController.getElementRender("button");
+    const Switch = elementController.getElementRender("switch");
     const Input = elementController.getElementRender("input");
     const bindValue = ref<GroupOption[]>(attrs.modelValue as GroupOption[]);
     watch(
@@ -36,7 +36,7 @@ const SelectOption = defineComponent({
     };
     return () => (
       <div class="c-w-full">
-        <ElDivider content-position="center">选项配置</ElDivider>
+        <Divider label="选项配置" />
         {bindValue.value?.map((option: GroupOption, index: number) => {
           return (
             <div class="c-flex c-justify-center c-items-center c-my-2">
@@ -53,14 +53,16 @@ const SelectOption = defineComponent({
                 placeholder="value"
               />
               <div class="c-flex c-items-center">
-                <ElSwitch v-model={option.disabled} class="c-ml-1" />
+                <Switch
+                  {...vuetifyConfig}
+                  v-model={option.disabled}
+                  class="c-ml-1"
+                />
                 <div
-                  class="c-flex c-items-center c-h-full c-ml-1"
+                  class="c-flex c-items-center c-h-full c-ml-3"
                   onClick={() => handleDeleteOption(index)}
                 >
-                  <ElIcon>
-                    <Delete />
-                  </ElIcon>
+                  <ClearIcon class="c-h-4 c-w-4 dark:c-fill-white hover:c-fill-blue-500 dark:hover:c-fill-blue-500 c-cursor-pointer" />
                 </div>
               </div>
             </div>
@@ -76,13 +78,6 @@ const SelectOption = defineComponent({
           >
             新增选项
           </Button>
-          <ElTooltip
-            effect="dark"
-            content="switch控制是否禁用选项"
-            placement="top"
-          >
-            <QuestionMarkIcon style={{ width: "16px", height: "16px" }} />
-          </ElTooltip>
         </div>
       </div>
     );
