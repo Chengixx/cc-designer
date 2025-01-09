@@ -59,6 +59,7 @@ const RuleSetting = defineComponent({
     };
 
     watch(() => requiredRule.value, handleUpdate, { deep: true });
+    watch(() => rulesList.value, handleUpdate, { deep: true });
 
     const handleAddRule = () => {
       rulesList.value?.push({
