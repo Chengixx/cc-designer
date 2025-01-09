@@ -1,9 +1,9 @@
 import { IEditorElement } from "../../types";
 import { getRandomId } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
-import { Delete } from "@element-plus/icons-vue";
-import { ElDivider, ElIcon, ElInputNumber, ElTooltip } from "element-plus";
 import { defineComponent, inject, PropType, ref } from "vue";
+import { Divider } from "@cgx-designer/extensions";
+import { ClearIcon } from "@cgx-designer/icons";
 
 const ColList = defineComponent({
   props: {
@@ -11,6 +11,7 @@ const ColList = defineComponent({
   },
   setup(_, { attrs }) {
     const Button = elementController.getElementRender("button");
+    const InputNumber = elementController.getElementRender("inputNumber");
     const commandManage = inject("commandManage") as any;
     const bindValue = ref<IEditorElement[]>(
       attrs.modelValue as IEditorElement[]
@@ -28,27 +29,20 @@ const ColList = defineComponent({
 
     return () => (
       <div class="c-w-full">
-        <ElDivider content-position="center">栅格管理</ElDivider>
+        <Divider label="栅格管理" />
         <div class="c-mt-2">
           {bindValue.value.map((col, index) => {
             return (
-              <div key={index} class="c-w-full c-flex c-items-center c-mb-2">
+              <div key={col.id} class="c-w-full c-flex c-items-center c-mb-2">
                 <div class="c-font-medium c-text-sm c-text-gray-600">
                   栅格{index + 1}:
                 </div>
                 <div class="c-ml-2">
-                  <ElInputNumber v-model={col.props!.span} max={24} min={1} />
+                  <InputNumber v-model={col.props!.span} max={24} min={1} />
                 </div>
-                <ElTooltip effect="dark" content="删除组件" placement="bottom">
-                  <div
-                    class="c-ml-2 c-cursor-pointer"
-                    onClick={(_) => handleDeleteCol(index)}
-                  >
-                    <ElIcon>
-                      <Delete />
-                    </ElIcon>
-                  </div>
-                </ElTooltip>
+                <div class="c-ml-2" onClick={(_) => handleDeleteCol(index)}>
+                  <ClearIcon class="c-h-4 c-w-4 dark:c-fill-white hover:c-fill-blue-500 dark:hover:c-fill-blue-500 c-cursor-pointer" />
+                </div>
               </div>
             );
           })}
