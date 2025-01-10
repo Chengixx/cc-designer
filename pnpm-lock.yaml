@@ -51,6 +51,9 @@ importers:
         specifier: ^3.7.6
         version: 3.7.6(typescript@5.5.4)(vue@3.4.38(typescript@5.5.4))
     devDependencies:
+      '@mdi/font':
+        specifier: ^7.4.47
+        version: 7.4.47
       '@types/lodash':
         specifier: ^4.17.6
         version: 4.17.7
@@ -814,6 +817,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@mdi/font@7.4.47':
+    resolution: {integrity: sha512-43MtGpd585SNzHZPcYowu/84Vz2a2g31TvPMTm9uTiCSWzaheQySUcSyUH/46fPnuPQWof2yd0pGBtzee/IQWw==}
 
   '@microsoft/api-extractor-model@7.29.8':
     resolution: {integrity: sha512-t3Z/xcO6TRbMcnKGVMs4uMzv/gd5j0NhMiJIGjD4cJMeFJ1Hf8wnLSx37vxlRlL0GWlGJhnFgxvnaL6JlS+73g==}
@@ -4065,6 +4071,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@mdi/font@7.4.47': {}
 
   '@microsoft/api-extractor-model@7.29.8(@types/node@20.16.2)':
     dependencies:

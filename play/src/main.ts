@@ -8,12 +8,16 @@ import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/dark/css-vars.css";
 
 //引入vuetify
+import '@mdi/font/css/materialdesignicons.css'
 import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 
 const vuetify = createVuetify({
+  icons: {
+    defaultSet: 'mdi',
+  },
   components,
   directives,
 });
