@@ -1,9 +1,10 @@
 import { FocusManage } from "@cgx-designer/hooks";
-import { ElCol, ElEmpty, ElRow } from "element-plus";
+import { ElCol, ElRow } from "element-plus";
 import { computed, defineComponent, inject } from "vue";
 import { getValueByPath, setValueByPath } from "@cgx-designer/utils";
 import ElementNode from "../../../../ElementNode";
 import { defaultStyleSchema } from "./constant";
+import Empty from "../../../../Empty";
 
 const ElementStyle = defineComponent({
   setup() {
@@ -48,7 +49,7 @@ const ElementStyle = defineComponent({
           </>
         ) : (
           <div>
-            <ElEmpty description="暂无选中元素" />
+            <Empty />
           </div>
         )}
       </div>

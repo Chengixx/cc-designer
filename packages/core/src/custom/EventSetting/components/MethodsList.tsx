@@ -1,5 +1,5 @@
+import Empty from "../../../components/Empty";
 import { GroupOption } from "@cgx-designer/materials";
-import { ElEmpty } from "element-plus";
 import { defineComponent, PropType } from "vue";
 
 const MethodsList = defineComponent({
@@ -36,7 +36,7 @@ const MethodsList = defineComponent({
             })}
           </>
         ) : (
-          <ElEmpty description="暂无可选事件" imageSize={64} />
+          <Empty />
         )}
       </>
     );

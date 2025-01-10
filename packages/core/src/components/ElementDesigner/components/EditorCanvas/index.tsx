@@ -1,4 +1,4 @@
-import { ElEmpty, ElForm } from "element-plus";
+import { ElForm } from "element-plus";
 import { computed, defineComponent, inject, onMounted, ref } from "vue";
 import Draggle from "./components/Draggle.vue";
 import {
@@ -12,14 +12,7 @@ import { ElementManage } from "@cgx-designer/hooks";
 import PanelWidget from "./components/PanelWidget";
 import { FocusManage } from "@cgx-designer/hooks/src/useFocus";
 import { stringFirstBigger } from "@cgx-designer/utils";
-
-const Empty = () => {
-  return (
-    <div class="c-pointer-events-none c-z-10 c-absolute c-left-1/2 c-top-1/2 c-transform -c-translate-x-1/2 -c-translate-y-1/2 c-text-gray-400 c-text-lg">
-      <ElEmpty description="目前还没有元素哦，从左侧组件拖拽或点击添加吧！" />
-    </div>
-  );
-};
+import Empty from "../../../Empty";
 
 const EditorCanvas = defineComponent({
   setup() {
@@ -51,7 +44,11 @@ const EditorCanvas = defineComponent({
     return () => {
       return (
         <>
-          {elementManage.elementList.value.length == 0 && <Empty />}
+          {elementManage.elementList.value.length == 0 && (
+            <div class="c-pointer-events-none c-z-10 c-absolute c-left-1/2 c-top-1/2 c-transform -c-translate-x-1/2 -c-translate-y-1/2 c-text-gray-400 c-text-lg">
+              <Empty />
+            </div>
+          )}
           <div
             class={[
               "c-overflow-y-auto c-h-[calc(100vh-108px)] c-relative c-transition-all",
@@ -66,7 +63,7 @@ const EditorCanvas = defineComponent({
             {/* hover的盒子,选中的时候如果在这 */}
             <PanelWidget />
             <ElForm
-            {...getFormFunction.value}
+              {...getFormFunction.value}
               labelWidth={formManage.formSetting.labelWidth}
               labelPosition={formManage.formSetting.labelPosition}
               size={formManage.formSetting.size}

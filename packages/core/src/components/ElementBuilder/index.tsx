@@ -8,11 +8,12 @@ import {
   watch,
 } from "vue";
 import ElementBuilderNode from "./ElementBuilderNode";
-import { ElEmpty, ElForm, FormInstance } from "element-plus";
+import { ElForm, FormInstance } from "element-plus";
 import { BuilderSchema, FormSetting, IEditorElement } from "../../types";
 import { deepCompareAndModify, stringFirstBigger } from "@cgx-designer/utils";
 import { useElement, useFunction } from "@cgx-designer/hooks";
 import { isEmpty } from "lodash";
+import Empty from "../Empty";
 
 const ElementBuilder = defineComponent({
   props: {
@@ -137,7 +138,7 @@ const ElementBuilder = defineComponent({
             </ElForm>
           ) : (
             <div class="c-h-full c-flex c-justify-center c-items-center">
-              <ElEmpty description="暂无表单元素" />
+              <Empty />
             </div>
           )}
         </>

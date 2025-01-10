@@ -8,8 +8,9 @@ import {
   deepClone,
   getValueByPath,
 } from "./../../../../../../../utils/common/util";
-import { ElCol, ElEmpty, ElRow } from "element-plus";
+import { ElCol, ElRow } from "element-plus";
 import { vuetifyProps } from "@cgx-designer/materials";
+import Empty from "../../../../Empty";
 
 const ElementAttribute = defineComponent({
   setup() {
@@ -68,9 +69,7 @@ const ElementAttribute = defineComponent({
     return () => (
       // !此处不给key值vue会重复利用上一次的 是不行的
       <div key={currentFocusElement.value?.id}>
-        {!componentAttributes.value.length && (
-          <ElEmpty description="暂时没有选中的组件，请先选择吧！" />
-        )}
+        {!componentAttributes.value.length && <Empty />}
         {componentAttributes.value.map((attributeConfig) => {
           return (
             <Fragment key={attributeConfig.field}>

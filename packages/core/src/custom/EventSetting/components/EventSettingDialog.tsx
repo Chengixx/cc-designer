@@ -1,4 +1,4 @@
-import { ElEmpty, ElTabPane, ElTabs, ElTree, TabPaneName } from "element-plus";
+import { ElTabPane, ElTabs, ElTree, TabPaneName } from "element-plus";
 import {
   computed,
   defineComponent,
@@ -16,6 +16,7 @@ import { deepClone, getRandomId } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
 import ElementIDE from "./ElementIDE";
 import { Message } from "@cgx-designer/extensions";
+import Empty from "../../../components/Empty";
 
 const EventSettingDialog = defineComponent({
   emits: ["add", "edit"],
@@ -235,7 +236,7 @@ const EventSettingDialog = defineComponent({
                     <>
                       {!actionArgsConfigs.value.length ? (
                         <div>
-                          <ElEmpty description="暂无配置" />
+                          <Empty />
                         </div>
                       ) : (
                         <ElementIDE
