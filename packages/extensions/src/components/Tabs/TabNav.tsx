@@ -44,14 +44,14 @@ const TabNav = defineComponent({
             ref={`tab-${uid}`}
             key={`tab-${uid}`}
             class={[
-              "c-flex-1 c-cursor-pointer hover:c-text-blue-400",
+              "c-flex-1 c-cursor-pointer hover:c-text-blue-400 hover:c-bg-gray-50 dark:hover:c-bg-gray-800",
               props.currentName === tabName && "c-text-blue-400",
             ]}
             onClick={(e: MouseEvent) => emit("tabClick", pane, tabName, e)}
           >
             <div
               class="c-w-full c-h-full c-flex c-justify-center c-items-center"
-              v-ripple
+              v-ripple={{ class: "c-text-gray-400" }}
             >
               <span class="c-select-none">{pane.props.label}</span>
             </div>
