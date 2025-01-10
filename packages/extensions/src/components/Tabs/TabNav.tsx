@@ -1,12 +1,12 @@
 import { defineComponent, onUpdated, PropType, ref } from "vue";
 import { TabPaneContext } from "./TabPane";
-import { vWaves } from "../../directives/waves/index";
 import TabBar from "./TabBar";
 import { useResizeObserver } from "@vueuse/core";
+import { Ripple } from "./../../directives/ripple/index";
 
 const TabNav = defineComponent({
   directives: {
-    wave: vWaves,
+    ripple: Ripple,
   },
   props: {
     currentName: {
@@ -51,7 +51,7 @@ const TabNav = defineComponent({
           >
             <div
               class="c-w-full c-h-full c-flex c-justify-center c-items-center"
-              v-wave
+              v-ripple
             >
               <span class="c-select-none">{pane.props.label}</span>
             </div>

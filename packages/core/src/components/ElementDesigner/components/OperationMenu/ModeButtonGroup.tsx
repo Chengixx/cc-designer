@@ -1,5 +1,5 @@
-import { defineComponent, inject, ref } from "vue";
-import { vWaves } from "@cgx-designer/extensions";
+import { defineComponent, inject } from "vue";
+import { Ripple } from "@cgx-designer/extensions";
 import { FocusManage, ModeManage, ModeType } from "@cgx-designer/hooks";
 
 interface ModeTypes {
@@ -9,7 +9,7 @@ interface ModeTypes {
 
 const ModeButtonGroup = defineComponent({
   directives: {
-    wave: vWaves,
+    ripple: Ripple,
   },
   setup() {
     const modeManage = inject("modeManage") as ModeManage;
@@ -42,7 +42,7 @@ const ModeButtonGroup = defineComponent({
                 }, 350);
               }}
             >
-              <div class="c-w-full c-h-full" v-wave>
+              <div class="c-w-full c-h-full" v-ripple>
                 <span
                   class={[
                     "c-text-sm c-select-none",
