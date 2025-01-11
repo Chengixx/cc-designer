@@ -1,4 +1,4 @@
-import { RuleItem } from "../..//types";
+import { RuleItem } from "../../types";
 import { CCard, Divider } from "@cgx-designer/extensions";
 import { IEditorElement } from "@cgx-designer/core";
 import { defineComponent, onMounted, PropType, ref, watch } from "vue";

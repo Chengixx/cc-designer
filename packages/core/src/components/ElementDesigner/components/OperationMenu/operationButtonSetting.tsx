@@ -1,6 +1,5 @@
 import { TreeDrawer } from "@cgx-designer/core/src/components/TreeDrawer";
-import { checkCJsonType } from "@cgx-designer/utils/common";
-import { ElNotification } from "element-plus";
+import { Message } from "@cgx-designer/extensions";
 import { FocusManage } from "@cgx-designer/hooks/src/useFocus";
 import { FormManage } from "@cgx-designer/hooks/src/useForm";
 import { ElementManage } from "@cgx-designer/hooks/src/useElement";
@@ -60,7 +59,7 @@ export const createOperationButtonSetting = (
       label: "清空",
       handler: () => {
         if (elementManage.elementList.value.length === 0) {
-          ElNotification.warning("已经是空的啦!");
+          Message.warning("已经是空的啦!");
           return;
         }
         commands.handleClear();

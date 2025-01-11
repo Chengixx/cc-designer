@@ -1,4 +1,3 @@
-import { ElTooltip } from "element-plus";
 import IDE from "../../components/IDE/index";
 import { defineComponent, ref, watch } from "vue";
 import { CssIcon } from "@cgx-designer/icons";
@@ -39,15 +38,14 @@ const StyleIDE = defineComponent({
     return () => (
       <>
         <div class="c-flex c-items-center c-h-10 c-justify-between c-px-2">
-          <div class="c-flex c-items-center">
-            <ElTooltip
-              effect="dark"
-              content={`编写的代码必须为JSX的style样式写法\n请在编写完成后进行保存`}
-              placement="top"
-            >
+          <div
+            class="c-flex c-items-center"
+            title={`编写的代码必须为JSX的style样式写法\n请在编写完成后进行保存`}
+          >
+            <div class="c-cursor-pointer">
               <CssIcon class="c-fill-blue-500 c-w-5 c-h-5" />
-            </ElTooltip>
-            <span class="c-font-medium c-text-sm c-text-gray-600 dark:c-text-gray-300">
+            </div>
+            <span class="c-font-medium c-text-sm c-text-gray-600 dark:c-text-gray-300 c-select-none">
               样式
             </span>
           </div>

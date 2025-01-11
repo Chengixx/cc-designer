@@ -10,7 +10,6 @@ import ace from "ace-builds";
 import workerJavascriptUrl from "ace-builds/src-noconflict/worker-javascript?url";
 import workerHtmlUrl from "ace-builds/src-noconflict/worker-html?url";
 import { js_beautify, html_beautify } from "js-beautify";
-import { ElButton, ElIcon, ElTooltip } from "element-plus";
 import { FormatIcon } from "@cgx-designer/icons";
 import { ThemeManage } from "@cgx-designer/hooks/src/useTheme";
 
@@ -27,6 +26,7 @@ import "ace-builds/src-noconflict/snippets/javascript";
 import "ace-builds/src-noconflict/snippets/html";
 import "ace-builds/src-noconflict/snippets/json";
 import "ace-builds/src-noconflict/snippets/css";
+import { elementController } from "@cgx-designer/controller";
 
 const IDE = defineComponent({
   props: {
@@ -53,6 +53,7 @@ const IDE = defineComponent({
   },
   emits: ["update:modelValue"],
   setup(props, { emit, expose }) {
+    const Button = elementController.getElementRender("button");
     const themeManage = inject("themeManage") as ThemeManage;
     const aceRef = ref<HTMLElement | null>(null);
     const aceEditor = ref<ace.Ace.Editor | null>(null);
@@ -146,18 +147,28 @@ const IDE = defineComponent({
       }
     });
     return () => {
+      const renderProps = {
+        icon:
+          elementController.getCurrentElementLibrary() !== "vuetify" &&
+          FormatIcon,
+        variant: "outlined",
+        onClick: formatCode,
+      };
       return (
         <div class="c-h-full c-relative">
           <div ref={aceRef} class="c-h-full" />
           {props.showFormatButton && (
             <div class="c-absolute c-right-[8px] c-bottom-[8px]">
-              <ElTooltip content="格式化" effect="light" placement="top">
-                <ElButton onClick={formatCode} circle>
-                  <ElIcon>
-                    <FormatIcon />
-                  </ElIcon>
-                </ElButton>
-              </ElTooltip>
+              <Button {...renderProps}>
+                {{
+                  prepend: () => {
+                    return <FormatIcon class="c-h-4 c-w-4 dark:c-fill-white" />;
+                  },
+                  default: () => {
+                    return "格式化";
+                  }
+                }}
+              </Button>
             </div>
           )}
         </div>

@@ -2,11 +2,10 @@ import { ElementManage, FocusManage } from "@cgx-designer/hooks";
 import { IEditorElement } from "../../types";
 import { getRandomId } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
-import { Delete } from "@element-plus/icons-vue";
-import { ElIcon, ElInput, ElTooltip } from "element-plus";
 import { computed, defineComponent, inject, PropType, ref } from "vue";
-import { VBtnColorType } from "@cgx-designer/materials";
+import { VBtnColorType, vuetifyConfig } from "@cgx-designer/materials";
 import { Divider } from "@cgx-designer/extensions";
+import { ClearIcon } from "@cgx-designer/icons";
 
 const TabList = defineComponent({
   props: {
@@ -14,6 +13,7 @@ const TabList = defineComponent({
   },
   setup(_, { attrs }) {
     const Button = elementController.getElementRender("button");
+    const Input = elementController.getElementRender("input");
     const elementManage = inject("elementManage") as ElementManage;
     const focusManage = inject("focusManage") as FocusManage;
     const bindValue = ref<IEditorElement[]>(
@@ -59,9 +59,10 @@ const TabList = defineComponent({
                 class="c-w-full c-flex c-items-center c-mb-2"
               >
                 <div class="c-ml-1">
-                  <ElInput
+                  <Input
                     v-model={tabPane.props!.label}
                     placeholder="标签名称"
+                    {...vuetifyConfig}
                   />
                 </div>
                 <div class="c-ml-1">
@@ -74,16 +75,13 @@ const TabList = defineComponent({
                     设为默认
                   </Button>
                 </div>
-                <ElTooltip effect="dark" content="删除组件" placement="bottom">
-                  <div
-                    class="c-ml-2 c-cursor-pointer c-flex c-items-center"
-                    onClick={(_) => handleDeleteTab(index)}
-                  >
-                    <ElIcon>
-                      <Delete />
-                    </ElIcon>
-                  </div>
-                </ElTooltip>
+                <div
+                  class="c-ml-2 c-cursor-pointer c-flex c-items-center"
+                  onClick={(_) => handleDeleteTab(index)}
+                  title="删除组件"
+                >
+                  <ClearIcon class="c-h-4 c-w-4 dark:c-fill-white hover:c-fill-blue-500 dark:hover:c-fill-blue-500 c-cursor-pointer" />
+                </div>
               </div>
             );
           })}

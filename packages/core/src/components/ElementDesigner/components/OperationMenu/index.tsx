@@ -59,8 +59,8 @@ const IconButton = (
       ) : (
         <Button {...renderProps}>
           {{
-            Prepend: () => {
-              return <Iconfig.icon class="c-h-5 c-w-5" />;
+            prepend: () => {
+              return <Iconfig.icon class="c-h-4 c-w-4 dark:c-fill-white" />;
             },
           }}
         </Button>

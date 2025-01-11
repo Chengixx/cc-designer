@@ -34,7 +34,7 @@ const SearchBox = defineComponent({
             {{
               prefix: () => {
                 return (
-                  <SearchIcon class="c-w-[17px] c-h-[17px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
+                  <SearchIcon class="c-select-none c-w-[17px] c-h-[17px] dark:c-fill-white" />
                 );
               },
             }}
