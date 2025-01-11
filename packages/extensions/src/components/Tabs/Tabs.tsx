@@ -28,7 +28,7 @@ const Tabs = defineComponent({
       default: "0",
     },
   },
-  emits: ["tabClick"],
+  emits: ["tabClick", "tabChange", "update:modelValue"],
   setup(props, { slots, emit }) {
     const {
       children: panes,
@@ -41,9 +41,13 @@ const Tabs = defineComponent({
       (modelValue) => setCurrentName(modelValue)
     );
 
-    const setCurrentName = async (value?: TabPaneName) => {
+    const setCurrentName = async (value?: TabPaneName, isHandle = false) => {
       if (currentName.value === value || isUndefined(value)) return;
       currentName.value = value;
+      if (isHandle) {
+        emit("update:modelValue", value);
+        emit("tabChange", value);
+      }
     };
 
     const handleTabClick = (
@@ -52,7 +56,7 @@ const Tabs = defineComponent({
       event: MouseEvent
     ) => {
       if (tab.props.disabled) return;
-      setCurrentName(tabName);
+      setCurrentName(tabName, true);
       emit("tabClick", tab, event);
     };
 
