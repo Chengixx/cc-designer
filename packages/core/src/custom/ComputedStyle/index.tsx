@@ -1,7 +1,7 @@
-import { ElDivider } from "element-plus";
 import { defineComponent, PropType, ref, watch } from "vue";
 import ComputedStyleInput from "./components/ComputedStyleInput";
 import { getValueByPath, setValueByPath } from "@cgx-designer/utils";
+import { Divider } from "@cgx-designer/extensions";
 
 const ComputedStyleWidget = defineComponent({
   props: {
@@ -54,9 +54,12 @@ const ComputedStyleWidget = defineComponent({
               class={[
                 "c-absolute c-transform",
                 direction === "Top" && "c-left-1/2 c-top-1 -c-translate-x-1/2",
-                direction === "Left" && "c-left-[2px] c-top-1/2 -c-translate-y-1/2",
-                direction === "Bottom" && "c-left-1/2 c-bottom-3 -c-translate-x-1/2",
-                direction === "Right" && "c-right-[2px] c-top-1/2 -c-translate-y-1/2",
+                direction === "Left" &&
+                  "c-left-[2px] c-top-1/2 -c-translate-y-1/2",
+                direction === "Bottom" &&
+                  "c-left-1/2 c-bottom-3 -c-translate-x-1/2",
+                direction === "Right" &&
+                  "c-right-[2px] c-top-1/2 -c-translate-y-1/2",
               ]}
             />
           </>
@@ -66,7 +69,7 @@ const ComputedStyleWidget = defineComponent({
 
     return () => (
       <div class="c-w-full c-h-fit">
-        <ElDivider content-position="center">计算样式</ElDivider>
+        <Divider label="计算样式" />
         <div class="c-w-full c-h-[180px] c-m-auto">
           {/* margin的在最外面 */}
           <div class="c-w-full c-h-[180px] c-bg-[#f2cea5] c-px-14 c-py-10 c-box-border c-relative dark:c-bg-[#b08354]">

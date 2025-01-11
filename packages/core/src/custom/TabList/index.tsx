@@ -3,9 +3,10 @@ import { IEditorElement } from "../../types";
 import { getRandomId } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
 import { Delete } from "@element-plus/icons-vue";
-import { ElDivider, ElIcon, ElInput, ElTooltip } from "element-plus";
+import { ElIcon, ElInput, ElTooltip } from "element-plus";
 import { computed, defineComponent, inject, PropType, ref } from "vue";
 import { VBtnColorType } from "@cgx-designer/materials";
+import { Divider } from "@cgx-designer/extensions";
 
 const TabList = defineComponent({
   props: {
@@ -49,7 +50,7 @@ const TabList = defineComponent({
     };
     return () => (
       <div class="c-w-full">
-        <ElDivider content-position="center">标签配置</ElDivider>
+        <Divider label="标签配置" />
         <div class="c-mt-2">
           {bindValue.value.map((tabPane, index) => {
             return (
