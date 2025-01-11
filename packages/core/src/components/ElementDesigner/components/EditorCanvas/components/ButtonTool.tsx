@@ -1,8 +1,7 @@
-import { Delete, DocumentCopy, Top } from "@element-plus/icons-vue";
-import { ElIcon, ElTooltip } from "element-plus";
 import { computed, defineComponent, inject } from "vue";
 import { ElementManage, FocusManage } from "@cgx-designer/hooks";
-import { deepClone, getRandomId } from "@cgx-designer/utils";
+import { deepClone } from "@cgx-designer/utils";
+import { ClearIcon, CopyIcon, TopIcon } from "@cgx-designer/icons";
 import {
   noCopyDomList,
   findHigherLevelDomList,
@@ -16,8 +15,10 @@ const ButtonTool = defineComponent({
 
     const handleCopy = (e: MouseEvent) => {
       e.stopPropagation();
-      const newElementSchema = elementManage.deepCopyElement(deepClone(focusManage.focusedElement.value!))
-      commands!.handleLastAdd(newElementSchema)
+      const newElementSchema = elementManage.deepCopyElement(
+        deepClone(focusManage.focusedElement.value!)
+      );
+      commands!.handleLastAdd(newElementSchema);
     };
 
     const handleDelete = (e: MouseEvent) => {
@@ -49,45 +50,24 @@ const ButtonTool = defineComponent({
           <div class="c-mr-1 c-flex c-items-center c-text-xs c-text-gray-500 c-pointer-events-none">
             {elementTag.value}
           </div>
-          <div class="c-pointer-events-auto c-flex c-items-center">
+          <div class="c-pointer-events-auto c-flex c-items-center c-gap-x-1">
             {!noCopyDomList.includes(
               focusManage.focusedElement.value?.key!
             ) && (
-              <ElTooltip effect="dark" content="复制组件" placement="bottom">
-                <div
-                  class="c-mr-1 c-flex c-items-center"
-                  onClick={(e: MouseEvent) => handleCopy(e)}
-                >
-                  <ElIcon>
-                    <DocumentCopy />
-                  </ElIcon>
-                </div>
-              </ElTooltip>
+              <div onClick={(e: MouseEvent) => handleCopy(e)} title="复制组件">
+                <CopyIcon class="c-w-[16px] c-h-[16px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
+              </div>
             )}
             {findHigherLevelDomList.includes(
               focusManage.focusedElement.value?.key!
             ) && (
-              <ElTooltip effect="dark" content="父级元素" placement="bottom">
-                <div
-                  class="c-mr-1 c-flex c-items-center"
-                  onClick={(e: MouseEvent) => handleTop(e)}
-                >
-                  <ElIcon>
-                    <Top />
-                  </ElIcon>
-                </div>
-              </ElTooltip>
-            )}
-            <ElTooltip effect="dark" content="删除组件" placement="bottom">
-              <div
-                onClick={(e: MouseEvent) => handleDelete(e)}
-                class="c-flex c-items-center"
-              >
-                <ElIcon>
-                  <Delete />
-                </ElIcon>
+              <div onClick={(e: MouseEvent) => handleTop(e)} title="父级元素">
+                <TopIcon class="c-w-[18px] c-h-[18px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
               </div>
-            </ElTooltip>
+            )}
+            <div onClick={(e: MouseEvent) => handleDelete(e)} title="删除组件">
+              <ClearIcon class="c-w-[16px] c-h-[16px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
+            </div>
           </div>
         </div>
       );

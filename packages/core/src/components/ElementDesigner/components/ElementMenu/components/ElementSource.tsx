@@ -1,6 +1,6 @@
 import { ElementManage } from "@cgx-designer/hooks";
 import IDE from "../../../../../components/IDE/index";
-import { defineComponent, inject, nextTick, ref, toRaw, watch } from "vue";
+import { defineComponent, inject, ref, toRaw, watch } from "vue";
 import { deepClone, deepCompareAndModify } from "@cgx-designer/utils";
 import { isEqual } from "lodash";
 import { IEditorElement } from "../../../../../../../cgx-designer/dist/core";

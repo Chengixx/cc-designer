@@ -1,6 +1,5 @@
 import { elementController } from "@cgx-designer/controller";
-import { Search } from "@element-plus/icons-vue";
-import { ElIcon } from "element-plus";
+import { SearchIcon } from "@cgx-designer/icons";
 import { computed, defineComponent } from "vue";
 
 const SearchBox = defineComponent({
@@ -35,9 +34,7 @@ const SearchBox = defineComponent({
             {{
               prefix: () => {
                 return (
-                  <ElIcon>
-                    <Search />
-                  </ElIcon>
+                  <SearchIcon class="c-w-[17px] c-h-[17px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
                 );
               },
             }}
