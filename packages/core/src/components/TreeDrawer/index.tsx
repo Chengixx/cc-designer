@@ -1,31 +1,19 @@
 import { ElButton, ElDrawer, ElTree } from "element-plus";
-import { createVNode, defineComponent, ref, render, nextTick } from "vue";
+import { defineComponent, ref, nextTick, inject } from "vue";
 import { ElementManage, FocusManage } from "@cgx-designer/hooks";
 import { IEditorElement, TreeNode } from "../../types";
 import type Node from "element-plus/es/components/tree/src/model/node";
 import { deepClone } from "@cgx-designer/utils";
 
-interface TreeDrawerExpose {
-  showDrawer: Function;
-}
-
-const TreeDrawerDom = defineComponent({
-  props: {},
+const TreeDrawer = defineComponent({
   setup(_, ctx) {
     const nodeTree = ref<InstanceType<typeof ElTree>>();
     const isShow = ref<boolean>(false);
-    const IElementManage = ref<ElementManage>();
-    const IFocusManage = ref<FocusManage>();
-    const ICommand = ref<Record<string, Function> | null>();
-    const showDrawer = (
-      elementManage: ElementManage,
-      focusManage: FocusManage,
-      commands: Record<string, Function>
-    ) => {
+    const elementManage = inject("elementManage") as ElementManage;
+    const focusManage = inject("focusManage") as FocusManage;
+    const commands = inject("commands") as Record<string, Function> | null;
+    const showDrawer = () => {
       isShow.value = true;
-      IElementManage.value = elementManage;
-      IFocusManage.value = focusManage;
-      ICommand.value = commands;
       //进来一瞬间要先高亮起来
       const focusElement = focusManage.focusedElement;
       if (focusElement.value) {
@@ -35,26 +23,24 @@ const TreeDrawerDom = defineComponent({
       }
     };
     const handleNodeClick = (data: TreeNode) => {
-      const element = IElementManage.value!.findElementById(data.id);
+      const element = elementManage.findElementById(data.id);
       if (
-        !IFocusManage.value?.focusedElement ||
-        element?.id !== IFocusManage.value?.focusedElement.value?.id
+        focusManage.focusedElement.value ||
+        element?.id !== focusManage.focusedElement.value!.id
       ) {
-        IFocusManage.value!.handleFocus(element!);
+        focusManage.handleFocus(element!);
       }
     };
 
     const handleDeleteNode = (e: MouseEvent, _: Node, data: IEditorElement) => {
       e.stopPropagation();
-      ICommand.value!.handleDelete(data.id);
+      commands!.handleDelete(data.id);
     };
 
     const handleCopyNode = (e: MouseEvent, _: Node, data: IEditorElement) => {
       e.stopPropagation();
-      const newElementSchema = IElementManage.value!.deepCopyElement(
-        deepClone(data)
-      );
-      ICommand.value!.handleLastAdd(newElementSchema);
+      const newElementSchema = elementManage.deepCopyElement(deepClone(data));
+      commands!.handleLastAdd(newElementSchema);
     };
 
     const IsAllowDrop = (
@@ -91,11 +77,7 @@ const TreeDrawerDom = defineComponent({
                 icon-class="el-icon-arrow-right"
                 onNode-click={handleNodeClick}
                 draggable
-                data={
-                  IElementManage.value?.elementList as
-                    | IEditorElement[]
-                    | undefined
-                }
+                data={elementManage.elementList.value}
                 node-key="id"
                 props={{ label: "key", children: "elementList" }}
                 allowDrop={IsAllowDrop}
@@ -145,14 +127,4 @@ const TreeDrawerDom = defineComponent({
   },
 });
 
-export const TreeDrawer = (
-  elementManage: ElementManage,
-  focusManage: FocusManage,
-  commands: Record<string, Function>
-) => {
-  let el = document.createElement("div");
-  let VDom = createVNode(TreeDrawerDom);
-  document.body.appendChild((render(VDom, el), el));
-  let { showDrawer } = VDom.component!.exposed as TreeDrawerExpose;
-  showDrawer(elementManage, focusManage, commands);
-};
+export default TreeDrawer;

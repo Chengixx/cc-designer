@@ -1,4 +1,3 @@
-import { TreeDrawer } from "@cgx-designer/core/src/components/TreeDrawer";
 import { Message } from "@cgx-designer/extensions";
 import { FocusManage } from "@cgx-designer/hooks/src/useFocus";
 import { FormManage } from "@cgx-designer/hooks/src/useForm";
@@ -31,7 +30,8 @@ export const createOperationButtonSetting = (
   commands: Record<string, Function>,
   previewDialogRef: any,
   exportSourceCodeDialogRef: any,
-  importSourceCodeDialogRef: any
+  importSourceCodeDialogRef: any,
+  treeDrawerRef:any
 ): Record<string, OperationButtonSetting> => {
   const ButtonMap = {
     Message: {
@@ -51,7 +51,7 @@ export const createOperationButtonSetting = (
     Tree: {
       label: "树状图",
       handler: () => {
-        TreeDrawer(elementManage, focusManage, commands);
+        treeDrawerRef.value.showDrawer()
       },
       icon: TreeIcon,
     },
