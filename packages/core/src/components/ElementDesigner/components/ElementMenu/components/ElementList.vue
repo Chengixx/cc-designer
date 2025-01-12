@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Ripple } from "@cgx-designer/extensions";
 import draggable from "vuedraggable";
 import SvgIcon from "../../../../SvgIcon";
 import { computed, inject, ref } from "vue";
@@ -8,6 +9,13 @@ import {
   elementController,
 } from "@cgx-designer/controller";
 import { useDrag, HoverManage } from "@cgx-designer/hooks";
+
+//注册指令
+defineExpose({
+  directives: {
+    ripple: Ripple,
+  },
+});
 
 const props = defineProps({
   searchValue: { type: String, default: "", required: true },
@@ -79,6 +87,7 @@ const handleMouseLeave = () => {
           @click="handleClick(element)"
           @mouseenter="handleMouseEnter(index)"
           @mouseleave="handleMouseLeave"
+          v-ripple="{ class: 'c-text-blue-300' }"
         >
           <template v-if="typeof element.icon === 'string'">
             <SvgIcon
