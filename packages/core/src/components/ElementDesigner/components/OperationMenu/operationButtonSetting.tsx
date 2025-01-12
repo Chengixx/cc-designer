@@ -31,7 +31,6 @@ export const createOperationButtonSetting = (
   previewDialogRef: any,
   exportSourceCodeDialogRef: any,
   importSourceCodeDialogRef: any,
-  treeDrawerRef:any
 ): Record<string, OperationButtonSetting> => {
   const ButtonMap = {
     Message: {
@@ -47,13 +46,6 @@ export const createOperationButtonSetting = (
         console.log("当前队列管理", commandManage);
       },
       icon: DebugIcon,
-    },
-    Tree: {
-      label: "树状图",
-      handler: () => {
-        treeDrawerRef.value.showDrawer()
-      },
-      icon: TreeIcon,
     },
     Clear: {
       label: "清空",

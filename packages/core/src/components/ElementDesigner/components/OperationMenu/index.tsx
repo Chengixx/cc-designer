@@ -78,8 +78,7 @@ const OperationMenu = defineComponent({
   },
   setup({ buttonMap }) {
     const commandManage = inject("commandManage") as any;
-    const { Message, Tree, Clear, Undo, Redo, Export, Import, Preview } =
-      buttonMap;
+    const { Message, Clear, Undo, Redo, Export, Import, Preview } = buttonMap;
 
     const undoDisabled = computed(() => {
       const { queue, current } = commandManage;
@@ -115,7 +114,6 @@ const OperationMenu = defineComponent({
                 "c-gap-x-2",
             ]}
           >
-            {IconButton(Tree, true)}
             {IconButton(Import, true)}
             {IconButton(Export, true)}
             {IconButton(Preview, true)}

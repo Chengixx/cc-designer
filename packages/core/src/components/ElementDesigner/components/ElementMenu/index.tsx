@@ -3,6 +3,7 @@ import ElementList from "./components/ElementList.vue";
 import SearchBox from "./components/SearchBox";
 import { TabPane, Tabs } from "@cgx-designer/extensions";
 import ElementSource from "./components/ElementSource";
+import ElementTree from "./components/ElementTree";
 
 const ElementMenu = defineComponent({
   setup() {
@@ -18,14 +19,17 @@ const ElementMenu = defineComponent({
           <div class="c-w-full c-h-[calc(100vh-80px)] c-overflow-y-auto c-overflow-x-hidden c-min-w-[280px]">
             <Tabs v-model={settingTab.value}>
               <TabPane label="组件">
-                <div>
-                  <SearchBox v-model:widgetName={searchValue.value} />
-                  <ElementList searchValue={searchValue.value} />
-                </div>
+                <SearchBox v-model:widgetName={searchValue.value} />
+                <ElementList searchValue={searchValue.value} />
               </TabPane>
               <TabPane label="源码">
-                <div class="c-h-[calc(100vh-120px)] c-w-full">
+                <div class="c-h-[calc(100vh-120px)] c-w-full c-border-t">
                   <ElementSource />
+                </div>
+              </TabPane>
+              <TabPane label="大纲">
+                <div class="c-h-[calc(100vh-120px)] c-w-full c-border-t">
+                  <ElementTree />
                 </div>
               </TabPane>
             </Tabs>

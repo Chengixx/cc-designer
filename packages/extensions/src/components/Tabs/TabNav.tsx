@@ -50,7 +50,7 @@ const TabNav = defineComponent({
             onClick={(e: MouseEvent) => emit("tabClick", pane, tabName, e)}
           >
             <div
-              class="c-w-full c-h-full c-flex c-justify-center c-items-center"
+              class="c-w-full c-h-full c-flex c-justify-center c-items-center c-text-sm c-font-medium"
               v-ripple={{ class: "c-text-gray-400" }}
             >
               <span class="c-select-none">{pane.props.label}</span>

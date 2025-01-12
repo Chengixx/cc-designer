@@ -32,7 +32,6 @@ const ElementDesigner = defineComponent({
     const previewDialogRef = ref<any>(null);
     const exportSourceCodeDialogRef = ref<any>(null);
     const importSourceCodeDialogRef = ref<any>(null);
-    const treeDrawerRef = ref<any>(null);
     //左右菜单实例
     const leftMenuRef = ref<HTMLDivElement | null>(null);
     const rightMenuRef = ref<HTMLDivElement | null>(null);
@@ -69,7 +68,6 @@ const ElementDesigner = defineComponent({
       previewDialogRef,
       exportSourceCodeDialogRef,
       importSourceCodeDialogRef,
-      treeDrawerRef
     );
 
     onMounted(() => {
@@ -131,8 +129,6 @@ const ElementDesigner = defineComponent({
                 {/* 导入导出dialog */}
                 <ExportSourceCodeDialog ref={exportSourceCodeDialogRef} />
                 <ImportSourceCodeDialog ref={importSourceCodeDialogRef} />
-                {/* 树状图 */}
-                <TreeDrawer ref={treeDrawerRef} />
               </div>
             </div>
           )}
