@@ -5,12 +5,14 @@ import {
   inject,
   onMounted,
   PropType,
+  ref,
   Ref,
   Slots,
 } from "vue";
 import TreeNodes from "./TreeNodes.vue";
 import { elementController } from "@cgx-designer/controller";
 import { RightIcon } from "@cgx-designer/icons";
+import Transition from "./Transition.vue";
 
 const TreeNode = defineComponent({
   name: "TreeNode",
@@ -21,6 +23,7 @@ const TreeNode = defineComponent({
     },
   },
   setup(props) {
+    const $child = ref<HTMLElement>();
     //从父组件拿到插槽
     const slots = inject("slots", {}) as Slots;
     const expandedKeys = inject("expandedKeys") as Ref<string[]>;
@@ -38,6 +41,8 @@ const TreeNode = defineComponent({
     });
 
     const handleExpanded = () => {
+      //点击的时候再加上动画
+      $child.value!.style.transition = "all 0.3s";
       const id = props.elementSchema.id;
       if (!id) {
         return false;
@@ -117,14 +122,9 @@ const TreeNode = defineComponent({
 
       const TreeNodeChild = () => {
         return (
-          <>
+          <Transition>
             {props.elementSchema.elementList?.length ? (
-              <div
-                class={[
-                  "c-transition-all",
-                  isExpanded.value ? "c-h-auto" : "c-h-0 c-overflow-hidden",
-                ]}
-              >
+              <div ref={$child} v-show={isExpanded.value}>
                 <TreeNodes
                   elementList={props.elementSchema.elementList}
                   onUpdate:elementList={(e) => {
@@ -133,7 +133,7 @@ const TreeNode = defineComponent({
                 />
               </div>
             ) : undefined}
-          </>
+          </Transition>
         );
       };
 
