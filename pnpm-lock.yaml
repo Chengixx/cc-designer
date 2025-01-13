@@ -278,6 +278,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      vuedraggable:
+        specifier: ^4.1.0
+        version: 4.1.0(vue@3.5.13(typescript@5.5.4))
     devDependencies:
       '@types/lodash':
         specifier: ^4.17.6
@@ -7329,6 +7332,11 @@ snapshots:
     dependencies:
       sortablejs: 1.14.0
       vue: 3.5.11(typescript@5.5.4)
+
+  vuedraggable@4.1.0(vue@3.5.13(typescript@5.5.4)):
+    dependencies:
+      sortablejs: 1.14.0
+      vue: 3.5.13(typescript@5.5.4)
 
   vuetify@3.7.6(typescript@5.5.4)(vue@3.4.38(typescript@5.5.4)):
     dependencies:

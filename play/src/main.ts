@@ -1,6 +1,6 @@
 import { createApp } from "vue";
-import App from "./App";
-// import App from "./App.vue";
+// import App from "./App";
+import App from "./App.vue";
 import "./style/index";
 
 //引入element plus
@@ -27,9 +27,9 @@ import "virtual:svg-icons-register";
 import { elementController } from "@cgx-designer/controller";
 import Kobe from "./components/Kobe.vue";
 import "@cgx-designer/materials/core/vuetify/index.css";
-import { vuetifyPlugin } from "@cgx-designer/materials";
+import { vuetifyPlugin,elementPlusPlugin } from "@cgx-designer/materials";
 
-elementController.install(vuetifyPlugin);
+elementController.install(elementPlusPlugin);
 //注册自定义组件
 elementController.register({
   key: "manContainer",

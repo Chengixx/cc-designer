@@ -1,8 +1,10 @@
 import { IElementBaseSetting } from "@cgx-designer/controller";
+import { RowIcon } from "@cgx-designer/icons";
 
 const Col: IElementBaseSetting = {
   key: "col",
-  label: "布局",
+  label: "列",
+  icon: RowIcon,
   noPushList: true,
   render: () => import("./Col"),
   template: (uuid: Function) => {
