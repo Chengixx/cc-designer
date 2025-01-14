@@ -42,9 +42,7 @@ const ElementAttribute = defineComponent({
       if (typeof attributeConfig.onChange === "function") {
         attributeConfig.onChange({ value, values: editData });
       }
-      nextTick(() => {
-        setValueByPath(currentFocusElement.value!, field, value);
-      });
+      setValueByPath(currentFocusElement.value!, field, value);
     };
     watch(
       () => focusManage.focusedElement.value,
