@@ -3,8 +3,6 @@ import { ElementManage, FocusManage } from "@cgx-designer/hooks";
 import { IEditorElement, TreeNode } from "../../../../../types";
 import { deepClone } from "@cgx-designer/utils";
 import { CTree } from "@cgx-designer/extensions";
-import { elementController } from "@cgx-designer/controller";
-import { VBtnColorType } from "@cgx-designer/materials";
 import Empty from "../../../../Empty";
 import { ClearIcon, CopyIcon } from "@cgx-designer/icons";
 
@@ -65,7 +63,7 @@ const ElementTree = defineComponent({
                       class="c-h-full c-flex c-items-center c-justify-center"
                       onClick={(_: MouseEvent) => handleCopyNode(elementSchema)}
                     >
-                      <CopyIcon class="c-w-[16px] c-h-[16px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
+                      <CopyIcon class="c-w-[14px] c-h-[14px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
                     </div>
                     <div
                       title="删除"
@@ -74,7 +72,7 @@ const ElementTree = defineComponent({
                         handleDeleteNode(elementSchema)
                       }
                     >
-                      <ClearIcon class="c-w-[16px] c-h-[16px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
+                      <ClearIcon class="c-w-[14px] c-h-[14px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
                     </div>
                   </div>
                 ),

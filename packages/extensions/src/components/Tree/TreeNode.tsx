@@ -70,73 +70,67 @@ const TreeNode = defineComponent({
         props.elementSchema.key
       ).icon;
 
-      const ExpandIcon = () => {
-        return (
-          <>
-            {props.elementSchema.elementList?.length ? (
-              <div
-                class="c-flex c-items-center c-absolute c-left-0 c-top-[3px]"
-                onClick={handleExpanded}
-              >
-                <RightIcon
-                  class={[
-                    "c-w-5 c-h-5 c-transition-all c-fill-gray-500",
-                    isExpanded.value ? "c-rotate-90" : "",
-                  ]}
-                />
-              </div>
-            ) : undefined}
-          </>
-        );
-      };
+      const ExpandIcon = (
+        <>
+          {props.elementSchema.elementList?.length ? (
+            <div
+              class="c-flex c-items-center c-absolute c-left-0 c-top-[3px]"
+              onClick={handleExpanded}
+            >
+              <RightIcon
+                class={[
+                  "c-w-5 c-h-5 c-transition-all c-fill-gray-500",
+                  isExpanded.value ? "c-rotate-90" : "",
+                ]}
+              />
+            </div>
+          ) : undefined}
+        </>
+      );
 
-      const TreeContent = () => {
-        return (
-          <div
-            class={[
-              // 已经选中的样式
-              "c-h-full c-w-full c-py-[2px] c-flex c-justify-between",
-              selectedKey.value === props.elementSchema.id! &&
-                "c-bg-blue-50 dark:c-bg-[#272d36]",
-            ]}
-            onClick={() => {
-              handleSelect(props.elementSchema.id!, props.elementSchema);
-            }}
-          >
-            {slots["tree-node"]?.(props) ?? (
-              <div class="c-px-2 c-flex c-items-center">
-                <ElementIcon class="c-h-4 c-w-4 dark:c-fill-white" />
-                <span class="c-truncate c-text-xs c-ml-1">
-                  {props.elementSchema.label ??
-                    elementController.getElementConfig(props.elementSchema.key)
-                      .label}
-                </span>
-                <span class="c-truncate c-ml-2 c-text-xs c-text-gray-400">
-                  {props.elementSchema.id}
-                </span>
-              </div>
-            )}
-            {slots["extension"]?.(props) ?? undefined}
-          </div>
-        );
-      };
+      const TreeContent = (
+        <div
+          class={[
+            // 已经选中的样式
+            "c-h-full c-w-full c-py-[2px] c-flex c-justify-between",
+            selectedKey.value === props.elementSchema.id! &&
+              "c-bg-blue-50 dark:c-bg-[#272d36]",
+          ]}
+          onClick={() => {
+            handleSelect(props.elementSchema.id!, props.elementSchema);
+          }}
+        >
+          {slots["tree-node"]?.(props) ?? (
+            <div class="c-px-2 c-flex c-items-center">
+              <ElementIcon class="c-h-4 c-w-4 dark:c-fill-white" />
+              <span class="c-truncate c-text-xs c-ml-1">
+                {props.elementSchema.label ??
+                  elementController.getElementConfig(props.elementSchema.key)
+                    .label}
+              </span>
+              <span class="c-truncate c-ml-2 c-text-xs c-text-gray-400">
+                {props.elementSchema.id}
+              </span>
+            </div>
+          )}
+          {slots["extension"]?.(props) ?? undefined}
+        </div>
+      );
 
-      const TreeNodeChild = () => {
-        return (
-          <Transition>
-            {props.elementSchema.elementList?.length ? (
-              <div ref={$child} v-show={isExpanded.value}>
-                <TreeNodes
-                  elementList={props.elementSchema.elementList}
-                  onUpdate:elementList={(e) => {
-                    props.elementSchema.elementList = e;
-                  }}
-                />
-              </div>
-            ) : undefined}
-          </Transition>
-        );
-      };
+      const TreeNodeChild = (
+        <Transition>
+          {props.elementSchema.elementList?.length ? (
+            <div ref={$child} v-show={isExpanded.value}>
+              <TreeNodes
+                elementList={props.elementSchema.elementList}
+                onUpdate:elementList={(e) => {
+                  props.elementSchema.elementList = e;
+                }}
+              />
+            </div>
+          ) : undefined}
+        </Transition>
+      );
 
       return (
         <div
@@ -145,7 +139,7 @@ const TreeNode = defineComponent({
             props.elementSchema.elementList?.length && "isExpanded",
           ]}
         >
-          {[ExpandIcon(), TreeContent(), TreeNodeChild()]}
+          {[ExpandIcon, TreeContent, TreeNodeChild]}
         </div>
       );
     };

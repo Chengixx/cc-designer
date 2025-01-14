@@ -23,12 +23,12 @@ const ElementMenu = defineComponent({
                 <ElementList searchValue={searchValue.value} />
               </TabPane>
               <TabPane label="源码">
-                <div class="c-h-[calc(100vh-120px)] c-w-full c-border-t">
+                <div class="c-h-[calc(100vh-120px)] c-w-full c-border-t dark:c-border-darkMode">
                   <ElementSource />
                 </div>
               </TabPane>
               <TabPane label="大纲">
-                <div class="c-h-[calc(100vh-120px)] c-w-full c-border-t">
+                <div class="c-h-[calc(100vh-120px)] c-w-full c-border-t dark:c-border-darkMode">
                   <ElementTree />
                 </div>
               </TabPane>
