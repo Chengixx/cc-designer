@@ -6,10 +6,10 @@ import { CTree } from "@cgx-designer/extensions";
 import { elementController } from "@cgx-designer/controller";
 import { VBtnColorType } from "@cgx-designer/materials";
 import Empty from "../../../../Empty";
+import { ClearIcon, CopyIcon } from "@cgx-designer/icons";
 
 const ElementTree = defineComponent({
   setup() {
-    const Button = elementController.getElementRender("button");
     const elementManage = inject("elementManage") as ElementManage;
     const focusManage = inject("focusManage") as FocusManage;
     const commands = inject("commands") as Record<string, Function> | null;
@@ -44,18 +44,6 @@ const ElementTree = defineComponent({
       commands!.handleLastAdd(newElementSchema);
     };
 
-    const isVuetify = computed(() => {
-      return elementController.getCurrentElementLibrary() === "vuetify";
-    });
-
-    const computedButtonColor = (type: keyof typeof VBtnColorType) => {
-      if (isVuetify.value) {
-        return VBtnColorType[type];
-      } else {
-        return undefined;
-      }
-    };
-
     return () => {
       return (
         <>
@@ -71,29 +59,23 @@ const ElementTree = defineComponent({
                 }: {
                   elementSchema: IEditorElement;
                 }) => (
-                  <div>
-                    <Button
-                      link
-                      variant="text"
-                      type="primary"
-                      size="small"
-                      color={computedButtonColor("primary")}
-                      onClick={(e: MouseEvent) => handleCopyNode(elementSchema)}
+                  <div class="c-h-6 c-flex c-items-center c-gap-x-1 c-pr-1">
+                    <div
+                      title="复制"
+                      class="c-h-full c-flex c-items-center c-justify-center"
+                      onClick={(_: MouseEvent) => handleCopyNode(elementSchema)}
                     >
-                      复制
-                    </Button>
-                    <Button
-                      link
-                      variant="text"
-                      type="danger"
-                      size="small"
-                      color={computedButtonColor("danger")}
-                      onClick={(e: MouseEvent) =>
+                      <CopyIcon class="c-w-[16px] c-h-[16px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
+                    </div>
+                    <div
+                      title="删除"
+                      class="c-h-full c-flex c-items-center c-justify-center"
+                      onClick={(_: MouseEvent) =>
                         handleDeleteNode(elementSchema)
                       }
                     >
-                      删除
-                    </Button>
+                      <ClearIcon class="c-w-[16px] c-h-[16px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
+                    </div>
                   </div>
                 ),
               }}
