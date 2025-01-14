@@ -57,7 +57,7 @@ const ElementTree = defineComponent({
                 }: {
                   elementSchema: IEditorElement;
                 }) => (
-                  <div class="c-h-6 c-flex c-items-center c-gap-x-1 c-pr-1">
+                  <div class="c-h-8 c-flex c-items-center c-gap-x-1 c-pr-1">
                     <div
                       title="复制"
                       class="c-h-full c-flex c-items-center c-justify-center"

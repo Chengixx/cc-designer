@@ -74,7 +74,7 @@ const TreeNode = defineComponent({
         <>
           {props.elementSchema.elementList?.length ? (
             <div
-              class="c-flex c-items-center c-absolute c-left-0 c-top-[3px]"
+              class="c-flex c-items-center c-absolute c-left-0 c-top-[5px]"
               onClick={handleExpanded}
             >
               <RightIcon
@@ -92,7 +92,7 @@ const TreeNode = defineComponent({
         <div
           class={[
             // 已经选中的样式
-            "c-h-6 c-w-full c-py-[2px] c-flex c-justify-between",
+            "c-h-8 c-w-full c-py-[2px] c-flex c-justify-between",
             selectedKey.value === props.elementSchema.id! &&
               "c-bg-blue-50 dark:c-bg-[#272d36]",
           ]}
@@ -103,7 +103,7 @@ const TreeNode = defineComponent({
           {slots["tree-node"]?.(props) ?? (
             <div class="c-px-2 c-flex c-items-center">
               <ElementIcon class="c-h-4 c-w-4 dark:c-fill-white" />
-              <span class="c-truncate c-text-xs c-ml-1">
+              <span class="c-truncate c-text-sm c-ml-1">
                 {props.elementSchema.label ??
                   elementController.getElementConfig(props.elementSchema.key)
                     .label}
