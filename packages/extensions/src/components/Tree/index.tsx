@@ -8,6 +8,7 @@ const CTree = defineComponent({
   props: {
     selectedKey: {
       type: String,
+      default: "",
     },
     elementList: {
       type: Array<IEditorElement>,
