@@ -211,17 +211,21 @@ const EventSettingDialog = defineComponent({
                     <TabPane label="组件联动" name="component">
                       <div class="c-px-2 c-pt-2 c-flex c-flex-col c-h-[calc(70vh-40px-.5rem)]">
                         <div class="c-h-[40vh] c-overflow-y-auto c-w-full c-border-b dark:c-border-darkMode">
-                          <CTree
-                            v-model:elementList={
-                              elementManage.elementList.value
-                            }
-                            v-model:selectedKey={selectedKey.value}
-                            onNodeClick={({
-                              elementSchema,
-                            }: {
-                              elementSchema: IEditorElement;
-                            }) => handleNodeClick(elementSchema)}
-                          />
+                          {elementManage.elementList.value.length ? (
+                            <CTree
+                              v-model:elementList={
+                                elementManage.elementList.value
+                              }
+                              v-model:selectedKey={selectedKey.value}
+                              onNodeClick={({
+                                elementSchema,
+                              }: {
+                                elementSchema: IEditorElement;
+                              }) => handleNodeClick(elementSchema)}
+                            />
+                          ) : (
+                            <Empty />
+                          )}
                         </div>
                         <div class="c-w-full c-flex-1 c-overflow-y-auto">
                           <MethodsList

@@ -92,7 +92,7 @@ const TreeNode = defineComponent({
         <div
           class={[
             // 已经选中的样式
-            "c-h-full c-w-full c-py-[2px] c-flex c-justify-between",
+            "c-h-6 c-w-full c-py-[2px] c-flex c-justify-between",
             selectedKey.value === props.elementSchema.id! &&
               "c-bg-blue-50 dark:c-bg-[#272d36]",
           ]}
