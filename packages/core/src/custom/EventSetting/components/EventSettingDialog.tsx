@@ -1,4 +1,4 @@
-import { ElTree } from "element-plus";
+import { CTree } from "@cgx-designer/extensions";
 import {
   computed,
   defineComponent,
@@ -25,9 +25,9 @@ const EventSettingDialog = defineComponent({
     const Dialog = elementController.getElementRender("dialog");
     const functionManage = inject("functionManage") as FunctionManage;
     const elementManage = inject("elementManage") as ElementManage;
-    const nodeTree = ref<InstanceType<typeof ElTree>>();
     const dialogShow = ref<boolean>(false);
     const isAdd = ref<boolean>(true);
+    const selectedKey = ref<string>("");
     //实例
     const eventInstance = reactive<EventInstance>({
       //事件的类型
@@ -107,6 +107,11 @@ const EventSettingDialog = defineComponent({
       eventInstance.type = "component";
       eventInstance.methodName = null;
       elementSchema.value = data;
+
+      //如果有 可以默认选中第一个
+      if (methodsList.value?.length) {
+        handleSelectMethod(methodsList.value[0].value);
+      }
     };
     //选中方法
     const handleSelectMethod = (method: string) => {
@@ -120,6 +125,7 @@ const EventSettingDialog = defineComponent({
       eventInstance.type = e as string;
       eventInstance.methodName = null;
       elementSchema.value = null;
+      selectedKey.value = "";
     };
 
     //dialog的方法
@@ -153,6 +159,7 @@ const EventSettingDialog = defineComponent({
             newEventInstance!.componentId
           );
           elementSchema.value = newElementSchema;
+          selectedKey.value = newEventInstance!.componentId;
         }
 
         nextTick(() => {
@@ -160,12 +167,13 @@ const EventSettingDialog = defineComponent({
           eventInstance.methodName = newEventInstance!.methodName;
           eventInstance.type = newEventInstance!.type;
           eventInstance.args = newEventInstance!.args;
-          nodeTree.value?.setCurrentKey(newEventInstance!.componentId!);
         });
       }
     };
     const handleClose = () => {
       dialogShow.value = false;
+      selectedKey.value = "";
+      cacheData.value = {};
     };
 
     expose({
@@ -203,16 +211,16 @@ const EventSettingDialog = defineComponent({
                     <TabPane label="组件联动" name="component">
                       <div class="c-px-2 c-pt-2 c-flex c-flex-col c-h-[calc(70vh-40px-.5rem)]">
                         <div class="c-h-[40vh] c-overflow-y-auto c-w-full c-border-b dark:c-border-darkMode">
-                          <ElTree
-                            ref={nodeTree}
-                            default-expand-all
-                            highlight-current
-                            class="node-tree"
-                            icon-class="el-icon-arrow-right"
-                            onNode-click={handleNodeClick}
-                            data={elementManage.elementList.value}
-                            node-key="id"
-                            props={{ label: "key", children: "elementList" }}
+                          <CTree
+                            v-model:elementList={
+                              elementManage.elementList.value
+                            }
+                            v-model:selectedKey={selectedKey.value}
+                            onNodeClick={({
+                              elementSchema,
+                            }: {
+                              elementSchema: IEditorElement;
+                            }) => handleNodeClick(elementSchema)}
                           />
                         </div>
                         <div class="c-w-full c-flex-1 c-overflow-y-auto">
@@ -228,15 +236,11 @@ const EventSettingDialog = defineComponent({
                 </div>
                 <div class="c-flex-1 c-ml-2 c-border c-p-2 c-h-full dark:c-border-darkMode">
                   {eventInstance.type === "custom" ? (
-                    <>
-                      <ScriptIDE />
-                    </>
+                    <ScriptIDE />
                   ) : (
                     <>
                       {!actionArgsConfigs.value.length ? (
-                        <div>
-                          <Empty />
-                        </div>
+                        <Empty />
                       ) : (
                         <ElementIDE
                           modelValue={eventInstance.args}

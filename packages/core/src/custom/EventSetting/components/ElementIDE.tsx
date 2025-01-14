@@ -23,10 +23,11 @@ const ElementIDE = defineComponent({
     });
 
     const handleSetValue = (value: any, field: string) => {
-      const values = [...JSON.parse(props.modelValue ?? "[]")];
+      const values = [...JSON.parse(props.modelValue ?? "[]")] as Record<
+        string,
+        any
+      >;
 
-      //Todo 类型错误
-      // @ts-ignore
       values[field] = value;
       emit("updateModelValue", JSON.stringify(values));
       // 将修改过的组件属性推入撤销操作的栈中
@@ -35,7 +36,7 @@ const ElementIDE = defineComponent({
       <div>
         {props.actionArgsConfigs.map((item) => {
           return (
-            <div key={item.key + item.field}>
+            <div key={item.id}>
               <ElRow class="c-w-full">
                 <ElCol span={6}>
                   <div class="c-font-medium c-text-sm c-text-gray-600 c-h-full c-flex c-items-center dark:c-text-gray-300">
