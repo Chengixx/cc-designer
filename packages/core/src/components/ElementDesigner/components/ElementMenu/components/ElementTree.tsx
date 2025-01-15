@@ -50,6 +50,7 @@ const ElementTree = defineComponent({
               v-model:elementList={elementManage.elementList.value}
               v-model:selectedKey={selectedKey.value}
               onNodeClick={handleNodeClick}
+              draggable
             >
               {{
                 extension: ({

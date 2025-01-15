@@ -6,7 +6,8 @@ import { useDrag } from "@cgx-designer/hooks";
 import { inject } from "vue";
 import { HoverManage } from "@cgx-designer/hooks";
 import { IEditorElement } from "../../../../../types";
-import { needMarginBottomDomList } from "../../../../../constant";
+import { noNeedMarginBottomDomList } from "../../../../../constant";
+import { elementController } from "@cgx-designer/controller";
 defineOptions({
   name: "Draggle",
 });
@@ -19,9 +20,10 @@ const hoverManage = inject("hoverManage") as HoverManage;
 const focusManage = inject("focusManage") as FocusManage;
 const modeManage = inject("modeManage") as ModeManage;
 const { handleDropStart, handleDropEnd } = useDrag();
-const _needMarginBottom = (elementSchema: IEditorElement) => {
-  return needMarginBottomDomList.includes(elementSchema.key);
-};
+const _noNeedMarginBottom = (elementSchema: IEditorElement) =>
+  noNeedMarginBottomDomList.includes(elementSchema.key) ||
+  elementController.getCurrentElementLibrary() === "vuetify";
+
 const handleAdd = (index: number) => {
   //Todo这其实是一个设计上的失误 导致必须在这里进行异步 确保另一边加上数据了
   setTimeout(() => {
@@ -55,9 +57,10 @@ const handleAdd = (index: number) => {
     <template #item="{ element }">
       <div
         :class="[
-          _needMarginBottom(element) ? 'c-mb-0' : 'c-mb-4',
-          element.key === 'row' ? 'c-border c-border-[#d9d9d9] c-border-dashed' : '',
-          element.key === 'divider' ? 'c-inline-block' : '',
+          _noNeedMarginBottom(element) ? 'c-mb-0' : 'c-mb-4',
+          element.key === 'row' &&
+            'c-border c-border-[#d9d9d9] c-border-dashed',
+          element.key === 'divider' && 'c-inline-block',
           'editor-element-item c-relative',
         ]"
         :key="element.id"
@@ -74,9 +77,5 @@ const handleAdd = (index: number) => {
 }
 .editor-element-item:first-child {
   margin-top: 0;
-}
-.editor-element-item::hover {
-  /* background-color: #336699; */
-  background-color: #3b82f6;
 }
 </style>

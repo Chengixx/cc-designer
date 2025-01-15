@@ -14,6 +14,10 @@ const CTree = defineComponent({
       type: Array<IEditorElement>,
       default: () => [],
     },
+    draggable: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, { slots, emit }) {
     const expandedKeys = ref<string[]>([]);
@@ -46,6 +50,7 @@ const CTree = defineComponent({
       },
     });
 
+    provide("treeRootProp", props);
     provide("slots", slots);
     provide("handleSelect", handleSelect);
     provide("expandedKeys", expandedKeys);

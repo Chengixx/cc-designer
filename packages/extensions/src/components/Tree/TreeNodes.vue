@@ -7,15 +7,16 @@
       animation: 200,
       group: 'tree-drag',
       ghostClass: 'moveing',
+      disabled: !_props?.draggable,
     }"
   >
-    <template #item="{ element, index }">
+    <template #item="{ element }">
       <TreeNode :key="element.id" :elementSchema="element" />
     </template>
   </draggable>
 </template>
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, inject } from "vue";
 import TreeNode from "./TreeNode";
 import draggable from "vuedraggable";
 import { IEditorElement } from "@cgx-designer/core";
@@ -30,6 +31,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["update:elementList"]);
+const _props = inject("treeRootProp") as any;
 const localElementList = computed({
   get() {
     return props.elementList;

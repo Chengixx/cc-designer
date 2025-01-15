@@ -24,7 +24,6 @@ import {
 import CollapseWidget from "./components/CollapseWidget";
 import { elementController } from "@cgx-designer/controller";
 import Loading from "../Loading/index.vue";
-import TreeDrawer from "../TreeDrawer";
 //设计器
 const ElementDesigner = defineComponent({
   setup() {
@@ -67,7 +66,7 @@ const ElementDesigner = defineComponent({
       commands!,
       previewDialogRef,
       exportSourceCodeDialogRef,
-      importSourceCodeDialogRef,
+      importSourceCodeDialogRef
     );
 
     onMounted(() => {
