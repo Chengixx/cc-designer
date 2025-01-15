@@ -8,12 +8,12 @@ import {
   watch,
 } from "vue";
 import ElementBuilderNode from "./ElementBuilderNode";
-import { ElForm, FormInstance } from "element-plus";
 import { BuilderSchema, FormSetting, IEditorElement } from "../../types";
 import { deepCompareAndModify, stringFirstBigger } from "@cgx-designer/utils";
 import { useElement, useFunction } from "@cgx-designer/hooks";
 import { isEmpty } from "lodash";
 import Empty from "../Empty";
+import { elementController } from "@cgx-designer/controller";
 
 const ElementBuilder = defineComponent({
   props: {
@@ -46,6 +46,7 @@ const ElementBuilder = defineComponent({
     },
   },
   setup(props, { expose, slots }) {
+    const Form = elementController.getElementRender("form");
     const elementManage = useElement();
     const functionManage = useFunction(elementManage);
     provide("elementManage", elementManage);
@@ -103,7 +104,7 @@ const ElementBuilder = defineComponent({
       },
       { immediate: true }
     );
-    const formRef = ref<FormInstance>();
+    const formRef = ref<any>();
     const setFormData = (data: any) => {
       deepCompareAndModify(formData, data);
     };
@@ -120,7 +121,7 @@ const ElementBuilder = defineComponent({
       return (
         <>
           {useElementSchemaList.value.length || !isEmpty(slots) ? (
-            <ElForm
+            <Form
               ref={formRef}
               model={formData}
               {...getFormAttrs.value}
@@ -135,7 +136,7 @@ const ElementBuilder = defineComponent({
                 );
               })}
               {slots.default && slots.default()}
-            </ElForm>
+            </Form>
           ) : (
             <div class="c-h-full c-flex c-justify-center c-items-center">
               <Empty />

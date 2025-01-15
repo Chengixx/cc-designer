@@ -1,4 +1,3 @@
-import { ElForm } from "element-plus";
 import { computed, defineComponent, inject, onMounted, ref } from "vue";
 import Draggle from "./components/Draggle.vue";
 import {
@@ -13,9 +12,11 @@ import PanelWidget from "./components/PanelWidget";
 import { FocusManage } from "@cgx-designer/hooks/src/useFocus";
 import { stringFirstBigger } from "@cgx-designer/utils";
 import Empty from "../../../Empty";
+import { elementController } from "@cgx-designer/controller";
 
 const EditorCanvas = defineComponent({
   setup() {
+    const Form = elementController.getElementRender("form");
     const formManage = inject("formManage") as FormManage;
     const elementManage = inject("elementManage") as ElementManage;
     const focusManage = inject("focusManage") as FocusManage;
@@ -62,7 +63,7 @@ const EditorCanvas = defineComponent({
           >
             {/* hover的盒子,选中的时候如果在这 */}
             <PanelWidget />
-            <ElForm
+            <Form
               {...getFormFunction.value}
               labelWidth={formManage.formSetting.labelWidth}
               labelPosition={formManage.formSetting.labelPosition}
@@ -74,7 +75,7 @@ const EditorCanvas = defineComponent({
                 elementSchemaList={elementManage.elementList.value}
                 isNested={false}
               />
-            </ElForm>
+            </Form>
           </div>
         </>
       );
