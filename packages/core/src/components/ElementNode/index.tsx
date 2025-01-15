@@ -5,7 +5,6 @@ import {
   stringFirstBigger,
 } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
-import { ElFormItem } from "element-plus";
 import {
   ComponentPublicInstance,
   computed,
@@ -40,6 +39,7 @@ const ElementNode = defineComponent({
   },
   emits: ["updateProvideValue"],
   setup(props, { slots, emit }) {
+    const FormItem = elementController.getElementRender("formItem");
     const elementManage = inject("elementManage") as ElementManage;
     const functionManage = inject("functionManage") as FunctionManage;
     const elementRef = ref<ComponentPublicInstance>();
@@ -201,7 +201,7 @@ const ElementNode = defineComponent({
     const ElementShell = (children: any) => (
       <>
         {localSchema.formItem && !!!localSchema.noShowFormItem ? (
-          <ElFormItem
+          <FormItem
             for="-"
             label={
               !!localSchema.props!.label
@@ -215,7 +215,7 @@ const ElementNode = defineComponent({
             rules={localSchema.rules}
           >
             {children}
-          </ElFormItem>
+          </FormItem>
         ) : (
           <>{children}</>
         )}

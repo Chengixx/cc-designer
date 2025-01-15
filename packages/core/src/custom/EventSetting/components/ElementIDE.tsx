@@ -1,7 +1,7 @@
 import ElementNode from "../../../components/ElementNode/index";
-import { ElCol, ElRow } from "element-plus";
 import { IEditorElement } from "index";
 import { computed, defineComponent, PropType } from "vue";
+import { CFormItem } from "@cgx-designer/extensions";
 
 const ElementIDE = defineComponent({
   props: {
@@ -37,25 +37,20 @@ const ElementIDE = defineComponent({
         {props.actionArgsConfigs.map((item) => {
           return (
             <div key={item.id}>
-              <ElRow class="c-w-full">
-                <ElCol span={6}>
-                  <div class="c-font-medium c-text-sm c-text-gray-600 c-h-full c-flex c-items-center dark:c-text-gray-300">
-                    {!!item.props!.label ? item.props!.label : item.key}
-                  </div>
-                </ElCol>
-                <ElCol span={18}>
-                  <ElementNode
-                    elementSchema={{
-                      ...item,
-                      formItem: false,
-                    }}
-                    provideValue={valueRef.value[item.field!]}
-                    onUpdateProvideValue={($event) =>
-                      handleSetValue($event, item.field!)
-                    }
-                  />
-                </ElCol>
-              </ElRow>
+              <CFormItem
+                label={!!item.props!.label ? item.props!.label : item.key}
+              >
+                <ElementNode
+                  elementSchema={{
+                    ...item,
+                    formItem: false,
+                  }}
+                  provideValue={valueRef.value[item.field!]}
+                  onUpdateProvideValue={($event) =>
+                    handleSetValue($event, item.field!)
+                  }
+                />
+              </CFormItem>
             </div>
           );
         })}

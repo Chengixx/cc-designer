@@ -1,4 +1,4 @@
-import { defineAsyncComponent, ref } from "vue";
+import { defineAsyncComponent, defineComponent, Fragment, ref } from "vue";
 import { IElementBaseSetting } from "../types/index";
 import {
   deepClone,
@@ -6,6 +6,16 @@ import {
   stringFirstSmaller,
 } from "@cgx-designer/utils";
 import { IEditorElement } from "@cgx-designer/core";
+
+export const BaseComponent = defineComponent({
+  name: "BaseComponent",
+  inheritAttrs: false,
+  setup(_, { slots }) {
+    return () => {
+      return <Fragment>{slots.default ? slots.default() : null}</Fragment>;
+    };
+  },
+});
 
 export interface ElementPlugin {
   name: ElementLib;
@@ -158,7 +168,7 @@ export class ElementController {
   //获取element渲染
   getElementRender = (key: string) => {
     //兜底 没有的话返回一个空
-    return this.elementRenderMap[key] ?? (() => <></>);
+    return this.elementRenderMap[key] ?? BaseComponent;
   };
   //获取element配置
   getElementConfig = (key: string) => {
