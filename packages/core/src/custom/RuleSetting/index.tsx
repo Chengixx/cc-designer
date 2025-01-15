@@ -86,7 +86,7 @@ const RuleSetting = defineComponent({
               default: () => {
                 return (
                   <>
-                    <CFormItem label="必填" labelCol={8}>
+                    <CFormItem label="必填" labelCol={8} needBottom={false}>
                       <Switch
                         v-model={requiredRule.value.required}
                         {...vuetifyConfig}

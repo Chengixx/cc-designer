@@ -10,15 +10,24 @@ const CFormItem = defineComponent({
       type: Number,
       default: 6,
     },
+    needBottom: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props, { slots }) {
     const totalCol = 24;
-    const { labelCol } = props;
+    const { labelCol, needBottom } = props;
     const labelWidth = `${(labelCol / totalCol) * 100}%`;
     const contentWidth = `${((totalCol - labelCol) / totalCol) * 100}%`;
 
     return () => (
-      <div class="c-w-full c-flex c-mb-3 c-items-center">
+      <div
+        class={[
+          "c-w-full c-flex c-items-center",
+          needBottom ? "c-mb-3" : "c-mb-0",
+        ]}
+      >
         <div class="c-w-full c-flex">
           {props.label && (
             <div style={{ width: labelWidth }}>
