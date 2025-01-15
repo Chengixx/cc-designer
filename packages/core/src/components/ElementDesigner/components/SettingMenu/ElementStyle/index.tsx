@@ -1,10 +1,10 @@
 import { FocusManage } from "@cgx-designer/hooks";
-import { ElCol, ElRow } from "element-plus";
 import { computed, defineComponent, inject } from "vue";
 import { getValueByPath, setValueByPath } from "@cgx-designer/utils";
 import ElementNode from "../../../../ElementNode";
 import { defaultStyleSchema } from "./constant";
 import Empty from "../../../../Empty";
+import { CFormItem } from "@cgx-designer/extensions";
 
 const ElementStyle = defineComponent({
   setup() {
@@ -18,33 +18,18 @@ const ElementStyle = defineComponent({
         {focusedElement.value ? (
           <>
             {defaultStyleSchema.map((styleConfig) => (
-              <div class="c-w-full c-flex c-mb-3 c-items-center">
-                <ElRow class="c-w-full">
-                  {styleConfig.label && (
-                    <ElCol span={6}>
-                      <div class="c-font-medium c-text-sm c-text-gray-600 c-h-full c-flex c-items-center dark:c-text-gray-300">
-                        {styleConfig.label}:
-                      </div>
-                    </ElCol>
+              <CFormItem label={styleConfig.label || undefined}>
+                <ElementNode
+                  elementSchema={{ ...styleConfig, formItem: false }}
+                  provideValue={getValueByPath(
+                    focusedElement.value!,
+                    styleConfig.field!
                   )}
-                  <ElCol span={styleConfig.label ? 18 : 24}>
-                    <ElementNode
-                      elementSchema={{ ...styleConfig, formItem: false }}
-                      provideValue={getValueByPath(
-                        focusedElement.value!,
-                        styleConfig.field!
-                      )}
-                      onUpdateProvideValue={(v: any) =>
-                        setValueByPath(
-                          focusedElement.value!,
-                          styleConfig.field!,
-                          v
-                        )
-                      }
-                    />
-                  </ElCol>
-                </ElRow>
-              </div>
+                  onUpdateProvideValue={(v: any) =>
+                    setValueByPath(focusedElement.value!, styleConfig.field!, v)
+                  }
+                />
+              </CFormItem>
             ))}
           </>
         ) : (

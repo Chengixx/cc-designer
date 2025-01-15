@@ -3,14 +3,14 @@ import { IEditorElement } from "../../../../../types";
 import { FocusManage } from "@cgx-designer/hooks";
 import { setValueByPath } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
-import { defineComponent, Fragment, inject, nextTick, ref, watch } from "vue";
+import { defineComponent, Fragment, inject, ref, watch } from "vue";
 import {
   deepClone,
   getValueByPath,
 } from "./../../../../../../../utils/common/util";
-import { ElCol, ElRow } from "element-plus";
 import { vuetifyProps } from "@cgx-designer/materials";
 import Empty from "../../../../Empty";
+import { CFormItem } from "@cgx-designer/extensions";
 
 const ElementAttribute = defineComponent({
   setup() {
@@ -72,43 +72,32 @@ const ElementAttribute = defineComponent({
           return (
             <Fragment key={attributeConfig.field}>
               {showAttributeConfigWidget(attributeConfig) && (
-                <div class="c-w-full c-flex c-mb-3 c-items-center">
-                  <ElRow class="c-w-full">
-                    {attributeConfig.label && (
-                      <ElCol span={6}>
-                        <div class="c-font-medium c-text-sm c-text-gray-600 c-h-full c-flex c-items-center dark:c-text-gray-300">
-                          {attributeConfig.label}
-                        </div>
-                      </ElCol>
+                <CFormItem label={attributeConfig.label || undefined}>
+                  <ElementNode
+                    provideValue={getValueByPath(
+                      currentFocusElement.value!,
+                      attributeConfig.field!
                     )}
-                    <ElCol span={attributeConfig.label ? 18 : 24}>
-                      <ElementNode
-                        provideValue={getValueByPath(
-                          currentFocusElement.value!,
-                          attributeConfig.field!
-                        )}
-                        elementSchema={{
-                          ...attributeConfig,
-                          props: {
-                            ...attributeConfig.props,
-                            ...(attributeConfig.field === "props.defaultValue"
-                              ? currentFocusElement.value?.props
-                              : { ...vuetifyProps(attributeConfig.key) }),
-                          },
-                          field: undefined,
-                          formItem: false,
-                        }}
-                        onUpdateProvideValue={(value) =>
-                          handleSetValue(
-                            value,
-                            attributeConfig.field!,
-                            attributeConfig
-                          )
-                        }
-                      />
-                    </ElCol>
-                  </ElRow>
-                </div>
+                    elementSchema={{
+                      ...attributeConfig,
+                      props: {
+                        ...attributeConfig.props,
+                        ...(attributeConfig.field === "props.defaultValue"
+                          ? currentFocusElement.value?.props
+                          : { ...vuetifyProps(attributeConfig.key) }),
+                      },
+                      field: undefined,
+                      formItem: false,
+                    }}
+                    onUpdateProvideValue={(value) =>
+                      handleSetValue(
+                        value,
+                        attributeConfig.field!,
+                        attributeConfig
+                      )
+                    }
+                  />
+                </CFormItem>
               )}
             </Fragment>
           );

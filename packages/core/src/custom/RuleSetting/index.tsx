@@ -3,7 +3,7 @@ import { CCard, Divider } from "@cgx-designer/extensions";
 import { IEditorElement } from "@cgx-designer/core";
 import { defineComponent, onMounted, PropType, ref, watch } from "vue";
 import { triggerOptions, typeOptions } from "./constant";
-import RuleFormItem from "./components/RuleFormItem";
+import { CFormItem } from "@cgx-designer/extensions";
 import { deepClone } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
 import { VBtnColorType, vuetifyConfig } from "@cgx-designer/materials";
@@ -86,15 +86,15 @@ const RuleSetting = defineComponent({
               default: () => {
                 return (
                   <>
-                    <RuleFormItem label="必填">
+                    <CFormItem label="必填" labelCol={8}>
                       <Switch
                         v-model={requiredRule.value.required}
                         {...vuetifyConfig}
                       />
-                    </RuleFormItem>
+                    </CFormItem>
                     {requiredRule.value.required && (
                       <>
-                        <RuleFormItem label="校验时机" class="c-mt-2">
+                        <CFormItem label="校验时机" class="c-mt-2" labelCol={8}>
                           <Select
                             v-model={requiredRule.value.trigger}
                             elementSchema={{
@@ -108,8 +108,8 @@ const RuleSetting = defineComponent({
                               formItem: false,
                             }}
                           />
-                        </RuleFormItem>
-                        <RuleFormItem label="类型" class="c-mt-2">
+                        </CFormItem>
+                        <CFormItem label="类型" class="c-mt-2" labelCol={8}>
                           <Select
                             v-model={requiredRule.value.type}
                             elementSchema={{
@@ -122,13 +122,13 @@ const RuleSetting = defineComponent({
                               formItem: false,
                             }}
                           />
-                        </RuleFormItem>
-                        <RuleFormItem label="提示信息" class="c-mt-2">
+                        </CFormItem>
+                        <CFormItem label="提示信息" class="c-mt-2" labelCol={8}>
                           <Input
                             v-model={requiredRule.value.message}
                             {...vuetifyConfig}
                           />
-                        </RuleFormItem>
+                        </CFormItem>
                       </>
                     )}
                   </>
@@ -143,7 +143,7 @@ const RuleSetting = defineComponent({
                   default: () => {
                     return (
                       <>
-                        <RuleFormItem label="校验时机">
+                        <CFormItem label="校验时机" labelCol={8}>
                           <Select
                             v-model={rule.trigger}
                             elementSchema={{
@@ -157,8 +157,8 @@ const RuleSetting = defineComponent({
                               formItem: false,
                             }}
                           />
-                        </RuleFormItem>
-                        <RuleFormItem label="类型" class="c-mt-2">
+                        </CFormItem>
+                        <CFormItem label="类型" class="c-mt-2" labelCol={8}>
                           <Select
                             v-model={rule.type}
                             elementSchema={{
@@ -171,13 +171,13 @@ const RuleSetting = defineComponent({
                               formItem: false,
                             }}
                           />
-                        </RuleFormItem>
-                        <RuleFormItem label="正则校验" class="c-mt-2">
+                        </CFormItem>
+                        <CFormItem label="正则校验" class="c-mt-2" labelCol={8}>
                           <Input v-model={rule.pattern} {...vuetifyConfig} />
-                        </RuleFormItem>
-                        <RuleFormItem label="提示信息" class="c-mt-2">
+                        </CFormItem>
+                        <CFormItem label="提示信息" class="c-mt-2" labelCol={8}>
                           <Input v-model={rule.message} {...vuetifyConfig} />
-                        </RuleFormItem>
+                        </CFormItem>
                       </>
                     );
                   },
