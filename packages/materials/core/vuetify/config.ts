@@ -1,20 +1,14 @@
 import { IEditorElement } from "@cgx-designer/core";
+import { vuetifyConfig } from "./vuetify";
 
 export const vuetifyFormConfig: IEditorElement[] = [
-  {
-    label: "标签宽度",
-    key: "inputNumber",
-    field: "labelWidth",
-    props: {
-      defaultValue: 100,
-    },
-  },
   {
     label: "是否禁用",
     key: "switch",
     field: "disabled",
     props: {
       defaultValue: false,
+      ...vuetifyConfig
     },
   },
   {
@@ -30,6 +24,7 @@ export const vuetifyFormConfig: IEditorElement[] = [
         { label: "中", value: "default" },
         { label: "小", value: "small" },
       ],
+      ...vuetifyConfig
     },
   },
   {
@@ -45,6 +40,7 @@ export const vuetifyFormConfig: IEditorElement[] = [
         { label: "右", value: "right" },
         { label: "上", value: "top" },
       ],
+      ...vuetifyConfig
     },
   },
   {
@@ -53,6 +49,7 @@ export const vuetifyFormConfig: IEditorElement[] = [
     field: "modelName",
     props: {
       placeholder: "请输入表单名称",
+      ...vuetifyConfig
     },
   },
   {
@@ -61,6 +58,7 @@ export const vuetifyFormConfig: IEditorElement[] = [
     field: "refName",
     props: {
       placeholder: "请输入引用名称",
+      ...vuetifyConfig
     },
   },
   {
@@ -69,6 +67,7 @@ export const vuetifyFormConfig: IEditorElement[] = [
     field: "rulesName",
     props: {
       placeholder: "请输入规则名称",
+      ...vuetifyConfig
     },
   },
 ];

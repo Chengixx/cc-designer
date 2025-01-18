@@ -37,6 +37,7 @@ export interface FormSetting {
   size?: "default" | "small" | "large";
   disabled?: boolean;
   on?: Record<string, EventInstance[]>;
+  [key: string]: any;
 }
 
 //表单校验规则
