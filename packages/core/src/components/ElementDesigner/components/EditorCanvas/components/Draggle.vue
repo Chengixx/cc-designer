@@ -22,7 +22,7 @@ const modeManage = inject("modeManage") as ModeManage;
 const { handleDropStart, handleDropEnd } = useDrag();
 const _noNeedMarginBottom = (elementSchema: IEditorElement) =>
   noNeedMarginBottomDomList.includes(elementSchema.key) ||
-  elementController.getCurrentElementLibrary() === "vuetify";
+  elementController.getCurrentElementLibraryName() === "vuetify";
 
 const handleAdd = (index: number) => {
   //Todo这其实是一个设计上的失误 导致必须在这里进行异步 确保另一边加上数据了

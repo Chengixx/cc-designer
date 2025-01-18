@@ -29,7 +29,7 @@ export class ElementController {
   //是否已经初始化完成
   isReady = ref<boolean>(false);
   //当前使用的是哪个组件库(内部)
-  elementLibrary = ref<ElementLib | undefined>(undefined);
+  elementLibrary = ref<ElementPlugin | undefined>(undefined);
   //当前组件库的基础组件(用于删除和缓存)
   libElementKeys: string[] = [];
   //初始的模板，初始的schema
@@ -42,13 +42,13 @@ export class ElementController {
   elementRenderMap: Record<string, any> = {};
   //总的install(这个主要是实际生产用的时候注册插件
   install = (elementPlugin: ElementPlugin) => {
-    const { name, template } = elementPlugin;
+    const { template } = elementPlugin;
     for (let key in template) {
       elementController.register(template[key]);
       this.addLibElementKey(key);
     }
     //所有组件都安装完毕之后，设置控制器告诉它当前使用的组件库
-    this.elementLibrary.value = name;
+    this.elementLibrary.value = elementPlugin;
     this.isReady.value = true;
   };
   //清空控制器
@@ -64,11 +64,10 @@ export class ElementController {
   clearLibElements = () => {
     this.isReady.value = false;
     this.libElementKeys.forEach((key) => {
-      // console.log(key, this.elementList.value);
       this.removeComponent(key);
     });
     this.libElementKeys = [];
-    console.warn("[lib]:" + this.elementLibrary.value + "删除完毕");
+    console.warn("[lib]:" + this.elementLibrary.value?.name + "删除完毕");
     this.elementLibrary.value = undefined;
   };
   //删除某个组件(Map里去掉)
@@ -81,9 +80,13 @@ export class ElementController {
       (element) => element.key !== key
     );
   };
-  //获取当前是什么组件库
-  getCurrentElementLibrary = () => {
+  //获取当前组件库的所有内容
+  getCurrentElementPlugin = () => {
     return this.elementLibrary.value;
+  };
+  //获取当前组件库的名称
+  getCurrentElementLibraryName = () => {
+    return this.elementLibrary.value?.name;
   };
   //增加当前组件库的key
   addLibElementKey = (key: string) => {

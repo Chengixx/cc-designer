@@ -13,6 +13,9 @@ export const elementPlusFormConfig: IEditorElement[] = [
     label: "是否禁用",
     key: "switch",
     field: "disabled",
+    props: {
+      defaultValue: false,
+    },
   },
   {
     label: "表单大小",
@@ -48,15 +51,24 @@ export const elementPlusFormConfig: IEditorElement[] = [
     label: "表单名称",
     key: "input",
     field: "modelName",
+    props: {
+      placeholder: "请输入表单名称",
+    },
   },
   {
     label: "引用名称",
     key: "input",
     field: "refName",
+    props: {
+      placeholder: "请输入引用名称",
+    },
   },
   {
     label: "规则名称",
     key: "input",
     field: "rulesName",
+    props: {
+      placeholder: "请输入规则名称",
+    },
   },
 ];

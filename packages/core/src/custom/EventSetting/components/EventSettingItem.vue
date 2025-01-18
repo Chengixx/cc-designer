@@ -82,7 +82,7 @@ const getElementSvg = (tag: string) => {
 };
 
 const isVuetify = computed(() => {
-  return elementController.getCurrentElementLibrary() === "vuetify";
+  return elementController.getCurrentElementLibraryName() === "vuetify";
 });
 
 const computedButtonColor = (type: keyof typeof VBtnColorType) => {

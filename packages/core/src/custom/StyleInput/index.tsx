@@ -15,7 +15,7 @@ const StyleInput = defineComponent({
   setup(props, { attrs, emit }) {
     const Input = elementController.getElementRender("input");
     const isVuetify = computed(() => {
-      return elementController.getCurrentElementLibrary() === "vuetify";
+      return elementController.getCurrentElementLibraryName() === "vuetify";
     });
     const options: OptionGroup[] = [
       { label: "px", value: "px" },

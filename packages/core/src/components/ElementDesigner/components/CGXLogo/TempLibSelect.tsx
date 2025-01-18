@@ -11,7 +11,7 @@ import { ElementManage } from "@cgx-designer/hooks";
 const TempLibSelect = defineComponent({
   setup() {
     const elementManage = inject("elementManage") as ElementManage;
-    const lib = ref<ElementLib>(elementController.getCurrentElementLibrary()!);
+    const lib = ref<ElementLib>(elementController.getCurrentElementLibraryName()!);
 
     const libMap: Record<ElementLib, ElementPlugin> = {
       "element-plus": elementPlusPlugin,

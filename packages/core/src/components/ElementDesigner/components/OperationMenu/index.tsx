@@ -35,7 +35,7 @@ const IconButton = (
   const Button = elementController.getElementRender("button");
   const renderProps = {
     icon:
-      elementController.getCurrentElementLibrary() !== "vuetify" &&
+      elementController.getCurrentElementLibraryName() !== "vuetify" &&
       Iconfig.icon,
     variant: "outlined",
     onClick: Iconfig.handler,
@@ -110,7 +110,7 @@ const OperationMenu = defineComponent({
           <div
             class={[
               "c-h-full c-flex-1 c-flex c-justify-end c-items-center c-pr-4",
-              elementController.getCurrentElementLibrary() === "vuetify" &&
+              elementController.getCurrentElementLibraryName() === "vuetify" &&
                 "c-gap-x-2",
             ]}
           >

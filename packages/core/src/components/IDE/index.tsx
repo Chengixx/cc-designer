@@ -149,7 +149,7 @@ const IDE = defineComponent({
     return () => {
       const renderProps = {
         icon:
-          elementController.getCurrentElementLibrary() !== "vuetify" &&
+          elementController.getCurrentElementLibraryName() !== "vuetify" &&
           FormatIcon,
         variant: "outlined",
         onClick: formatCode,
