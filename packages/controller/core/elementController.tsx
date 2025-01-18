@@ -20,6 +20,7 @@ export const BaseComponent = defineComponent({
 export interface ElementPlugin {
   name: ElementLib;
   template: Record<string, IElementBaseSetting>;
+  formConfig: IEditorElement[]; //表单配置
 }
 
 export type ElementLib = "element-plus" | "vuetify";

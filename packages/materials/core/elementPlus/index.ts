@@ -1,4 +1,5 @@
 import { ElementPlugin, IElementBaseSetting } from "@cgx-designer/controller";
+import { elementPlusFormConfig } from "./config"
 
 //此类型标注是为了在creator中使用
 const modules = import.meta.glob("./**/index.tsx", { eager: true });
@@ -18,4 +19,5 @@ console.log(
 export let elementPlusPlugin: ElementPlugin = {
   name: "element-plus",
   template: elementPlusBaseTemplate,
+  formConfig:elementPlusFormConfig
 };
