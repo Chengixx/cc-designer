@@ -1,12 +1,4 @@
-import {
-  inject,
-  ref,
-  defineComponent,
-  watch,
-  computed,
-  PropType,
-  onUnmounted,
-} from "vue";
+import { inject, ref, defineComponent, watch, computed, PropType } from "vue";
 import { FocusManage } from "@cgx-designer/hooks";
 import { ElementManage } from "@cgx-designer/hooks";
 import { HoverManage } from "@cgx-designer/hooks";
@@ -15,6 +7,7 @@ import Draggle from "./Draggle.vue";
 import ElementNode from "../../../../ElementNode";
 import { useParentDomList } from "../../../../../constant";
 import DragWidget from "./DragWidget";
+import { useEventListener } from "@vueuse/core";
 
 const EditorElement = defineComponent({
   props: {
@@ -48,36 +41,17 @@ const EditorElement = defineComponent({
     watch(
       () => getComponentInstance.value,
       (componentInstance) => {
-        // console.log(getComponentInstance.value, "getComponentInstance");
         if (componentInstance) {
-          componentInstance.addEventListener("click", (e: MouseEvent) =>
-            handleClick(e)
-          );
-          componentInstance.addEventListener("mouseover", (e: MouseEvent) =>
+          useEventListener(componentInstance, "click", handleClick);
+          useEventListener(componentInstance, "mouseover", (e: MouseEvent) =>
             hoverManage.handleHover(e, props.elementSchema)
           );
-          componentInstance.addEventListener("mouseout", (e: MouseEvent) =>
+          useEventListener(componentInstance, "mouseout", (e: MouseEvent) =>
             hoverManage.handleCancelHover(e)
           );
         }
       }
     );
-    onUnmounted(() => {
-      if (getComponentInstance.value) {
-        getComponentInstance.value.removeEventListener(
-          "click",
-          (e: MouseEvent) => handleClick(e)
-        );
-        getComponentInstance.value.removeEventListener(
-          "mouseover",
-          (e: MouseEvent) => hoverManage.handleHover(e, props.elementSchema)
-        );
-        getComponentInstance.value.removeEventListener(
-          "mouseout",
-          (e: MouseEvent) => hoverManage.handleCancelHover(e)
-        );
-      }
-    });
 
     const handleClick = (e: MouseEvent) => {
       focusManage.handleFocus(props.elementSchema, e);
