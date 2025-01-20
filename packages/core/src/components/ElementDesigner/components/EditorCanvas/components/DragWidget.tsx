@@ -1,7 +1,7 @@
 import { IEditorElement } from "../../../../../types";
 import { FocusManage } from "@cgx-designer/hooks";
 import { DragIcon } from "@cgx-designer/icons";
-import { defineComponent, inject, PropType, ref } from "vue";
+import { computed, defineComponent, inject, PropType, ref } from "vue";
 
 const DragWidget = defineComponent({
   props: {
@@ -13,15 +13,25 @@ const DragWidget = defineComponent({
     const handleClick = (e: MouseEvent) => {
       focusManage.handleFocus(props.elementSchema, e);
     };
+    const widgetLeftValue = computed(() => {
+      if (focusManage.focusedElement.value?.key === "col") {
+        return focusManage.focusWidgetRect.value!.left - 9 + "px";
+      } else {
+        return "0px";
+      }
+    });
     return () => {
       return (
         <div
           class={[
-            "c-absolute c-z-10 c-top-0 c-left-0 c-h-6 c-p-1 c-flex c-gap-x-1 c-justify-center c-items-center c-cursor-move c-rounded-br-sm c-transition-all",
+            "c-absolute c-z-10 c-top-0 c-h-6 c-p-1 c-flex c-gap-x-1 c-justify-center c-items-center c-cursor-move c-rounded-br-sm c-transition-all",
             isDragWidgetHovered.value
               ? "c-bg-[#409eff]"
               : "c-bg-[rgba(64,158,255,.3)]",
           ]}
+          style={{
+            left: widgetLeftValue.value,
+          }}
           onClick={handleClick}
           onMouseenter={() => (isDragWidgetHovered.value = true)}
           onMouseleave={() => (isDragWidgetHovered.value = false)}

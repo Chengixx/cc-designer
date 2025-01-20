@@ -9,10 +9,17 @@ import { ModeManage } from "./useMode";
 
 export type FocusManage = ReturnType<typeof useFocus>;
 
+export type FocusElementRect = Omit<
+  DOMRect,
+  "bottom" | "right" | "x" | "y" | "toJSON"
+>;
+
 export const useFocus = (
   elementManage: ElementManage,
   modeManage: ModeManage
 ) => {
+  //当前选中的元素的rect
+  const focusWidgetRect = ref<FocusElementRect | null>(null);
   //当前手机还是电脑还是平板模式
   const currentMode = computed(() => modeManage.mode.value);
   //总的容器
@@ -87,6 +94,13 @@ export const useFocus = (
       "px";
     focusWidgetRef.value!.style.width = width + "px";
     focusWidgetRef.value!.style.height = height + "px";
+
+    focusWidgetRect.value = {
+      left: left - containerLeft - modeStyle.left,
+      top: top - containerTop + containerRef.value?.scrollTop! - modeStyle.top,
+      width,
+      height,
+    };
   };
 
   //强制修改一次focus的样式
@@ -135,6 +149,7 @@ export const useFocus = (
   });
   return {
     focusedElement,
+    focusWidgetRect,
     focusTransition,
     initCanvas,
     handleFocus,
