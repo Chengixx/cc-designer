@@ -33,6 +33,8 @@ const DragWidget = defineComponent({
             left: widgetLeftValue.value,
           }}
           onClick={handleClick}
+          onMouseover={(e) => e.stopPropagation()}
+          onMouseout={(e) => e.stopPropagation()}
           onMouseenter={() => (isDragWidgetHovered.value = true)}
           onMouseleave={() => (isDragWidgetHovered.value = false)}
         >

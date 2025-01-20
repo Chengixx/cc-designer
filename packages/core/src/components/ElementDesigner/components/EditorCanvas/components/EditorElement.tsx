@@ -53,10 +53,10 @@ const EditorElement = defineComponent({
           componentInstance.addEventListener("click", (e: MouseEvent) =>
             handleClick(e)
           );
-          componentInstance.addEventListener("mouseenter", (e: MouseEvent) =>
+          componentInstance.addEventListener("mouseover", (e: MouseEvent) =>
             hoverManage.handleHover(e, props.elementSchema)
           );
-          componentInstance.addEventListener("mouseleave", (e: MouseEvent) =>
+          componentInstance.addEventListener("mouseout", (e: MouseEvent) =>
             hoverManage.handleCancelHover(e)
           );
         }
@@ -69,11 +69,11 @@ const EditorElement = defineComponent({
           (e: MouseEvent) => handleClick(e)
         );
         getComponentInstance.value.removeEventListener(
-          "mouseenter",
+          "mouseover",
           (e: MouseEvent) => hoverManage.handleHover(e, props.elementSchema)
         );
         getComponentInstance.value.removeEventListener(
-          "mouseleave",
+          "mouseout",
           (e: MouseEvent) => hoverManage.handleCancelHover(e)
         );
       }
