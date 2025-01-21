@@ -1,8 +1,6 @@
 import { computed, defineComponent, PropType, ref, watch } from "vue";
 import { IEditorElement } from "../../types";
-import { ElOption, ElSelect } from "element-plus";
 import { elementController } from "@cgx-designer/controller";
-import { VList, VListItem, VListItemTitle, VMenu } from "vuetify/components";
 import { GroupOption } from "@cgx-designer/materials";
 
 const StyleInput = defineComponent({
@@ -14,6 +12,8 @@ const StyleInput = defineComponent({
   inheritAttrs: false,
   setup(props, { attrs, emit }) {
     const Input = elementController.getElementRender("input");
+    const SelectPanel = elementController.getElementRender("selectPanel");
+    const Select = elementController.getElementRender("select");
     const isVuetify = computed(() => {
       return elementController.getCurrentElementLibraryName() === "vuetify";
     });
@@ -68,37 +68,28 @@ const StyleInput = defineComponent({
                 <>
                   {isVuetify.value ? (
                     <span class="c-cursor-pointer">
-                      {stylePrefix.value}
-                      <VMenu activator="parent">
-                        <VList>
-                          {options.map((option) => {
-                            return (
-                              <VListItem
-                                key={option.value}
-                                value={option.value}
-                                onClick={() => {
-                                  stylePrefix.value = option.value;
-                                }}
-                              >
-                                <VListItemTitle>{option.label}</VListItemTitle>
-                              </VListItem>
-                            );
-                          })}
-                        </VList>
-                      </VMenu>
+                      <div class="c-flex c-justify-center c-items-center c-gap-x-1">
+                        <span>{stylePrefix.value}</span>
+                        <div class="c-translate-y-1 c-border-4 c-border-l-transparent c-border-r-transparent c-border-t-gray-600 c-border-b-transparent"></div>
+                      </div>
+                      <SelectPanel
+                        v-model={stylePrefix.value}
+                        options={options}
+                      />
                     </span>
                   ) : (
-                    <ElSelect v-model={stylePrefix.value} style="width: 75px">
-                      {options.map((option) => {
-                        return (
-                          <ElOption
-                            key={option.value}
-                            label={option.label}
-                            value={option.value}
-                          />
-                        );
-                      })}
-                    </ElSelect>
+                    <Select
+                      v-model={stylePrefix.value}
+                      style="width: 70px"
+                      elementSchema={{
+                        props: {
+                          options: options,
+                          placeholder: "请选择",
+                        },
+                        field: undefined,
+                        formItem: false,
+                      }}
+                    />
                   )}
                 </>
               );
