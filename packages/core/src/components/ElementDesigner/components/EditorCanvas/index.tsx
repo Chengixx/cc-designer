@@ -42,6 +42,13 @@ const EditorCanvas = defineComponent({
         });
       return { ...onEvent };
     });
+
+    //获取表单的属性
+    const getFormProps = computed(() => {
+      return {
+        ...formManage.formSetting,
+      };
+    });
     return () => {
       return (
         <>
@@ -65,10 +72,7 @@ const EditorCanvas = defineComponent({
             <PanelWidget />
             <Form
               {...getFormFunction.value}
-              labelWidth={formManage.formSetting.labelWidth}
-              labelPosition={formManage.formSetting.labelPosition}
-              size={formManage.formSetting.size}
-              disabled={formManage.formSetting.disabled}
+              {...getFormProps.value}
               class="c-w-full"
             >
               <Draggle

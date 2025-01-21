@@ -61,12 +61,7 @@ const ElementBuilder = defineComponent({
         ? builderSchema.formSetting
         : formSetting;
 
-      return {
-        labelWidth: formSettings.labelWidth || undefined,
-        labelPosition: formSettings.labelPosition || undefined,
-        size: formSettings.size || undefined,
-        disabled: formSettings.disabled || undefined,
-      };
+      return formSettings;
     });
     //元素配置
     const useElementSchemaList = computed(() => {
@@ -128,13 +123,9 @@ const ElementBuilder = defineComponent({
               {...getFormFunction.value}
             >
               {slots.before && slots.before()}
-              {useElementSchemaList.value.map((elementSchema) => {
-                return (
-                  <>
-                    <ElementBuilderNode elementSchema={elementSchema} />
-                  </>
-                );
-              })}
+              {useElementSchemaList.value.map((elementSchema) => (
+                <ElementBuilderNode elementSchema={elementSchema} />
+              ))}
               {slots.default && slots.default()}
             </Form>
           ) : (

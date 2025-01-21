@@ -28,7 +28,7 @@ export interface TreeNode {
 }
 
 //表单设置
-export interface FormSetting {
+export interface ElementPlusFormSetting {
   modelName?: string;
   refName?: string;
   rulesName?: string;
@@ -39,6 +39,12 @@ export interface FormSetting {
   on?: Record<string, EventInstance[]>;
   [key: string]: any;
 }
+
+export interface VuetifyFormSetting {
+  [key: string]: any;
+}
+
+export type FormSetting = ElementPlusFormSetting | VuetifyFormSetting;
 
 //表单校验规则
 export interface RuleItem {
