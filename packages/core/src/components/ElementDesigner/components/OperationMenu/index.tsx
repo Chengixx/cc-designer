@@ -1,8 +1,17 @@
 import { computed, defineComponent, inject, PropType } from "vue";
 import { OperationButtonSetting } from "./operationButtonSetting";
-import { ButtonType } from "element-plus";
 import { elementController } from "@cgx-designer/controller";
 import ModeButtonGroup from "./ModeButtonGroup";
+
+type ButtonType =
+  | ""
+  | "default"
+  | "text"
+  | "primary"
+  | "success"
+  | "warning"
+  | "info"
+  | "danger";
 
 const Icon = (Iconfig: OperationButtonSetting, disabled: boolean = false) => {
   const handleClick = () => {

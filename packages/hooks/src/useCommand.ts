@@ -1,10 +1,10 @@
 import { events } from "@cgx-designer/utils";
 import { onMounted, onUnmounted, reactive } from "vue";
-import { ElNotification } from "element-plus";
 import { FocusManage } from "./useFocus";
 import { ElementManage } from "./useElement";
 import { cloneDeep } from "lodash";
 import { IEditorElement } from "@cgx-designer/core";
+import { Message } from "@cgx-designer/extensions";
 
 export interface ICommand {
   name: string;
@@ -71,10 +71,10 @@ export const useCommand = (
             if (item) {
               item.redo && item.redo();
               state.current++;
-              ElNotification.success("重做成功！");
+              Message.success("重做成功！");
               focusManage.resetFocus();
             } else {
-              ElNotification.warning("已经是最后面啦！");
+              Message.warning("已经是最后面啦！");
             }
           },
         };
@@ -88,13 +88,13 @@ export const useCommand = (
           redo() {
             //一开始不能撤销，就空的就不能撤销了
             if (state.current == -1) {
-              return ElNotification.warning("已经是最前面啦！");
+              return Message.warning("已经是最前面啦！");
             }
             let item = state.queue[state.current];
             if (item) {
               item.undo && item.undo();
               state.current--;
-              ElNotification.success("撤销成功！");
+              Message.success("撤销成功！");
               focusManage.resetFocus();
             }
           },

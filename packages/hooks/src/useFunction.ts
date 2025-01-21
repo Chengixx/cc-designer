@@ -1,45 +1,7 @@
 import { ref, watchEffect } from "vue";
 import { ElementManage } from "./useElement";
 import { ElementInstance, EventInstance } from "@cgx-designer/core";
-import { ElMessage, ElMessageBox } from "element-plus";
 import { elementController } from "@cgx-designer/controller";
-
-//默认js
-export let defaultJs = `
-      const removeAllFocus = () => {
-          const focusableElements = [
-              '[contenteditable]',
-              'a[href]',
-              'area[href]',
-              'button:not([disabled])',
-              'input:not([disabled]):not([type="hidden"]):not(.no-focus)',
-              'select:not([disabled])',
-              'textarea:not([disabled])',
-              '[tabindex]:not([tabindex="-1"]):not([disabled])',
-              '[contenteditable]'
-          ].join(',');
-          const allFocusableElements = document.querySelectorAll(focusableElements);
-          allFocusableElements.forEach(element => {
-              element.blur();
-          });
-      };
-
-      window.alert = (value) => {
-            if(typeof value === "string"){
-              this.ElMessageBox({
-                message: value,
-                confirmButtonText: '确定',
-                autofocus: false,
-                beforeClose: (action, instance, done) => {
-                    removeAllFocus();
-                    done();
-                },
-              })
-            }else{
-              this.ElMessageBox(value)
-            }
-      }
-      `;
 
 export type FunctionManage = ReturnType<typeof useFunction>;
 
@@ -82,12 +44,10 @@ export const useFunction = (elementManage: ElementManage) => {
   ) => {
     //用new Function去创建 但是注意这里一定要立刻执行 否则没用的
     try {
-      new Function(defaultJs + js).bind({
+      new Function(js).bind({
         get: getElementInstanceById,
         inject,
         elementManage,
-        ElMessage,
-        ElMessageBox,
         elementController,
       })();
     } catch (e) {

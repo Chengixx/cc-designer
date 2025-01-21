@@ -1,9 +1,9 @@
 import { computed, defineComponent, PropType, ref, watch } from "vue";
 import { IEditorElement } from "../../types";
 import { ElOption, ElSelect } from "element-plus";
-import { OptionGroup } from "element-plus/es/components/select-v2/src/select.types.mjs";
 import { elementController } from "@cgx-designer/controller";
 import { VList, VListItem, VListItemTitle, VMenu } from "vuetify/components";
+import { GroupOption } from "@cgx-designer/materials";
 
 const StyleInput = defineComponent({
   props: {
@@ -17,7 +17,7 @@ const StyleInput = defineComponent({
     const isVuetify = computed(() => {
       return elementController.getCurrentElementLibraryName() === "vuetify";
     });
-    const options: OptionGroup[] = [
+    const options: GroupOption[] = [
       { label: "px", value: "px" },
       { label: "em", value: "em" },
       { label: "rem", value: "rem" },
