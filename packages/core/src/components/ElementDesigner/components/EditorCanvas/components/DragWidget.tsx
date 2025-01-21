@@ -1,7 +1,8 @@
 import { IEditorElement } from "../../../../../types";
 import { FocusManage } from "@cgx-designer/hooks";
 import { DragIcon } from "@cgx-designer/icons";
-import { computed, defineComponent, inject, PropType, ref } from "vue";
+import { useWindowSize } from "@vueuse/core";
+import { computed, defineComponent, inject, PropType, ref, watch } from "vue";
 
 const DragWidget = defineComponent({
   props: {
@@ -9,11 +10,13 @@ const DragWidget = defineComponent({
   },
   setup(props) {
     const focusManage = inject("focusManage") as FocusManage;
+    const widgetRef = ref<HTMLElement | null>(null);
+    const { width: windowWidth } = useWindowSize();
     const isDragWidgetHovered = ref<boolean>(false);
     const handleClick = (e: MouseEvent) => {
       focusManage.handleFocus(props.elementSchema, e);
     };
-    const widgetLeftValue = computed(() => {
+    const computedWidgetLeftValue = () => {
       if (focusManage.focusedElement.value?.key === "col") {
         if (!focusManage.focusedElementDom.value) return "0px";
         const parentElement = focusManage.focusedElementDom.value.parentElement;
@@ -24,10 +27,23 @@ const DragWidget = defineComponent({
       } else {
         return "0px";
       }
-    });
+    };
+    const widgetLeftValue = computed(computedWidgetLeftValue);
+
+    watch(
+      () => windowWidth.value,
+      () => {
+        const left = computedWidgetLeftValue();
+        if (widgetRef.value) {
+          widgetRef.value.style.left = left;
+        }
+      },
+      { immediate: true }
+    );
     return () => {
       return (
         <div
+          ref={widgetRef}
           class={[
             "c-absolute c-z-10 c-top-0 c-h-6 c-p-1 c-flex c-gap-x-1 c-justify-center c-items-center c-cursor-move c-rounded-br-sm c-transition-all",
             isDragWidgetHovered.value
