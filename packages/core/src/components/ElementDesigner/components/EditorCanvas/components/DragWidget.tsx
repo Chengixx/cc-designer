@@ -15,7 +15,12 @@ const DragWidget = defineComponent({
     };
     const widgetLeftValue = computed(() => {
       if (focusManage.focusedElement.value?.key === "col") {
-        return focusManage.focusWidgetRect.value!.left - 9 + "px";
+        if (!focusManage.focusedElementDom.value) return "0px";
+        const parentElement = focusManage.focusedElementDom.value.parentElement;
+        const parentRect = parentElement.getBoundingClientRect();
+        const focusWidgetRect =
+          focusManage.focusedElementDom.value.getBoundingClientRect();
+        return focusWidgetRect.left - parentRect.left + "px";
       } else {
         return "0px";
       }

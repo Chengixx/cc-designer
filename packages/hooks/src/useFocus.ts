@@ -149,6 +149,7 @@ export const useFocus = (
   });
   return {
     focusedElement,
+    focusedElementDom,
     focusWidgetRect,
     focusTransition,
     initCanvas,
