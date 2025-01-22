@@ -95,7 +95,7 @@ const Input: IElementBaseSetting = {
         field: "props.clearable",
       },
       {
-        key: "ruleSetting",
+        key: "customRuleSetting",
         field: "rules",
       },
     ],

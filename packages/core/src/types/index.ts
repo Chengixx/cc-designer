@@ -60,6 +60,7 @@ export interface RuleItem {
   validator?: string;
   isValidator?: boolean;
   message?: string | ((a?: string) => string);
+  prototype?: string;
   [key: string]: any;
 }
 

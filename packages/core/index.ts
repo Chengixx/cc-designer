@@ -8,15 +8,20 @@ import {
   StyleInput,
   IdInput,
   ComputedStyle,
-  StyleIDE
+  StyleIDE,
+  CustomRuleSetting,
 } from "./src/custom";
 import { elementController } from "@cgx-designer/controller";
-import "@cgx-designer/materials/core/elementPlus/index.css"
-import "@cgx-designer/materials/core/vuetify/index.css"
+import "@cgx-designer/materials/core/elementPlus/index.css";
+import "@cgx-designer/materials/core/vuetify/index.css";
 
 elementController.registerElementRenderMap("selectOption", SelectOption);
 elementController.registerElementRenderMap("colList", ColList);
 elementController.registerElementRenderMap("ruleSetting", RuleSetting);
+elementController.registerElementRenderMap(
+  "customRuleSetting",
+  CustomRuleSetting
+);
 elementController.registerElementRenderMap("tabList", TabList);
 elementController.registerElementRenderMap("styleInput", StyleInput);
 elementController.registerElementRenderMap("idInput", IdInput);

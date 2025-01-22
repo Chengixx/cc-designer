@@ -1,6 +1,7 @@
 import SelectOption from "./SelectOption";
 import ColList from "./ColList";
 import RuleSetting from "./RuleSetting";
+import CustomRuleSetting from "./CustomRuleSetting";
 import EventSetting from "./EventSetting";
 import TabList from "./TabList";
 import StyleInput from "./StyleInput";
@@ -17,5 +18,6 @@ export {
   StyleInput,
   IdInput,
   ComputedStyle,
-  StyleIDE
+  StyleIDE,
+  CustomRuleSetting
 };
