@@ -13,7 +13,7 @@ const SettingMenu = defineComponent({
     return () => {
       return (
         <div class="c-h-full c-w-full c-border-l c-border-gray-200 c-overflow-x-hidden dark:c-bg-darkMode dark:c-border-darkMode">
-          <div class="c-min-w-[280px] c-w-full c-h-10 c-flex c-justify-center c-items-center c-border c-border-l-0 dark:c-border-darkMode">
+          <div class="c-min-w-[280px] c-select-none c-w-full c-h-10 c-flex c-justify-center c-items-center c-border c-border-l-0 dark:c-border-darkMode">
             <span>配置菜单</span>
           </div>
           <div class="c-h-[calc(100vh-80px)] c-overflow-y-auto c-overflow-x-hidden c-w-[280px]">

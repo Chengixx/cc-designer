@@ -6,6 +6,7 @@ import {
   noCopyDomList,
   findHigherLevelDomList,
 } from "../../../../../constant/index";
+import { elementController } from "@cgx-designer/controller";
 
 const ButtonTool = defineComponent({
   setup() {
@@ -37,11 +38,10 @@ const ButtonTool = defineComponent({
     };
 
     const elementTag = computed(() => {
-      return (
-        focusManage.focusedElement.value?.key +
-        "—" +
-        focusManage.focusedElement.value?.id
-      );
+      if (!focusManage.focusedElement.value) return "";
+      return elementController.getElementConfig(
+        focusManage.focusedElement.value?.key!
+      ).label;
     });
 
     return () => {

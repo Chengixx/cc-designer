@@ -10,7 +10,11 @@ const CGXLogo = () => {
   const themeManage = inject("themeManage") as ThemeManage;
   return (
     <div class="c-w-full c-h-10 c-bg-white c-flex c-items-center dark:c-bg-[#141414] c-px-8">
-      <div class="c-flex-1 c-flex c-items-center">
+      <div
+        class="c-flex-1 c-flex c-items-center c-cursor-pointer"
+        // 点击刷新页面
+        onClick={() => window.location.reload()}
+      >
         <CcIcon
           class="c-mr-1 c-w-[24px] c-h-[24px]"
           style={{

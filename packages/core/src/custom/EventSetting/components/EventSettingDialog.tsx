@@ -200,7 +200,7 @@ const EventSettingDialog = defineComponent({
                     onTabChange={(e: TabPaneName) => handleChangeMethodType(e)}
                   >
                     <TabPane label="自定义事件" name="custom">
-                      <div class="c-px-2 c-pt-2">
+                      <div class="c-px-2 c-pt-2 c-border-t dark:c-border-darkMode">
                         <MethodsList
                           methodsList={methodsList.value}
                           currentMethod={eventInstance.methodName!}
@@ -209,7 +209,7 @@ const EventSettingDialog = defineComponent({
                       </div>
                     </TabPane>
                     <TabPane label="组件联动" name="component">
-                      <div class="c-px-2 c-pt-2 c-flex c-flex-col c-h-[calc(70vh-40px-.5rem)]">
+                      <div class="c-px-2 c-pt-2  c-border-t dark:c-border-darkMode c-flex c-flex-col c-h-[calc(70vh-40px-.5rem)]">
                         <div class="c-h-[40vh] c-overflow-y-auto c-w-full c-border-b dark:c-border-darkMode">
                           {elementManage.elementList.value.length ? (
                             <CTree

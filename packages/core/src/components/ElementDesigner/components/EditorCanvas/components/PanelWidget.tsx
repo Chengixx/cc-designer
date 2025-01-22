@@ -21,7 +21,7 @@ const PanelWidget = defineComponent({
             v-show={focusManage.focusedElement.value !== null}
             ref={focusWidgetRef}
             class={[
-              "c-absolute c-z-20 c-border c-border-dashed c-border-blue-700 c-pointer-events-none c-bg-[rgba(62,139,242,.06)]",
+              "c-absolute c-z-20 c-border c-border-solid c-border-blue-700 c-pointer-events-none c-bg-[rgba(62,139,242,.06)]",
               focusManage.focusTransition.value
                 ? "c-transition-all"
                 : "c-transition-none",
