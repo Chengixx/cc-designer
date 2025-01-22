@@ -53,6 +53,7 @@ const ElementBuilder = defineComponent({
     provide("functionManage", functionManage);
     //!以下正式builder逻辑，上面注入目前只是为了不报警告
     let formData = reactive(props.formData);
+    const modelValue = ref<any>(null);
     provide("formData", formData);
     //表单配置
     const getFormAttrs = computed(() => {
@@ -109,6 +110,7 @@ const ElementBuilder = defineComponent({
     expose({
       formRef,
       formData,
+      modelValue,
       setFormData,
       resetFormDataToEmpty,
     });
@@ -117,6 +119,7 @@ const ElementBuilder = defineComponent({
         <>
           {useElementSchemaList.value.length || !isEmpty(slots) ? (
             <Form
+              v-model={modelValue.value}
               ref={formRef}
               model={formData}
               {...getFormAttrs.value}
