@@ -220,9 +220,11 @@ export const transformValidatorArray = (validatorList: RuleItem[]): any[] => {
       );
       targetList.push(fnc);
     } else {
-      //普通的函数原型
-      const fnc = new Function("value", ruleItem.prototype!);
-      targetList.push(fnc);
+      try {
+        //普通的函数原型
+        const fnc = new Function("value", ruleItem.prototype!);
+        targetList.push(fnc);
+      } catch (error) {}
     }
   });
   return targetList;
