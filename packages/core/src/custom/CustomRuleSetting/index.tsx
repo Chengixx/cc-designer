@@ -113,6 +113,9 @@ const RuleSetting = defineComponent({
                         <div class="c-w-full c-h-60">
                           <IDE v-model={rule.prototype}></IDE>
                         </div>
+                        <span class="c-text-sm c-text-gray-500 dark:c-text-gray-200">
+                          &#125;
+                        </span>
                       </>
                     );
                   },

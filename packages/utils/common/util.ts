@@ -1,3 +1,5 @@
+import { RuleItem } from "@cgx-designer/core";
+
 //复制
 export const copyToClipboard = (
   value: string,
@@ -200,4 +202,28 @@ export const isEmpty = (value: any) => {
   }
 
   return false;
+};
+
+//把校验方法的原型通过匿名函数创建成一个数组(目前主要是vuetify)
+export const transformValidatorArray = (validatorList: RuleItem[]): any[] => {
+  const targetList: any[] = [];
+  validatorList.forEach((ruleItem) => {
+    if (Object.keys(ruleItem).includes("required")) {
+      // 如果是require的内容
+      const fnc = new Function(
+        "value",
+        `if(!value) {
+          return '${ruleItem.message}'}
+        else {
+          return true
+        }`
+      );
+      targetList.push(fnc);
+    } else {
+      //普通的函数原型
+      const fnc = new Function("value", ruleItem.prototype!);
+      targetList.push(fnc);
+    }
+  });
+  return targetList;
 };
