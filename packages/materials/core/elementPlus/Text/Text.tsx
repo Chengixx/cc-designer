@@ -8,15 +8,14 @@ const Text = defineComponent({
   setup(props) {
     return () => {
       return (
-        <div
-          class="c-h-fit c-w-fit"
+        <span
           style={{
             fontSize: props.elementSchema.props!.size,
             color: props.elementSchema.props!.color,
           }}
         >
           {props.elementSchema.props!.label}
-        </div>
+        </span>
       );
     };
   },

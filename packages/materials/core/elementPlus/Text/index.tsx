@@ -28,9 +28,6 @@ const Text: IElementBaseSetting = {
         label: "颜色",
         key: "colorPicker",
         field: "props.color",
-        props: {
-          defaultValue: "#409eff",
-        },
       },
     ],
   },

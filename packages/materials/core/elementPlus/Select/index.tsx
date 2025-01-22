@@ -51,7 +51,7 @@ const Select: IElementBaseSetting = {
         key: "input",
         field: "props.placeholder",
         props: {
-          defaultValue: "请选择",
+          placeholder: "请输入占位信息",
         },
       },
       {

@@ -13,6 +13,8 @@ const Divider: IElementBaseSetting = {
       props: {
         placeholder: "我是分割线😊",
         size: "",
+        borderStyle: "solid",
+        contentPosition: "center",
       },
     };
   },
@@ -37,7 +39,6 @@ const Divider: IElementBaseSetting = {
             { label: "中", value: "center" },
             { label: "右", value: "right" },
           ],
-          defaultValue: "center",
         },
       },
       {
@@ -58,7 +59,6 @@ const Divider: IElementBaseSetting = {
             { label: "inset", value: "inset" },
             { label: "outset", value: "outset" },
           ],
-          defaultValue: "solid",
         },
       },
     ],

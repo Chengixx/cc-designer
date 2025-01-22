@@ -15,6 +15,7 @@ const Input: IElementBaseSetting = {
       formItem: true,
       noShowFormItem: true,
       props: {
+        variant: "filled",
         label: "input",
         placeholder: "placeholder",
         hideDetails: true,
@@ -53,16 +54,33 @@ const Input: IElementBaseSetting = {
         field: "props.defaultValue",
       },
       {
-        label: "大小",
+        label: "隐藏提示",
+        key: "switch",
+        field: "props.hideDetails",
+      },
+      {
+        label: "提示",
+        key: "input",
+        field: "props.hint",
+        props: {
+          placeholder: "请输入提示",
+        },
+      },
+      {
+        label: "变体",
         key: "select",
-        field: "props.size",
+        field: "props.variant",
         props: {
           multiple: false,
-          placeholder: "请选择大小",
+          placeholder: "请选择变体",
           options: [
-            { label: "大", value: "large" },
-            { label: "中", value: "default" },
-            { label: "小", value: "small" },
+            { label: "outlined", value: "outlined" },
+            { label: "plain", value: "plain" },
+            { label: "underlined", value: "underlined" },
+            { label: "filled", value: "filled" },
+            { label: "solo", value: "solo" },
+            { label: "solo-inverted", value: "solo-inverted" },
+            { label: "solo-filled", value: "solo-filled" },
           ],
         },
       },
@@ -75,11 +93,6 @@ const Input: IElementBaseSetting = {
         label: "可清空",
         key: "switch",
         field: "props.clearable",
-      },
-      {
-        label: "密码",
-        key: "switch",
-        field: "props.show-password",
       },
       {
         key: "ruleSetting",

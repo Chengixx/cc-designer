@@ -54,7 +54,6 @@ const InputNumber: IElementBaseSetting = {
         props: {
           placeholder: "请输入",
           size: "default",
-          defaultValue: 1,
         },
       },
       {
@@ -62,7 +61,7 @@ const InputNumber: IElementBaseSetting = {
         key: "inputNumber",
         field: "props.step",
         props: {
-          defaultValue: 1,
+          placeholder: "请输入",
         },
       },
       {
@@ -98,7 +97,6 @@ const InputNumber: IElementBaseSetting = {
       {
         label: "按钮位置",
         key: "select",
-        defaultValue: "",
         props: {
           options: [
             {
