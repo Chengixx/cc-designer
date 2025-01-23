@@ -45,7 +45,7 @@ const ModeButtonGroup = defineComponent({
               <div class="c-w-full c-h-full" v-ripple>
                 <span
                   class={[
-                    "c-text-sm c-select-none",
+                    "c-text-xs c-select-none c-text-gray-600 dark:c-text-zinc-300",
                     modeManage.mode.value === modeItem.value &&
                       "c-text-blue-500",
                   ]}

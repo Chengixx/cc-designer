@@ -107,15 +107,19 @@ const RuleSetting = defineComponent({
                   default: () => {
                     return (
                       <>
-                        <span class="c-text-sm c-text-gray-500 dark:c-text-gray-200">
-                          validate (value) &#123;
-                        </span>
-                        <div class="c-w-full c-h-60">
-                          <IDE v-model={rule.prototype}></IDE>
+                        <div class="c-w-full c-h-fit c-bg-[#ededed] dark:c-bg-[#1b1b1b] c-px-3 c-py-1 c-box-border c-rounded-t-md">
+                          <span class="c-text-sm c-text-gray-500 dark:c-text-gray-200">
+                            validate (value) &#123;
+                          </span>
                         </div>
-                        <span class="c-text-sm c-text-gray-500 dark:c-text-gray-200">
-                          &#125;
-                        </span>
+                        <div class="c-w-full c-h-60">
+                          <IDE v-model={rule.prototype} />
+                        </div>
+                        <div class="c-w-full c-h-fit c-bg-[#ededed] dark:c-bg-[#1b1b1b] c-px-3 c-py-1 c-box-border c-rounded-b-md">
+                          <span class="c-text-sm c-text-gray-500 dark:c-text-gray-200">
+                            &#125;
+                          </span>
+                        </div>
                       </>
                     );
                   },
