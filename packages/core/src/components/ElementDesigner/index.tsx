@@ -80,7 +80,7 @@ const ElementDesigner = defineComponent({
           {elementController.isReady.value && (
             <div
               class="c-relative"
-              key={elementController.elementLibrary.value}
+              key={elementController.elementLibrary.value!.name || "key"}
             >
               <div class="c-h-10">
                 <CGXLogo />
@@ -92,7 +92,7 @@ const ElementDesigner = defineComponent({
                   ref={leftMenuRef}
                   class={[
                     collapseManage.leftMenuCollapseState.value
-                      ? "c-w-[280px]"
+                      ? "c-w-[300px]"
                       : "c-w-0",
                     " c-bg-white c-h-full c-transition-all c-duration-300",
                   ]}
@@ -115,7 +115,7 @@ const ElementDesigner = defineComponent({
                 <div
                   class={[
                     collapseManage.rightMenuCollapseState.value
-                      ? "c-w-[280px]"
+                      ? "c-w-[300px]"
                       : "c-w-0",
                     " c-bg-white c-h-full c-transition-all c-duration-300",
                   ]}
