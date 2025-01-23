@@ -12,8 +12,9 @@ import { Divider } from "@cgx-designer/extensions";
 const SelectOption = defineComponent({
   props: {
     elementSchema: { type: Object as PropType<IEditorElement>, required: true },
+    disabledFlag: { type: Boolean, default: false },
   },
-  setup(_, { attrs, emit }) {
+  setup({ disabledFlag }, { attrs, emit }) {
     const Button = elementController.getElementRender("button");
     const Switch = elementController.getElementRender("switch");
     const Input = elementController.getElementRender("input");
@@ -53,11 +54,13 @@ const SelectOption = defineComponent({
                 placeholder="value"
               />
               <div class="c-flex c-items-center">
-                <Switch
-                  {...vuetifyConfig}
-                  v-model={option.disabled}
-                  class="c-ml-1"
-                />
+                {disabledFlag && (
+                  <Switch
+                    {...vuetifyConfig}
+                    v-model={option.disabled}
+                    class="c-ml-1"
+                  />
+                )}
                 <div
                   class="c-flex c-items-center c-h-full c-ml-3"
                   onClick={() => handleDeleteOption(index)}

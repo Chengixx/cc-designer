@@ -139,6 +139,9 @@ const Select: IElementBaseSetting = {
       {
         key: "selectOption",
         field: "props.options",
+        props: {
+          disabledFlag: true,
+        },
       },
       {
         key: "ruleSetting",

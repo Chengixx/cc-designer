@@ -162,6 +162,18 @@ const ElementNode = defineComponent({
         }
       }
     };
+    //获取组件的props(传递这里过去的话会方便很多)
+    const getElementProps = computed(() => {
+      const props = { ...localSchema.props };
+      if (props) {
+        Object.keys(props).forEach((key) => {
+          if (typeof props[key] === "object") {
+            props[key] = deepClone(props[key]);
+          }
+        });
+      }
+      return props;
+    });
     //获取组件的方法 事件
     const getElementFunction = computed(() => {
       const onEvent: Record<string, Function> = {};
@@ -232,6 +244,7 @@ const ElementNode = defineComponent({
               {...getElementFunction.value}
               {...getElementModel.value}
               {...getElementStyle.value}
+              {...getElementProps.value}
               elementSchema={localSchema}
             >
               {{
