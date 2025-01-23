@@ -79,11 +79,11 @@ const handleMouseLeave = () => {
           handleClone(elementBaseSetting)
       "
       item-key="id"
-      class="c-grid c-grid-cols-[auto_auto] c-px-[14px] c-gap-2"
+      class="c-grid c-grid-cols-2 c-px-[14px] c-gap-x-2"
     >
       <template #item="{ element, index }">
         <div
-          class="c-relative c-w-[130px] c-h-[36px] c-mt-2 c-flex c-justify-start c-items-center c-py-1 c-px-[8px] c-bg-white c-box-border c-cursor-move c-select-none c-rounded c-border c-border-[#d9d9d9] hover:c-border-blue-500 hover:c-bg-[#f4f8fe] dark:c-bg-darkMode dark:hover:c-bg-[#272b32] dark:c-border-darkMode"
+          class="c-relative c-w-full c-h-[36px] c-mt-2 c-flex c-justify-start c-items-center c-py-1 c-px-[8px] c-bg-white c-box-border c-cursor-move c-select-none c-rounded c-border c-border-[#d9d9d9] hover:c-border-blue-500 hover:c-bg-[#f4f8fe] dark:c-bg-darkMode dark:hover:c-bg-[#272b32] dark:c-border-darkMode"
           @click="handleClick(element)"
           @mouseenter="handleMouseEnter(index)"
           @mouseleave="handleMouseLeave"
