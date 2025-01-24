@@ -64,7 +64,10 @@ export const ElementListBoxItem = defineComponent({
 
     return () => (
       <div
-        class="c-relative c-transition-all c-w-full c-h-[115px] c-p-3 c-flex c-flex-col c-justify-between c-items-center c-bg-white c-box-border c-cursor-move c-select-none c-border-r c-border-b c-border-[#d9d9d9] hover:c-shadow-commonShadow dark:hover:c-shadow-commonShadowDark dark:c-bg-darkMode dark:c-border-darkMode"
+        class="c-relative c-transition-all c-w-full c-h-28 c-p-3 c-flex c-flex-col c-justify-between c-items-center c-bg-white c-box-border c-cursor-move c-select-none c-border-r c-border-b c-border-[#d9d9d9] hover:c-shadow-commonShadow dark:hover:c-shadow-commonShadowDark dark:c-bg-darkMode dark:c-border-darkMode"
+        style={{
+          zIndex: isHovered.value ? 100 : 0,
+        }}
         onClick={handleClick}
         onMouseenter={() => (isHovered.value = true)}
         onMouseleave={() => (isHovered.value = false)}
