@@ -5,6 +5,7 @@ const Textarea: IElementBaseSetting = {
   key: "textarea",
   icon: TextareaIcon,
   label: "文本域",
+  group: "表单组件",
   render: () => import("./Textarea"),
   template: (uuid: Function) => {
     const id = uuid();
