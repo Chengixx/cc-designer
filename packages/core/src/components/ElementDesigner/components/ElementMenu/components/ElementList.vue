@@ -68,6 +68,7 @@ const handleClone = (elementBaseSetting: IElementBaseSetting) => {
         :name="item.title"
         :title="item.title"
       >
+      <div class="c-w-full c-h-fit c-mb-[-1px]">
         <draggable
           v-model="item.materials"
           v-bind="{
@@ -101,6 +102,7 @@ const handleClone = (elementBaseSetting: IElementBaseSetting) => {
             />
           </template>
         </draggable>
+      </div>
       </CollapseItem>
     </Collapse>
   </template>
