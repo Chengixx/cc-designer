@@ -122,7 +122,7 @@ export const ElementListItemIcon = defineComponent({
                 "c-fill-blue-500 dark:c-fill-blue-500":
                   props.isHovered && props.highlight,
               },
-              { "dark:c-fill-white": !props.isHovered },
+              { "dark:c-fill-white": !props.isHovered && props.highlight },
             ]}
             style={{
               width: props.width,
@@ -145,7 +145,7 @@ export const ElementListItemIcon = defineComponent({
                 "c-fill-blue-500 dark:c-fill-blue-500":
                   props.isHovered && props.highlight,
               },
-              { "dark:c-fill-white": !props.isHovered },
+              { "dark:c-fill-white": !props.isHovered || !props.highlight },
             ]}
           />
         );
