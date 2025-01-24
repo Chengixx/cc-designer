@@ -5,6 +5,7 @@ export interface IElementBaseSetting {
   key: string;
   label: string;
   render: any;
+  group?: string;
   icon?: any;
   template?: any;
   formItem?: boolean;

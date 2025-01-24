@@ -5,6 +5,7 @@ const Select: IElementBaseSetting = {
   key: "select",
   icon: SelectIcon,
   label: "选择器",
+  group: "表单组件",
   render: () => import("./Select"),
   template: (uuid: Function) => {
     const id = uuid();

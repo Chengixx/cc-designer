@@ -5,6 +5,7 @@ const Card: IElementBaseSetting = {
   key: "card",
   icon: CardIcon,
   label: "卡片",
+  group: "容器组件",
   render: () => import("./Card"),
   template: (uuid: Function) => {
     return {

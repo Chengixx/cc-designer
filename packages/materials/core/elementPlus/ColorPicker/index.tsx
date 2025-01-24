@@ -5,6 +5,7 @@ const ColorPicker: IElementBaseSetting = {
   key: "colorPicker",
   icon: ColorPickerIcon,
   label: "颜色选择器",
+  group: "表单组件",
   render: () => import("./ColorPicker"),
   template: (uuid: Function) => {
     const id = uuid();

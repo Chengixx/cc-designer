@@ -5,6 +5,7 @@ const Divider: IElementBaseSetting = {
   key: "divider",
   icon: DividerIcon,
   label: "分割线",
+  group: "基础组件",
   render: () => import("./Divider"),
   template: (uuid: Function) => {
     return {

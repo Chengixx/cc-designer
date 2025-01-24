@@ -4,6 +4,7 @@ const TabPane: IElementBaseSetting = {
   key: "tabPane",
   label: "标签页面",
   noPushList: true,
+  group: "容器组件",
   render: () => import("./TabPane"),
   template: (uuid: Function) => {
     return {

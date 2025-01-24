@@ -5,6 +5,7 @@ const Switch: IElementBaseSetting = {
   key: "switch",
   icon: SwitchIcon,
   label: "开关",
+  group: "表单组件",
   render: () => import("./Switch"),
   template: (uuid: Function) => {
     const id = uuid();

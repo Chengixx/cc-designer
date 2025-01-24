@@ -27,6 +27,11 @@ export type ElementLib = "element-plus" | "vuetify";
 
 export type ElementListMode = "bar" | "box";
 
+export type ElementMaterial = {
+  title: string;
+  materials: IElementBaseSetting[];
+};
+
 //创建组件基础配置的东西
 export class ElementController {
   //是否已经初始化完成
@@ -143,6 +148,8 @@ export class ElementController {
   private addElementBaseConfigExtraContent = (
     elementBaseConfig: IElementBaseSetting
   ) => {
+    //检查元素是否有分组信息 没有的话 加上默认的自定义组件信息(提供的组件肯定都有分组信息)
+    
     //每个元素都应该有id输入框 用于复制
     ((elementBaseConfig.config ??= {}).attribute ??= []).unshift({
       label: "组件ID",

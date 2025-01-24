@@ -5,6 +5,7 @@ const Rate: IElementBaseSetting = {
   key: "rate",
   icon: RateIcon,
   label: "评分",
+  group: "表单组件",
   render: () => import("./Rate"),
   template: (uuid: Function) => {
     const id = uuid();

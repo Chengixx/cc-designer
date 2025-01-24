@@ -5,6 +5,7 @@ const Text: IElementBaseSetting = {
   key: "text",
   icon: TextIcon,
   label: "文本",
+  group: "基础组件",
   render: () => import("./Text"),
   template: (uuid: Function) => {
     return {

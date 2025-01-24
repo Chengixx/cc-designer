@@ -5,6 +5,7 @@ const Button: IElementBaseSetting = {
   key: "button",
   icon: ButtonIcon,
   label: "按钮",
+  group: "基础组件",
   render: () => import("./Button"),
   template: (uuid: Function) => {
     return {
@@ -50,7 +51,7 @@ const Button: IElementBaseSetting = {
         props: {
           label: "select",
           multiple: false,
-          placeholder:"请选择大小",
+          placeholder: "请选择大小",
           options: [
             { label: "大", value: "large" },
             { label: "中", value: "default" },

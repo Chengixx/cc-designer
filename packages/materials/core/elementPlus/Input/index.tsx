@@ -5,6 +5,7 @@ const Input: IElementBaseSetting = {
   key: "input",
   icon: InputIcon,
   label: "输入框",
+  group: "表单组件",
   render: () => import("./Input"),
   template: (uuid: Function) => {
     const id = uuid();

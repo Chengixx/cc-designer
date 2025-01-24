@@ -3,6 +3,7 @@ import { IElementBaseSetting } from "@cgx-designer/controller";
 const FormItem: IElementBaseSetting = {
   key: "formItem",
   label: "表单项",
+  group: "容器组件",
   noPushList: true,
   render: async () => (await import("element-plus")).ElFormItem,
   template: (uuid: Function) => {
