@@ -13,6 +13,10 @@ const CollapseItem = defineComponent({
       type: [String, Number] as PropType<CollapseActiveName>,
       default: undefined,
     },
+    paddingBottom: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props, { slots }) {
     const collapse = inject("collapseContext") as CollapseContext;
@@ -57,8 +61,9 @@ const CollapseItem = defineComponent({
           <Transition>
             <div
               class={[
-                "c-w-full c-h-fit c-transition-all c-border-b c-border-[#d8d8d8] dark:c-border-darkMode c-pb-6 c-box-border",
+                "c-mt-[-1px] c-w-full c-h-fit c-transition-all c-border-b c-border-[#d8d8d8] dark:c-border-darkMode c-box-border",
                 isActive.value && "c-border-t",
+                props.paddingBottom && "c-pb-6",
               ]}
               v-show={isActive.value}
             >

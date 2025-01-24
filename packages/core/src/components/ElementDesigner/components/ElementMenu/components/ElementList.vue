@@ -29,14 +29,16 @@ const activeCollapse = ref(
 
 //搜索过后用于渲染的
 const renderElementList = computed(() => {
-  return elementController!.elementList.value.map((elementMaterial) => {
-    return {
-      ...elementMaterial,
-      materials: elementMaterial.materials.filter((item) => {
-        return item.label.includes(props.searchValue);
-      }),
-    };
-  });
+  return elementController!.elementList.value
+    .map((elementMaterial) => {
+      return {
+        ...elementMaterial,
+        materials: elementMaterial.materials.filter((item) => {
+          return item.label.includes(props.searchValue);
+        }),
+      };
+    })
+    .filter((elementMaterial) => elementMaterial.materials.length > 0);
 });
 //渲染的模式
 const renderElementListMode = computed(() => {
@@ -61,6 +63,7 @@ const handleClone = (elementBaseSetting: IElementBaseSetting) => {
   <template v-else>
     <Collapse v-model="activeCollapse">
       <CollapseItem
+        :paddingBottom="false"
         v-for="item in renderElementList"
         :name="item.title"
         :title="item.title"
