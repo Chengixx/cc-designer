@@ -7,7 +7,7 @@ import {
   IElementBaseSetting,
   elementController,
 } from "@cgx-designer/controller";
-import { useDrag, HoverManage } from "@cgx-designer/hooks";
+import { useDrag, HoverManage, ThemeManage } from "@cgx-designer/hooks";
 import { ElementListBarItem, ElementListBoxItem } from "./ElementListItem";
 
 //注册指令
@@ -21,6 +21,7 @@ const props = defineProps({
   searchValue: { type: String, default: "", required: true },
 });
 const hoverManage = inject("hoverManage") as HoverManage;
+const themeManage = inject("themeManage") as ThemeManage;
 //搜索过后用于渲染的
 const renderElementList = computed(() => {
   return elementController!.elementList.value.filter((item) => {
@@ -54,8 +55,8 @@ const handleClone = (elementBaseSetting: IElementBaseSetting) => {
         group: { name: 'draggable', pull: 'clone', put: false },
         sort: false,
         animation: 180,
-        ghostClass: 'moving',
       }"
+      :ghost-class="themeManage.isDark.value ? 'dark-moving' : 'moving'"
       @start="() => handleDropStart(hoverManage)"
       @end="() => handleDropEnd(hoverManage)"
       :clone="
@@ -85,7 +86,7 @@ const handleClone = (elementBaseSetting: IElementBaseSetting) => {
 </template>
 
 <style scoped>
-.moving {
+/* .moving {
   height: 3px;
   box-sizing: border-box;
   background: #409eff;
@@ -93,5 +94,11 @@ const handleClone = (elementBaseSetting: IElementBaseSetting) => {
   outline-width: 0;
   padding: 0;
   overflow: hidden;
+} */
+.moving {
+  border: 1px solid #d9d9d9 !important;
+}
+.dark-moving {
+  border: 1px solid #3c3c3e !important;
 }
 </style>
