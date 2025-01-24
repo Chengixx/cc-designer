@@ -43,7 +43,7 @@ export class ElementController {
   //初始的模板，初始的schema
   elementTemplate: Record<string, (uuid: Function) => IEditorElement> = {};
   //能用的是哪些,用于渲染左侧物料列表
-  elementList = ref<IElementBaseSetting[]>([]);
+  elementList = ref<ElementMaterial[]>([]);
   //左侧物料列表的模式
   elementListMode = ref<ElementListMode>("box");
   //根据key去做能用的是哪些
@@ -57,6 +57,7 @@ export class ElementController {
       elementController.register(template[key]);
       this.addLibElementKey(key);
     }
+    console.log(this.elementList.value);
     //所有组件都安装完毕之后，设置控制器告诉它当前使用的组件库
     this.elementLibrary.value = elementPlugin;
     this.isReady.value = true;
@@ -82,13 +83,24 @@ export class ElementController {
   };
   //删除某个组件(Map里去掉)
   removeComponent = (key: string) => {
+    if (!this.elementConfigMap[key].noPushList) {
+      const group = this.elementConfigMap[key].group;
+      //删除列表里的,找到他是哪个分组的 这里是肯定会有分组的
+      const groupIndex = this.elementList.value.findIndex(
+        (elementMaterial) => elementMaterial.title === group
+      );
+      this.elementList.value[groupIndex].materials = this.elementList.value[
+        groupIndex
+      ].materials.filter((element) => element.key !== key);
+      // 此时如果已经是空了这个分组 就可以去掉了
+      if (this.elementList.value[groupIndex].materials.length === 0) {
+        this.elementList.value.splice(groupIndex, 1);
+      }
+    }
+    // 照常清除
     delete this.elementConfigMap[key];
     delete this.elementRenderMap[key];
     delete this.elementTemplate[key];
-    //删除列表里的
-    this.elementList.value = this.elementList.value.filter(
-      (element) => element.key !== key
-    );
   };
   //获取当前组件库的所有内容
   getCurrentElementPlugin = () => {
@@ -106,10 +118,6 @@ export class ElementController {
   register = (elementBaseConfig: IElementBaseSetting) => {
     //此处必须深拷贝 防止每次都修改到原本对象
     const localElementBaseConfig = deepClone(elementBaseConfig);
-    if (!localElementBaseConfig.noPushList) {
-      //这个方法不抽 因为需要注册到list 必须有下面的方法 只会在这里用到
-      this.elementList.value.push(localElementBaseConfig);
-    }
     this.registerElementTemplate(
       localElementBaseConfig.key,
       localElementBaseConfig.template
@@ -121,6 +129,28 @@ export class ElementController {
 
     this.addElementBaseConfigExtraContent(localElementBaseConfig);
     this.registerElementConfigMap(localElementBaseConfig);
+    // console.log(localElementBaseConfig);
+    // 最重要的一步 注册到左侧菜单栏 要注意分组
+    // 首先如果不放进去 那肯定就不用了
+    if (!localElementBaseConfig.noPushList) {
+      const group = localElementBaseConfig.group;
+      //看一下在哪一个
+      const groupIndex = this.elementList.value.findIndex(
+        (elementMaterial) => elementMaterial.title === group
+      );
+      //如果没有，那就说明要新分组,并且这个直接放进去
+      if (groupIndex === -1) {
+        this.elementList.value.push({
+          title: group!,
+          materials: [localElementBaseConfig],
+        });
+      } else {
+        //如果有的话，那就直接放进去
+        this.elementList.value[groupIndex].materials.push(
+          localElementBaseConfig
+        );
+      }
+    }
   };
   //注册元素基础config的Map
   registerElementConfigMap = (
@@ -149,7 +179,9 @@ export class ElementController {
     elementBaseConfig: IElementBaseSetting
   ) => {
     //检查元素是否有分组信息 没有的话 加上默认的自定义组件信息(提供的组件肯定都有分组信息)
-    
+    if (!Object.keys(elementBaseConfig).includes("group")) {
+      elementBaseConfig.group = "自定义组件";
+    }
     //每个元素都应该有id输入框 用于复制
     ((elementBaseConfig.config ??= {}).attribute ??= []).unshift({
       label: "组件ID",

@@ -56,7 +56,10 @@ const CollapseItem = defineComponent({
           </div>
           <Transition>
             <div
-              class="c-w-full c-h-fit c-transition-all c-border-b c-border-[#d8d8d8] dark:c-border-darkMode c-pb-6 c-box-border"
+              class={[
+                "c-w-full c-h-fit c-transition-all c-border-b c-border-[#d8d8d8] dark:c-border-darkMode c-pb-6 c-box-border",
+                isActive.value && "c-border-t",
+              ]}
               v-show={isActive.value}
             >
               {slots.default?.()}
