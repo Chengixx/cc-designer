@@ -12,7 +12,7 @@ import {
 import TreeNodes from "./TreeNodes.vue";
 import { elementController } from "@cgx-designer/controller";
 import { RightIcon } from "@cgx-designer/icons";
-import Transition from "./Transition.vue";
+import Transition from "../Transition/index.vue";
 
 const TreeNode = defineComponent({
   name: "TreeNode",

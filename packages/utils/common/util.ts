@@ -1,4 +1,5 @@
 import { RuleItem } from "@cgx-designer/core";
+import { isArray } from "lodash";
 
 //复制
 export const copyToClipboard = (

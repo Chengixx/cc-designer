@@ -5,5 +5,6 @@ import CTree from "./Tree";
 import CFormItem from "./CFormItem";
 export * from "./Message/index";
 export * from "./Tabs/index";
+export * from "./Collapse/index";
 
 export { CCard, MoveIcon, Divider, CTree, CFormItem };
