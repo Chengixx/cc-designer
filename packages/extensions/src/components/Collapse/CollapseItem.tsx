@@ -17,6 +17,10 @@ const CollapseItem = defineComponent({
       type: Boolean,
       default: true,
     },
+    boldTitle: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, { slots }) {
     const collapse = inject("collapseContext") as CollapseContext;
@@ -55,7 +59,9 @@ const CollapseItem = defineComponent({
             ]}
             onClick={handleHeaderClick}
           >
-            <span>{props.title}</span>
+            <span class={props.boldTitle && "c-font-semibold"}>
+              {props.title}
+            </span>
             {ExpandIcon}
           </div>
           <Transition>

@@ -63,10 +63,11 @@ const handleClone = (elementBaseSetting: IElementBaseSetting) => {
   <template v-else>
     <Collapse v-model="activeCollapse">
       <CollapseItem
-        :paddingBottom="false"
+        :paddingBottom="renderElementListMode === 'bar'"
         v-for="item in renderElementList"
         :name="item.title"
         :title="item.title"
+        boldTitle
       >
       <div class="c-w-full c-h-fit c-mb-[-1px]">
         <draggable
@@ -86,7 +87,7 @@ const handleClone = (elementBaseSetting: IElementBaseSetting) => {
           item-key="id"
           :class="[
             renderElementListMode === 'bar' &&
-              'c-grid c-grid-cols-2 c-px-[14px] c-gap-x-2',
+              'c-grid c-grid-cols-2 c-px-[14px] c-gap-x-2 c-mt-4',
             renderElementListMode === 'box' && 'c-grid c-grid-cols-3',
           ]"
         >
