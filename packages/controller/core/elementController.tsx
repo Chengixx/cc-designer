@@ -24,6 +24,9 @@ export interface ElementPlugin {
 }
 
 export type ElementLib = "element-plus" | "vuetify";
+
+export type ElementListMode = "bar" | "box";
+
 //创建组件基础配置的东西
 export class ElementController {
   //是否已经初始化完成
@@ -36,6 +39,8 @@ export class ElementController {
   elementTemplate: Record<string, (uuid: Function) => IEditorElement> = {};
   //能用的是哪些,用于渲染左侧物料列表
   elementList = ref<IElementBaseSetting[]>([]);
+  //左侧物料列表的模式
+  elementListMode = ref<ElementListMode>("box");
   //根据key去做能用的是哪些
   elementConfigMap: Record<string, IElementBaseSetting> = {};
   //用于渲染的map

@@ -13,6 +13,10 @@ export default {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        commonShadow: "0 6px 16px 0 rgba(0,0,0,.15)",
+        commonShadowDark: "0 6px 16px 0 rgba(255,255,255,.15)",
+      },
       backgroundColor: {
         darkMode: "#141414",
       },
