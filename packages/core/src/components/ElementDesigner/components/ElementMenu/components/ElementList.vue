@@ -84,4 +84,14 @@ const handleClone = (elementBaseSetting: IElementBaseSetting) => {
   </template>
 </template>
 
-<style scoped></style>
+<style scoped>
+.moving {
+  height: 3px;
+  box-sizing: border-box;
+  background: #409eff;
+  border: 2px solid #409eff !important;
+  outline-width: 0;
+  padding: 0;
+  overflow: hidden;
+}
+</style>
