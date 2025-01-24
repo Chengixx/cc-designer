@@ -45,7 +45,10 @@ const CollapseItem = defineComponent({
         <div class="c-w-full">
           {/* 上面的折叠条 */}
           <div
-            class="c-w-full c-h-12 c-flex c-items-center c-justify-between c-px-3 c-box-border c-cursor-pointer c-select-none c-border-b c-border-[#d8d8d8] hover:c-bg-[#f6f6f6] dark:hover:c-bg-[#2a2a2a]"
+            class={[
+              "c-w-full c-h-12 c-flex c-items-center c-justify-between c-px-3 c-text-sm c-box-border c-rounded-sm c-cursor-pointer c-select-none c-border-[#d8d8d8] dark:c-border-darkMode hover:c-bg-[#f6f6f6] dark:hover:c-bg-[#2a2a2a]",
+              !isActive.value && "c-border-b",
+            ]}
             onClick={handleHeaderClick}
           >
             <span>{props.title}</span>
@@ -53,7 +56,7 @@ const CollapseItem = defineComponent({
           </div>
           <Transition>
             <div
-              class="c-w-full c-h-fit c-transition-all c-border-b c-border-[#d8d8d8]"
+              class="c-w-full c-h-fit c-transition-all c-border-b c-border-[#d8d8d8] c-pb-6 c-box-border"
               v-show={isActive.value}
             >
               {slots.default?.()}

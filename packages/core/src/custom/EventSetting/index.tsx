@@ -1,5 +1,5 @@
 import { EventInstance, EventItem, EventPrototype } from "../../types";
-import { ElCollapse, ElCollapseItem } from "element-plus";
+import { Collapse, CollapseItem } from "@cgx-designer/extensions";
 import { computed, defineComponent, PropType, ref, toRaw } from "vue";
 import EventSettingItem from "./components/EventSettingItem.vue";
 import EventSettingDialog from "./components/EventSettingDialog";
@@ -91,10 +91,10 @@ const EventSetting = defineComponent({
     };
     return () => (
       <>
-        <ElCollapse v-model={activeNames.value}>
+        <Collapse v-model={activeNames.value}>
           {props.eventList.map((eventItem) => {
             return (
-              <ElCollapseItem
+              <CollapseItem
                 title={eventItem.title}
                 key={eventItem.title}
                 name={eventItem.title}
@@ -115,10 +115,10 @@ const EventSetting = defineComponent({
                   events={events.value}
                   allEventList={allEventList.value}
                 />
-              </ElCollapseItem>
+              </CollapseItem>
             );
           })}
-        </ElCollapse>
+        </Collapse>
 
         <EventSettingDialog
           ref={eventSettingDialogRef}

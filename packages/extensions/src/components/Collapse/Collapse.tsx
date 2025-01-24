@@ -55,7 +55,11 @@ const Collapse = defineComponent({
       handleItemClick,
     });
     return () => {
-      return <div>{slots.default?.()}</div>;
+      return (
+        <div class="c-border-t c-border-[#d8d8d8] dark:c-border-darkMode">
+          {slots.default?.()}
+        </div>
+      );
     };
   },
 });
