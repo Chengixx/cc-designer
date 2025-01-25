@@ -21,7 +21,6 @@ const ColList = defineComponent({
       () => attrs.modelValue,
       (val) => {
         bindValue.value = val as IEditorElement[];
-        console.log(bindValue.value);
       },
       {
         immediate: true,

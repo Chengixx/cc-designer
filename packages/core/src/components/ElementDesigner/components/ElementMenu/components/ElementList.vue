@@ -67,6 +67,7 @@ const handleClone = (elementBaseSetting: IElementBaseSetting) => {
         v-for="item in renderElementList"
         :name="item.title"
         :title="item.title"
+        :key="item.title"
         boldTitle
       >
       <div class="c-w-full c-h-fit c-mb-[-1px]">

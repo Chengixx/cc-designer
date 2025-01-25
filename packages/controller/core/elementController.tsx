@@ -57,7 +57,6 @@ export class ElementController {
       elementController.register(template[key]);
       this.addLibElementKey(key);
     }
-    console.log(this.elementList.value);
     //所有组件都安装完毕之后，设置控制器告诉它当前使用的组件库
     this.elementLibrary.value = elementPlugin;
     this.isReady.value = true;
