@@ -59,7 +59,7 @@ const EditorCanvas = defineComponent({
           )}
           <div
             class={[
-              "c-overflow-y-auto c-h-[calc(100vh-108px)] c-relative c-transition-all",
+              "c-overflow-y-auto c-h-[calc(100vh-116px)] c-relative c-transition-all",
               modeManage.mode.value !== "pc"
                 ? "c-border-[10px] c-border-black dark:c-border-gray-700 c-box-border c-rounded-2xl"
                 : "c-rounded-md",

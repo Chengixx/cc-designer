@@ -16,19 +16,19 @@ const ElementMenu = defineComponent({
           <div class="c-w-full c-select-none c-h-10 c-flex c-justify-center c-items-center c-border-y c-min-w-[300px] dark:c-border-darkMode">
             <span>组件菜单</span>
           </div>
-          <div class="c-w-full c-h-[calc(100vh-80px)] c-overflow-y-auto c-overflow-x-hidden c-min-w-[300px]">
+          <div class="c-w-full c-h-[calc(100vh-88px)] c-overflow-y-auto c-overflow-x-hidden c-min-w-[300px]">
             <Tabs v-model={settingTab.value}>
               <TabPane label="组件">
                 <SearchBox v-model:widgetName={searchValue.value} />
                 <ElementList searchValue={searchValue.value} />
               </TabPane>
               <TabPane label="源码">
-                <div class="c-h-[calc(100vh-120px)] c-w-full c-border-t dark:c-border-darkMode">
+                <div class="c-h-[calc(100vh-128px)] c-w-full c-border-t dark:c-border-darkMode">
                   <ElementSource />
                 </div>
               </TabPane>
               <TabPane label="大纲">
-                <div class="c-h-[calc(100vh-120px)] c-w-full c-border-t dark:c-border-darkMode">
+                <div class="c-h-[calc(100vh-128px)] c-w-full c-border-t dark:c-border-darkMode">
                   <ElementTree />
                 </div>
               </TabPane>

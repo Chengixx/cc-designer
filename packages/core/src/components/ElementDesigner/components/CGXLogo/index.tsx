@@ -11,7 +11,7 @@ const CGXLogo = () => {
   const themeManage = inject("themeManage") as ThemeManage;
   const Switch = elementController.getElementRender("switch");
   return (
-    <div class="c-w-full c-h-10 c-bg-white c-flex c-items-center dark:c-bg-[#141414] c-px-8">
+    <div class="c-w-full c-h-full c-bg-white c-flex c-items-center dark:c-bg-[#141414] c-px-8">
       <div
         class="c-flex-1 c-flex c-items-center c-cursor-pointer"
         // 点击刷新页面

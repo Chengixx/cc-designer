@@ -82,7 +82,7 @@ const ElementDesigner = defineComponent({
               class="c-relative"
               key={elementController.elementLibrary.value!.name || "key"}
             >
-              <div class="c-h-10">
+              <div class="c-h-12">
                 <CGXLogo />
               </div>
               <CollapseWidget />
