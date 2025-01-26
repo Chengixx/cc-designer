@@ -2,12 +2,14 @@ import { CcIcon, LightIcon, DarkIcon, GithubIcon } from "@cgx-designer/icons";
 import { logoName } from "../../../../constant/index";
 import { inject } from "vue";
 import { ThemeManage } from "@cgx-designer/hooks/src/useTheme";
-import { ElSwitch } from "element-plus";
 import { MoveIcon } from "@cgx-designer/extensions";
 import TempLibSelect from "./TempLibSelect";
+import { elementController } from "@cgx-designer/controller";
+import { vuetifyConfig } from "@cgx-designer/materials";
 
 const CGXLogo = () => {
   const themeManage = inject("themeManage") as ThemeManage;
+  const Switch = elementController.getElementRender("switch");
   return (
     <div class="c-w-full c-h-10 c-bg-white c-flex c-items-center dark:c-bg-[#141414] c-px-8">
       <div
@@ -37,8 +39,9 @@ const CGXLogo = () => {
       <div class="c-flex-1 c-flex c-justify-end c-items-center c-gap-x-6">
         <TempLibSelect />
         <span class="c-cursor-pointer">文档</span>
-        <ElSwitch
-          size="large"
+        <Switch
+          title="切换黑暗|明亮主题"
+          {...vuetifyConfig}
           v-model={themeManage.isDark.value}
           inline-prompt
           active-action-icon={DarkIcon}
