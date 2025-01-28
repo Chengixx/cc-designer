@@ -1,6 +1,8 @@
-import { FormInstance } from "element-plus";
 import { BuilderSchema, FormSetting, IEditorElement } from "../../types/index";
 import ElementBuilder from "./index";
+import { elementController } from "@cgx-designer/controller";
+
+const Form = elementController.getElementRender("form");
 
 //可以传递的参数
 export interface ElementBuilderProps {
@@ -14,7 +16,7 @@ export interface ElementBuilderProps {
 
 //暴露出来的方法
 export interface ElementBuilderExpose {
-  formRef: FormInstance;
+  formRef: InstanceType<typeof Form>;
   formData: Record<string, any>;
   setFormData: (data: Record<string, any>) => void;
   resetFormDataToEmpty: () => void;

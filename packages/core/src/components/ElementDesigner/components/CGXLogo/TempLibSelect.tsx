@@ -3,18 +3,18 @@ import {
   ElementLib,
   ElementPlugin,
 } from "@cgx-designer/controller";
-import { ElOption, ElSelect } from "element-plus";
 import { defineComponent, inject, ref, watch } from "vue";
 import {
   elementPlusPlugin,
   vuetifyConfig,
   vuetifyPlugin,
 } from "@cgx-designer/materials";
-import { ElementManage } from "@cgx-designer/hooks";
+import { ElementManage, FocusManage } from "@cgx-designer/hooks";
 
 const TempLibSelect = defineComponent({
   setup() {
     const elementManage = inject("elementManage") as ElementManage;
+    const focusManage = inject("focusManage") as FocusManage;
     const Select = elementController.getElementRender("select");
     const lib = ref<ElementLib>(
       elementController.getCurrentElementLibraryName()!
@@ -26,12 +26,13 @@ const TempLibSelect = defineComponent({
     };
 
     const handleChange = (value: ElementLib) => {
+      focusManage.resetFocus();
       elementManage.deleteAllElements();
       elementController.clearLibElements();
       elementController.install(libMap[value]);
     };
 
-    watch(() => lib.value, handleChange, { immediate: true });
+    watch(() => lib.value, handleChange);
 
     return () => (
       <div class="c-w-96 c-flex c-gap-x-2">
