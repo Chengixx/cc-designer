@@ -33,11 +33,13 @@ const ElementTree = defineComponent({
       }
     };
 
-    const handleDeleteNode = (data: IEditorElement) => {
+    const handleDeleteNode = (e: MouseEvent, data: IEditorElement) => {
+      e.stopPropagation();
       commands!.handleDelete(data.id);
     };
 
-    const handleCopyNode = (data: IEditorElement) => {
+    const handleCopyNode = (e: MouseEvent, data: IEditorElement) => {
+      e.stopPropagation();
       const newElementSchema = elementManage.deepCopyElement(deepClone(data));
       commands!.handleLastAdd(newElementSchema);
     };
@@ -62,15 +64,17 @@ const ElementTree = defineComponent({
                     <div
                       title="复制"
                       class="c-h-full c-flex c-items-center c-justify-center"
-                      onClick={(_: MouseEvent) => handleCopyNode(elementSchema)}
+                      onClick={(e: MouseEvent) =>
+                        handleCopyNode(e, elementSchema)
+                      }
                     >
                       <CopyIcon class="c-w-[14px] c-h-[14px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
                     </div>
                     <div
                       title="删除"
                       class="c-h-full c-flex c-items-center c-justify-center"
-                      onClick={(_: MouseEvent) =>
-                        handleDeleteNode(elementSchema)
+                      onClick={(e: MouseEvent) =>
+                        handleDeleteNode(e, elementSchema)
                       }
                     >
                       <ClearIcon class="c-w-[14px] c-h-[14px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
