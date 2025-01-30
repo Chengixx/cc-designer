@@ -44,6 +44,19 @@ const ElementTree = defineComponent({
       commands!.handleLastAdd(newElementSchema);
     };
 
+    const buttonRender = [
+      {
+        title: "复制",
+        Icon: CopyIcon,
+        onClick: handleCopyNode,
+      },
+      {
+        title: "删除",
+        Icon: ClearIcon,
+        onClick: handleDeleteNode,
+      },
+    ];
+
     return () => {
       return (
         <>
@@ -61,24 +74,17 @@ const ElementTree = defineComponent({
                   elementSchema: IEditorElement;
                 }) => (
                   <div class="c-h-8 c-flex c-items-center c-gap-x-1 c-pr-1">
-                    <div
-                      title="复制"
-                      class="c-h-full c-flex c-items-center c-justify-center"
-                      onClick={(e: MouseEvent) =>
-                        handleCopyNode(e, elementSchema)
-                      }
-                    >
-                      <CopyIcon class="c-w-[14px] c-h-[14px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
-                    </div>
-                    <div
-                      title="删除"
-                      class="c-h-full c-flex c-items-center c-justify-center"
-                      onClick={(e: MouseEvent) =>
-                        handleDeleteNode(e, elementSchema)
-                      }
-                    >
-                      <ClearIcon class="c-w-[14px] c-h-[14px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
-                    </div>
+                    {buttonRender.map((item) => (
+                      <div
+                        title={item.title}
+                        class="c-h-full c-flex c-items-center c-justify-center"
+                        onClick={(e: MouseEvent) =>
+                          item.onClick(e, elementSchema)
+                        }
+                      >
+                        <item.Icon class="c-w-[14px] c-h-[14px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
+                      </div>
+                    ))}
                   </div>
                 ),
               }}
