@@ -96,7 +96,7 @@ const ElementNode = defineComponent({
     );
     //初始化的时候，去赋值一下bindValue
     const initComponentInstance = () => {
-      if (typeof localSchema.props!.defaultValue !== "undefined") {
+      if (typeof (localSchema.props ??= {}).defaultValue !== "undefined") {
         const defaultValue = !props.isPreview
           ? localSchema.props!.defaultValue
           : (formData[localSchema.field!] ?? localSchema.props!.defaultValue);
