@@ -1,13 +1,13 @@
 import { defineComponent, reactive, ref } from "vue";
 import { ElButton, ElFormItem, ElInput } from "element-plus";
+import { ElementDesigner } from "@cgx-designer/designer";
+import { ElementRenderer } from "@cgx-designer/renderer";
 import {
-  ElementDesigner,
-  ElementBuilder,
   FormSetting,
   BuilderSchema,
   ElementBuilderInstance,
   ElementBuilderExpose,
-} from "@cgx-designer/core";
+} from "@cgx-designer/types";
 import { Switch } from "@element-plus/icons-vue";
 import {
   elementSchemaList,
@@ -37,7 +37,7 @@ const App = defineComponent({
             <div class="c-p-4">
               <VBtn>安娜</VBtn>
               {JSON.stringify(formData)}
-              <ElementBuilder
+              <ElementRenderer
                 formData={formData}
                 ref={elementBuilderRef as any}
                 script={javaScript}
@@ -61,7 +61,7 @@ const App = defineComponent({
                     );
                   },
                 }}
-              </ElementBuilder>
+              </ElementRenderer>
               <ElButton
                 onClick={() => {
                   console.log(elementBuilderRef.value!);

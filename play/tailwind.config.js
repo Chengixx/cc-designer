@@ -10,6 +10,9 @@ export default {
     "../packages/ui/template/**/*.{vue,js,ts,jsx,tsx}",
     "../packages/ui/base/**/*.{vue,js,ts,jsx,tsx}",
     "../packages/extensions/src/**/*.{vue,js,ts,jsx,tsx}",
+    "../packages/designer/src/**/*.{vue,js,ts,jsx,tsx}",
+    "../packages/engine/src/**/*.{vue,js,ts,jsx,tsx}",
+    "../packages/renderer/src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {

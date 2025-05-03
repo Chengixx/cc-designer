@@ -21,6 +21,10 @@
   "dependencies": {
     "@cgx-designer/controller": "workspace:*",
     "@cgx-designer/core": "workspace:*",
+    "@cgx-designer/designer": "workspace:*",
+    "@cgx-designer/engine": "workspace:*",
+    "@cgx-designer/renderer": "workspace:*",
+    "@cgx-designer/types": "workspace:*",
     "@cgx-designer/extensions": "workspace:*",
     "@cgx-designer/hooks": "workspace:*",
     "@cgx-designer/icons": "workspace:*",

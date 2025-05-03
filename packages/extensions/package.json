@@ -9,11 +9,15 @@
   "dependencies": {
     "element-plus": "^2.8.0",
     "lodash": "^4.17.21",
+    "js-beautify": "^1.15.1",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.6",
-    "typescript": "^5.2.2"
+    "@types/js-beautify": "^1.14.3",
+    "typescript": "^5.2.2",
+    "@types/ace": "^0.0.52",
+    "ace-builds": "^1.35.4"
   },
   "keywords": [],
   "author": "",

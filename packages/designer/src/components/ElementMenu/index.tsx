@@ -1,0 +1,42 @@
+import { defineComponent, ref } from "vue";
+import ElementList from "./components/ElementList.vue";
+import SearchBox from "./components/SearchBox";
+import { TabPane, Tabs } from "@cgx-designer/extensions";
+import ElementSource from "./components/ElementSource";
+import ElementTree from "./components/ElementTree";
+
+const ElementMenu = defineComponent({
+  setup() {
+    const searchValue = ref<string>("");
+    const settingTab = ref<string>("0");
+
+    return () => {
+      return (
+        <div class="c-overflow-x-hidden c-border-r c-border-gray-200 dark:c-border-darkMode dark:c-bg-darkMode">
+          <div class="c-w-full c-select-none c-h-10 c-flex c-justify-center c-items-center c-border-y c-min-w-[300px] dark:c-border-darkMode">
+            <span>组件菜单</span>
+          </div>
+          <div class="c-w-full c-h-[calc(100vh-88px)] c-overflow-y-auto c-overflow-x-hidden c-min-w-[300px]">
+            <Tabs v-model={settingTab.value}>
+              <TabPane label="组件">
+                <SearchBox v-model:widgetName={searchValue.value} />
+                <ElementList searchValue={searchValue.value} />
+              </TabPane>
+              <TabPane label="源码">
+                <div class="c-h-[calc(100vh-128px)] c-w-full c-border-t dark:c-border-darkMode">
+                  <ElementSource />
+                </div>
+              </TabPane>
+              <TabPane label="大纲">
+                <div class="c-h-[calc(100vh-128px)] c-w-full c-border-t dark:c-border-darkMode">
+                  <ElementTree />
+                </div>
+              </TabPane>
+            </Tabs>
+          </div>
+        </div>
+      );
+    };
+  },
+});
+export default ElementMenu;
