@@ -2,6 +2,10 @@
 <h2>这是我变强路上的一道风景</h2>
 
 tailwindcss打包指令 npx tailwindcss -o ./dist/output.css --minify
+npm镜像源
+https://registry.npmmirror.com/
+npm官方源
+npm config set registry https://registry.npmjs.org/
 
 #### 技术栈
 
