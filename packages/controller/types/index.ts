@@ -1,4 +1,4 @@
-import { EventItem, IEditorElement } from "@cgx-designer/core";
+import { EventItem, IEditorElement } from "@cgx-designer/types";
 
 //元素基础类型
 export interface IElementBaseSetting {

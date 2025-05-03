@@ -1,7 +1,7 @@
 import { ref, watch, computed } from "vue";
 import { ElementManage } from "./useElement";
-import { useParentDomList } from "@cgx-designer/core/src/constant";
-import { IEditorElement } from "@cgx-designer/core";
+import { useParentDomList } from "@cgx-designer/designer";
+import { IEditorElement } from "@cgx-designer/types";
 import { ModeManage } from "./useMode";
 
 export type HoverManage = ReturnType<typeof useHover>;

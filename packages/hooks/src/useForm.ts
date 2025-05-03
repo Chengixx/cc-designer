@@ -1,4 +1,4 @@
-import { FormSetting } from "@cgx-designer/core";
+import { FormSetting } from "@cgx-designer/types";
 import { deepCompareAndModify } from "@cgx-designer/utils";
 import { reactive } from "vue";
 

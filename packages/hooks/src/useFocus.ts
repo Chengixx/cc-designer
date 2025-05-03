@@ -3,8 +3,8 @@ import { ElementManage } from "./useElement";
 import { isEqual } from "lodash";
 import { useObserve } from "./useObserve";
 import { useTimedQuery } from "./useTimedQuery";
-import { useParentDomList } from "@cgx-designer/core/src/constant";
-import { IEditorElement } from "@cgx-designer/core";
+import { useParentDomList } from "@cgx-designer/designer";
+import { IEditorElement } from "@cgx-designer/types";
 import { ModeManage } from "./useMode";
 
 export type FocusManage = ReturnType<typeof useFocus>;

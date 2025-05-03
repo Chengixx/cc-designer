@@ -1,6 +1,6 @@
 import { ElOption, ElSelect } from "element-plus";
 import { defineComponent, PropType } from "vue";
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 import { GroupOption } from "../../../types";
 
 const Select = defineComponent({

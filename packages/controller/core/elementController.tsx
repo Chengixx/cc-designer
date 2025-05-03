@@ -5,7 +5,7 @@ import {
   getRandomId,
   stringFirstSmaller,
 } from "@cgx-designer/utils";
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 
 export const BaseComponent = defineComponent({
   name: "BaseComponent",

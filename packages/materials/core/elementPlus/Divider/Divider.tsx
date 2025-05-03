@@ -1,4 +1,4 @@
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 import { ElDivider } from "element-plus";
 import { defineComponent, PropType } from "vue";
 

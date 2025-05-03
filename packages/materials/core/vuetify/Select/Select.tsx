@@ -1,6 +1,6 @@
 import { VSelect } from "vuetify/components";
 import { defineComponent, PropType } from "vue";
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 import { GroupOption } from "../../../types";
 
 const Select = defineComponent({

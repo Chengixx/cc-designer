@@ -1,4 +1,4 @@
-import { BuilderSchema } from "@cgx-designer/core";
+import { BuilderSchema } from "@cgx-designer/types";
 import { defaultCSS, defaultHtml } from "./data";
 
 export type ICreateCode = ReturnType<typeof createSourceCode>;

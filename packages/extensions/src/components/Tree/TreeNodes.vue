@@ -19,7 +19,7 @@
 import { computed, inject } from "vue";
 import TreeNode from "./TreeNode";
 import draggable from "vuedraggable";
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 
 defineOptions({
   name: "TreeNodes",

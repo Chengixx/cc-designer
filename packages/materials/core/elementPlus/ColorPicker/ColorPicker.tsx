@@ -1,4 +1,4 @@
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 import { ElColorPicker } from "element-plus";
 import { defineComponent, PropType } from "vue";
 

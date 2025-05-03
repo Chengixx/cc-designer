@@ -11,7 +11,7 @@ importers:
       '@cgx-designer/controller':
         specifier: workspace:*
         version: link:packages/controller
-      '@cgx-designer/core':
+      '@cgx-designer/types':
         specifier: workspace:*
         version: link:packages/core
       '@cgx-designer/designer':

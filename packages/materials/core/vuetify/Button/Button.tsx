@@ -1,4 +1,4 @@
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 import { isEmpty } from "lodash";
 import { defineComponent, PropType } from "vue";
 import { VBtn } from "vuetify/components";

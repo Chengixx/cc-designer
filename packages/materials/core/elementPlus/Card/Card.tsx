@@ -1,6 +1,6 @@
 import { ElCard } from "element-plus";
 import { defineComponent, PropType, renderSlot } from "vue";
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 
 const Card = defineComponent({
   props: {

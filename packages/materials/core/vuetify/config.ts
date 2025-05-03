@@ -1,4 +1,4 @@
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 import { vuetifyConfig } from "./vuetify";
 
 export const vuetifyFormConfig: IEditorElement[] = [

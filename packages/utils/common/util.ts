@@ -1,4 +1,4 @@
-import { RuleItem } from "@cgx-designer/core";
+import { RuleItem } from "@cgx-designer/types";
 import { isArray } from "lodash";
 
 //复制

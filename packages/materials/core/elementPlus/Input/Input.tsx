@@ -1,5 +1,5 @@
 import { useExpose } from "@cgx-designer/hooks";
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 import { ElInput } from "element-plus";
 import { defineComponent, PropType, ref } from "vue";
 import { isEmpty } from "lodash";

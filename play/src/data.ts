@@ -1,4 +1,4 @@
-import { BuilderSchema, FormSetting } from "@cgx-designer/core";
+import { BuilderSchema, FormSetting } from "@cgx-designer/types";
 
 export const javaScript = `
       const { inject , get } = this;

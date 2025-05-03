@@ -3,7 +3,7 @@ import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import dts from "vite-plugin-dts";
 import path from "path";
-import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
+import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 
 export default defineConfig({
   plugins: [
@@ -17,12 +17,15 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@cgx-designer/core": path.resolve(__dirname, "../core"),
       "@cgx-designer/controller": path.resolve(__dirname, "../controller"),
       "@cgx-designer/materials": path.resolve(__dirname, "../materials"),
       "@cgx-designer/utils": path.resolve(__dirname, "../utils"),
       "@cgx-designer/hooks": path.resolve(__dirname, "../hooks"),
       "@cgx-designer/extensions": path.resolve(__dirname, "../extensions"),
+      "@cgx-designer/designer": path.resolve(__dirname, "../designer"),
+      "@cgx-designer/engine": path.resolve(__dirname, "../engine"),
+      "@cgx-designer/renderer": path.resolve(__dirname, "../renderer"),
+      "@cgx-designer/types": path.resolve(__dirname, "../types"),
     },
   },
   build: {

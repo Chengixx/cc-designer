@@ -3,7 +3,7 @@ import { onMounted, onUnmounted, reactive } from "vue";
 import { FocusManage } from "./useFocus";
 import { ElementManage } from "./useElement";
 import { cloneDeep } from "lodash";
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 import { Message } from "@cgx-designer/extensions";
 
 export interface ICommand {

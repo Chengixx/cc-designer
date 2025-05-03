@@ -1,6 +1,6 @@
 import { RuleItem } from "@cgx-designer/types";
 import { CCard, Divider } from "@cgx-designer/extensions";
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 import { defineComponent, onMounted, PropType, ref, watch } from "vue";
 import { triggerOptions, typeOptions } from "./constant";
 import { CFormItem } from "@cgx-designer/extensions";

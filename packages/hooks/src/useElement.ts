@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { cloneDeep, isEmpty } from "lodash";
-import { ElementInstance, IEditorElement } from "@cgx-designer/core";
+import { ElementInstance, IEditorElement } from "@cgx-designer/types";
 import { getRandomId } from "@cgx-designer/utils";
 import { deepClone } from "./../../utils/common/util";
 

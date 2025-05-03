@@ -8,7 +8,7 @@ import {
   watch,
 } from "vue";
 import { ElementManage, FocusManage } from "@cgx-designer/hooks";
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 
 const Tab = defineComponent({
   props: {

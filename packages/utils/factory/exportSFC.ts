@@ -1,4 +1,4 @@
-import { BuilderSchema, FormSetting, IEditorElement } from "@cgx-designer/core";
+import { BuilderSchema, FormSetting, IEditorElement } from "@cgx-designer/types";
 import { defaultCSS } from "./data";
 
 export type ICreateSFCCode = ReturnType<typeof createSFCSourceCode>;

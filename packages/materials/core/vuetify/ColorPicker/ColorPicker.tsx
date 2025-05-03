@@ -1,4 +1,4 @@
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 import { VColorPicker } from "vuetify/components";
 import { defineComponent, PropType } from "vue";
 

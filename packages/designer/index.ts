@@ -27,4 +27,5 @@ elementController.registerElementRenderMap("idInput", IdInput);
 elementController.registerElementRenderMap("computedStyle", ComputedStyle);
 elementController.registerElementRenderMap("styleIDE", StyleIDE);
 
+export * from "./src/constant";
 export { ElementDesigner };

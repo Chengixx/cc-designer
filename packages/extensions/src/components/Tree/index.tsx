@@ -1,6 +1,6 @@
 import { computed, defineComponent, provide, ref } from "vue";
 import TreeNodes from "./TreeNodes.vue";
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 
 const CTree = defineComponent({
   inheritAttrs: false,

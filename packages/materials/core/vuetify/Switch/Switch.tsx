@@ -1,4 +1,4 @@
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 import { VSwitch } from "vuetify/components";
 import { defineComponent, PropType } from "vue";
 import { isEmpty } from "lodash";

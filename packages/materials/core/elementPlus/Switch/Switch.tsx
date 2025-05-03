@@ -1,4 +1,4 @@
-import { IEditorElement } from "@cgx-designer/core";
+import { IEditorElement } from "@cgx-designer/types";
 import { ElSwitch } from "element-plus";
 import { isEmpty } from "lodash";
 import { defineComponent, PropType } from "vue";

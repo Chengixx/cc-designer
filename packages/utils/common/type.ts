@@ -1,4 +1,4 @@
-import { FormSetting, IEditorElement } from "@cgx-designer/core";
+import { FormSetting, IEditorElement } from "@cgx-designer/types";
 
 //用类型断言去判断是不是IEditorElement这个接口
 export const isIEditorElementArray = (arr: any[]): arr is IEditorElement[] => {
