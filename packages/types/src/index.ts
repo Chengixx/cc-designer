@@ -11,6 +11,8 @@ export interface IEditorElement {
   formItem?: boolean;
   noShowFormItem?: boolean;
   props?: Record<string, any>;
+  getter?: (...args: any[]) => any;
+  setter?: (...args: any[]) => undefined | void;
   [key: string]: any;
 }
 
