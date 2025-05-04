@@ -10,7 +10,7 @@ export interface GlobalFunction {
 export class FunctionController {
   functionMap = ref<Record<string, GlobalFunction>>({
     test: {
-      key: "test",
+      key: "test1",
       name: "测试",
       callback: () => {
         console.log("test");

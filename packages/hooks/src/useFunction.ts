@@ -44,8 +44,15 @@ export const useFunction = (elementManage: ElementManage) => {
     needShowError: boolean = false
   ) => {
     //用new Function去创建 但是注意这里一定要立刻执行 否则没用的
+    const globalFunction: Record<string, () => any> = Object.entries(
+      functionController.functionMap.value
+    ).reduce((acc: any, [key, value]) => {
+      acc[key] = value.callback;
+      return acc;
+    }, {});
     try {
       new Function(js).bind({
+        ...globalFunction,
         get: getElementInstanceById,
         inject,
         elementManage,
