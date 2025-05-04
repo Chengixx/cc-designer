@@ -17,6 +17,7 @@ import { elementController } from "@cgx-designer/controller";
 import ElementIDE from "./ElementIDE";
 import { Message, TabPane, Tabs, TabPaneName } from "@cgx-designer/extensions";
 import { Empty } from "@cgx-designer/extensions";
+import functionController from "@cgx-designer/controller/core/functionController";
 
 const EventSettingDialog = defineComponent({
   emits: ["add", "edit"],
@@ -44,6 +45,15 @@ const EventSettingDialog = defineComponent({
     //当前选中的组件（tree）
     //渲染的方法列表 拿来用的
     const methodsList = computed(() => {
+      //全局的一个情况下
+      if (eventInstance.type === "global") {
+        return Object.entries(functionController.functionMap.value).map(
+          ([label]) => ({
+            label,
+            value: label,
+          })
+        );
+      }
       //用户自己写的script的情况
       if (eventInstance.type === "custom") {
         return Object.entries(functionManage.functionsList.value)
@@ -208,6 +218,15 @@ const EventSettingDialog = defineComponent({
                         />
                       </div>
                     </TabPane>
+                    <TabPane label="全局事件" name="global">
+                      <div class="c-px-2 c-pt-2 c-border-t dark:c-border-darkMode">
+                        <MethodsList
+                          methodsList={methodsList.value}
+                          currentMethod={eventInstance.methodName!}
+                          onSelect={(v) => handleSelectMethod(v)}
+                        />
+                      </div>
+                    </TabPane>
                     <TabPane label="组件联动" name="component">
                       <div class="c-px-2 c-pt-2  c-border-t dark:c-border-darkMode c-flex c-flex-col c-h-[calc(70vh-40px-.5rem)]">
                         <div class="c-h-[40vh] c-overflow-y-auto c-w-full c-border-b dark:c-border-darkMode">
@@ -239,7 +258,8 @@ const EventSettingDialog = defineComponent({
                   </Tabs>
                 </div>
                 <div class="c-flex-1 c-ml-2 c-border c-p-2 c-h-full dark:c-border-darkMode">
-                  {eventInstance.type === "custom" ? (
+                  {eventInstance.type === "custom" ||
+                  eventInstance.type === "global" ? (
                     <ScriptIDE />
                   ) : (
                     <>

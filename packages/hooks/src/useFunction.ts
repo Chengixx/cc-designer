@@ -2,6 +2,7 @@ import { ref, watchEffect } from "vue";
 import { ElementManage } from "./useElement";
 import { ElementInstance, EventInstance } from "@cgx-designer/types";
 import { elementController } from "@cgx-designer/controller";
+import functionController from "@cgx-designer/controller/core/functionController";
 
 export type FunctionManage = ReturnType<typeof useFunction>;
 
@@ -70,6 +71,16 @@ export const useFunction = (elementManage: ElementManage) => {
     }
     actions.forEach((action) => {
       const methodArgs = action.args ? JSON.parse(action.args) : args;
+      //global
+      if (action.type === "global") {
+        try {
+          functionController.functionMap.value[action.methodName!]?.callback(
+            ...args
+          );
+        } catch (err) {
+          console.error(`函数(${action.methodName})报错`, err);
+        }
+      }
       //custom
       if (action.type === "custom") {
         try {
