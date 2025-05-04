@@ -18,11 +18,11 @@ const EditFormSetting = defineComponent({
               <CFormItem label={formConfig.label || undefined}>
                 <ElementEngine
                   elementSchema={{ ...formConfig, formItem: false }}
-                  provideValue={getValueByPath(
+                  modelValue={getValueByPath(
                     formManage.formSetting,
                     formConfig.field!
                   )}
-                  onUpdateProvideValue={(v: any) =>
+                  onUpdate:modelValue={(v: any) =>
                     setValueByPath(formManage.formSetting, formConfig.field!, v)
                   }
                 />

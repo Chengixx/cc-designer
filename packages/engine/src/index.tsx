@@ -33,11 +33,11 @@ const ElementNode = defineComponent({
       type: Boolean,
       default: false,
     },
-    provideValue: {
+    modelValue: {
       required: false,
     },
   },
-  emits: ["updateProvideValue"],
+  emits: ["update:modelValue"],
   setup(props, { slots, emit }) {
     const FormItem = elementController.getElementRender("formItem");
     const elementManage = inject("elementManage") as ElementManage;
@@ -50,7 +50,7 @@ const ElementNode = defineComponent({
     //给个默认值防止拖拽模式报错
     const formData = inject("formData", reactive({})) as any;
     //用于和组件实例双向绑定的值
-    const bindValue = ref<any>(props.provideValue ?? null);
+    const bindValue = ref<any>(props.modelValue ?? null);
     //拖拽编辑的时候 往field后面放一个特殊的东西 用于三向绑定
     //进来就调用一次 并且后面修改elementSchema的时候，如果和localSchema相同就不调用，不然还是要调用
     const addFieldAssit = () => {
@@ -81,7 +81,7 @@ const ElementNode = defineComponent({
     );
     //更新值
     const handleUpdate = (nv: any) => {
-      emit("updateProvideValue", nv);
+      emit("update:modelValue", nv);
       //!要赋值表单 如果是渲染模式 就是正式的数据了 如果编辑模式 则用于三向绑定
       if (localSchema.field) {
         formData[localSchema.field!] = nv;
@@ -105,8 +105,8 @@ const ElementNode = defineComponent({
     };
     //任何情况下有变动 就重新赋值绑定值
     watchEffect(() => {
-      //如果有provideValue 就用provideValue，说明是属性那边的 不然就用默认值的
-      bindValue.value = props.provideValue ?? formData[localSchema.field ?? ""];
+      //如果有modelValue 就用modelValue，说明是属性那边的 不然就用默认值的
+      bindValue.value = props.modelValue ?? formData[localSchema.field ?? ""];
     });
 
     //监听json变化 json变化了 就要重新赋值的
@@ -137,7 +137,7 @@ const ElementNode = defineComponent({
         if (localSchema.formItem) {
           instance.setValue = handleUpdate;
           instance.getValue = () =>
-            formData[localSchema.field!] || props.provideValue;
+            formData[localSchema.field!] || props.modelValue;
         }
 
         elementManage.addElementInstance(localSchema.id, instance);

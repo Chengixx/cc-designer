@@ -71,7 +71,7 @@ const ElementAttribute = defineComponent({
               {showAttributeConfigWidget(attributeConfig) && (
                 <CFormItem label={attributeConfig.label || undefined}>
                   <ElementEngine
-                    provideValue={getValueByPath(
+                    modelValue={getValueByPath(
                       currentFocusElement.value!,
                       attributeConfig.field!
                     )}
@@ -86,7 +86,7 @@ const ElementAttribute = defineComponent({
                       field: undefined,
                       formItem: false,
                     }}
-                    onUpdateProvideValue={(value) =>
+                    onUpdate:modelValue={(value) =>
                       handleSetValue(
                         value,
                         attributeConfig.field!,

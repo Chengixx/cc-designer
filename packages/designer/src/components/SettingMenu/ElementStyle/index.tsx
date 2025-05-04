@@ -21,7 +21,7 @@ const ElementStyle = defineComponent({
               <CFormItem label={styleConfig.label || undefined}>
                 <ElementEngine
                   elementSchema={{ ...styleConfig, formItem: false }}
-                  provideValue={
+                  modelValue={
                     styleConfig.getter
                       ? styleConfig.getter(focusedElement.value!)
                       : getValueByPath(
@@ -29,7 +29,7 @@ const ElementStyle = defineComponent({
                           styleConfig.field!
                         )
                   }
-                  onUpdateProvideValue={(v: any) => {
+                  onUpdate:modelValue={(v: any) => {
                     styleConfig.setter
                       ? styleConfig.setter(
                           focusedElement.value!,

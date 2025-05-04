@@ -45,8 +45,8 @@ const ElementIDE = defineComponent({
                     ...item,
                     formItem: false,
                   }}
-                  provideValue={valueRef.value[item.field!]}
-                  onUpdateProvideValue={($event) =>
+                  modelValue={valueRef.value[item.field!]}
+                  onUpdate:modelValue={($event) =>
                     handleSetValue($event, item.field!)
                   }
                 />
