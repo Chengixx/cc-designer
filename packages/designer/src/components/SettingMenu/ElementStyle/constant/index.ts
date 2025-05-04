@@ -1,4 +1,5 @@
 import { IEditorElement } from "@cgx-designer/types";
+import { getValueByPath, setValueByPath } from "@cgx-designer/utils";
 
 export const defaultStyleSchema: IEditorElement[] = [
   {
@@ -20,6 +21,21 @@ export const defaultStyleSchema: IEditorElement[] = [
     field: "style.height",
     props: {
       placeholder: "请输入高度",
+    },
+  },
+  {
+    label: "透明度",
+    key: "slider",
+    getter: (values: IEditorElement) => {
+      const innerValue = getValueByPath(values, "style.opacity");
+      if (!innerValue) return 100;
+      if (typeof innerValue === "number") return innerValue;
+      return Number(innerValue.replace("%", ""));
+    },
+    setter: (values: IEditorElement, value: any, field = "style.opacity") => {
+      if (typeof value === "undefined") return;
+      const innerValue = `${value}%`;
+      setValueByPath(values, field, innerValue);
     },
   },
   {

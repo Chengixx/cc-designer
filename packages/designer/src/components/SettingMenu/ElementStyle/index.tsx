@@ -21,13 +21,27 @@ const ElementStyle = defineComponent({
               <CFormItem label={styleConfig.label || undefined}>
                 <ElementEngine
                   elementSchema={{ ...styleConfig, formItem: false }}
-                  provideValue={getValueByPath(
-                    focusedElement.value!,
-                    styleConfig.field!
-                  )}
-                  onUpdateProvideValue={(v: any) =>
-                    setValueByPath(focusedElement.value!, styleConfig.field!, v)
+                  provideValue={
+                    styleConfig.getter
+                      ? styleConfig.getter(focusedElement.value!)
+                      : getValueByPath(
+                          focusedElement.value!,
+                          styleConfig.field!
+                        )
                   }
+                  onUpdateProvideValue={(v: any) => {
+                    styleConfig.setter
+                      ? styleConfig.setter(
+                          focusedElement.value!,
+                          v,
+                          styleConfig.field!
+                        )
+                      : setValueByPath(
+                          focusedElement.value!,
+                          styleConfig.field!,
+                          v
+                        );
+                  }}
                 />
               </CFormItem>
             ))}
