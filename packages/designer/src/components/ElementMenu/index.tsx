@@ -63,24 +63,27 @@ const ElementMenu = defineComponent({
           <div class="c-min-w-[48px] c-w-[48px] c-h-[calc(100vh-48px)] c-border-t c-border-r c-border-gray-200 dark:c-border-darkMode">
             <div class="c-w-full c-pt-3">
               {menuList.map((Icon) => (
-                <div
-                  onClick={() => {
-                    if (collapseManage.leftMenuCollapseState.value === false) {
-                      collapseManage.toggleLeftMenu();
-                    }
-                    settingTab.value = Icon.key;
-                  }}
-                  class="c-w-full c-h-[48px] c-flex c-justify-center c-items-center"
-                >
+                <div class="c-w-full c-h-[48px] c-flex c-justify-center c-items-center">
                   <CTooltip tooltip={Icon.tip} placement="right">
-                    <Icon.icon
-                      class={[
-                        "c-w-5 c-h-5 c-cursor-pointer",
-                        settingTab.value === Icon.key
-                          ? "c-fill-blue-500 dark:c-fill-blue-300"
-                          : "c-fill-gray-600 dark:c-fill-gray-400",
-                      ]}
-                    />
+                    <div
+                      onClick={() => {
+                        if (
+                          collapseManage.leftMenuCollapseState.value === false
+                        ) {
+                          collapseManage.toggleLeftMenu();
+                        }
+                        settingTab.value = Icon.key;
+                      }}
+                    >
+                      <Icon.icon
+                        class={[
+                          "c-w-5 c-h-5 c-cursor-pointer",
+                          settingTab.value === Icon.key
+                            ? "c-fill-blue-500 dark:c-fill-blue-300"
+                            : "c-fill-gray-600 dark:c-fill-gray-400",
+                        ]}
+                      />
+                    </div>
                   </CTooltip>
                 </div>
               ))}
