@@ -16,42 +16,32 @@ const ElementMenu = defineComponent({
         icon: ElementIcon,
         tip: "组件库",
         key: "0",
-        render: () => {
-          return (
-            <>
-              <SearchBox v-model:widgetName={searchValue.value} />
-              <ElementList searchValue={searchValue.value} />
-            </>
-          );
-        },
+        render: () => (
+          <div class="c-min-w-[296px]">
+            <SearchBox v-model:widgetName={searchValue.value} />
+            <ElementList searchValue={searchValue.value} />
+          </div>
+        ),
       },
       {
         icon: TreeIcon,
         tip: "大纲树",
         key: "1",
-        render: () => {
-          return (
-            <>
-              <div class="c-h-[calc(100vh-88px)] c-w-full c-border-t dark:c-border-darkMode">
-                <ElementTree />
-              </div>
-            </>
-          );
-        },
+        render: () => (
+          <div class="c-min-w-[296px] c-h-[calc(100vh-88px)] c-w-full c-border-t dark:c-border-darkMode">
+            <ElementTree />
+          </div>
+        ),
       },
       {
         icon: SourceCodeIcon,
         tip: "源码",
         key: "2",
-        render: () => {
-          return (
-            <>
-              <div class="c-h-[calc(100vh-88px)] c-w-full dark:c-border-darkMode">
-                <ElementSource />
-              </div>
-            </>
-          );
-        },
+        render: () => (
+          <div class="c-min-w-[296px] c-h-[calc(100vh-88px)] c-w-full dark:c-border-darkMode">
+            <ElementSource />
+          </div>
+        ),
       },
     ];
     const searchValue = ref<string>("");
