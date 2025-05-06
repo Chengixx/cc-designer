@@ -92,7 +92,7 @@ defineExpose({
       @mouseleave="startTimer"
     >
       <div class="c-mr-1">
-        <MessageIcon class="c-w-4 c-h-4 c-fill-gray-400" />
+        <MessageIcon class="c-w-4 c-h-4 cgx-message__icon" />
       </div>
       <div class="cgx-message__content">
         <slot>

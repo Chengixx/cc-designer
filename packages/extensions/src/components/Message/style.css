@@ -19,6 +19,7 @@
     opacity 0.3s ease,
     transform 0.3s ease;
   .cgx-message__content {
+    font-size: 14px;
     overflow-wrap: break-word;
   }
   &.is-close .cgx-message__content {
@@ -49,22 +50,29 @@
 
 /* Success */
 .cgx-message--success {
-  background-color: #f0f9eb;
-  border-color: #eff9ea;
-  color: #8ad067;
+  background-color: #f2f9ec;
+  border-color: #e7f3de;
+  color: #7fc051;
 }
 .cgx-message--success .cgx-message__close {
-  color: #8ad067;
+  color: #7fc051;
+}
+
+.cgx-message--success .cgx-message__icon {
+  fill: #7fc051;
 }
 
 /* Warning */
 .cgx-message--warning {
-  background-color: #fff3cd;
-  border-color: #ffecb3;
-  color: #ffc107;
+  background-color: #fcf6ed;
+  border-color: #fffefd;
+  color: #dca651;
 }
-.cgx-message--warning .cgx-message__close {
-  color: #ffc107;
+.cgx-message--warning .cgx-message__close .cgx-message__icon {
+  color: #dca651;
+}
+.cgx-message--warning .cgx-message__icon {
+  fill: #dca651;
 }
 
 /* Danger */
@@ -79,12 +87,15 @@
 
 /* Error */
 .cgx-message--error {
-  background-color: #f8d7da;
-  border-color: #f1b0b7;
+  background-color: #fbefef;
+  border-color: #f9e3e2;
   color: #d9534f;
 }
 .cgx-message--error .cgx-message__close {
   color: #d9534f;
+}
+.cgx-message--error .cgx-message__icon {
+  fill: #d9534f;
 }
 
 .cgx-message.fade-up-enter-from,
