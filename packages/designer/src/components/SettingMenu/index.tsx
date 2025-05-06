@@ -13,10 +13,7 @@ const SettingMenu = defineComponent({
     return () => {
       return (
         <div class="c-h-full c-w-full c-border-l c-border-gray-200 c-overflow-x-hidden dark:c-bg-darkMode dark:c-border-darkMode">
-          <div class="c-min-w-[300px] c-select-none c-w-full c-h-10 c-flex c-justify-center c-items-center c-border c-border-l-0 dark:c-border-darkMode">
-            <span>配置菜单</span>
-          </div>
-          <div class="c-h-[calc(100vh-88px)] c-overflow-y-auto c-overflow-x-hidden c-w-[300px]">
+          <div class="c-h-[calc(100vh-48px)] c-border-t c-overflow-y-auto c-overflow-x-hidden c-w-[300px] c-border-gray-200 dark:c-border-darkMode">
             <Tabs v-model={settingTab.value} class="no-padding-tabs">
               <TabPane label="属性">
                 <div class="c-px-2 c-pt-2 c-border-t dark:c-border-darkMode">
