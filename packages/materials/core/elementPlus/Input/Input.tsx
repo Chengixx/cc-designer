@@ -1,8 +1,8 @@
-import { useExpose } from "@cgx-designer/hooks";
 import { IEditorElement } from "@cgx-designer/types";
 import { ElInput } from "element-plus";
 import { defineComponent, PropType, ref } from "vue";
 import { isEmpty } from "lodash";
+import { exposeDom } from "@cgx-designer/utils";
 
 const Input = defineComponent({
   props: {
@@ -13,7 +13,7 @@ const Input = defineComponent({
   },
   setup(props, { attrs, expose, slots }) {
     const elementRef = ref<any>(null);
-    expose(useExpose(elementRef));
+    expose(exposeDom(elementRef));
     return () => {
       const renderProps: Record<string, any> = {
         ...(!isEmpty(props.elementSchema) && props.elementSchema.props),

@@ -5,6 +5,7 @@ import { IEditorElement } from "@cgx-designer/types";
 import { ModeManage } from "./useMode";
 
 export type HoverManage = ReturnType<typeof useHover>;
+
 export const useHover = (
   elementManage: ElementManage,
   modeManage: ModeManage
