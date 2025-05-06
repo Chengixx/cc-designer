@@ -4,58 +4,82 @@ import SearchBox from "./components/SearchBox";
 import ElementSource from "./components/ElementSource";
 import ElementTree from "./components/ElementTree";
 import { ElementIcon, SourceCodeIcon, TreeIcon } from "@cgx-designer/icons";
+import { CTooltip } from "@cgx-designer/extensions";
 
 const ElementMenu = defineComponent({
   setup() {
-    const menuList = [ElementIcon, SourceCodeIcon, TreeIcon];
+    const menuList = [
+      {
+        icon: ElementIcon,
+        tip: "组件库",
+        key: "0",
+        render: () => {
+          return (
+            <>
+              <SearchBox v-model:widgetName={searchValue.value} />
+              <ElementList searchValue={searchValue.value} />
+            </>
+          );
+        },
+      },
+      {
+        icon: TreeIcon,
+        tip: "大纲树",
+        key: "1",
+        render: () => {
+          return (
+            <>
+              <div class="c-h-[calc(100vh-128px)] c-w-full c-border-t dark:c-border-darkMode">
+                <ElementTree />
+              </div>
+            </>
+          );
+        },
+      },
+      {
+        icon: SourceCodeIcon,
+        tip: "源码",
+        key: "2",
+        render: () => {
+          return (
+            <>
+              <div class="c-h-[calc(100vh-128px)] c-w-full dark:c-border-darkMode">
+                <ElementSource />
+              </div>
+            </>
+          );
+        },
+      },
+    ];
     const searchValue = ref<string>("");
     const settingTab = ref<string>("0");
 
     return () => {
       return (
         <div class="c-overflow-x-hidden c-border-r c-border-gray-200 c-flex dark:c-border-darkMode dark:c-bg-darkMode">
-          <div class="c-w-[48px] c-h-[calc(100vh-48px)] c-border-t c-border-r c-overflow-y-auto c-overflow-x-hidden c-border-gray-200 dark:c-border-darkMode">
+          <div class="c-w-[48px] c-h-[calc(100vh-48px)] c-border-t c-border-r c-border-gray-200 dark:c-border-darkMode">
             <div class="c-w-full c-pt-3">
-              {menuList.map((Icon, index) => (
+              {menuList.map((Icon) => (
                 <div
-                  onClick={() => (settingTab.value = String(index))}
+                  onClick={() => (settingTab.value = Icon.key)}
                   class="c-w-full c-h-[48px] c-flex c-justify-center c-items-center"
                 >
-                  <Icon
-                    class={[
-                      "c-w-5 c-h-5 c-cursor-pointer",
-                      settingTab.value === String(index)
-                        ? "c-fill-blue-500 dark:c-fill-blue-300"
-                        : "c-fill-gray-600 dark:c-fill-gray-400",
-                    ]}
-                  />
+                  <CTooltip tooltip={Icon.tip} placement="right">
+                    <Icon.icon
+                      class={[
+                        "c-w-5 c-h-5 c-cursor-pointer",
+                        settingTab.value === Icon.key
+                          ? "c-fill-blue-500 dark:c-fill-blue-300"
+                          : "c-fill-gray-600 dark:c-fill-gray-400",
+                      ]}
+                    />
+                  </CTooltip>
                 </div>
               ))}
             </div>
           </div>
           <div class="c-h-[calc(100vh-48px)] c-overflow-y-auto c-overflow-x-hidden c-w-[300px] c-border-gray-200 dark:c-border-darkMode">
-            {settingTab.value === "0" && (
-              <>
-                <SearchBox v-model:widgetName={searchValue.value} />
-                <ElementList searchValue={searchValue.value} />
-              </>
-            )}
-
-            {settingTab.value === "1" && (
-              <>
-                <div class="c-h-[calc(100vh-128px)] c-w-full dark:c-border-darkMode">
-                  <ElementSource />
-                </div>
-              </>
-            )}
-
-            {settingTab.value === "2" && (
-              <>
-                <div class="c-h-[calc(100vh-128px)] c-w-full c-border-t dark:c-border-darkMode">
-                  <ElementTree />
-                </div>
-              </>
-            )}
+            {menuList.find((item) => item.key === settingTab.value)?.render()}
           </div>
         </div>
       );
