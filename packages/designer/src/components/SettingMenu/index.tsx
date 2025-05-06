@@ -30,7 +30,7 @@ const SettingMenu = defineComponent({
                 </div>
               </TabPane>
               <TabPane label="样式">
-                <div class="c-px-2 c-pt-2 c-border-t dark:c-border-darkMode">
+                <div class="c-px-[13px] c-pt-2 c-border-t dark:c-border-darkMode">
                   <ElementStyle />
                 </div>
               </TabPane>
