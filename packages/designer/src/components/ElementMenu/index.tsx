@@ -1,13 +1,16 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent, inject, ref } from "vue";
 import ElementList from "./components/ElementList.vue";
 import SearchBox from "./components/SearchBox";
 import ElementSource from "./components/ElementSource";
 import ElementTree from "./components/ElementTree";
 import { ElementIcon, SourceCodeIcon, TreeIcon } from "@cgx-designer/icons";
 import { CTooltip } from "@cgx-designer/extensions";
+import { CollapseManage } from "@cgx-designer/hooks";
 
 const ElementMenu = defineComponent({
   setup() {
+    const collapseManage = inject("collapseManage") as CollapseManage;
+
     const menuList = [
       {
         icon: ElementIcon,
@@ -29,7 +32,7 @@ const ElementMenu = defineComponent({
         render: () => {
           return (
             <>
-              <div class="c-h-[calc(100vh-128px)] c-w-full c-border-t dark:c-border-darkMode">
+              <div class="c-h-[calc(100vh-88px)] c-w-full c-border-t dark:c-border-darkMode">
                 <ElementTree />
               </div>
             </>
@@ -43,7 +46,7 @@ const ElementMenu = defineComponent({
         render: () => {
           return (
             <>
-              <div class="c-h-[calc(100vh-128px)] c-w-full dark:c-border-darkMode">
+              <div class="c-h-[calc(100vh-88px)] c-w-full dark:c-border-darkMode">
                 <ElementSource />
               </div>
             </>
@@ -56,12 +59,17 @@ const ElementMenu = defineComponent({
 
     return () => {
       return (
-        <div class="c-overflow-x-hidden c-border-r c-border-gray-200 c-flex dark:c-border-darkMode dark:c-bg-darkMode">
-          <div class="c-w-[48px] c-h-[calc(100vh-48px)] c-border-t c-border-r c-border-gray-200 dark:c-border-darkMode">
+        <div class="c-border-r c-border-gray-200 c-flex dark:c-border-darkMode dark:c-bg-darkMode">
+          <div class="c-min-w-[48px] c-w-[48px] c-h-[calc(100vh-48px)] c-border-t c-border-r c-border-gray-200 dark:c-border-darkMode">
             <div class="c-w-full c-pt-3">
               {menuList.map((Icon) => (
                 <div
-                  onClick={() => (settingTab.value = Icon.key)}
+                  onClick={() => {
+                    if (collapseManage.leftMenuCollapseState.value === false) {
+                      collapseManage.toggleLeftMenu();
+                    }
+                    settingTab.value = Icon.key;
+                  }}
                   class="c-w-full c-h-[48px] c-flex c-justify-center c-items-center"
                 >
                   <CTooltip tooltip={Icon.tip} placement="right">

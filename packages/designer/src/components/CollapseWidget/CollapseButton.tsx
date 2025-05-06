@@ -42,12 +42,14 @@ const CollapseButton = defineComponent({
         : "dark:c-fill-white";
       const sideClass = props.isLeft
         ? props.collapseState
-          ? "c-left-[300px]"
-          : "c-left-0"
+          ? "c-left-[348px]"
+          : "c-left-[48px]"
         : props.collapseState
           ? "c-right-[300px]"
           : "c-right-0";
-      const sideRoundedClass = props.isLeft ? "c-rounded-r-lg" : "c-rounded-l-lg";
+      const sideRoundedClass = props.isLeft
+        ? "c-rounded-r-lg"
+        : "c-rounded-l-lg";
       return (
         <div
           class={[
