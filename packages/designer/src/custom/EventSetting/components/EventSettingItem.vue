@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { EditIcon, ClearIcon } from "@cgx-designer/icons";
 import { elementController } from "@cgx-designer/controller";
 import { computed, inject, PropType } from "vue";
 import draggable from "vuedraggable";
@@ -126,7 +127,8 @@ const computedButtonColor = (type: keyof typeof VBtnColorType) => {
             class="c-p-2 c-rounded-md c-border c-flex c-items-center c-my-2 hover:c-border-blue-500 c-transition-all dark:c-border-darkMode dark:hover:c-border-blue-500"
           >
             <div class="c-flex-1">
-              <div v-if="eventInstance.type === 'custom'">自定义函数</div>
+              <div v-if="eventInstance.type === 'custom'">自定义事件</div>
+              <div v-if="eventInstance.type === 'global'">全局事件</div>
               <div
                 class="c-flex c-items-center c-gap-1"
                 v-if="eventInstance.type === 'component'"
@@ -163,22 +165,16 @@ const computedButtonColor = (type: keyof typeof VBtnColorType) => {
                 {{ eventInstance.methodName }}
               </div>
             </div>
-            <Button
-              link
-              variant="text"
-              type="primary"
-              :color="computedButtonColor('primary')"
+            <EditIcon
+              title="编辑"
               @click="handleEditEvent(index, item.type, eventInstance)"
-              >编辑</Button
-            >
-            <Button
-              link
-              variant="text"
-              type="danger"
-              :color="computedButtonColor('danger')"
+              class="c-h-4 c-w-4 c-mr-1 dark:c-fill-white hover:c-fill-blue-500 dark:hover:c-fill-blue-500 c-cursor-pointer"
+            />
+            <ClearIcon
+              title="删除"
               @click="handleDeleteEvent(index, item.type)"
-              >删除</Button
-            >
+              class="c-h-4 c-w-4 dark:c-fill-white hover:c-fill-blue-500 dark:hover:c-fill-blue-500 c-cursor-pointer"
+            />
           </div>
         </template>
       </draggable>

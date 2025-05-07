@@ -1,8 +1,9 @@
 import { EventInstance, EventItem, EventPrototype } from "@cgx-designer/types";
-import { Collapse, CollapseItem } from "@cgx-designer/extensions";
 import { computed, defineComponent, PropType, ref, toRaw } from "vue";
 import EventSettingItem from "./components/EventSettingItem.vue";
 import EventSettingDialog from "./components/EventSettingDialog";
+import AddEventButton from "./components/AddEventButton";
+import { Empty } from "@cgx-designer/extensions";
 
 const EventSetting = defineComponent({
   props: {
@@ -16,9 +17,6 @@ const EventSetting = defineComponent({
   },
   emits: ["updateModelValue"],
   setup(props, { emit }) {
-    const activeNames = ref<string[]>(
-      props.eventList.map((item) => item.title)
-    );
     const eventSettingDialogRef = ref<any>(null);
     //下面两个let是暂存 用于编辑和新增的时候的一个标识
     let currentType: string = "";
@@ -36,6 +34,13 @@ const EventSetting = defineComponent({
       return props.eventList
         .map((item: { events: EventItem[] }) => item.events)
         .flat();
+    });
+    //有实例的事件
+    const hasInstanceEventList = computed(() => {
+      return props.eventList
+        .map((item: { events: EventItem[] }) => item.events)
+        .flat()
+        .filter((item: EventItem) => bindValue.value?.[item.type]?.length);
     });
 
     const events = ref<Record<string, any>>({});
@@ -91,34 +96,24 @@ const EventSetting = defineComponent({
     };
     return () => (
       <>
-        <Collapse v-model={activeNames.value}>
-          {props.eventList.map((eventItem) => {
-            return (
-              <CollapseItem
-                title={eventItem.title}
-                key={eventItem.title}
-                name={eventItem.title}
-              >
-                <EventSettingItem
-                  v-model={bindValue.value}
-                  eventItem={eventItem.events}
-                  onAddEvent={(type: string) =>
-                    handleOpenEventDialog("add", type)
-                  }
-                  onEditEvent={(
-                    type: string,
-                    index: number,
-                    eventInstance: any
-                  ) =>
-                    handleOpenEventDialog("edit", type, index, eventInstance)
-                  }
-                  events={events.value}
-                  allEventList={allEventList.value}
-                />
-              </CollapseItem>
-            );
-          })}
-        </Collapse>
+        <AddEventButton
+          eventList={props.eventList}
+          onAddEvent={(type: string) => handleOpenEventDialog("add", type)}
+        />
+        {hasInstanceEventList.value.length ? (
+          <EventSettingItem
+            v-model={bindValue.value}
+            eventItem={hasInstanceEventList.value}
+            onAddEvent={(type: string) => handleOpenEventDialog("add", type)}
+            onEditEvent={(type: string, index: number, eventInstance: any) =>
+              handleOpenEventDialog("edit", type, index, eventInstance)
+            }
+            events={events.value}
+            allEventList={allEventList.value}
+          />
+        ) : (
+          <Empty />
+        )}
 
         <EventSettingDialog
           ref={eventSettingDialogRef}
