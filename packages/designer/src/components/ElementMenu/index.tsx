@@ -4,6 +4,7 @@ import SearchBox from "./components/SearchBox";
 import ElementSource from "./components/ElementSource";
 import ElementTree from "./components/ElementTree";
 import {
+  CloseIcon,
   ElementIcon,
   MoreIcon,
   SourceCodeIcon,
@@ -126,9 +127,20 @@ const ElementMenu = defineComponent({
             {/* 顶部区间 */}
             <div class="c-sticky c-bg-white dark:c-bg-darkMode c-top-0 c-z-10 c-border-b c-border-gray-200 dark:c-border-darkMode">
               {/* 标题tip */}
-              <div class="c-h-12 c-px-3 c-flex c-justify-start c-items-center c-font-bold c-min-w-[300px]">
+              <div class="c-h-12 c-px-3 c-flex c-justify-between c-items-center c-font-bold c-min-w-[300px]">
                 {currentActiveRenderData.value?.tip}
+                {/* 右边的小按钮 */}
+                <div>
+                  <CloseIcon
+                    class="c-w-4 h-4 c-cursor-pointer dark:c-fill-white"
+                    //@ts-ignore
+                    onClick={() => {
+                      collapseManage.toggleLeftMenu();
+                    }}
+                  />
+                </div>
               </div>
+
               {/* 如果有的话 来一个headerSlot */}
               {currentActiveRenderData.value?.headerSlot?.()}
             </div>
