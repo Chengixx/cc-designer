@@ -5,6 +5,7 @@ import ElementAttribute from "./ElementAttribute";
 import { FocusManage } from "@cgx-designer/hooks";
 import ElementEvent from "./ElementEvent";
 import ElementStyle from "./ElementStyle";
+import ElementBread from "./ElementBread";
 
 const SettingMenu = defineComponent({
   setup() {
@@ -13,6 +14,7 @@ const SettingMenu = defineComponent({
     return () => {
       return (
         <div class="c-h-full c-w-full c-border-l c-border-gray-200 c-overflow-x-hidden dark:c-bg-darkMode dark:c-border-darkMode">
+          <ElementBread />
           <div class="c-h-[calc(100vh-48px)] c-border-t c-overflow-y-auto c-overflow-x-hidden c-w-[300px] c-border-gray-200 dark:c-border-darkMode">
             <Tabs v-model={settingTab.value} class="no-padding-tabs">
               <TabPane label="属性">

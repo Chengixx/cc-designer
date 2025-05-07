@@ -2,7 +2,6 @@ import { ref } from "vue";
 import { cloneDeep, isEmpty } from "lodash";
 import { ElementInstance, IEditorElement } from "@cgx-designer/types";
 import { getRandomId } from "@cgx-designer/utils";
-import { deepClone } from "./../../utils/common/util";
 
 export type ElementManage = ReturnType<typeof useElement>;
 
@@ -108,9 +107,11 @@ export const useElement = () => {
       } else if (key === "field") {
         newElementSchema[key] = elementSchema.key + "-" + id;
       } else if (key === "elementList" && !isEmpty(elementSchema[key])) {
-        newElementSchema[key] = []
+        newElementSchema[key] = [];
         for (let index = 0; index < elementSchema[key]!.length; index++) {
-          newElementSchema[key][index] = deepCopyElement(elementSchema[key]![index]!);
+          newElementSchema[key][index] = deepCopyElement(
+            elementSchema[key]![index]!
+          );
         }
       } else {
         newElementSchema[key] = elementSchema[key];
@@ -118,6 +119,34 @@ export const useElement = () => {
     }
 
     return newElementSchema;
+  };
+  const getElementTreePathById = (
+    id: string,
+    targetElementList: IEditorElement[] = elementList.value
+  ): IEditorElement[] => {
+    const pathArr: IEditorElement[] = [];
+    let found = false;
+
+    function getElementPath(element: IEditorElement): void {
+      pathArr.push(element);
+      if (element.id === id) {
+        found = true;
+      }
+      // 遍历默认子节点
+      if (!found && element.elementList && element.elementList.length > 0) {
+        for (let i = 0; i < element.elementList.length; i++) {
+          getElementPath(element.elementList[i]);
+          if (found) break;
+        }
+      }
+
+      if (!found) {
+        pathArr.pop();
+      }
+    }
+
+    targetElementList.forEach(getElementPath);
+    return pathArr;
   };
   return {
     elementList,
@@ -134,5 +163,6 @@ export const useElement = () => {
     deleteAllElements,
     addElementInstance,
     deepCopyElement,
+    getElementTreePathById,
   };
 };
