@@ -3,7 +3,6 @@ import { logoName } from "../../constant/index";
 import { inject } from "vue";
 import { ThemeManage } from "@cgx-designer/hooks/src/useTheme";
 import { MoveIcon } from "@cgx-designer/extensions";
-import TempLibSelect from "./TempLibSelect";
 import { elementController } from "@cgx-designer/controller";
 import { vuetifyConfig } from "@cgx-designer/materials";
 
@@ -37,7 +36,6 @@ const CGXLogo = () => {
         </span>
       </div>
       <div class="c-flex-1 c-flex c-justify-end c-items-center c-gap-x-6">
-        <TempLibSelect />
         <span class="c-cursor-pointer">文档</span>
         <Switch
           title="切换黑暗|明亮主题"

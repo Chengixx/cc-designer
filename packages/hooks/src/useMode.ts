@@ -1,3 +1,4 @@
+import { IpadIcon, PcIcon, PeIcon } from "@cgx-designer/icons";
 import { ref } from "vue";
 
 export type ModeManage = ReturnType<typeof useMode>;
@@ -9,6 +10,12 @@ export enum ModeSize {
   ipad = "780px",
   pe = "400px",
 }
+
+export const ModeIconMap = {
+  pc: PcIcon,
+  ipad: IpadIcon,
+  pe: PeIcon,
+};
 
 export const useMode = () => {
   const mode = ref<ModeType>("pc");

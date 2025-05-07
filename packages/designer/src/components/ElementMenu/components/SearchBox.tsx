@@ -21,7 +21,7 @@ const SearchBox = defineComponent({
     });
     return () => {
       return (
-        <div class="c-w-full c-border c-border-b-0 c-border-l-0 c-box-border c-p-1 dark:c-border-darkMode">
+        <div class="c-w-full c-border c-border-t-0 c-border-b-0 c-border-l-0 c-box-border c-px-1 c-py-2 dark:c-border-darkMode">
           <Input
             placeholder="搜索组件"
             v-model={inputWidgetName.value}

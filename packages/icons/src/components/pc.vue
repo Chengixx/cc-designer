@@ -1,0 +1,22 @@
+<template>
+  <svg
+    t="1746582509510"
+    class="icon"
+    viewBox="0 0 1024 1024"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    p-id="13829"
+    width="200"
+    height="200"
+  >
+    <path
+      d="M896 256v469.333333H170.666667V256h725.333333zM213.333333 298.666667v384h640V298.666667H213.333333z m725.333334 469.333333v42.666667H128v-42.666667h810.666667z"
+      p-id="13830"
+    ></path>
+  </svg>
+</template>
+<script lang="ts" setup>
+defineOptions({
+  name: 'Pc',
+})
+</script>
