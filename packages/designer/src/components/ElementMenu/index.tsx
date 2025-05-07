@@ -20,6 +20,7 @@ interface IMenuItem {
   key: string;
   click?: () => void;
   render?: () => JSX.Element;
+  headerSlot?: () => JSX.Element;
 }
 
 const ElementMenu = defineComponent({
@@ -31,9 +32,9 @@ const ElementMenu = defineComponent({
         icon: ElementIcon,
         tip: "组件库",
         key: "0",
+        headerSlot: () => <SearchBox v-model:widgetName={searchValue.value} />,
         render: () => (
           <div class="c-min-w-[296px]">
-            <SearchBox v-model:widgetName={searchValue.value} />
             <ElementList searchValue={searchValue.value} />
           </div>
         ),
@@ -43,7 +44,7 @@ const ElementMenu = defineComponent({
         tip: "大纲树",
         key: "1",
         render: () => (
-          <div class="c-min-w-[296px] c-h-[calc(100vh-98px)] c-w-full c-border-t dark:c-border-darkMode">
+          <div class="c-min-w-[296px] c-h-[calc(100vh-98px)] c-w-full">
             <ElementTree />
           </div>
         ),
@@ -109,6 +110,7 @@ const ElementMenu = defineComponent({
     return () => {
       return (
         <div class="c-border-r c-border-gray-200 c-flex dark:c-border-darkMode dark:c-bg-darkMode">
+          {/* 最左侧的小长条 */}
           <div class="c-min-w-[48px] c-w-[48px] c-h-[calc(100vh-48px)] c-border-t c-border-r c-border-gray-200 dark:c-border-darkMode c-flex c-flex-col c-justify-between">
             {/* 左侧上面菜单 */}
             <div class="c-w-full c-pt-3">
@@ -119,11 +121,21 @@ const ElementMenu = defineComponent({
               {bottomSettingList.map((Icon) => RenderMenuItem(Icon))}
             </div>
           </div>
-          <div class="c-h-[calc(100vh-48px)] c-overflow-y-auto c-overflow-x-hidden c-w-[300px] c-border-t c-border-gray-200 dark:c-border-darkMode">
-            <div class="c-h-12 c-px-3 c-flex c-justify-start c-items-center c-font-bold c-min-w-[300px]">
-              {currentActiveRenderData.value?.tip}
+          {/* 左侧渲染内容 */}
+          <div class="c-h-[calc(100vh-48px)] c-relative c-overflow-y-auto c-overflow-x-hidden c-w-[300px] c-border-t c-border-gray-200 dark:c-border-darkMode">
+            {/* 顶部区间 */}
+            <div class="c-sticky c-bg-white dark:c-bg-darkMode c-top-0 c-z-10 c-border-b c-border-gray-200 dark:c-border-darkMode">
+              {/* 标题tip */}
+              <div class="c-h-12 c-px-3 c-flex c-justify-start c-items-center c-font-bold c-min-w-[300px]">
+                {currentActiveRenderData.value?.tip}
+              </div>
+              {/* 如果有的话 来一个headerSlot */}
+              {currentActiveRenderData.value?.headerSlot?.()}
             </div>
-            {currentActiveRenderData.value?.render?.()}
+            {/* 下面真正的内容 */}
+            <div class="c-mt-[-1px]">
+              {currentActiveRenderData.value?.render?.()}
+            </div>
           </div>
 
           <MoreDialog ref={moreDialogRef} />
