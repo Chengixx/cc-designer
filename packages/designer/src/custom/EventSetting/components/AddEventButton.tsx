@@ -56,12 +56,7 @@ const AddEventButton = defineComponent({
             </div>
           ),
           default: () => (
-            <Button
-              type="primary"
-              variant="tonal"
-              block
-              style={{ width: "100%" }}
-            >
+            <Button variant="tonal" block style={{ width: "100%" }}>
               新增事件
             </Button>
           ),
