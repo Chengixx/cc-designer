@@ -9,12 +9,8 @@ import {
   onBeforeUnmount,
 } from "vue";
 import type { CSSProperties } from "vue";
-import {
-  cancelRaf,
-  rafTimeout,
-  useMutationObserver,
-  useSlotsExist,
-} from "./hooks";
+import { cancelRaf, rafTimeout, useSlotsExist } from "./hooks";
+import { useMutationObserver } from "@cgx-designer/hooks";
 
 export interface Props {
   maxWidth?: string | number; // 文字提示最大宽度，单位 px
@@ -186,14 +182,14 @@ function observeScroll() {
   scrollTarget.value &&
     scrollTarget.value.addEventListener("scroll", updatePosition);
   if (scrollTarget.value === document.documentElement) {
-    mutationObserver.start();
+    mutationObserver.startObserver();
   }
 }
 function cleanup() {
   scrollTarget.value &&
     scrollTarget.value.removeEventListener("scroll", updatePosition);
   scrollTarget.value = null;
-  mutationObserver.stop();
+  mutationObserver.stopObserver();
 }
 // 查询最近的可滚动父元素
 function getScrollParent(el: HTMLElement | null): HTMLElement | null {

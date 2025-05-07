@@ -1,7 +1,7 @@
 import { computed, onUnmounted, ref } from "vue";
 import { ElementManage } from "./useElement";
 import { isEqual } from "lodash";
-import { useObserve } from "./useObserve";
+import { useMutationObserver } from "./useMutationObserver";
 import { useTimedQuery } from "./useTimedQuery";
 import { useParentDomList } from "@cgx-designer/designer";
 import { IEditorElement } from "@cgx-designer/types";
@@ -109,7 +109,7 @@ export const useFocus = (
   };
 
   //初始化dom监听实例(拿到的是实例和config)
-  const { startObserver, stopObserver } = useObserve(
+  const { startObserver, stopObserver } = useMutationObserver(
     document.body,
     setFocusWidgetStyle
   );

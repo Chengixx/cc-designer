@@ -9,7 +9,7 @@ import {
   ref,
   watch,
 } from "vue";
-import { useObserve } from "./useObserve";
+import { useMutationObserver } from "./useMutationObserver";
 import { useToggle } from "./useToggle";
 
 export type ThemeManage = ReturnType<typeof useTheme>;
@@ -65,7 +65,8 @@ export interface ThemeInstance {
   };
 }
 
-export const ThemeSymbol: InjectionKey<ThemeInstance> = Symbol.for("vuetify:theme");
+export const ThemeSymbol: InjectionKey<ThemeInstance> =
+  Symbol.for("vuetify:theme");
 
 export const useTheme = () => {
   const htmlElement: HTMLElement = document.documentElement;
@@ -98,7 +99,7 @@ export const useTheme = () => {
       }
     }
   };
-  const { startObserver, stopObserver } = useObserve(
+  const { startObserver, stopObserver } = useMutationObserver(
     htmlElement,
     observerCallback,
     observeConfig
