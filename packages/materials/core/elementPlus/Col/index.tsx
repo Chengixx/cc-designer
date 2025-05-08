@@ -3,7 +3,7 @@ import { RowIcon } from "@cgx-designer/icons";
 
 const Col: IElementBaseSetting = {
   key: "col",
-  label: "列",
+  label: "栅格-列",
   group: "容器组件",
   icon: RowIcon,
   noPushList: true,

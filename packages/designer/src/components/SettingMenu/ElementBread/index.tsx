@@ -32,27 +32,26 @@ const ElementBread = defineComponent({
       return elementController!.elementConfigMap[tag].label;
     };
     return () => (
-      <div class="c-h-[30px] c-w-full c-border-t c-flex c-items-center c-px-4 dark:c-border-darkMode">
+      <div class="c-h-[39px] c-w-full c-border-t c-flex c-items-center c-px-4 dark:c-border-darkMode">
         {renderElement.value.map((element, index) => {
           const Icon = getElementSvg(element.key);
           return (
             <div class="c-text-base c-mr-1 c-flex c-justify-center c-items-center c-gap-x-1">
               <div
                 onClick={() => {
-                  if (
-                    element.key === "主页" ||
-                    index === renderElement.value.length - 1
-                  )
-                    return;
+                  if (index === renderElement.value.length - 1) return;
+                  if (element.key === "主页") {
+                    focusManage.resetFocus();
+                  }
                   focusManage.handleFocusById(element.id!);
                 }}
                 class="c-flex c-justify-center c-items-center c-gap-x-1 c-cursor-pointer"
               >
-                {index === 0 && <Icon class="c-w-3 c-h-3" />}
+                {index === 0 && <Icon class="c-w-3 c-h-3 dark:c-fill-white" />}
                 {getElementBaseLabel(element.key)}
               </div>
               {index !== renderElement.value.length - 1 && (
-                <RightIcon class="c-w-4 c-h-4" />
+                <RightIcon class="c-w-4 c-h-4 dark:c-fill-white" />
               )}
             </div>
           );

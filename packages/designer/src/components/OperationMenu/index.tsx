@@ -104,7 +104,7 @@ const OperationMenu = defineComponent({
 
     return () => {
       return (
-        <div class="c-h-12 c-flex c-items-center c-border-y c-bg-white c-border-gray-200 dark:c-bg-darkMode dark:c-border-darkMode">
+        <div class="c-h-[40px] c-flex c-items-center c-border-y c-bg-white c-border-gray-200 dark:c-bg-darkMode dark:c-border-darkMode">
           <div class="c-h-full c-flex c-justify-center c-items-center c-py-2">
             <div class="c-h-full c-border-r c-px-4 c-flex c-justify-center c-items-center dark:c-border-[#3e434c] ">
               <ModeButtonGroup />
