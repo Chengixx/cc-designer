@@ -4,6 +4,7 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 import dts from "vite-plugin-dts";
 import path from "path";
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
+import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
   plugins: [
@@ -14,6 +15,13 @@ export default defineConfig({
       outDir: "dist",
     }),
     cssInjectedByJsPlugin(),
+    visualizer({
+      gzipSize: true,
+      brotliSize: true,
+      emitFile: false,
+      filename: "test.html",
+      open: true,
+    }),
   ],
   resolve: {
     alias: {
