@@ -21,5 +21,8 @@
     "rollup-plugin-visualizer": "^5.14.0"
   },
   "author": "lcc",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "rollup-plugin-terser": "^7.0.2"
+  }
 }

@@ -5,6 +5,7 @@ import dts from "vite-plugin-dts";
 import path from "path";
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 import { visualizer } from "rollup-plugin-visualizer";
+import { terser } from "rollup-plugin-terser";
 
 export default defineConfig({
   plugins: [
@@ -22,6 +23,7 @@ export default defineConfig({
       filename: "test.html",
       open: true,
     }),
+    terser(),
   ],
   resolve: {
     alias: {
