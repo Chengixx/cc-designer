@@ -26,10 +26,9 @@ const ModeButtonGroup = defineComponent({
 
     return () => {
       return (
-        <div class="c-w-32 c-h-full c-flex c-border c-rounded-md c-cursor-pointer c-box-border dark:c-border-darkMode dark:c-p-[1px]">
+        <div class="c-w-24 c-h-full c-flex c-border c-rounded-md c-overflow-hidden c-cursor-pointer c-box-border dark:c-border-darkMode">
           {modeTypes.map((modeItem, index) => {
             const ModeIconRender = ModeIconMap[modeItem.value];
-
             return (
               <div
                 class={[
@@ -54,16 +53,15 @@ const ModeButtonGroup = defineComponent({
                   class="c-w-full c-h-full c-flex c-justify-center c-items-center"
                   v-ripple
                 >
-                  {/* <span
-                  class={[
-                    "c-text-xs c-select-none c-text-gray-600 dark:c-text-zinc-300",
-                    modeManage.mode.value === modeItem.value &&
-                      "c-text-blue-500",
-                  ]}
-                >
-                  {modeItem.label}
-                </span> */}
-                  <ModeIconRender class="c-w-5 c-h-5 dark:c-fill-white" />
+                  <ModeIconRender
+                    style={{
+                      fill:
+                        modeManage.mode.value === modeItem.value
+                          ? "#0079f2"
+                          : "#666",
+                    }}
+                    class="c-w-5 c-h-5 dark:c-fill-white"
+                  />
                 </div>
               </div>
             );

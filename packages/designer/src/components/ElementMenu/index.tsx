@@ -11,7 +11,7 @@ import {
   TreeIcon,
 } from "@cgx-designer/icons";
 import { CTooltip } from "@cgx-designer/extensions";
-import { CollapseManage } from "@cgx-designer/hooks";
+import { CollapseManage, FocusManage } from "@cgx-designer/hooks";
 import { JSX } from "vue/jsx-runtime";
 import MoreDialog from "./components/MoreDialog";
 
@@ -27,6 +27,7 @@ interface IMenuItem {
 const ElementMenu = defineComponent({
   setup() {
     const collapseManage = inject("collapseManage") as CollapseManage;
+    const focusManage = inject("focusManage") as FocusManage;
     const moreDialogRef = ref<typeof MoreDialog>();
     const topMenuList: IMenuItem[] = [
       {
@@ -130,14 +131,16 @@ const ElementMenu = defineComponent({
               <div class="c-h-12 c-px-3 c-flex c-justify-between c-items-center c-font-bold c-min-w-[300px]">
                 {currentActiveRenderData.value?.tip}
                 {/* 右边的小按钮 */}
-                <div>
-                  <CloseIcon
-                    class="c-w-4 h-4 c-cursor-pointer dark:c-fill-white"
-                    //@ts-ignore
-                    onClick={() => {
-                      collapseManage.toggleLeftMenu();
-                    }}
-                  />
+                <div
+                  onClick={() => {
+                    focusManage.startFocusTimedQuery();
+                    collapseManage.toggleLeftMenu();
+                    setTimeout(() => {
+                      focusManage.stopFocusTimedQuery();
+                    }, 350);
+                  }}
+                >
+                  <CloseIcon class="c-w-4 h-4 c-cursor-pointer dark:c-fill-white" />
                 </div>
               </div>
 

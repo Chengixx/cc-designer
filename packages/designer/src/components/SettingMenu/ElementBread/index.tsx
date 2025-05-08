@@ -26,6 +26,11 @@ const ElementBread = defineComponent({
       }
       return elementTreePath.value;
     });
+    //获取label
+    const getElementBaseLabel = (tag: string) => {
+      if (tag === "主页") return "主页";
+      return elementController!.elementConfigMap[tag].label;
+    };
     return () => (
       <div class="c-h-[30px] c-w-full c-border-t c-flex c-items-center c-px-4 dark:c-border-darkMode">
         {renderElement.value.map((element, index) => {
@@ -44,7 +49,7 @@ const ElementBread = defineComponent({
                 class="c-flex c-justify-center c-items-center c-gap-x-1 c-cursor-pointer"
               >
                 {index === 0 && <Icon class="c-w-3 c-h-3" />}
-                {element.key}
+                {getElementBaseLabel(element.key)}
               </div>
               {index !== renderElement.value.length - 1 && (
                 <RightIcon class="c-w-4 c-h-4" />
