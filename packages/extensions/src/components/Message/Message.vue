@@ -2,7 +2,7 @@
 import type { MessageProps } from "./types";
 import { computed, onMounted, ref, watch } from "vue";
 import { getLastBottomOffset } from "./methods";
-import { delay, bind } from "lodash";
+import { delay, bind } from "lodash-es";
 import { useEventListener, useOffset } from "../../hooks";
 import { RenderVnode } from "@cgx-designer/utils";
 import { MessageIcon, CloseIcon } from "@cgx-designer/icons";

@@ -1,7 +1,7 @@
 import { IEditorElement } from "@cgx-designer/types";
 import { ElInput } from "element-plus";
 import { defineComponent, PropType, ref } from "vue";
-import { isEmpty } from "lodash";
+import { isEmpty } from "lodash-es";
 import { exposeDom } from "@cgx-designer/utils";
 
 const Input = defineComponent({

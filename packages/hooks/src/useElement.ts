@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { cloneDeep, isEmpty } from "lodash";
+import { cloneDeep, isEmpty } from "lodash-es";
 import { ElementInstance, IEditorElement } from "@cgx-designer/types";
 import { getRandomId } from "@cgx-designer/utils";
 

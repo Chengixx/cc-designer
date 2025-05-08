@@ -1,7 +1,7 @@
 import { IEditorElement } from "@cgx-designer/types";
 import { VSwitch } from "vuetify/components";
 import { defineComponent, PropType } from "vue";
-import { isEmpty } from "lodash";
+import { isEmpty } from "lodash-es";
 
 const Switch = defineComponent({
   props: {

@@ -1,7 +1,7 @@
 import { IEditorElement } from "@cgx-designer/types";
 import { defineComponent, PropType, ref } from "vue";
 import { VTextField } from "vuetify/components";
-import { isEmpty } from "lodash";
+import { isEmpty } from "lodash-es";
 import { exposeDom, transformValidatorArray } from "@cgx-designer/utils";
 
 const Input = defineComponent({

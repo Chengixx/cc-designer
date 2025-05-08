@@ -1,6 +1,5 @@
-import { isFunction } from "lodash";
+import { isFunction, isArray } from "lodash-es";
 import { defineComponent } from "vue";
-import { isArray } from "lodash";
 import {
   isVNode,
   type VNode,

@@ -1,7 +1,7 @@
 //@ts-nocheck
 import './VRipple.css'
 
-import { isObject } from 'lodash'
+import { isObject } from 'lodash-es'
 
 export const keyCodes = Object.freeze({
   enter: 13,

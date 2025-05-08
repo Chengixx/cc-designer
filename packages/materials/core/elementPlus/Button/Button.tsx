@@ -1,7 +1,7 @@
 import { IEditorElement } from "@cgx-designer/types";
 import { ElButton } from "element-plus";
 import { defineComponent, PropType } from "vue";
-import { isEmpty } from "lodash";
+import { isEmpty } from "lodash-es";
 
 const Button = defineComponent({
   props: {

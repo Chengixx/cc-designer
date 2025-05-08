@@ -1,5 +1,5 @@
 import { RuleItem } from "@cgx-designer/types";
-import { isArray } from "lodash";
+import { isArray } from "lodash-es";
 import { Ref } from "vue";
 
 //复制

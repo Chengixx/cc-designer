@@ -15,7 +15,7 @@ import {
 } from "@cgx-designer/types";
 import { deepCompareAndModify, stringFirstBigger } from "@cgx-designer/utils";
 import { useElement, useFunction } from "@cgx-designer/hooks";
-import { isEmpty } from "lodash";
+import { isEmpty } from "lodash-es";
 import { Empty } from "@cgx-designer/extensions";
 import { elementController } from "@cgx-designer/controller";
 

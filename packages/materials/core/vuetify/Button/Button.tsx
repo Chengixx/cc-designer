@@ -1,5 +1,5 @@
 import { IEditorElement } from "@cgx-designer/types";
-import { isEmpty } from "lodash";
+import { isEmpty } from "lodash-es";
 import { defineComponent, PropType } from "vue";
 import { VBtn } from "vuetify/components";
 

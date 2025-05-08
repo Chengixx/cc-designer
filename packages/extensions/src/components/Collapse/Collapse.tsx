@@ -1,4 +1,4 @@
-import { castArray } from "lodash";
+import { castArray } from "lodash-es";
 import { defineComponent, PropType, provide, Ref, ref, watch } from "vue";
 
 export type CollapseActiveName = string | number;

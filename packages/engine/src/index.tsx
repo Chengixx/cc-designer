@@ -20,7 +20,7 @@ import {
   watchEffect,
 } from "vue";
 import { ElementManage, FunctionManage } from "@cgx-designer/hooks";
-import { isEmpty, isEqual, omit } from "lodash";
+import { isEmpty, isEqual, omit } from "lodash-es";
 
 const ElementNode = defineComponent({
   props: {

@@ -1,6 +1,6 @@
 import { IEditorElement } from "@cgx-designer/types";
 import { ElInputNumber } from "element-plus";
-import { isEmpty } from "lodash";
+import { isEmpty } from "lodash-es";
 import { defineComponent, PropType } from "vue";
 
 const InputNumber = defineComponent({

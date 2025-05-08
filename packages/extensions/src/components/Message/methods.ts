@@ -10,7 +10,7 @@ import type {
 } from "./types";
 import { messageTypes } from "./types";
 import { render, h, shallowReactive, isVNode } from "vue";
-import { findIndex, get, each, set, isString } from "lodash";
+import { findIndex, get, each, set, isString } from "lodash-es";
 import { useZIndex, useId } from "../../hooks";
 import MessageConstructor from "./Message.vue";
 

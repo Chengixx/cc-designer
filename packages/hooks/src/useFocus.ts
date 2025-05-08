@@ -1,6 +1,6 @@
 import { computed, onUnmounted, ref } from "vue";
 import { ElementManage } from "./useElement";
-import { isEqual } from "lodash";
+import { isEqual } from "lodash-es";
 import { useMutationObserver } from "./useMutationObserver";
 import { useTimedQuery } from "./useTimedQuery";
 import { useParentDomList } from "@cgx-designer/designer";

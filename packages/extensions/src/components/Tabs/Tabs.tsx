@@ -10,7 +10,7 @@ import {
 } from "vue";
 import TabNav from "./TabNav";
 import { TabPaneContext } from "./TabPane";
-import { isUndefined } from "lodash";
+import { isUndefined } from "lodash-es";
 
 export interface TabsRootContext {
   props: any;

@@ -2,7 +2,7 @@ import { ElementManage } from "@cgx-designer/hooks";
 import { IDE } from "@cgx-designer/extensions";
 import { defineComponent, inject, ref, toRaw, watch } from "vue";
 import { deepClone, deepCompareAndModify } from "@cgx-designer/utils";
-import { isEqual } from "lodash";
+import { isEqual } from "lodash-es";
 import { IEditorElement } from "@cgx-designer/types";
 
 // !注意这个IDE是用来修改script用的
