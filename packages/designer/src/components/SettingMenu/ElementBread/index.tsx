@@ -12,7 +12,6 @@ const ElementBread = defineComponent({
       let tempElementTreePath = elementManage.getElementTreePathById(
         focusElement?.id!
       );
-      console.log(tempElementTreePath);
       //加上根节点
       return [{ key: "主页" }, ...tempElementTreePath];
     });

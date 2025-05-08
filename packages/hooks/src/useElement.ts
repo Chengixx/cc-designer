@@ -124,29 +124,29 @@ export const useElement = () => {
     id: string,
     targetElementList: IEditorElement[] = elementList.value
   ): IEditorElement[] => {
-    const pathArr: IEditorElement[] = [];
-    let found = false;
+    const findPath = (
+      elements: IEditorElement[]
+    ): IEditorElement[] | undefined => {
+      for (const element of elements) {
+        const path: IEditorElement[] = [element];
 
-    function getElementPath(element: IEditorElement): void {
-      pathArr.push(element);
-      if (element.id === id) {
-        found = true;
-      }
-      // 遍历默认子节点
-      if (!found && element.elementList && element.elementList.length > 0) {
-        for (let i = 0; i < element.elementList.length; i++) {
-          getElementPath(element.elementList[i]);
-          if (found) break;
+        if (element.id === id) {
+          return path;
+        }
+
+        if (element.elementList && element.elementList.length > 0) {
+          const subPath = findPath(element.elementList);
+          if (subPath) {
+            return [...path, ...subPath];
+          }
         }
       }
+      return undefined;
+    };
 
-      if (!found) {
-        pathArr.pop();
-      }
-    }
+    const resultPath = findPath(targetElementList);
 
-    targetElementList.forEach(getElementPath);
-    return pathArr;
+    return resultPath || [];
   };
   return {
     elementList,
