@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { EditIcon, ClearIcon } from "@cgx-designer/icons";
+import {
+  EditIcon,
+  ClearIcon,
+  CustomIcon,
+  GlobalIcon,
+} from "@cgx-designer/icons";
 import { elementController } from "@cgx-designer/controller";
 import { computed, inject, PropType } from "vue";
 import draggable from "vuedraggable";
@@ -97,7 +102,7 @@ const computedButtonColor = (type: keyof typeof VBtnColorType) => {
   <div v-for="item in eventItem" :key="item.type">
     <!-- item的上面 也就是个体 -->
     <div
-      class="c-h-10 c-w-full c-border c-flex c-items-center c-justify-between c-text-xs c-rounded-md c-mt-1 c-bg-gray-50 dark:c-bg-darkMode dark:c-border-darkMode"
+      class="c-h-10 c-w-full c-border-y c-flex c-items-center c-justify-between c-text-xs c-mt-1 c-bg-gray-50 dark:c-bg-darkMode dark:c-border-darkMode"
     >
       <div class="c-ml-2">{{ item.describe }}</div>
       <div class="c-mr-2">
@@ -124,11 +129,25 @@ const computedButtonColor = (type: keyof typeof VBtnColorType) => {
       >
         <template #item="{ element: eventInstance, index }">
           <div
-            class="c-p-2 c-rounded-md c-border c-flex c-items-center c-my-2 hover:c-border-blue-500 c-transition-all dark:c-border-darkMode dark:hover:c-border-blue-500"
+            class="c-p-1 c-flex c-items-center c-my-1 c-text-sm hover:c-bg-gray-100 c-transition-all dark:c-border-darkMode dark:hover:c-bg-gray-700"
           >
-            <div class="c-flex-1">
-              <div v-if="eventInstance.type === 'custom'">自定义事件</div>
-              <div v-if="eventInstance.type === 'global'">全局事件</div>
+            <div
+              class="c-flex-1 c-flex c-justify-start c-items-center c-gap-x-1 c-select-none"
+            >
+              <div
+                class="c-flex c-items-center c-gap-1"
+                v-if="eventInstance.type === 'custom'"
+              >
+                <CustomIcon class="c-w-[16px] c-h-[16px] dark:c-fill-white" />
+                自定义事件
+              </div>
+              <div
+                class="c-flex c-items-center c-gap-1"
+                v-if="eventInstance.type === 'global'"
+              >
+                <GlobalIcon class="c-w-[16px] c-h-[16px] dark:c-fill-white" />
+                全局事件
+              </div>
               <div
                 class="c-flex c-items-center c-gap-1"
                 v-if="eventInstance.type === 'component'"
@@ -145,7 +164,7 @@ const computedButtonColor = (type: keyof typeof VBtnColorType) => {
                 </template>
                 <template v-else>
                   <component
-                    class="c-w-[16px] c-h-[16px]"
+                    class="c-w-[16px] c-h-[16px] dark:c-fill-white"
                     :is="
                       getElementSvg(
                         getElementSetting(eventInstance.componentId)!.key
