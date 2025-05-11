@@ -3,11 +3,13 @@ import ElementList from "./components/ElementList.vue";
 import SearchBox from "./components/SearchBox";
 import ElementSource from "./components/ElementSource";
 import ElementTree from "./components/ElementTree";
+import DataSourcePane from "./components/DataSourcePanel";
 import {
   CloseIcon,
   ElementIcon,
   MoreIcon,
   SourceCodeIcon,
+  SourceDataIcon,
   TreeIcon,
 } from "@cgx-designer/icons";
 import { CTooltip } from "@cgx-designer/extensions";
@@ -52,9 +54,19 @@ const ElementMenu = defineComponent({
         ),
       },
       {
+        icon: SourceDataIcon,
+        tip: "数据源",
+        key: "2",
+        render: () => (
+          <div class="c-min-w-[296px] c-h-[calc(100vh-98px)] c-w-full dark:c-border-darkMode">
+            <DataSourcePane />
+          </div>
+        ),
+      },
+      {
         icon: SourceCodeIcon,
         tip: "源码",
-        key: "2",
+        key: "3",
         render: () => (
           <div class="c-min-w-[296px] c-h-[calc(100vh-98px)] c-w-full dark:c-border-darkMode">
             <ElementSource />

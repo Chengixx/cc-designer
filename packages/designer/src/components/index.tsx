@@ -20,6 +20,7 @@ import {
   useFocus,
   useTheme,
   useMode,
+  useSourceData,
 } from "@cgx-designer/hooks";
 import CollapseWidget from "./CollapseWidget";
 import { elementController } from "@cgx-designer/controller";
@@ -45,6 +46,7 @@ const ElementDesigner = defineComponent({
     const commandManage = useCommand(elementManage, focusManage);
     const { commands } = commandManage;
     const functionManage = useFunction(elementManage);
+    const sourceDataManage = useSourceData();
     //因为只能有一个实例 所以用provide注入进去
     provide("focusManage", focusManage);
     provide("elementManage", elementManage);
@@ -56,6 +58,7 @@ const ElementDesigner = defineComponent({
     provide("commandManage", commandManage);
     provide("commands", commands);
     provide("functionManage", functionManage);
+    provide("sourceDataManage", sourceDataManage);
 
     const buttonMap = createOperationButtonSetting(
       formManage,

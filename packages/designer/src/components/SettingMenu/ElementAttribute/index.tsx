@@ -1,6 +1,6 @@
 import { ElementEngine } from "@cgx-designer/engine";
 import { IEditorElement } from "../../../../../types";
-import { FocusManage } from "@cgx-designer/hooks";
+import { FocusManage, SoureDataManage } from "@cgx-designer/hooks";
 import { setValueByPath } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
 import { defineComponent, Fragment, inject, ref, watch } from "vue";
@@ -13,6 +13,8 @@ const ElementAttribute = defineComponent({
   setup() {
     const elementControllerMap = elementController.elementConfigMap;
     const focusManage = inject("focusManage") as FocusManage;
+    const sourceDataManage = inject("sourceDataManage") as SoureDataManage;
+
     const currentFocusElement = ref<IEditorElement | null>(null);
     // 获取当前选中元素的属性
     const componentAttributes = ref<IEditorElement[]>([]);
