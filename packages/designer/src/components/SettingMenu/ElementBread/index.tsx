@@ -32,7 +32,7 @@ const ElementBread = defineComponent({
       return elementController!.elementConfigMap[tag].label;
     };
     return () => (
-      <div class="c-h-[39px] c-w-full c-border-t c-flex c-items-center c-px-4 dark:c-border-darkMode">
+      <div class="c-h-[39px] c-w-full c-min-w-[299px] c-border-t c-flex c-items-center c-px-4 dark:c-border-darkMode">
         {renderElement.value.map((element, index) => {
           const Icon = getElementSvg(element.key);
           return (

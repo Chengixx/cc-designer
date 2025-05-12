@@ -70,7 +70,7 @@ const ElementAttribute = defineComponent({
       handleSetValue(instance.value, attributeConfig.field!, attributeConfig);
 
       //然后往数据源中添加依赖
-      instance.addDeps((newValue) => {
+      instance.addDeps((newValue: any) => {
         handleSetValue(newValue, attributeConfig.field!, attributeConfig);
       });
     };
