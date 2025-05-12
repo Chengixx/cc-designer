@@ -106,11 +106,13 @@ const IDE = defineComponent({
         aceEditor.value.setValue(formattedCode, -1);
       }
     };
-    const setEditorValue = (value: string) => {
+    const setEditorValue = (value: string, noFormat = false) => {
       if (aceEditor.value) {
         const cursorPos = aceEditor.value.getCursorPosition();
         aceEditor.value.setValue(value, -1);
-        formatCode();
+        if (!noFormat) {
+          formatCode();
+        }
         aceEditor.value.moveCursorTo(cursorPos.row, cursorPos.column);
       }
     };
@@ -135,7 +137,7 @@ const IDE = defineComponent({
     watch(
       () => props.modelValue,
       () => {
-        setEditorValue(props.modelValue);
+        setEditorValue(props.modelValue, true);
       }
     );
 
