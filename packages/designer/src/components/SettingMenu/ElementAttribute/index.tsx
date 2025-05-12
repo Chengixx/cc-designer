@@ -1,6 +1,10 @@
 import { ElementEngine } from "@cgx-designer/engine";
 import { IEditorElement } from "../../../../../types";
-import { FocusManage, SourceDataManage } from "@cgx-designer/hooks";
+import {
+  FocusManage,
+  SourceDataManage,
+  ElementManage,
+} from "@cgx-designer/hooks";
 import { setValueByPath } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
 import { defineComponent, Fragment, inject, ref, watch } from "vue";
@@ -18,6 +22,7 @@ const ElementAttribute = defineComponent({
   setup() {
     const elementControllerMap = elementController.elementConfigMap;
     const focusManage = inject("focusManage") as FocusManage;
+    const elementManage = inject("elementManage") as ElementManage;
     const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
     const SelectSourceDataDialogRef = ref<SelectSourceDataDialogExpose | null>(
       null
@@ -78,11 +83,22 @@ const ElementAttribute = defineComponent({
       //首先先把值改成当前数据源的值
       const instance = sourceDataManage.getSourceData(name);
       handleSetValue(instance.value, attributeConfig.field!, attributeConfig);
-
+      const id = currentFocusElement.value?.id;
       //然后往数据源中添加依赖
-      instance.addDeps((newValue: any) => {
-        handleSetValue(newValue, attributeConfig.field!, attributeConfig);
-      });
+      instance.addDeps(
+        currentFocusElement.value!.id! + attributeConfig.field!,
+        (newValue: any) => {
+          console.log(newValue);
+          //如果是以props. 开头的 去掉 否则就这个属性
+          const attrName = attributeConfig.field!.startsWith("props.")
+            ? attributeConfig.field!.slice(6)
+            : attributeConfig.field;
+          elementManage.getElementInstanceById(id!)!.setAttr!(
+            attrName!,
+            newValue
+          );
+        }
+      );
     };
     return () => (
       <>
@@ -129,7 +145,9 @@ const ElementAttribute = defineComponent({
                           <div
                             class="c-ml-1"
                             onClick={() => {
-                              SelectSourceDataDialogRef.value?.handleOpen(attributeConfig);
+                              SelectSourceDataDialogRef.value?.handleOpen(
+                                attributeConfig
+                              );
                             }}
                           >
                             <BindIcon class="c-w-5 c-h-5 dark:c-fill-white c-cursor-pointer" />
