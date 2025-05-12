@@ -26,6 +26,7 @@
     "@cgx-designer/hooks": "workspace:*",
     "@cgx-designer/icons": "workspace:*",
     "@cgx-designer/materials": "workspace:*",
+    "@cgx-designer/reactivity": "workspace:*",
     "@cgx-designer/renderer": "workspace:*",
     "@cgx-designer/types": "workspace:*",
     "@cgx-designer/utils": "workspace:*",

@@ -5,7 +5,9 @@ describe("useTimedQuery", () => {
   it("应启动定时器并按间隔调用处理函数", async () => {
     vi.useFakeTimers();
     const handler = vi.fn();
-    const { startTimedQuery, stopTimedQuery } = useTimedQuery(handler, 100);
+    const { startTimedQuery, stopTimedQuery } = useTimedQuery(handler, {
+      timeout: 100,
+    });
 
     startTimedQuery();
 
@@ -23,7 +25,9 @@ describe("useTimedQuery", () => {
   it("应在调用 stopTimedQuery 时停止定时器", () => {
     vi.useFakeTimers();
     const handler = vi.fn();
-    const { startTimedQuery, stopTimedQuery } = useTimedQuery(handler, 100);
+    const { startTimedQuery, stopTimedQuery } = useTimedQuery(handler, {
+      timeout: 100,
+    });
 
     startTimedQuery();
     vi.advanceTimersByTime(100);

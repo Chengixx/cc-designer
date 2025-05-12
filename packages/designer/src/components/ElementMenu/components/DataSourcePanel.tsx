@@ -1,9 +1,9 @@
-import { SoureDataManage } from "@cgx-designer/hooks";
+import { SourceDataManage } from "@cgx-designer/hooks";
 import { defineComponent, inject } from "vue";
 
 const DataSourcePane = defineComponent({
   setup() {
-    const sourceDataManage = inject("sourceDataManage") as SoureDataManage;
+    const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
     return () => (
       <div>
         <div>源码面板</div>

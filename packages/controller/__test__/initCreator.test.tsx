@@ -1,6 +1,6 @@
 import { describe, it } from "vitest";
 import { ElementController } from "../core";
-import { IElementBaseSetting } from "../types";
+import { IElementBaseSetting } from "../core/elementController";
 
 describe("测试注册组件", () => {
   it("注册一个", () => {
@@ -26,7 +26,7 @@ describe("测试注册组件", () => {
   it("应当可以注册异步组件或者方法组件", () => {
     const elementController = new ElementController();
     const fnComponent = () => <div>fnComponent</div>;
-    const asyncComponent = () => import("../../ui/template/Button/Button");
+    const asyncComponent = () => import("element-plus");
     elementController.registerElementRenderMap("fn", fnComponent);
     elementController.registerElementRenderMap("async", asyncComponent);
   });

@@ -1,6 +1,6 @@
 import { Reactive, ref, Ref } from "vue";
 
-export type SoureDataManage = ReturnType<typeof useSourceData>;
+export type SourceDataManage = ReturnType<typeof useSourceData>;
 
 //TODO 暂时实现ref和reactive
 //vue的数据源目前应该是三种 ref reactive 和 普通的请求数据源

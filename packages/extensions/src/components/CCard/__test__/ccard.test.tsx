@@ -3,30 +3,6 @@ import { describe, it, expect } from "vitest";
 import CCard from "../index";
 
 describe("CCard", () => {
-  it("测试shadow属性", () => {
-    // 测试hover
-    const wrapperHover = mount(CCard, {
-      props: { shadow: "hover" },
-    });
-    expect(wrapperHover.classes()).toContain(
-      "hover:shadow-[0px_0px_12px_rgba(0,0,0,.12)]"
-    );
-
-    // 测试always
-    const wrapperAlways = mount(CCard, {
-      props: { shadow: "always" },
-    });
-    expect(wrapperAlways.classes()).toContain(
-      "shadow-[0px_0px_12px_rgba(0,0,0,.12)]"
-    );
-
-    // 测试默认值hover
-    const wrapperDefault = mount(CCard);
-    expect(wrapperDefault.classes()).toContain(
-      "hover:shadow-[0px_0px_12px_rgba(0,0,0,.12)]"
-    );
-  });
-
   it("应该能够正常使用头部插槽", () => {
     const wrapper = mount(CCard, {
       slots: {

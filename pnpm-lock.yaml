@@ -29,6 +29,9 @@ importers:
       '@cgx-designer/materials':
         specifier: workspace:*
         version: link:packages/materials
+      '@cgx-designer/reactivity':
+        specifier: workspace:*
+        version: link:packages/reactivity
       '@cgx-designer/renderer':
         specifier: workspace:*
         version: link:packages/renderer
@@ -389,6 +392,8 @@ importers:
       typescript:
         specifier: ^5.2.2
         version: 5.8.3
+
+  packages/reactivity: {}
 
   packages/renderer: {}
 
