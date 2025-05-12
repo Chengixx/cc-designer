@@ -1,11 +1,17 @@
 import { ElementRenderer } from "@cgx-designer/renderer";
 import { defineComponent, inject, ref } from "vue";
-import { ElementManage, FormManage, FunctionManage } from "@cgx-designer/hooks";
+import {
+  ElementManage,
+  FormManage,
+  FunctionManage,
+  SourceDataManage,
+} from "@cgx-designer/hooks";
 import { deepClone } from "@cgx-designer/utils";
 import { ElementBuilderExpose } from "@cgx-designer/types";
 import { ValueDialogExpose, ValueDialog } from "./ValueDialog";
 import { elementController } from "@cgx-designer/controller";
 import { Message } from "@cgx-designer/extensions";
+import { cloneDeep } from "lodash-es";
 
 const PreviewDialog = defineComponent({
   setup(_, { expose }) {
@@ -14,6 +20,7 @@ const PreviewDialog = defineComponent({
     const elementManage = inject("elementManage") as ElementManage;
     const formManage = inject("formManage") as FormManage;
     const functionManage = inject("functionManage") as FunctionManage;
+    const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
     const elementBuilderRef = ref<ElementBuilderExpose | null>(null);
     const ValueDialogRef = ref<ValueDialogExpose | null>(null);
     const dialogShow = ref<boolean>(false);
@@ -75,6 +82,7 @@ const PreviewDialog = defineComponent({
                         elementManage.elementList.value
                       )}
                       formSetting={formManage.formSetting}
+                      sourceData={cloneDeep(sourceDataManage.sourceData.value)}
                     />
                   </div>
                 );

@@ -176,6 +176,8 @@ const ElementNode = defineComponent({
     });
     //获取组件的方法 事件
     const getElementFunction = computed(() => {
+      //如果是编辑模式 就不添加事件
+      if (!props.isPreview) return {};
       const onEvent: Record<string, Function> = {};
       localSchema.on &&
         Object.keys(localSchema.on).forEach((item) => {

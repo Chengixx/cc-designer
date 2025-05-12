@@ -1,6 +1,7 @@
 import { ComponentPublicInstance } from "vue";
 import { elementController } from "@cgx-designer/controller";
 import { ElementRenderer } from "@cgx-designer/renderer";
+import { SourceDataItem } from "@cgx-designer/hooks";
 
 //元素被渲染之后的的schema
 export interface IEditorElement {
@@ -73,6 +74,7 @@ export interface BuilderSchema {
   formSetting: FormSetting;
   elementList: IEditorElement[];
   script: string;
+  sourceData: SourceDataItem[];
 }
 
 //事件原型以及列表

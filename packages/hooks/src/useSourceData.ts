@@ -22,6 +22,10 @@ export const useSourceData = () => {
     },
   ]);
 
+  const setSourceData = (target: SourceDataItem[]) => {
+    sourceData.value = target;
+  };
+
   const addSourceData = (item: SourceDataItem) => {
     sourceData.value.push(item);
   };
@@ -39,7 +43,7 @@ export const useSourceData = () => {
     }
   };
 
-  const setSourceData = (name: string, value: any) => {
+  const setSourceDataItem = (name: string, value: any) => {
     //先找到对应的实例
     const sourceDataItem = sourceData.value.find((item) => item.name === name);
     if (sourceDataItem) {
@@ -56,5 +60,6 @@ export const useSourceData = () => {
     removeSourceData,
     getSourceData,
     setSourceData,
+    setSourceDataItem,
   };
 };

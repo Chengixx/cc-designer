@@ -14,7 +14,12 @@ import {
   IEditorElement,
 } from "@cgx-designer/types";
 import { deepCompareAndModify, stringFirstBigger } from "@cgx-designer/utils";
-import { useElement, useFunction } from "@cgx-designer/hooks";
+import {
+  SourceDataItem,
+  useElement,
+  useFunction,
+  useSourceData,
+} from "@cgx-designer/hooks";
 import { isEmpty } from "lodash-es";
 import { Empty } from "@cgx-designer/extensions";
 import { elementController } from "@cgx-designer/controller";
@@ -42,6 +47,11 @@ const ElementBuilder = defineComponent({
       required: false,
       default: "",
     },
+    sourceData: {
+      type: Object as PropType<SourceDataItem[]>,
+      required: false,
+      default: () => ({}),
+    },
     //此schema为上面三个配置项的总和 如果有此配置项 以此配置项为主
     builderSchema: {
       type: Object as PropType<BuilderSchema>,
@@ -52,7 +62,8 @@ const ElementBuilder = defineComponent({
   setup(props, { expose, slots }) {
     const Form = elementController.getElementRender("form");
     const elementManage = useElement();
-    const functionManage = useFunction(elementManage);
+    const sourceDataManage = useSourceData();
+    const functionManage = useFunction(elementManage, sourceDataManage);
     provide("elementManage", elementManage);
     provide("functionManage", functionManage);
     //!以下正式builder逻辑，上面注入目前只是为了不报警告
@@ -76,6 +87,7 @@ const ElementBuilder = defineComponent({
         : props.elementSchemaList;
     });
     //!一进来先赋值一遍
+    sourceDataManage.setSourceData(props.sourceData);
     elementManage.setElementList(useElementSchemaList.value);
     elementManage.setMode(false);
     //脚本配置
