@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import { ref as cRef, Ref as ICRef } from "@cgx-designer/reactivity";
+import { ElementManage } from "./useElement";
 
 export type SourceDataManage = ReturnType<typeof useSourceData>;
 
@@ -13,7 +14,7 @@ export interface SourceDataItem {
   instance: ICRef;
 }
 
-export const useSourceData = () => {
+export const useSourceData = (elementManage: ElementManage) => {
   const sourceData = ref<SourceDataItem[]>([]);
 
   const setSourceData = (target: SourceDataItem[]) => {
@@ -25,10 +26,12 @@ export const useSourceData = () => {
     name: string,
     initialValue: any
   ) => {
+    const instance = cRef(initialValue);
+    instance.init(elementManage.getElementInstanceById);
     sourceData.value.push({
       type,
       name,
-      instance: cRef(initialValue),
+      instance,
     });
   };
 

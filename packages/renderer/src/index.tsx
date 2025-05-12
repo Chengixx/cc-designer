@@ -62,7 +62,7 @@ const ElementBuilder = defineComponent({
   setup(props, { expose, slots }) {
     const Form = elementController.getElementRender("form");
     const elementManage = useElement();
-    const sourceDataManage = useSourceData();
+    const sourceDataManage = useSourceData(elementManage);
     const functionManage = useFunction(elementManage, sourceDataManage);
     provide("elementManage", elementManage);
     provide("functionManage", functionManage);

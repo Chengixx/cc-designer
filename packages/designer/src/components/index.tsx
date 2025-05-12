@@ -45,7 +45,7 @@ const ElementDesigner = defineComponent({
     const focusManage = useFocus(elementManage, modeManage);
     const commandManage = useCommand(elementManage, focusManage);
     const { commands } = commandManage;
-    const sourceDataManage = useSourceData();
+    const sourceDataManage = useSourceData(elementManage);
     const functionManage = useFunction(elementManage, sourceDataManage);
     //因为只能有一个实例 所以用provide注入进去
     provide("focusManage", focusManage);
