@@ -82,7 +82,11 @@ const ElementAttribute = defineComponent({
     ) => {
       //首先先把值改成当前数据源的值
       const instance = sourceDataManage.getSourceData(name);
-      handleSetValue(instance.value, attributeConfig.field!, attributeConfig);
+      handleSetValue(
+        instance.initialValue,
+        attributeConfig.field!,
+        attributeConfig
+      );
       const id = currentFocusElement.value?.id;
       //然后往数据源中添加依赖
       instance.addDeps(
