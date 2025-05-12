@@ -63,6 +63,17 @@ const ElementAttribute = defineComponent({
       //注意此处必须立刻监听 否则vue会使用上一次的组件
       { immediate: true }
     );
+
+    const handleBindSourceData = (attributeConfig: IEditorElement) => {
+      //首先先把值改成当前数据源的值
+      const instance = sourceDataManage.sourceData.value[0].instance;
+      handleSetValue(instance.value, attributeConfig.field!, attributeConfig);
+
+      //然后往数据源中添加依赖
+      instance.addDeps((newValue) => {
+        handleSetValue(newValue, attributeConfig.field!, attributeConfig);
+      });
+    };
     return () => (
       // !此处不给key值vue会重复利用上一次的 是不行的
       <div key={currentFocusElement.value?.id}>

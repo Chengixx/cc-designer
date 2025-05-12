@@ -16,8 +16,10 @@ export class Ref {
   }
 
   set value(newValue: any) {
+    // 减少开销 值没有变化的情况下不触发
+    if (newValue === this.initialValue) return;
     this.initialValue = newValue;
-    this.deps.forEach((fn) => fn());
+    this.deps.forEach((fn) => fn(newValue));
   }
 
   addDeps(fn: Function) {
@@ -35,4 +37,8 @@ export class Ref {
   getDeps() {
     return this.deps;
   }
+}
+
+export function ref(initialValue: any) {
+  return new Ref(initialValue);
 }

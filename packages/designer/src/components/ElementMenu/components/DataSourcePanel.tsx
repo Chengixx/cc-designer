@@ -10,7 +10,7 @@ const DataSourcePane = defineComponent({
         {sourceDataManage.sourceData.value.map((dataItem) => {
           return (
             <div>
-              {dataItem.name} :::: {dataItem.value}
+              {dataItem.name} :::: {dataItem.instance.value}
             </div>
           );
         })}

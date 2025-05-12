@@ -1,4 +1,5 @@
-import { Reactive, ref, Ref } from "vue";
+import { ref } from "vue";
+import { ref as cRef, Ref as ICRef } from "@cgx-designer/reactivity";
 
 export type SourceDataManage = ReturnType<typeof useSourceData>;
 
@@ -9,8 +10,7 @@ export type SourceDataType = "ref" | "reactive" | "data";
 export interface SourceDataItem {
   type: SourceDataType;
   name: string;
-  value: any;
-  callback: Map<string, Function>;
+  instance: ICRef;
 }
 
 export const useSourceData = () => {
@@ -18,8 +18,7 @@ export const useSourceData = () => {
     {
       type: "ref",
       name: "test",
-      value: "我是一个测试的默认值",
-      callback: new Map(),
+      instance: cRef("我只是简易的测试啊"),
     },
   ]);
 
@@ -34,20 +33,18 @@ export const useSourceData = () => {
   const getSourceData = (name: string) => {
     const item = sourceData.value.find((item) => item.name === name);
     if (item) {
-      return item.value;
+      return item.instance;
     } else {
       throw new Error(`数据源 ${name} not found`);
     }
   };
 
   const setSourceData = (name: string, value: any) => {
-    const item = sourceData.value.find((item) => item.name === name);
-    if (item) {
-      item.value = value;
-      // 触发回调
-      item.callback.forEach((callback) => {
-        callback(value);
-      });
+    //先找到对应的实例
+    const sourceDataItem = sourceData.value.find((item) => item.name === name);
+    if (sourceDataItem) {
+      // 我们的响应式会自己触发回调
+      sourceDataItem.instance = value;
     } else {
       throw new Error(`数据源 ${name} not found`);
     }
