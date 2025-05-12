@@ -14,21 +14,26 @@ export interface SourceDataItem {
 }
 
 export const useSourceData = () => {
-  const sourceData = ref<SourceDataItem[]>([
-    {
-      type: "ref",
-      name: "test",
-      instance: cRef("我只是简易的测试啊"),
-    },
-  ]);
+  const sourceData = ref<SourceDataItem[]>([]);
 
   const setSourceData = (target: SourceDataItem[]) => {
     sourceData.value = target;
   };
 
-  const addSourceData = (item: SourceDataItem) => {
-    sourceData.value.push(item);
+  const addSourceData = (
+    type: SourceDataType,
+    name: string,
+    initialValue: any
+  ) => {
+    sourceData.value.push({
+      type,
+      name,
+      instance: cRef(initialValue),
+    });
   };
+
+  //todo 记得删除
+  addSourceData("ref", "test", "测试哈哈哈");
 
   const removeSourceData = (name: string) => {
     sourceData.value = sourceData.value.filter((item) => item.name !== name);
