@@ -2,7 +2,7 @@ import { Message } from "@cgx-designer/extensions";
 import { FocusManage } from "@cgx-designer/hooks/src/useFocus";
 import { FormManage } from "@cgx-designer/hooks/src/useForm";
 import { ElementManage } from "@cgx-designer/hooks/src/useElement";
-import { FunctionManage } from "@cgx-designer/hooks";
+import { FunctionManage, SourceDataManage } from "@cgx-designer/hooks";
 import {
   ClearIcon,
   DebugIcon,
@@ -10,7 +10,6 @@ import {
   ImportIcon,
   PreviewIcon,
   RedoIcon,
-  TreeIcon,
   UndoIcon,
 } from "@cgx-designer/icons";
 import { BuilderSchema } from "@cgx-designer/types";
@@ -26,6 +25,7 @@ export const createOperationButtonSetting = (
   elementManage: ElementManage,
   functionManage: FunctionManage,
   focusManage: FocusManage,
+  sourceDataManage: SourceDataManage,
   commandManage: any,
   commands: Record<string, Function>,
   previewDialogRef: any,
@@ -79,6 +79,7 @@ export const createOperationButtonSetting = (
           formSetting: formManage.formSetting,
           elementList: elementManage.elementList.value,
           script: functionManage.javaScriptVal.value,
+          sourceData: sourceDataManage.sourceData.value,
         };
         exportSourceCodeDialogRef.value.handleOpen(tempObj);
       },

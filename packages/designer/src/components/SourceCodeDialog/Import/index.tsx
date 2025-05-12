@@ -1,7 +1,11 @@
 import { ref, defineComponent, nextTick, inject } from "vue";
 import { IDE } from "@cgx-designer/extensions";
 import { checkCJsonType } from "@cgx-designer/utils";
-import { FormManage, FunctionManage } from "@cgx-designer/hooks";
+import {
+  FormManage,
+  FunctionManage,
+  SourceDataManage,
+} from "@cgx-designer/hooks";
 import { elementController } from "@cgx-designer/controller";
 import { Message } from "@cgx-designer/extensions";
 
@@ -16,6 +20,7 @@ export const ImportSourceCodeDialog = defineComponent({
     const commands: Record<string, Function> | undefined = inject("commands");
     const formManage = inject("formManage") as FormManage;
     const functionManage = inject("functionManage") as FunctionManage;
+    const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
     const jsonContent = ref<string>("");
     const IDERef = ref<typeof IDE | null>(null);
     const isShow = ref<boolean>(false);
@@ -35,6 +40,7 @@ export const ImportSourceCodeDialog = defineComponent({
           commands!.handleImport(JSON.parse(value).elementList);
           formManage.setFormSetting(JSON.parse(value).formSetting);
           functionManage.setJavaScriptVal(JSON.parse(value).script);
+          sourceDataManage.setSourceData(JSON.parse(value).sourceData);
           Message.success("导入成功");
           isShow.value = false;
         } else {

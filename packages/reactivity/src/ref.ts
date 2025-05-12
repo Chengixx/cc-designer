@@ -2,6 +2,7 @@
 import { ElementInstance } from "@cgx-designer/types";
 
 export interface IRefEvent {
+  key: string;
   type: string;
   componentId: string;
   attrName: string;
@@ -10,9 +11,9 @@ export class Ref {
   //初始值
   initialValue: any;
   find: ((id: string) => ElementInstance | undefined) | undefined = undefined;
-  deps: Map<string, IRefEvent> = new Map();
+  deps: Array<IRefEvent> = [];
 
-  constructor(initialValue: any, deps?: Map<string, IRefEvent>) {
+  constructor(initialValue: any, deps?: Array<IRefEvent>) {
     this.initialValue = initialValue;
     if (deps) {
       this.deps = deps;
@@ -39,16 +40,16 @@ export class Ref {
     this.find = event;
   }
 
-  addDeps(name: string, fn: IRefEvent) {
-    this.deps.set(name, fn);
+  addDeps(fn: IRefEvent) {
+    this.deps.push(fn);
   }
 
   removeDeps(name: string) {
-    this.deps.delete(name);
+    this.deps = this.deps.filter((item) => item.key !== name);
   }
 
   clearDeps() {
-    this.deps.clear();
+    this.deps = [];
   }
 
   getDeps() {

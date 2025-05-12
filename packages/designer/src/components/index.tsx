@@ -65,6 +65,7 @@ const ElementDesigner = defineComponent({
       elementManage,
       functionManage,
       focusManage,
+      sourceDataManage,
       commandManage,
       commands!,
       previewDialogRef,

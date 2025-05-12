@@ -89,14 +89,12 @@ const ElementAttribute = defineComponent({
       );
       const componentId = currentFocusElement.value?.id!;
       //然后往数据源中添加依赖
-      instance.addDeps(
-        currentFocusElement.value!.id! + attributeConfig.field!,
-        {
-          type: "component",
-          componentId,
-          attrName: attributeConfig.field!,
-        }
-      );
+      instance.addDeps({
+        key: currentFocusElement.value!.id! + attributeConfig.field!,
+        type: "component",
+        componentId,
+        attrName: attributeConfig.field!,
+      });
     };
     return () => (
       <>
