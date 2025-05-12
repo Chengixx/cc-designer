@@ -8,13 +8,20 @@ import { deepClone, getValueByPath } from "@cgx-designer/utils";
 import { vuetifyProps } from "@cgx-designer/materials";
 import { Empty } from "@cgx-designer/extensions";
 import { CFormItem } from "@cgx-designer/extensions";
+import { BindIcon } from "@cgx-designer/icons";
+import {
+  SelectSourceDataDialog,
+  SelectSourceDataDialogExpose,
+} from "./components/SelectSourceDataDialog";
 
 const ElementAttribute = defineComponent({
   setup() {
     const elementControllerMap = elementController.elementConfigMap;
     const focusManage = inject("focusManage") as FocusManage;
     const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
-
+    const SelectSourceDataDialogRef = ref<SelectSourceDataDialogExpose | null>(
+      null
+    );
     const currentFocusElement = ref<IEditorElement | null>(null);
     // 获取当前选中元素的属性
     const componentAttributes = ref<IEditorElement[]>([]);
@@ -64,9 +71,12 @@ const ElementAttribute = defineComponent({
       { immediate: true }
     );
 
-    const handleBindSourceData = (attributeConfig: IEditorElement) => {
+    const handleBindSourceData = (
+      name: string,
+      attributeConfig: IEditorElement
+    ) => {
       //首先先把值改成当前数据源的值
-      const instance = sourceDataManage.sourceData.value[0].instance;
+      const instance = sourceDataManage.getSourceData(name);
       handleSetValue(instance.value, attributeConfig.field!, attributeConfig);
 
       //然后往数据源中添加依赖
@@ -75,44 +85,72 @@ const ElementAttribute = defineComponent({
       });
     };
     return () => (
-      // !此处不给key值vue会重复利用上一次的 是不行的
-      <div key={currentFocusElement.value?.id}>
-        {!componentAttributes.value.length && <Empty />}
-        {componentAttributes.value.map((attributeConfig) => {
-          return (
-            <Fragment key={attributeConfig.field}>
-              {showAttributeConfigWidget(attributeConfig) && (
-                <CFormItem label={attributeConfig.label || undefined}>
-                  <ElementEngine
-                    modelValue={getValueByPath(
-                      currentFocusElement.value!,
-                      attributeConfig.field!
-                    )}
-                    elementSchema={{
-                      ...attributeConfig,
-                      props: {
-                        ...attributeConfig.props,
-                        ...(attributeConfig.field === "props.defaultValue"
-                          ? currentFocusElement.value?.props
-                          : { ...vuetifyProps(attributeConfig.key) }),
+      <>
+        {/* // !此处不给key值vue会重复利用上一次的 是不行的 */}
+        <div key={currentFocusElement.value?.id}>
+          {!componentAttributes.value.length && <Empty />}
+          {componentAttributes.value.map((attributeConfig) => {
+            return (
+              <Fragment key={attributeConfig.field}>
+                {showAttributeConfigWidget(attributeConfig) && (
+                  <CFormItem label={attributeConfig.label || undefined}>
+                    {{
+                      default: () => {
+                        return (
+                          <ElementEngine
+                            modelValue={getValueByPath(
+                              currentFocusElement.value!,
+                              attributeConfig.field!
+                            )}
+                            elementSchema={{
+                              ...attributeConfig,
+                              props: {
+                                ...attributeConfig.props,
+                                ...(attributeConfig.field ===
+                                "props.defaultValue"
+                                  ? currentFocusElement.value?.props
+                                  : { ...vuetifyProps(attributeConfig.key) }),
+                              },
+                              field: undefined,
+                              formItem: false,
+                            }}
+                            onUpdate:modelValue={(value) =>
+                              handleSetValue(
+                                value,
+                                attributeConfig.field!,
+                                attributeConfig
+                              )
+                            }
+                          />
+                        );
                       },
-                      field: undefined,
-                      formItem: false,
+                      extra: () => {
+                        return (
+                          <div
+                            class="c-ml-1"
+                            onClick={() => {
+                              SelectSourceDataDialogRef.value?.handleOpen(attributeConfig);
+                            }}
+                          >
+                            <BindIcon class="c-w-5 c-h-5 dark:c-fill-white c-cursor-pointer" />
+                          </div>
+                        );
+                      },
                     }}
-                    onUpdate:modelValue={(value) =>
-                      handleSetValue(
-                        value,
-                        attributeConfig.field!,
-                        attributeConfig
-                      )
-                    }
-                  />
-                </CFormItem>
-              )}
-            </Fragment>
-          );
-        })}
-      </div>
+                  </CFormItem>
+                )}
+              </Fragment>
+            );
+          })}
+        </div>
+        {/* 选择dialog */}
+        <SelectSourceDataDialog
+          ref={SelectSourceDataDialogRef}
+          onConfirm={({ name, attributeConfig }) =>
+            handleBindSourceData(name, attributeConfig)
+          }
+        />
+      </>
     );
   },
 });

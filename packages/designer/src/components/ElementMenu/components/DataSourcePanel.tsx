@@ -2,12 +2,7 @@ import { Empty } from "@cgx-designer/extensions";
 import { SourceDataItem, SourceDataManage } from "@cgx-designer/hooks";
 import { ClearIcon, EditIcon } from "@cgx-designer/icons";
 import { defineComponent, inject } from "vue";
-
-const dataSourceColor = {
-  ref: "#66bc5c",
-  reactive: "#66bc5c",
-  http: "#016dff",
-};
+import { dataSourceColor } from "../../../constant/index";
 
 const DataSourcePane = defineComponent({
   setup() {

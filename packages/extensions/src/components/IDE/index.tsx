@@ -132,6 +132,13 @@ const IDE = defineComponent({
       }
     );
 
+    watch(
+      () => props.modelValue,
+      () => {
+        setEditorValue(props.modelValue);
+      }
+    );
+
     expose({
       setEditorValue,
       formatCode,
@@ -166,7 +173,7 @@ const IDE = defineComponent({
                   },
                   default: () => {
                     return "格式化";
-                  }
+                  },
                 }}
               </Button>
             </div>

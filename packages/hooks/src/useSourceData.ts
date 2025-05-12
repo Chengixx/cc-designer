@@ -44,7 +44,7 @@ export const useSourceData = () => {
     const sourceDataItem = sourceData.value.find((item) => item.name === name);
     if (sourceDataItem) {
       // 我们的响应式会自己触发回调
-      sourceDataItem.instance = value;
+      sourceDataItem.instance.value = value;
     } else {
       throw new Error(`数据源 ${name} not found`);
     }

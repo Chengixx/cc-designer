@@ -13,3 +13,9 @@ export const noCopyDomList: string[] = ["col", "tabPane"];
 export const findHigherLevelDomList: string[] = ["col", "tabPane"];
 //logo名称
 export const logoName = "CGX-Form-Design";
+//数据源展示颜色
+export const dataSourceColor = {
+  ref: "#66bc5c",
+  reactive: "#66bc5c",
+  http: "#016dff",
+};
