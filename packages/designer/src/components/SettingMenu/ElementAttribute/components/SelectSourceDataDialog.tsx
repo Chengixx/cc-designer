@@ -6,7 +6,7 @@ import { IDE } from "@cgx-designer/extensions";
 import { IEditorElement } from "@cgx-designer/types";
 
 export interface SelectSourceDataDialogExpose {
-  handleOpen: () => void;
+  handleOpen: (attributeConfig: IEditorElement) => void;
 }
 
 export const SelectSourceDataDialog = defineComponent({
