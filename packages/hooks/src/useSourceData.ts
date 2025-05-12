@@ -19,6 +19,9 @@ export const useSourceData = (elementManage: ElementManage) => {
 
   const setSourceData = (target: SourceDataItem[]) => {
     sourceData.value = target;
+    sourceData.value.forEach((sourceDataItem) => {
+      sourceDataItem.instance.init(elementManage.getElementInstanceById);
+    });
   };
 
   const addSourceData = (
@@ -27,7 +30,6 @@ export const useSourceData = (elementManage: ElementManage) => {
     initialValue: any
   ) => {
     const instance = cRef(initialValue);
-    instance.init(elementManage.getElementInstanceById);
     sourceData.value.push({
       type,
       name,
