@@ -37,7 +37,9 @@ const CFormItem = defineComponent({
             </div>
           )}
           <div
-            class="c-flex c-w-full c-items-center c-justify-between"
+            class={
+              slots.extra && "c-flex c-w-full c-items-center c-justify-between"
+            }
             style={{ width: props.label ? contentWidth : "100%" }}
           >
             {slots.default?.()}
