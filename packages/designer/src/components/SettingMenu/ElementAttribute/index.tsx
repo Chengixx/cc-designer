@@ -87,17 +87,16 @@ const ElementAttribute = defineComponent({
         attributeConfig.field!,
         attributeConfig
       );
-      const id = currentFocusElement.value?.id;
+      const elementId = currentFocusElement.value?.id;
       //然后往数据源中添加依赖
       instance.addDeps(
         currentFocusElement.value!.id! + attributeConfig.field!,
         (newValue: any) => {
-          console.log(newValue);
           //如果是以props. 开头的 去掉 否则就这个属性
           const attrName = attributeConfig.field!.startsWith("props.")
             ? attributeConfig.field!.slice(6)
             : attributeConfig.field;
-          elementManage.getElementInstanceById(id!)!.setAttr!(
+          elementManage.getElementInstanceById(elementId!)!.setAttr!(
             attrName!,
             newValue
           );

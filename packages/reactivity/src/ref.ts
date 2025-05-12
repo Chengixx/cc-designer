@@ -22,7 +22,7 @@ export class Ref {
     this.deps.forEach((fn) => fn(newValue));
   }
 
-  addDeps(name, fn: Function) {
+  addDeps(name: string, fn: Function) {
     this.deps.set(name, fn);
   }
 
