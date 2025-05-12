@@ -45,8 +45,8 @@ const ElementDesigner = defineComponent({
     const focusManage = useFocus(elementManage, modeManage);
     const commandManage = useCommand(elementManage, focusManage);
     const { commands } = commandManage;
-    const functionManage = useFunction(elementManage);
     const sourceDataManage = useSourceData();
+    const functionManage = useFunction(elementManage, sourceDataManage);
     //因为只能有一个实例 所以用provide注入进去
     provide("focusManage", focusManage);
     provide("elementManage", elementManage);
@@ -57,8 +57,8 @@ const ElementDesigner = defineComponent({
     provide("modeManage", modeManage);
     provide("commandManage", commandManage);
     provide("commands", commands);
-    provide("functionManage", functionManage);
     provide("sourceDataManage", sourceDataManage);
+    provide("functionManage", functionManage);
 
     const buttonMap = createOperationButtonSetting(
       formManage,

@@ -32,7 +32,6 @@ export const SelectSourceDataDialog = defineComponent({
         name: sourceDataName.value,
         attributeConfig: innerAttributeConfig.value,
       };
-      console.log(confirmData);
       emit("confirm", confirmData);
     };
     expose({

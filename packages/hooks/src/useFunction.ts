@@ -1,14 +1,25 @@
-import { ref, watchEffect } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import { ElementManage } from "./useElement";
 import { ElementInstance, EventInstance } from "@cgx-designer/types";
 import { elementController } from "@cgx-designer/controller";
 import functionController from "@cgx-designer/controller/core/functionController";
+import { SourceDataManage } from "./useSourceData";
 
 export type FunctionManage = ReturnType<typeof useFunction>;
 
 //此hook用于挂载函数 并负责调用他们
-export const useFunction = (elementManage: ElementManage) => {
+export const useFunction = (
+  elementManage: ElementManage,
+  sourceDataManage: SourceDataManage
+) => {
   const { getElementInstanceById } = elementManage;
+  const sourceData = computed(() => {
+    //数组转对象 以他的name为key
+    return sourceDataManage.sourceData.value.reduce((acc: any, item) => {
+      acc[item.name] = item.instance;
+      return acc;
+    }, {});
+  });
   //让外面输入的script
   const javaScriptVal = ref<string>(
     `
@@ -19,14 +30,14 @@ export const useFunction = (elementManage: ElementManage) => {
         ElMessage.success("i am yours");
     }
     
-    const test = () => {
+    const testFn = () => {
         console.log(this);
-        alert("test")
+        test.value = "曼巴哈哈哈";
     }
 
     inject({
       fn,
-      test,
+      testFn,
     })
     `
   );
@@ -43,6 +54,8 @@ export const useFunction = (elementManage: ElementManage) => {
     js: string = javaScriptVal.value,
     needShowError: boolean = false
   ) => {
+    //在这里之前 我会把我们的响应式数据暴露出去，让用起来就和vue一样
+    const sourceDataJs = `const {${Object.keys(sourceData.value).join(",")}} = this;`;
     //用new Function去创建 但是注意这里一定要立刻执行 否则没用的
     const globalFunction: Record<string, () => any> = Object.entries(
       functionController.functionMap.value
@@ -51,12 +64,13 @@ export const useFunction = (elementManage: ElementManage) => {
       return acc;
     }, {});
     try {
-      new Function(js).bind({
+      new Function(sourceDataJs + js).bind({
         ...globalFunction,
         get: getElementInstanceById,
         inject,
         elementManage,
         elementController,
+        ...sourceData.value,
       })();
     } catch (e) {
       if (needShowError) {
