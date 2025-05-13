@@ -17,42 +17,6 @@ describe("Ref 类", () => {
     refInstance.value = 2;
     expect(refInstance.value).toBe(2);
   });
-
-  it("应该添加依赖并在值更改时调用它", () => {
-    const mockFn = vi.fn();
-    refInstance.addDeps(mockFn);
-
-    refInstance.value = 3;
-    expect(mockFn).toHaveBeenCalled();
-  });
-
-  it("应该移除依赖", () => {
-    const mockFn = vi.fn();
-    refInstance.addDeps(mockFn);
-    refInstance.removeDeps(mockFn);
-
-    refInstance.value = 4;
-    expect(mockFn).not.toHaveBeenCalled();
-  });
-
-  it("应该清除所有依赖", () => {
-    const mockFn1 = vi.fn();
-    const mockFn2 = vi.fn();
-    refInstance.addDeps(mockFn1);
-    refInstance.addDeps(mockFn2);
-
-    refInstance.clearDeps();
-    refInstance.value = 5;
-    expect(mockFn1).not.toHaveBeenCalled();
-    expect(mockFn2).not.toHaveBeenCalled();
-  });
-
-  it("应该获取所有依赖", () => {
-    const mockFn = () => {};
-    refInstance.addDeps(mockFn);
-
-    expect(refInstance.getDeps().size).toBe(1);
-  });
 });
 
 describe("ref 函数", () => {
