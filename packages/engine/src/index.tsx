@@ -96,6 +96,14 @@ const ElementNode = defineComponent({
     );
     //更新值
     const handleUpdate = (nv: any) => {
+      //todo 但是需要确定是不是undefined这个是可以的
+      //!与此同时 如果defaultValue是sourceData 也要更新source去触发对应的更新
+      if (isSourceData(localSchema.props?.defaultValue) && nv !== undefined) {
+        sourceDataManage.setSourceDataItem(
+          localSchema.props!.defaultValue.value,
+          nv
+        );
+      }
       emit("update:modelValue", nv);
       //!要赋值表单 如果是渲染模式 就是正式的数据了 如果编辑模式 则用于三向绑定
       if (localSchema.field) {
