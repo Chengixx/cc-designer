@@ -1,4 +1,5 @@
 import { FormSetting, IEditorElement } from "@cgx-designer/types";
+import { SourceDataItem } from "@cgx-designer/hooks";
 
 //用类型断言去判断是不是IEditorElement这个接口
 export const isIEditorElementArray = (arr: any[]): arr is IEditorElement[] => {
@@ -54,6 +55,7 @@ export const checkCJsonType = (
   formSetting: FormSetting;
   elementList: IEditorElement[];
   script: string;
+  sourceData: SourceDataItem[];
 } => {
   return (
     typeof obj === "object" &&
