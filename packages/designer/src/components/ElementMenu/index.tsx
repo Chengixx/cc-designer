@@ -5,6 +5,7 @@ import ElementSource from "./components/ElementSource";
 import ElementTree from "./components/ElementTree";
 import DataSourcePane from "./components/DataSourcePanel";
 import {
+  AddIcon,
   CloseIcon,
   ElementIcon,
   MoreIcon,
@@ -36,7 +37,7 @@ const ElementMenu = defineComponent({
         icon: ElementIcon,
         tip: "组件库",
         key: "0",
-        headerSlot: () => <SearchBox v-model:widgetName={searchValue.value} />,
+        headerSlot: () => <SearchBox v-model={searchValue.value} />,
         render: () => (
           <div class="c-min-w-[296px]">
             <ElementList searchValue={searchValue.value} />
@@ -57,6 +58,14 @@ const ElementMenu = defineComponent({
         icon: SourceDataIcon,
         tip: "数据源",
         key: "2",
+        headerSlot: () => (
+          <div class="c-w-full c-flex c-gap-x-1 c-items-center">
+            <SearchBox v-model={searchValue.value} />
+            <div onClick={() => console.log(123)}>
+              <AddIcon class="c-w-4 c-h-4 c-cursor-pointer dark:c-fill-white hover:c-fill-green-400 dark:hover:c-fill-green-400" />
+            </div>
+          </div>
+        ),
         render: () => (
           <div class="c-min-w-[296px] c-h-[calc(100vh-98px)] c-w-full dark:c-border-darkMode">
             <DataSourcePane />
@@ -81,7 +90,6 @@ const ElementMenu = defineComponent({
         tip: "更多",
         key: "3",
         click: () => {
-          console.log("更多");
           moreDialogRef.value?.handleOpen();
         },
       },
@@ -99,6 +107,9 @@ const ElementMenu = defineComponent({
         } else {
           if (collapseManage.leftMenuCollapseState.value === false) {
             collapseManage.toggleLeftMenu();
+          }
+          if (settingTab.value !== Icon.key) {
+            searchValue.value = "";
           }
           settingTab.value = Icon.key;
         }

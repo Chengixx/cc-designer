@@ -4,19 +4,24 @@ import { computed, defineComponent } from "vue";
 
 const SearchBox = defineComponent({
   props: {
-    widgetName: {
+    modelValue: {
       type: String,
       default: "",
     },
+    placeHolder: {
+      type: String,
+      default: "请输入查询条件",
+    },
   },
+  emits: ["update:modelValue"],
   setup(props, { emit }) {
     const Input = elementController.getElementRender("input");
-    const inputWidgetName = computed({
+    const bindValue = computed({
       get() {
-        return props.widgetName;
+        return props.modelValue;
       },
       set(value) {
-        emit("update:widgetName", value);
+        emit("update:modelValue", value);
       },
     });
     return () => {
@@ -24,7 +29,7 @@ const SearchBox = defineComponent({
         <div class="c-w-full c-px-1 c-py-2 dark:c-border-darkMode">
           <Input
             placeholder="搜索组件"
-            v-model={inputWidgetName.value}
+            v-model={bindValue.value}
             clearable
             density="compact"
             variant="outlined"

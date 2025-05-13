@@ -60,7 +60,7 @@ const ModeButtonGroup = defineComponent({
                           ? "#0079f2"
                           : "#666",
                     }}
-                    class="c-w-5 c-h-5 dark:c-fill-white"
+                    class="c-w-4 c-h-4 dark:c-fill-white"
                   />
                 </div>
               </div>
