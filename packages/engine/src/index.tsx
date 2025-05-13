@@ -98,7 +98,11 @@ const ElementNode = defineComponent({
     const handleUpdate = (nv: any) => {
       //todo 但是需要确定是不是undefined这个是可以的
       //!与此同时 如果defaultValue是sourceData 也要更新source去触发对应的更新
-      if (isSourceData(localSchema.props?.defaultValue) && nv !== undefined) {
+      if (
+        isSourceData(localSchema.props?.defaultValue) &&
+        props.isPreview &&
+        nv !== undefined
+      ) {
         sourceDataManage.setSourceDataItem(
           localSchema.props!.defaultValue.value,
           nv
