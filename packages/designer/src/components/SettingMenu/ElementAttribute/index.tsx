@@ -30,6 +30,23 @@ const ElementAttribute = defineComponent({
     const currentFocusElement = ref<IEditorElement | null>(null);
     // 获取当前选中元素的属性
     const componentAttributes = ref<IEditorElement[]>([]);
+    //判断是否是数据源
+    const getIsSourceData = (attributeConfig: IEditorElement) => {
+      const value = getValueByPath(
+        currentFocusElement.value!,
+        attributeConfig.field!
+      );
+      if (
+        value &&
+        typeof value === "object" &&
+        Object.keys(value as any).includes("type") &&
+        (value as any).type === "sourceData"
+      ) {
+        return true;
+      }
+
+      return false;
+    };
     //是否显示通过回调函数来做
     const showAttributeConfigWidget = (attributeConfig: IEditorElement) => {
       let show: boolean = true;
@@ -75,21 +92,25 @@ const ElementAttribute = defineComponent({
       //注意此处必须立刻监听 否则vue会使用上一次的组件
       { immediate: true }
     );
-
+    //绑定数据源
     const handleBindSourceData = (
       name: string,
       attributeConfig: IEditorElement
     ) => {
       //首先先把值改成当前数据源的值
-      const instance = sourceDataManage.getSourceData(name);
+      const sourceDataItem = sourceDataManage.getSourceData(name);
       handleSetValue(
-        instance.initialValue,
+        {
+          type: "sourceData",
+          dataType: sourceDataItem.type,
+          value: name,
+        },
         attributeConfig.field!,
         attributeConfig
       );
       const componentId = currentFocusElement.value?.id!;
       //然后往数据源中添加依赖
-      instance.addDeps({
+      sourceDataItem.instance.addDeps({
         key: currentFocusElement.value!.id! + attributeConfig.field!,
         type: "component",
         componentId,
@@ -108,7 +129,15 @@ const ElementAttribute = defineComponent({
                   <CFormItem label={attributeConfig.label || undefined}>
                     {{
                       default: () => {
-                        return (
+                        return getIsSourceData(attributeConfig) ? (
+                          <div>
+                            {"数据源: " +
+                              getValueByPath(
+                                currentFocusElement.value!,
+                                attributeConfig.field!
+                              ).value}
+                          </div>
+                        ) : (
                           <ElementEngine
                             modelValue={getValueByPath(
                               currentFocusElement.value!,

@@ -47,7 +47,7 @@ export const useSourceData = (elementManage: ElementManage) => {
   const getSourceData = (name: string) => {
     const item = sourceData.value.find((item) => item.name === name);
     if (item) {
-      return item.instance;
+      return item;
     } else {
       throw new Error(`数据源 ${name} not found`);
     }
