@@ -33,6 +33,8 @@ export const SelectSourceDataDialog = defineComponent({
         attributeConfig: innerAttributeConfig.value,
       };
       emit("confirm", confirmData);
+      //记得清空
+      sourceDataName.value = "";
     };
     expose({
       handleOpen,
