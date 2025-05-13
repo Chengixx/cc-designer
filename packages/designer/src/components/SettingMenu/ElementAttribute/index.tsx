@@ -17,6 +17,7 @@ import {
   SelectSourceDataDialog,
   SelectSourceDataDialogExpose,
 } from "./components/SelectSourceDataDialog";
+import { isSourceData } from "@cgx-designer/reactivity";
 
 const ElementAttribute = defineComponent({
   setup() {
@@ -36,16 +37,7 @@ const ElementAttribute = defineComponent({
         currentFocusElement.value!,
         attributeConfig.field!
       );
-      if (
-        value &&
-        typeof value === "object" &&
-        Object.keys(value as any).includes("type") &&
-        (value as any).type === "sourceData"
-      ) {
-        return true;
-      }
-
-      return false;
+      return isSourceData(value);
     };
     //是否显示通过回调函数来做
     const showAttributeConfigWidget = (attributeConfig: IEditorElement) => {

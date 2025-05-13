@@ -19,8 +19,13 @@ import {
   watch,
   watchEffect,
 } from "vue";
-import { ElementManage, FunctionManage } from "@cgx-designer/hooks";
+import {
+  ElementManage,
+  FunctionManage,
+  SourceDataManage,
+} from "@cgx-designer/hooks";
 import { isEmpty, isEqual, omit } from "lodash-es";
+import { isSourceData } from "@cgx-designer/reactivity";
 
 const ElementNode = defineComponent({
   props: {
@@ -43,6 +48,7 @@ const ElementNode = defineComponent({
     const elementManage = inject("elementManage") as ElementManage;
     const functionManage = inject("functionManage") as FunctionManage;
     const elementRef = ref<ElementInstance>();
+    const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
     const formItemRef = ref<ElementInstance>();
     const localSchema = reactive<IEditorElement>(
       deepClone(props.elementSchema)
@@ -170,6 +176,11 @@ const ElementNode = defineComponent({
           if (typeof props[key] === "object") {
             props[key] = deepClone(props[key]);
           }
+          if (isSourceData(props[key])) {
+            const sourceData = sourceDataManage.getSourceData(props[key].value)
+              .instance.value;
+            props[key] = sourceData;
+          }
         });
       }
       return props;
@@ -218,13 +229,13 @@ const ElementNode = defineComponent({
           <FormItem
             for="-"
             label={
-              !!localSchema.props!.label
-                ? localSchema.props!.label
+              !!getElementProps.value.label
+                ? getElementProps.value.label
                 : localSchema.key
             }
             ref={formItemRef}
             class="c-w-full"
-            labelPosition={localSchema.props!.labelPosition}
+            labelPosition={getElementProps.value.labelPosition}
             prop={localSchema.field}
             rules={localSchema.rules}
           >

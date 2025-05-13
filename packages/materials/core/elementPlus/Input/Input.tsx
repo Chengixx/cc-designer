@@ -19,6 +19,7 @@ const Input = defineComponent({
         ...(!isEmpty(props.elementSchema) && props.elementSchema.props),
         ...attrs,
       };
+      console.log(renderProps);
       //Todo 这里不知道为什么给ref有ts报错啊
       return (
         <ElInput {...renderProps} ref={elementRef as any}>

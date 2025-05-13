@@ -22,7 +22,7 @@ const Button = defineComponent({
             ...slots,
             default: () => {
               return !isEmpty(props.elementSchema)
-                ? props.elementSchema.props!.label
+                ? renderProps.label
                 : slots.default?.();
             },
           }}
