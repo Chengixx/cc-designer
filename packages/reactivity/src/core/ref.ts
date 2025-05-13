@@ -2,12 +2,16 @@
 import { ElementInstance } from "@cgx-designer/types";
 
 export interface IRefEvent {
+  // 事件的唯一标识
   key: string;
+  // Todo事件的类型 现在应该就是只有组件
   type: string;
   componentId: string;
+  //属性名称
   attrName: string;
 }
 
+//绑定以后的schema上的值
 export interface IBindSourceData {
   type: "sourceData";
   dataType: string;
