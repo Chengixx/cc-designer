@@ -60,10 +60,11 @@ const ElementNode = defineComponent({
     //格式化field
     const formatField = (field: string | IBindSourceData) => {
       if (!field) return undefined;
-      return isSourceData(field)
+      const result = isSourceData(field)
         ? sourceDataManage.getSourceData((field! as IBindSourceData).value)
             .instance.value
         : field;
+      return result;
     };
     //拖拽编辑的时候 往field后面放一个特殊的东西 用于三向绑定
     //进来就调用一次 并且后面修改elementSchema的时候，如果和localSchema相同就不调用，不然还是要调用

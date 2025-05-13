@@ -66,6 +66,7 @@ const ElementBuilder = defineComponent({
     const functionManage = useFunction(elementManage, sourceDataManage);
     provide("elementManage", elementManage);
     provide("functionManage", functionManage);
+    provide("sourceDataManage", sourceDataManage);
     //!以下正式builder逻辑，上面注入目前只是为了不报警告
     let formData = reactive(props.formData);
     const modelValue = ref<any>(null);
@@ -86,8 +87,15 @@ const ElementBuilder = defineComponent({
         ? props.builderSchema.elementList
         : props.elementSchemaList;
     });
+    //数据源
+    const useSourceDataList = computed(() => {
+      return !isEmpty(props.builderSchema) &&
+        Array.isArray(props.builderSchema.sourceData)
+        ? props.builderSchema.sourceData
+        : props.sourceData;
+    });
     //!一进来先赋值一遍
-    sourceDataManage.setSourceData(props.sourceData);
+    sourceDataManage.setSourceData(useSourceDataList.value);
     elementManage.setElementList(useElementSchemaList.value);
     elementManage.setMode(false);
     //脚本配置

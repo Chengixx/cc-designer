@@ -19,8 +19,16 @@ export const useSourceData = (elementManage: ElementManage) => {
 
   const setSourceData = (target: SourceDataItem[]) => {
     sourceData.value = target;
-    sourceData.value.forEach((sourceDataItem) => {
-      sourceDataItem.instance.init(elementManage.getElementInstanceById);
+    sourceData.value = sourceData.value.map((sourceDataItem) => {
+      const target = cRef(
+        sourceDataItem.instance.initialValue,
+        sourceDataItem.instance.deps
+      );
+      target.init(elementManage.getElementInstanceById);
+      return {
+        ...sourceDataItem,
+        instance: target,
+      };
     });
   };
 

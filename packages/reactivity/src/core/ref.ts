@@ -68,6 +68,6 @@ export class Ref {
   }
 }
 
-export function ref(initialValue: any) {
-  return new Ref(initialValue);
+export function ref(initialValue: any, deps?: Array<IRefEvent>) {
+  return deps ? new Ref(initialValue, deps) : new Ref(initialValue);
 }

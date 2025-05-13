@@ -79,70 +79,46 @@ export const formSetting: FormSetting = {
 
 export const builderSchema: BuilderSchema = {
   formSetting: {
-    modelName: "formData",
-    refName: "formRef",
-    rulesName: "formRules",
-    labelPosition: "left",
-    labelWidth: 50,
+    labelWidth: 100,
+    disabled: false,
     size: "default",
-    disabled: true,
+    labelPosition: "left",
   },
   elementList: [
     {
-      id: "IRj2GmLB",
-      field: "bar",
+      id: "0BIdsa5V",
+      field: {
+        type: "sourceData",
+        dataType: "ref",
+        value: "test",
+      },
       key: "input",
       formItem: true,
       props: {
-        label: "bar",
+        label: "input",
         placeholder: "placeholder",
         size: "",
         labelPosition: "",
-        defaultValue: "",
       },
     },
+  ],
+  script:
+    '\n    const { inject , get , ElMessage , ElMessageBox } = this;\n\n    function fn () {\n        console.log("i am yours");\n        ElMessage.success("i am yours");\n    }\n    \n    const testFn = () => {\n        console.log(this);\n        test.value = "曼巴哈哈哈";\n    }\n\n    inject({\n      fn,\n      testFn,\n    })\n    ',
+  sourceData: [
     {
-      id: "Vm5tIeLq",
-      field: "foo",
-      key: "input",
-      formItem: true,
-      props: {
-        label: "foo",
-        placeholder: "placeholder",
-        size: "",
-        labelPosition: "",
-        defaultValue: "",
-      },
-    },
-    {
-      id: "Vm5tIe123",
-      field: "number",
-      key: "inputNumber",
-      formItem: true,
-      props: {
-        label: "数字",
-        placeholder: "placeholder",
-        size: "",
-        labelPosition: "",
-        defaultValue: 0,
-      },
-    },
-    {
-      id: "Vm5tIa678",
-      field: "select",
-      key: "select",
-      formItem: true,
-      props: {
-        label: "选择",
-        placeholder: "placeholder",
-        size: "",
-        labelPosition: "",
-        options: [
-          { label: "label1", value: "value1" },
-          { label: "label2", value: "value2" },
+      type: "ref",
+      name: "test",
+      instance: {
+        initialValue: "myName",
+        deps: [
+          {
+            key: "0BIdsa5Vfield",
+            type: "component",
+            componentId: "0BIdsa5V",
+            attrName: "field",
+          },
         ],
       },
     },
   ],
-  script: javaScript,
 };

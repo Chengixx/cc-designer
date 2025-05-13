@@ -26,6 +26,7 @@ const App = defineComponent({
       bar: "",
       la: "",
       number: 2,
+      myName: "完优先级最高啊",
     });
 
     return () => {
@@ -40,10 +41,10 @@ const App = defineComponent({
               <ElementRenderer
                 formData={formData}
                 ref={elementBuilderRef as any}
-                script={javaScript}
-                // builderSchema={builderSchema}
-                elementSchemaList={elementSchemaList}
-                formSetting={formSetting}
+                // script={javaScript}
+                builderSchema={builderSchema}
+                // elementSchemaList={elementSchemaList}
+                // formSetting={formSetting}
               >
                 {{
                   before: () => {
