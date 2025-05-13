@@ -7,6 +7,13 @@ export interface IRefEvent {
   componentId: string;
   attrName: string;
 }
+
+export interface IBindSourceData {
+  type: "sourceData";
+  dataType: string;
+  value: string;
+}
+
 export class Ref {
   //初始值
   initialValue: any;
@@ -29,10 +36,14 @@ export class Ref {
     if (newValue === this.initialValue) return;
     this.initialValue = newValue;
     this.deps.forEach((fn) => {
-      this.find!(fn.componentId)?.setAttr!(
-        fn.attrName.startsWith("props.") ? fn.attrName.slice(6) : fn.attrName,
-        newValue
-      );
+      if (fn.attrName === "props.defaultValue") {
+        this.find!(fn.componentId)?.setValue!(newValue);
+      } else {
+        this.find!(fn.componentId)?.setAttr!(
+          fn.attrName.startsWith("props.") ? fn.attrName.slice(6) : fn.attrName,
+          newValue
+        );
+      }
     });
   }
 

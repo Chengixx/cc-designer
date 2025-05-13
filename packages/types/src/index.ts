@@ -2,12 +2,13 @@ import { ComponentPublicInstance } from "vue";
 import { elementController } from "@cgx-designer/controller";
 import { ElementRenderer } from "@cgx-designer/renderer";
 import { SourceDataItem } from "@cgx-designer/hooks";
+import { IBindSourceData } from "@cgx-designer/reactivity";
 
 //元素被渲染之后的的schema
 export interface IEditorElement {
   id?: string;
   key: string;
-  field?: string;
+  field?: string | IBindSourceData;
   elementList?: IEditorElement[];
   formItem?: boolean;
   noShowFormItem?: boolean;

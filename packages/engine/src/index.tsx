@@ -25,7 +25,7 @@ import {
   SourceDataManage,
 } from "@cgx-designer/hooks";
 import { isEmpty, isEqual, omit } from "lodash-es";
-import { isSourceData } from "@cgx-designer/reactivity";
+import { IBindSourceData, isSourceData } from "@cgx-designer/reactivity";
 
 const ElementNode = defineComponent({
   props: {
@@ -57,6 +57,14 @@ const ElementNode = defineComponent({
     const formData = inject("formData", reactive({})) as any;
     //用于和组件实例双向绑定的值
     const bindValue = ref<any>(props.modelValue ?? null);
+    //格式化field
+    const formatField = (field: string | IBindSourceData) => {
+      if (!field) return undefined;
+      return isSourceData(field)
+        ? sourceDataManage.getSourceData((field! as IBindSourceData).value)
+            .instance.value
+        : field;
+    };
     //拖拽编辑的时候 往field后面放一个特殊的东西 用于三向绑定
     //进来就调用一次 并且后面修改elementSchema的时候，如果和localSchema相同就不调用，不然还是要调用
     const addFieldAssit = () => {
@@ -90,7 +98,7 @@ const ElementNode = defineComponent({
       emit("update:modelValue", nv);
       //!要赋值表单 如果是渲染模式 就是正式的数据了 如果编辑模式 则用于三向绑定
       if (localSchema.field) {
-        formData[localSchema.field!] = nv;
+        formData[formatField(localSchema.field!)] = nv;
       }
     };
     //监听当前的绑定的值 变了的话 要去更改
@@ -103,16 +111,22 @@ const ElementNode = defineComponent({
     //初始化的时候，去赋值一下bindValue
     const initComponentInstance = () => {
       if (typeof (localSchema.props ??= {}).defaultValue !== "undefined") {
+        const localDefaultValue = isSourceData(localSchema.props!.defaultValue)
+          ? sourceDataManage.getSourceData(
+              localSchema.props!.defaultValue.value
+            ).instance.value
+          : localSchema.props!.defaultValue;
         const defaultValue = !props.isPreview
-          ? localSchema.props!.defaultValue
-          : (formData[localSchema.field!] ?? localSchema.props!.defaultValue);
+          ? localDefaultValue
+          : (formData[formatField(localSchema.field!)] ?? localDefaultValue);
         handleUpdate(deepClone(defaultValue));
       }
     };
     //任何情况下有变动 就重新赋值绑定值
     watchEffect(() => {
       //如果有modelValue 就用modelValue，说明是属性那边的 不然就用默认值的
-      bindValue.value = props.modelValue ?? formData[localSchema.field ?? ""];
+      bindValue.value =
+        props.modelValue ?? formData[formatField(localSchema.field ?? "")];
     });
 
     //监听json变化 json变化了 就要重新赋值的
@@ -143,7 +157,7 @@ const ElementNode = defineComponent({
         if (localSchema.formItem) {
           instance.setValue = handleUpdate;
           instance.getValue = () =>
-            formData[localSchema.field!] || props.modelValue;
+            formData[formatField(localSchema.field!)] || props.modelValue;
         }
 
         elementManage.addElementInstance(localSchema.id, instance);
@@ -219,6 +233,18 @@ const ElementNode = defineComponent({
     watch(() => elementRef.value, handleAddElementInstance, {
       immediate: true,
     });
+    //获取组件外壳（目前一般就是formItem）的属性
+    const getElementShellAttr = computed(() => {
+      return {
+        for: "-",
+        label: !!getElementProps.value.label
+          ? getElementProps.value.label
+          : localSchema.key,
+        labelPosition: getElementProps.value.labelPosition,
+        prop: formatField(localSchema.field!),
+        rules: localSchema.rules,
+      };
+    });
     onMounted(initComponentInstance);
     onUnmounted(handleRemoveElementInstance);
 
@@ -227,16 +253,9 @@ const ElementNode = defineComponent({
       <>
         {localSchema.formItem && !!!localSchema.noShowFormItem ? (
           <FormItem
-            for="-"
-            label={
-              !!getElementProps.value.label
-                ? getElementProps.value.label
-                : localSchema.key
-            }
+            {...getElementShellAttr.value}
             ref={formItemRef}
             class="c-w-full"
-            labelPosition={getElementProps.value.labelPosition}
-            prop={localSchema.field}
             rules={localSchema.rules}
           >
             {children}
