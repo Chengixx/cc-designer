@@ -37,7 +37,6 @@ const Icon = (Iconfig: OperationButtonSetting, disabled: boolean = false) => {
 
 const IconButton = (
   Iconfig: OperationButtonSetting,
-  showLabel: boolean = false,
   disabled: boolean = false,
   type: ButtonType = ""
 ) => {
@@ -54,26 +53,16 @@ const IconButton = (
   };
   return (
     <>
-      {showLabel ? (
-        <Button {...renderProps}>
-          {{
-            prepend: () => {
-              return <Iconfig.icon class="c-h-4 c-w-4 dark:c-fill-white" />;
-            },
-            default: () => {
-              return <span>{Iconfig.label}</span>;
-            },
-          }}
-        </Button>
-      ) : (
-        <Button {...renderProps}>
-          {{
-            prepend: () => {
-              return <Iconfig.icon class="c-h-4 c-w-4 dark:c-fill-white" />;
-            },
-          }}
-        </Button>
-      )}
+      <Button {...renderProps}>
+        {{
+          prepend: () => {
+            return <Iconfig.icon class="c-h-4 c-w-4 dark:c-fill-white" />;
+          },
+          default: () => {
+            return <span>{Iconfig.label}</span>;
+          },
+        }}
+      </Button>
     </>
   );
 };
@@ -123,9 +112,9 @@ const OperationMenu = defineComponent({
                 "c-gap-x-2",
             ]}
           >
-            {IconButton(Import, true)}
-            {IconButton(Export, true)}
-            {IconButton(Preview, true)}
+            {IconButton(Import)}
+            {IconButton(Export)}
+            {IconButton(Preview)}
           </div>
         </div>
       );
