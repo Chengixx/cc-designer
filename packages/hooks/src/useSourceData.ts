@@ -4,9 +4,9 @@ import { ElementManage } from "./useElement";
 
 export type SourceDataManage = ReturnType<typeof useSourceData>;
 
-//TODO 暂时实现ref和reactive
-//vue的数据源目前应该是三种 ref reactive 和 普通的请求数据源
-export type SourceDataType = "ref" | "reactive" | "http";
+//TODO 暂时实现ref 考虑是不是要reactive 但是又感觉没意义 用ref就可以了 其次reactive也会荣誉
+//vue的数据源目前应该是两种 ref 和 普通的请求数据源
+export type SourceDataType = "ref" | "http";
 
 export interface SourceDataItem {
   type: SourceDataType;
