@@ -14,11 +14,7 @@ import {
   TreeIcon,
 } from "@cgx-designer/icons";
 import { CTooltip } from "@cgx-designer/extensions";
-import {
-  CollapseManage,
-  FocusManage,
-  SourceDataItem,
-} from "@cgx-designer/hooks";
+import { CollapseManage, FocusManage } from "@cgx-designer/hooks";
 import { JSX } from "vue/jsx-runtime";
 import MoreDialog from "./MoreDialog";
 import { CreateRefDialog } from "./CreateRefDialog";

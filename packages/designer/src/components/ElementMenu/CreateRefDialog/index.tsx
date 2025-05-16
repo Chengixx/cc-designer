@@ -2,8 +2,6 @@ import { ref, defineComponent, inject } from "vue";
 import { elementController } from "@cgx-designer/controller";
 import { SourceDataItem, SourceDataManage } from "@cgx-designer/hooks";
 import { CFormItem, IDE } from "@cgx-designer/extensions";
-import { IEditorElement } from "@cgx-designer/types";
-import { dataSourceColor } from "../../../constant/index";
 
 export const CreateRefDialog = defineComponent({
   setup(_, { expose }) {
