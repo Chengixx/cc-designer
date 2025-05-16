@@ -11,6 +11,10 @@ import { useDrag, HoverManage, ThemeManage } from "@cgx-designer/hooks";
 import { ElementListBarItem, ElementListBoxItem } from "./ElementListItem";
 import { Collapse, CollapseItem } from "@cgx-designer/extensions";
 
+defineOptions({
+  name: "ElementList",
+});
+
 //注册指令
 defineExpose({
   directives: {

@@ -1,6 +1,6 @@
 import { defineComponent, inject, computed } from "vue";
 import { ElementManage, FocusManage } from "@cgx-designer/hooks";
-import { IEditorElement, TreeNode } from "../../../../../types";
+import { IEditorElement, TreeNode } from "@cgx-designer/types";
 import { deepClone } from "@cgx-designer/utils";
 import { CTree } from "@cgx-designer/extensions";
 import { Empty } from "@cgx-designer/extensions";

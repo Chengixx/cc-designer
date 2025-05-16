@@ -1,9 +1,9 @@
 import { computed, defineComponent, inject, ref } from "vue";
-import ElementList from "./components/ElementList.vue";
-import SearchBox from "./components/SearchBox";
-import ElementSource from "./components/ElementSource";
-import ElementTree from "./components/ElementTree";
-import DataSourcePane from "./components/DataSourcePanel";
+import ElementList from "./ElementList/index.vue";
+import SearchBox from "./SearchBox";
+import ElementSource from "./ElementSource";
+import ElementTree from "./ElementTree";
+import DataSourcePane from "./DataSourcePanel";
 import {
   AddIcon,
   CloseIcon,
@@ -16,7 +16,7 @@ import {
 import { CTooltip } from "@cgx-designer/extensions";
 import { CollapseManage, FocusManage } from "@cgx-designer/hooks";
 import { JSX } from "vue/jsx-runtime";
-import MoreDialog from "./components/MoreDialog";
+import MoreDialog from "./MoreDialog";
 
 interface IMenuItem {
   icon: any;
@@ -61,7 +61,7 @@ const ElementMenu = defineComponent({
         headerSlot: () => (
           <div class="c-w-full c-flex c-gap-x-1 c-items-center c-pr-2">
             <SearchBox v-model={searchValue.value} />
-            <div onClick={() => console.log(123)}>
+            <div onClick={() => {}}>
               <AddIcon class="c-w-4 c-h-4 c-cursor-pointer dark:c-fill-white hover:c-fill-green-400 dark:hover:c-fill-green-400" />
             </div>
           </div>
