@@ -1,6 +1,7 @@
 import { ref } from "vue";
 import { createRef, RefState } from "@cgx-designer/reactivity";
 import { ElementManage } from "./useElement";
+import { getValueByPath } from "@cgx-designer/utils";
 
 export type SourceDataManage = ReturnType<typeof useSourceData>;
 
@@ -47,15 +48,39 @@ export const useSourceData = (elementManage: ElementManage) => {
 
   const editSourceData = (index: number, name: string, initialValue: any) => {
     if (index > -1) {
-      sourceData.value[index].name = name;
-      sourceData.value[index].instance.value = initialValue;
+      const innerSourceData = sourceData.value[index];
+      innerSourceData.instance.value = initialValue;
+      // 更新名称
+      innerSourceData.name = name;
+      //这个时候应该把所有的依赖都更新一遍
+      innerSourceData.instance.deps.forEach((dep) => {
+        //找到每一个schema 然后去更改里面的值
+        const elementSchema = elementManage.findElementById(dep.componentId);
+        //这里按道理讲不可能为空 除非用户乱改了
+        //拿到之后 把value改成新的
+        getValueByPath(elementSchema!, dep.attrName).value = name;
+      });
     }
   };
 
-  //todo 记得删除
-  addSourceData("ref", "test", "测试哈哈哈");
-
   const removeSourceData = (name: string) => {
+    //一样的道理 删除之前 要先清除所用的依赖
+    const sourceDataItem = sourceData.value.find((item) => item.name === name);
+    if (sourceDataItem) {
+      sourceDataItem.instance.deps.forEach((dep) => {
+        //找到每一个schema 然后去更改里面的值
+        const elementSchema = elementManage.findElementById(dep.componentId);
+        //这里按道理讲不可能为空 除非用户乱改了
+        //拿到之后 把value改成新的
+        if (dep.attrName.startsWith("props.")) {
+          elementSchema!.props![dep.attrName.slice(6)] = undefined;
+        } else {
+          //todo但是这里值得一提的是 我们的引擎里如果默认值改成undefined
+          // todo可能渲染器是不会响应的 但是我觉得这个倒是无所谓 仅仅影响画布阶段 并且不会产生实际的影响
+          elementSchema![dep.attrName] = undefined;
+        }
+      });
+    }
     sourceData.value = sourceData.value.filter((item) => item.name !== name);
   };
 
