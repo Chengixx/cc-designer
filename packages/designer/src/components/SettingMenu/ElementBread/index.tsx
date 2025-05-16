@@ -21,8 +21,8 @@ const ElementBread = defineComponent({
     };
     //大于三只取后三个
     const renderElement = computed(() => {
-      if (elementTreePath.value.length > 4) {
-        return elementTreePath.value.slice(-4);
+      if (elementTreePath.value.length > 3) {
+        return elementTreePath.value.slice(-3);
       }
       return elementTreePath.value;
     });

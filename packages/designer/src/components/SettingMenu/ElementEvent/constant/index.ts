@@ -6,31 +6,31 @@ export const defaultEvents: EventPrototype[] = [
     events: [
       {
         type: "vnodeBeforeMount",
-        describe: "beforeMount",
+        describe: "元素挂载前",
       },
       {
         type: "vnodeMounted",
-        describe: "mounted",
+        describe: "元素挂载时",
       },
       {
         type: "vnodeBeforeUpdate",
-        describe: "beforeUpdate",
+        describe: "元素更新前",
       },
       {
         type: "vnodeUpdated",
-        describe: "updated",
+        describe: "元素更新时",
       },
       {
         type: "vnodeBeforeUnmount",
-        describe: "beforeUnmount",
+        describe: "元素卸载前",
       },
       {
         type: "vnodeUnmounted",
-        describe: "unmounted",
+        describe: "元素卸载时",
       },
       {
         type: "vnodeErrorCaptured",
-        describe: "errorCaptured",
+        describe: "元素错误捕获",
       },
     ],
   },

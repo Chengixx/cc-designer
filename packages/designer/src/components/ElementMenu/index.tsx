@@ -59,7 +59,7 @@ const ElementMenu = defineComponent({
         tip: "数据源",
         key: "2",
         headerSlot: () => (
-          <div class="c-w-full c-flex c-gap-x-1 c-items-center">
+          <div class="c-w-full c-flex c-gap-x-1 c-items-center c-pr-2">
             <SearchBox v-model={searchValue.value} />
             <div onClick={() => console.log(123)}>
               <AddIcon class="c-w-4 c-h-4 c-cursor-pointer dark:c-fill-white hover:c-fill-green-400 dark:hover:c-fill-green-400" />
