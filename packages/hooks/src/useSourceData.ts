@@ -63,6 +63,9 @@ export const useSourceData = (elementManage: ElementManage) => {
     }
   };
 
+  //todo 记得删除
+  addSourceData("ref", "test", "测试哈哈哈");
+
   const removeSourceData = (name: string) => {
     //一样的道理 删除之前 要先清除所用的依赖
     const sourceDataItem = sourceData.value.find((item) => item.name === name);

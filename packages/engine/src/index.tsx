@@ -26,7 +26,7 @@ import {
   SourceDataManage,
 } from "@cgx-designer/hooks";
 import { isEmpty, isEqual, omit } from "lodash-es";
-import { IBindSourceData, isSourceData } from "@cgx-designer/reactivity";
+import { IBindSourceData, isValueIsSourceData } from "@cgx-designer/reactivity";
 
 const ElementNode = defineComponent({
   props: {
@@ -57,7 +57,7 @@ const ElementNode = defineComponent({
     //格式化field
     const formatField = (field: string | IBindSourceData) => {
       if (!field) return undefined;
-      const result = isSourceData(field)
+      const result = isValueIsSourceData(field)
         ? sourceDataManage.getSourceData((field! as IBindSourceData).value)
             .instance.value
         : field;
@@ -103,7 +103,7 @@ const ElementNode = defineComponent({
     //更新值
     const handleUpdate = (nv: any) => {
       //!与此同时 如果defaultValue是sourceData 也要更新source去触发对应的更新
-      if (isSourceData(localSchema.props?.defaultValue) && props.isPreview) {
+      if (isValueIsSourceData(localSchema.props?.defaultValue) && props.isPreview) {
         sourceDataManage.setSourceDataItem(
           localSchema.props!.defaultValue.value,
           nv
@@ -125,7 +125,7 @@ const ElementNode = defineComponent({
     //初始化的时候，去赋值一下bindValue
     const initComponentInstance = () => {
       if (typeof (localSchema.props ??= {}).defaultValue !== "undefined") {
-        const localDefaultValue = isSourceData(localSchema.props!.defaultValue)
+        const localDefaultValue = isValueIsSourceData(localSchema.props!.defaultValue)
           ? sourceDataManage.getSourceData(
               localSchema.props!.defaultValue.value
             ).instance.value
@@ -204,7 +204,7 @@ const ElementNode = defineComponent({
           if (typeof props[key] === "object") {
             props[key] = deepClone(props[key]);
           }
-          if (isSourceData(props[key])) {
+          if (isValueIsSourceData(props[key])) {
             const sourceData = sourceDataManage.getSourceData(props[key].value)
               .instance.value;
             props[key] = sourceData;

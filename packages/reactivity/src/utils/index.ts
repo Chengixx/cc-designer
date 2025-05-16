@@ -1,4 +1,6 @@
-export const isSourceData = (value: any): boolean => {
+import { IEditorElement } from "@cgx-designer/types";
+
+export const isValueIsSourceData = (value: any): boolean => {
   if (
     value &&
     typeof value === "object" &&
@@ -9,4 +11,16 @@ export const isSourceData = (value: any): boolean => {
   }
 
   return false;
+};
+
+export const isAttrIsSourceData = (
+  attrName: string,
+  elementSchema: IEditorElement
+): boolean => {
+  //首先 要先看一下attrName
+  if (attrName.startsWith("props")) {
+    return isValueIsSourceData(elementSchema.props![attrName.slice(6)]);
+  } else {
+    return isValueIsSourceData(elementSchema[attrName]);
+  }
 };

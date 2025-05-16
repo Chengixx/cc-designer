@@ -13,7 +13,10 @@ import {
   SelectSourceDataDialog,
   SelectSourceDataDialogExpose,
 } from "./components/SelectSourceDataDialog";
-import { isSourceData } from "@cgx-designer/reactivity";
+import {
+  isValueIsSourceData,
+  isAttrIsSourceData,
+} from "@cgx-designer/reactivity";
 
 const ElementAttribute = defineComponent({
   setup() {
@@ -27,12 +30,12 @@ const ElementAttribute = defineComponent({
     // 获取当前选中元素的属性
     const componentAttributes = ref<IEditorElement[]>([]);
     //判断是否是数据源
-    const getIsSourceData = (attributeConfig: IEditorElement) => {
+    const getisValueIsSourceData = (attributeConfig: IEditorElement) => {
       const value = getValueByPath(
         currentFocusElement.value!,
         attributeConfig.field!
       );
-      return isSourceData(value);
+      return isValueIsSourceData(value);
     };
     //是否显示通过回调函数来做
     const showAttributeConfigWidget = (attributeConfig: IEditorElement) => {
@@ -116,7 +119,7 @@ const ElementAttribute = defineComponent({
                   <CFormItem label={attributeConfig.label || undefined}>
                     {{
                       default: () => {
-                        return getIsSourceData(attributeConfig) ? (
+                        return getisValueIsSourceData(attributeConfig) ? (
                           <div class="c-select-none c-cursor-pointer">
                             {getValueByPath(
                               currentFocusElement.value!,
@@ -152,6 +155,10 @@ const ElementAttribute = defineComponent({
                         );
                       },
                       extra: () => {
+                        const isSourceData = isAttrIsSourceData(
+                          attributeConfig.field!,
+                          currentFocusElement.value!
+                        );
                         return (
                           <>
                             <div class="c-ml-1">
@@ -177,6 +184,10 @@ const ElementAttribute = defineComponent({
                                       attributeConfig
                                     );
                                   }}
+                                  class={
+                                    isSourceData &&
+                                    "c-bg-blue-300 c-rounded-md dark:c-bg-blue-90"
+                                  }
                                 >
                                   <BindIcon class="c-w-5 c-h-5 dark:c-fill-white c-cursor-pointer" />
                                 </div>
