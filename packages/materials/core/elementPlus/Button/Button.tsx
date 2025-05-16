@@ -2,6 +2,7 @@ import { IEditorElement } from "@cgx-designer/types";
 import { ElButton } from "element-plus";
 import { defineComponent, PropType } from "vue";
 import { isEmpty } from "lodash-es";
+import { useMergeAttr } from "@cgx-designer/hooks";
 
 const Button = defineComponent({
   props: {
@@ -11,11 +12,9 @@ const Button = defineComponent({
     },
   },
   setup(props, { attrs, slots }) {
+    const renderProps = useMergeAttr(props, attrs);
+
     return () => {
-      const renderProps: Record<string, any> = {
-        ...(!isEmpty(props.elementSchema) && props.elementSchema.props),
-        ...attrs,
-      };
       return (
         <ElButton {...renderProps}>
           {{

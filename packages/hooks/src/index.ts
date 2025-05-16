@@ -13,3 +13,4 @@ export * from "./useMode";
 export * from "./useToggle";
 export * from "./useOrderedChildren";
 export * from "./useSourceData";
+export * from "./useMergeAttr"
