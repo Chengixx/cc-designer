@@ -75,6 +75,7 @@ const ElementMenu = defineComponent({
         render: () => (
           <div class="c-min-w-[296px] c-h-[calc(100vh-98px)] c-w-full dark:c-border-darkMode">
             <DataSourcePane
+              searchValue={searchValue.value}
               onEditSourceData={({ dataItem, dataIndex }) => {
                 console.log(dataItem, dataIndex);
                 createRefDialogRef.value?.handleOpen(dataItem, dataIndex);

@@ -1,12 +1,18 @@
 import { Empty } from "@cgx-designer/extensions";
 import { SourceDataItem, SourceDataManage } from "@cgx-designer/hooks";
 import { ClearIcon, EditIcon } from "@cgx-designer/icons";
-import { defineComponent, inject } from "vue";
+import { computed, defineComponent, inject } from "vue";
 import { dataSourceColor } from "../../../constant/index";
 
 const DataSourcePane = defineComponent({
   emits: ["editSourceData"],
-  setup(_, { emit }) {
+  props: {
+    searchValue: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props, { emit }) {
     const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
     const iconList = [
       {
@@ -22,6 +28,11 @@ const DataSourcePane = defineComponent({
         },
       },
     ];
+    const renderSourceData = computed(() => {
+      return sourceDataManage.sourceData.value.filter((dataItem) => {
+        return dataItem.name.includes(props.searchValue);
+      });
+    });
     return () => (
       <div>
         {sourceDataManage.sourceData.value.length === 0 && (
@@ -29,7 +40,7 @@ const DataSourcePane = defineComponent({
             <Empty />
           </div>
         )}
-        {sourceDataManage.sourceData.value.map((dataItem, dataIndex) => {
+        {renderSourceData.value.map((dataItem, dataIndex) => {
           return (
             <div class="c-h-10 c-w-full c-cursor-pointer c-px-3 c-py-1 c-flex c-justify-between c-items-center c-border-b c-border-dashed hover:c-bg-gray-100 dark:hover:c-bg-gray-600 dark:c-border-darkMode">
               <div class="c-flex c-justify-center c-items-center c-gap-x-1 c-select-none">
@@ -48,7 +59,15 @@ const DataSourcePane = defineComponent({
                 {iconList.map((iconItem) => {
                   const Icon = iconItem.icon;
                   return (
-                    <div onClick={() => iconItem.onClick(dataItem, dataIndex)}>
+                    <div
+                      onClick={() => {
+                        const dataIndex =
+                          sourceDataManage.sourceData.value.findIndex(
+                            (item) => item.name === dataItem.name
+                          );
+                        iconItem.onClick(dataItem, dataIndex);
+                      }}
+                    >
                       <Icon class="c-h-4 c-w-4 hover:c-fill-blue-400 dark:c-fill-white dark:hover:c-fill-blue-400 c-cursor-pointer" />
                     </div>
                   );
