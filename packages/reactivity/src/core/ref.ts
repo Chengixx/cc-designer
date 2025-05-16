@@ -43,7 +43,7 @@ export class RefState {
     this.updateDependencies(newValue);
   }
 
-  private updateDependencies(newValue: any): void {
+  updateDependencies(newValue: any): void {
     for (const dep of this.deps) {
       const instance = this.find?.(dep.componentId);
       if (instance) {
@@ -80,6 +80,9 @@ export class RefState {
   }
 }
 
-export function createRef(initialValue: any, deps?: Array<IRefEvent>) {
+export function createRef(
+  initialValue: any,
+  deps?: Array<IRefEvent>
+): RefState {
   return deps ? new RefState(initialValue, deps) : new RefState(initialValue);
 }

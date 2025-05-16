@@ -5,13 +5,14 @@ import { defineComponent, inject } from "vue";
 import { dataSourceColor } from "../../../constant/index";
 
 const DataSourcePane = defineComponent({
-  setup() {
+  emits: ["editSourceData"],
+  setup(_, { emit }) {
     const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
     const iconList = [
       {
         icon: EditIcon,
-        onClick(dataItem: SourceDataItem) {
-          console.log("编辑", dataItem);
+        onClick(dataItem: SourceDataItem, dataIndex: number) {
+          emit("editSourceData", { dataItem, dataIndex });
         },
       },
       {
@@ -28,7 +29,7 @@ const DataSourcePane = defineComponent({
             <Empty />
           </div>
         )}
-        {sourceDataManage.sourceData.value.map((dataItem) => {
+        {sourceDataManage.sourceData.value.map((dataItem, dataIndex) => {
           return (
             <div class="c-h-10 c-w-full c-cursor-pointer c-px-3 c-py-1 c-flex c-justify-between c-items-center c-border-b c-border-dashed hover:c-bg-gray-100 dark:hover:c-bg-gray-600 dark:c-border-darkMode">
               <div class="c-flex c-justify-center c-items-center c-gap-x-1 c-select-none">
@@ -47,7 +48,7 @@ const DataSourcePane = defineComponent({
                 {iconList.map((iconItem) => {
                   const Icon = iconItem.icon;
                   return (
-                    <div onClick={() => iconItem.onClick(dataItem)}>
+                    <div onClick={() => iconItem.onClick(dataItem, dataIndex)}>
                       <Icon class="c-h-4 c-w-4 hover:c-fill-blue-400 dark:c-fill-white dark:hover:c-fill-blue-400 c-cursor-pointer" />
                     </div>
                   );

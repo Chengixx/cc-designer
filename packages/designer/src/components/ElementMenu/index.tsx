@@ -14,9 +14,14 @@ import {
   TreeIcon,
 } from "@cgx-designer/icons";
 import { CTooltip } from "@cgx-designer/extensions";
-import { CollapseManage, FocusManage } from "@cgx-designer/hooks";
+import {
+  CollapseManage,
+  FocusManage,
+  SourceDataItem,
+} from "@cgx-designer/hooks";
 import { JSX } from "vue/jsx-runtime";
 import MoreDialog from "./MoreDialog";
+import { CreateRefDialog } from "./CreateRefDialog";
 
 interface IMenuItem {
   icon: any;
@@ -32,6 +37,7 @@ const ElementMenu = defineComponent({
     const collapseManage = inject("collapseManage") as CollapseManage;
     const focusManage = inject("focusManage") as FocusManage;
     const moreDialogRef = ref<typeof MoreDialog>();
+    const createRefDialogRef = ref<typeof CreateRefDialog>();
     const topMenuList: IMenuItem[] = [
       {
         icon: ElementIcon,
@@ -61,14 +67,23 @@ const ElementMenu = defineComponent({
         headerSlot: () => (
           <div class="c-w-full c-flex c-gap-x-1 c-items-center c-pr-2">
             <SearchBox v-model={searchValue.value} />
-            <div onClick={() => {}}>
+            <div
+              onClick={() => {
+                createRefDialogRef.value?.handleOpen();
+              }}
+            >
               <AddIcon class="c-w-4 c-h-4 c-cursor-pointer dark:c-fill-white hover:c-fill-green-400 dark:hover:c-fill-green-400" />
             </div>
           </div>
         ),
         render: () => (
           <div class="c-min-w-[296px] c-h-[calc(100vh-98px)] c-w-full dark:c-border-darkMode">
-            <DataSourcePane />
+            <DataSourcePane
+              onEditSourceData={({ dataItem, dataIndex }) => {
+                console.log(dataItem, dataIndex);
+                createRefDialogRef.value?.handleOpen(dataItem, dataIndex);
+              }}
+            />
           </div>
         ),
       },
@@ -177,6 +192,7 @@ const ElementMenu = defineComponent({
           </div>
 
           <MoreDialog ref={moreDialogRef} />
+          <CreateRefDialog ref={createRefDialogRef} />
         </div>
       );
     };

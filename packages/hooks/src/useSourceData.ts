@@ -45,6 +45,13 @@ export const useSourceData = (elementManage: ElementManage) => {
     });
   };
 
+  const editSourceData = (index: number, name: string, initialValue: any) => {
+    if (index > -1) {
+      sourceData.value[index].name = name;
+      sourceData.value[index].instance.value = initialValue;
+    }
+  };
+
   //todo 记得删除
   addSourceData("ref", "test", "测试哈哈哈");
 
@@ -75,6 +82,7 @@ export const useSourceData = (elementManage: ElementManage) => {
   return {
     sourceData,
     addSourceData,
+    editSourceData,
     removeSourceData,
     getSourceData,
     setSourceData,
