@@ -15,6 +15,10 @@ export const CreateRefDialog = defineComponent({
     const dataName = ref<string>("");
     const isShow = ref<boolean>(false);
     const handleOpen = (dataItem?: SourceDataItem, dataIndex?: number) => {
+      //清空
+      dataName.value = "";
+      initialValue.value = "";
+      innerDataIndex.value = -1;
       isShow.value = true;
       if (dataItem) {
         dialogTitle.value = "编辑数据源";
@@ -41,10 +45,6 @@ export const CreateRefDialog = defineComponent({
             JSON.parse(initialValue.value)
           );
       isShow.value = false;
-      //清空
-      dataName.value = "";
-      initialValue.value = "";
-      innerDataIndex.value = -1;
     };
     expose({
       handleOpen,

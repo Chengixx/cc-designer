@@ -20,6 +20,8 @@ export const SelectSourceDataDialog = defineComponent({
     const sourceDataName = ref<string>("");
     const isShow = ref<boolean>(false);
     const handleOpen = (attributeConfig: IEditorElement) => {
+      //记得清空
+      sourceDataName.value = "";
       isShow.value = true;
       innerAttributeConfig.value = attributeConfig;
     };
@@ -33,8 +35,6 @@ export const SelectSourceDataDialog = defineComponent({
         attributeConfig: innerAttributeConfig.value,
       };
       emit("confirm", confirmData);
-      //记得清空
-      sourceDataName.value = "";
     };
     expose({
       handleOpen,
