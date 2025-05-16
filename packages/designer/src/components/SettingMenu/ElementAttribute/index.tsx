@@ -1,14 +1,14 @@
 import { ElementEngine } from "@cgx-designer/engine";
 import { IEditorElement } from "../../../../../types";
 import { FocusManage, SourceDataManage } from "@cgx-designer/hooks";
-import { setValueByPath } from "@cgx-designer/utils";
+import { setValueByPath, copyToClipboard } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
 import { defineComponent, Fragment, inject, ref, watch } from "vue";
 import { deepClone, getValueByPath } from "@cgx-designer/utils";
 import { vuetifyProps } from "@cgx-designer/materials";
 import { Empty } from "@cgx-designer/extensions";
-import { CFormItem } from "@cgx-designer/extensions";
-import { BindIcon } from "@cgx-designer/icons";
+import { CFormItem, Message } from "@cgx-designer/extensions";
+import { BindIcon, CopyIcon } from "@cgx-designer/icons";
 import {
   SelectSourceDataDialog,
   SelectSourceDataDialogExpose,
@@ -154,16 +154,36 @@ const ElementAttribute = defineComponent({
                       },
                       extra: () => {
                         return (
-                          <div
-                            class="c-ml-1"
-                            onClick={() => {
-                              SelectSourceDataDialogRef.value?.handleOpen(
-                                attributeConfig
-                              );
-                            }}
-                          >
-                            <BindIcon class="c-w-5 c-h-5 dark:c-fill-white c-cursor-pointer" />
-                          </div>
+                          <>
+                            <div class="c-ml-1">
+                              {attributeConfig.field === "id" ? (
+                                <div
+                                  onClick={() => {
+                                    const v = currentFocusElement.value!.id;
+                                    if (v !== undefined && v !== null) {
+                                      copyToClipboard(
+                                        v as string,
+                                        () => Message.success("复制成功"),
+                                        () => Message.warning("复制失败")
+                                      );
+                                    }
+                                  }}
+                                >
+                                  <CopyIcon class="c-w-5 c-h-5 c-cursor-pointer hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500"></CopyIcon>
+                                </div>
+                              ) : (
+                                <div
+                                  onClick={() => {
+                                    SelectSourceDataDialogRef.value?.handleOpen(
+                                      attributeConfig
+                                    );
+                                  }}
+                                >
+                                  <BindIcon class="c-w-5 c-h-5 dark:c-fill-white c-cursor-pointer" />
+                                </div>
+                              )}
+                            </div>
+                          </>
                         );
                       },
                     }}
