@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { ref as cRef, Ref as ICRef } from "@cgx-designer/reactivity";
+import { createRef, RefState } from "@cgx-designer/reactivity";
 import { ElementManage } from "./useElement";
 
 export type SourceDataManage = ReturnType<typeof useSourceData>;
@@ -11,7 +11,7 @@ export type SourceDataType = "ref" | "reactive" | "http";
 export interface SourceDataItem {
   type: SourceDataType;
   name: string;
-  instance: ICRef;
+  instance: RefState;
 }
 
 export const useSourceData = (elementManage: ElementManage) => {
@@ -20,7 +20,7 @@ export const useSourceData = (elementManage: ElementManage) => {
   const setSourceData = (target: SourceDataItem[]) => {
     sourceData.value = target;
     sourceData.value = sourceData.value.map((sourceDataItem) => {
-      const target = cRef(
+      const target = createRef(
         sourceDataItem.instance.initialValue,
         sourceDataItem.instance.deps
       );
@@ -37,7 +37,7 @@ export const useSourceData = (elementManage: ElementManage) => {
     name: string,
     initialValue: any
   ) => {
-    const instance = cRef(initialValue);
+    const instance = createRef(initialValue);
     sourceData.value.push({
       type,
       name,
