@@ -117,12 +117,11 @@ const ElementAttribute = defineComponent({
                     {{
                       default: () => {
                         return getIsSourceData(attributeConfig) ? (
-                          <div>
-                            {"数据源: " +
-                              getValueByPath(
-                                currentFocusElement.value!,
-                                attributeConfig.field!
-                              ).value}
+                          <div class="c-select-none c-cursor-pointer">
+                            {getValueByPath(
+                              currentFocusElement.value!,
+                              attributeConfig.field!
+                            ).value + ".value"}
                           </div>
                         ) : (
                           <ElementEngine
