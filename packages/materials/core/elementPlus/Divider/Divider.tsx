@@ -1,3 +1,4 @@
+import { useMergeAttr } from "@cgx-designer/hooks";
 import { IEditorElement } from "@cgx-designer/types";
 import { ElDivider } from "element-plus";
 import { defineComponent, PropType } from "vue";
@@ -8,15 +9,8 @@ const Divider = defineComponent({
   },
   setup(props, { attrs }) {
     return () => {
-      const renderProps: Record<string, any> = {
-        ...props.elementSchema.props,
-        ...attrs,
-      };
-      return (
-        <ElDivider {...renderProps}>
-          {props.elementSchema.props!.placeholder}
-        </ElDivider>
-      );
+      const renderProps = useMergeAttr(props, attrs);
+      return <ElDivider {...renderProps}>{renderProps.placeholder}</ElDivider>;
     };
   },
 });
