@@ -2,6 +2,7 @@ import { ElementInstance, IEditorElement } from "@cgx-designer/types";
 import {
   deepClone,
   deepCompareAndModify,
+  getValueByPath,
   stringFirstBigger,
 } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
@@ -53,10 +54,6 @@ const ElementNode = defineComponent({
     const localSchema = reactive<IEditorElement>(
       deepClone(props.elementSchema)
     );
-    //给个默认值防止拖拽模式报错
-    const formData = inject("formData", reactive({})) as any;
-    //用于和组件实例双向绑定的值
-    const bindValue = ref<any>(props.modelValue ?? null);
     //格式化field
     const formatField = (field: string | IBindSourceData) => {
       if (!field) return undefined;
@@ -66,6 +63,15 @@ const ElementNode = defineComponent({
         : field;
       return result;
     };
+    //给个默认值防止拖拽模式报错
+    const formData = inject("formData", reactive({})) as any;
+    //用于和组件实例双向绑定的值
+    //! 注意这个地方不能无脑给空了 需要获取一下是不是会有这个值
+    const bindValue = ref<any>(
+      props.modelValue ??
+        getValueByPath(formData, formatField(localSchema.field!) ?? "")
+    );
+
     //拖拽编辑的时候 往field后面放一个特殊的东西 用于三向绑定
     //进来就调用一次 并且后面修改elementSchema的时候，如果和localSchema相同就不调用，不然还是要调用
     const addFieldAssit = () => {
@@ -96,13 +102,8 @@ const ElementNode = defineComponent({
     );
     //更新值
     const handleUpdate = (nv: any) => {
-      //todo 但是需要确定是不是undefined这个是可以的
       //!与此同时 如果defaultValue是sourceData 也要更新source去触发对应的更新
-      if (
-        isSourceData(localSchema.props?.defaultValue) &&
-        props.isPreview &&
-        nv !== undefined
-      ) {
+      if (isSourceData(localSchema.props?.defaultValue) && props.isPreview) {
         sourceDataManage.setSourceDataItem(
           localSchema.props!.defaultValue.value,
           nv
