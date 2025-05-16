@@ -8,7 +8,7 @@ import { deepClone, getValueByPath } from "@cgx-designer/utils";
 import { vuetifyProps } from "@cgx-designer/materials";
 import { Empty } from "@cgx-designer/extensions";
 import { CFormItem, Message } from "@cgx-designer/extensions";
-import { BindIcon, CopyIcon } from "@cgx-designer/icons";
+import { BindIcon, ClipBoardIcon } from "@cgx-designer/icons";
 import {
   SelectSourceDataDialog,
   SelectSourceDataDialogExpose,
@@ -175,7 +175,7 @@ const ElementAttribute = defineComponent({
                                     }
                                   }}
                                 >
-                                  <CopyIcon class="c-w-5 c-h-5 c-cursor-pointer hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500"></CopyIcon>
+                                  <ClipBoardIcon class="c-w-5 c-h-5 c-cursor-pointer hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500"></ClipBoardIcon>
                                 </div>
                               ) : (
                                 <div
