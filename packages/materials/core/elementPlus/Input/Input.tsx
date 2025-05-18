@@ -21,7 +21,7 @@ const Input = defineComponent({
       };
       //Todo 这里不知道为什么给ref有ts报错啊
       return (
-        <ElInput {...renderProps} ref={elementRef as any}>
+        <ElInput {...renderProps} ref={elementRef}>
           {{
             ...slots,
           }}
