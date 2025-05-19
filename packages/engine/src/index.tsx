@@ -7,7 +7,6 @@ import {
 } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
 import {
-  ComponentPublicInstance,
   computed,
   defineComponent,
   inject,
@@ -103,7 +102,10 @@ const ElementNode = defineComponent({
     //更新值
     const handleUpdate = (nv: any) => {
       //!与此同时 如果defaultValue是sourceData 也要更新source去触发对应的更新
-      if (isValueIsSourceData(localSchema.props?.defaultValue) && props.isPreview) {
+      if (
+        isValueIsSourceData(localSchema.props?.defaultValue) &&
+        props.isPreview
+      ) {
         sourceDataManage.setSourceDataItem(
           localSchema.props!.defaultValue.value,
           nv
@@ -125,7 +127,9 @@ const ElementNode = defineComponent({
     //初始化的时候，去赋值一下bindValue
     const initComponentInstance = () => {
       if (typeof (localSchema.props ??= {}).defaultValue !== "undefined") {
-        const localDefaultValue = isValueIsSourceData(localSchema.props!.defaultValue)
+        const localDefaultValue = isValueIsSourceData(
+          localSchema.props!.defaultValue
+        )
           ? sourceDataManage.getSourceData(
               localSchema.props!.defaultValue.value
             ).instance.value
