@@ -65,6 +65,7 @@ export const useSourceData = (elementManage: ElementManage) => {
 
   //todo 记得删除
   addSourceData("ref", "test", "测试哈哈哈");
+  addSourceData("ref", "test1", "测试11111");
 
   const removeSourceData = (name: string) => {
     //一样的道理 删除之前 要先清除所用的依赖
@@ -129,6 +130,6 @@ export const useSourceData = (elementManage: ElementManage) => {
     getSourceData,
     setSourceData,
     setSourceDataItem,
-    removeSourceDataDepByComponentId
+    removeSourceDataDepByComponentId,
   };
 };
