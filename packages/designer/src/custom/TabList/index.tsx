@@ -21,7 +21,7 @@ const TabList = defineComponent({
     );
     const parentTab = computed(() => {
       if (!bindValue.value.length) return null;
-      const pTab = elementManage.findParentElementById(bindValue.value[0].id!);
+      const pTab = elementManage.getParentElementById(bindValue.value[0].id!);
       return pTab;
     });
 

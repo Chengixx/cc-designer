@@ -19,13 +19,13 @@ const Tab = defineComponent({
     const focusManage = inject("focusManage") as FocusManage;
     //原型元素
     const prototypeElementSchema = computed(() => {
-      return elementManage.findElementById(props.elementSchema.id!);
+      return elementManage.getElementById(props.elementSchema.id!);
     });
     //用于聚焦某个tabPane
     const handleFocusTabPane = (index: number) => {
       if (!elementManage.isDesignMode.value) return;
       const tabPaneId = props.elementSchema.elementList![index].id!;
-      const tabPanePrototype = elementManage.findElementById(tabPaneId);
+      const tabPanePrototype = elementManage.getElementById(tabPaneId);
       focusManage.handleFocus(tabPanePrototype!);
     };
     //切换tab

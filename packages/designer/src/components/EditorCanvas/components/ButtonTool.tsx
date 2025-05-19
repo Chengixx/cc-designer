@@ -30,7 +30,7 @@ const ButtonTool = defineComponent({
     const handleTop = (e: MouseEvent) => {
       e.stopPropagation();
       const id = focusManage.focusedElement.value?.id;
-      const parentDom = elementManage.findParentElementById(id!);
+      const parentDom = elementManage.getParentElementById(id!);
       focusManage.handleFocus(parentDom!);
     };
 

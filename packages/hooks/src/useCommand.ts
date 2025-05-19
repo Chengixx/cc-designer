@@ -179,7 +179,7 @@ export const useCommand = (
           redo: () => {
             elementManage.setElementList(cloneDeep(after)!);
             focusManage.handleFocus(
-              elementManage.findElementById(newElementSchema.id!)!
+              elementManage.getElementById(newElementSchema.id!)!
             );
           },
           undo: () => {

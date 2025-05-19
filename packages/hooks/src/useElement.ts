@@ -54,7 +54,7 @@ export const useElement = () => {
     const result = cloneDeep(elementList.value);
     return result;
   };
-  const findElementById = (
+  const getElementById = (
     id: string | number,
     elements: IEditorElement[] = elementList.value
   ): IEditorElement | null => {
@@ -64,7 +64,7 @@ export const useElement = () => {
         result = item;
       }
       if (item.elementList) {
-        const elementResult = findElementById(id, item.elementList);
+        const elementResult = getElementById(id, item.elementList);
         if (elementResult) {
           result = elementResult;
         }
@@ -72,7 +72,7 @@ export const useElement = () => {
     }
     return result;
   };
-  const findParentElementById = (
+  const getParentElementById = (
     id: string | number,
     elements: IEditorElement[] = elementList.value,
     parentElement: IEditorElement | null = null
@@ -87,7 +87,7 @@ export const useElement = () => {
         }
       }
       if (item.elementList && result === null) {
-        result = findParentElementById(id, item.elementList, item);
+        result = getParentElementById(id, item.elementList, item);
       }
     }
     return result;
@@ -156,10 +156,10 @@ export const useElement = () => {
     setElementList,
     deleteElementInstance,
     getElementInstanceById,
-    findParentElementById,
+    getParentElementById,
     deleteElementById,
     addElementFromLast,
-    findElementById,
+    getElementById,
     deleteAllElements,
     addElementInstance,
     deepCopyElement,

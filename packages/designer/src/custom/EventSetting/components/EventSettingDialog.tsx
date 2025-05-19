@@ -165,7 +165,7 @@ const EventSettingDialog = defineComponent({
         elementSchema.value = null;
         if (newEventInstance!.componentId) {
           //这就是说明是组件联动的
-          const newElementSchema = elementManage.findElementById(
+          const newElementSchema = elementManage.getElementById(
             newEventInstance!.componentId
           );
           elementSchema.value = newElementSchema;

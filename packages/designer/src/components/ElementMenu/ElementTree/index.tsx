@@ -16,7 +16,7 @@ const ElementTree = defineComponent({
         return focusManage.focusedElement.value?.id || "";
       },
       set(e) {
-        const elementSchema = elementManage.findElementById(e);
+        const elementSchema = elementManage.getElementById(e);
         if (elementSchema) {
           focusManage.handleFocus(elementSchema);
         }
@@ -24,7 +24,7 @@ const ElementTree = defineComponent({
     });
 
     const handleNodeClick = (data: TreeNode) => {
-      const element = elementManage.findElementById(data.id);
+      const element = elementManage.getElementById(data.id);
       if (
         focusManage.focusedElement.value ||
         element?.id !== focusManage.focusedElement.value!.id

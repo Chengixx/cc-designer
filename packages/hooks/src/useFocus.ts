@@ -134,7 +134,7 @@ export const useFocus = (
   };
 
   const handleFocusById = (id: string) => {
-    const elementSchema = elementManage.findElementById(id);
+    const elementSchema = elementManage.getElementById(id);
     if (elementSchema) {
       focusedElement.value = elementSchema;
     }

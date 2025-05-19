@@ -76,7 +76,7 @@ const getNewEvents = (type: string) => {
 };
 
 const getElementSetting = (id: string) => {
-  const key = elementManage.findElementById(id)!.key;
+  const key = elementManage.getElementById(id)!.key;
   const baseSetting = elementController.getElementConfig(key);
   return baseSetting;
 };
