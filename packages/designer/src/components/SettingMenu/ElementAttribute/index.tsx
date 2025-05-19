@@ -6,7 +6,7 @@ import { elementController } from "@cgx-designer/controller";
 import { defineComponent, Fragment, inject, ref, watch } from "vue";
 import { deepClone, getValueByPath } from "@cgx-designer/utils";
 import { vuetifyProps } from "@cgx-designer/materials";
-import { Empty } from "@cgx-designer/extensions";
+import { CIcon, Empty } from "@cgx-designer/extensions";
 import { CFormItem, Message } from "@cgx-designer/extensions";
 import { BindIcon, ClipBoardIcon } from "@cgx-designer/icons";
 import {
@@ -163,7 +163,8 @@ const ElementAttribute = defineComponent({
                           <>
                             <div class="c-ml-1">
                               {attributeConfig.field === "id" ? (
-                                <div
+                                <CIcon
+                                  icon={ClipBoardIcon}
                                   onClick={() => {
                                     const v = currentFocusElement.value!.id;
                                     if (v !== undefined && v !== null) {
@@ -174,9 +175,7 @@ const ElementAttribute = defineComponent({
                                       );
                                     }
                                   }}
-                                >
-                                  <ClipBoardIcon class="c-w-5 c-h-5 c-cursor-pointer hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500"></ClipBoardIcon>
-                                </div>
+                                ></CIcon>
                               ) : (
                                 <div
                                   onClick={() => {

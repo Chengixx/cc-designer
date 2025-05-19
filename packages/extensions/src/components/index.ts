@@ -8,6 +8,7 @@ import IDE from "./IDE";
 import Loading from "./Loading/index.vue";
 import SvgIcon from "./SvgIcon";
 import CTooltip from "./Tooltip/index.vue";
+import CIcon from "./CIcon";
 export * from "./Message/index";
 export * from "./Tabs/index";
 export * from "./Collapse/index";
@@ -23,4 +24,5 @@ export {
   Loading,
   SvgIcon,
   CTooltip,
+  CIcon,
 };
