@@ -87,6 +87,20 @@ export const useSourceData = (elementManage: ElementManage) => {
     sourceData.value = sourceData.value.filter((item) => item.name !== name);
   };
 
+  const removeSourceDataDepByComponentId = (
+    sourceDataName: string,
+    componentId: string
+  ) => {
+    const sourceDataItem = sourceData.value.find(
+      (item) => item.name === sourceDataName
+    );
+    if (sourceDataItem) {
+      sourceDataItem.instance.deps = sourceDataItem.instance.deps.filter(
+        (dep) => dep.componentId !== componentId
+      );
+    }
+  };
+
   const getSourceData = (name: string) => {
     const item = sourceData.value.find((item) => item.name === name);
     if (item) {
@@ -115,5 +129,6 @@ export const useSourceData = (elementManage: ElementManage) => {
     getSourceData,
     setSourceData,
     setSourceDataItem,
+    removeSourceDataDepByComponentId
   };
 };

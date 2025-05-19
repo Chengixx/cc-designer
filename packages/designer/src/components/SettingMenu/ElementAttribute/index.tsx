@@ -181,7 +181,13 @@ const ElementAttribute = defineComponent({
                                 <div
                                   onClick={() => {
                                     SelectSourceDataDialogRef.value?.handleOpen(
-                                      attributeConfig
+                                      attributeConfig,
+                                      isSourceData
+                                        ? getValueByPath(
+                                            currentFocusElement.value!,
+                                            attributeConfig.field!
+                                          )
+                                        : undefined
                                     );
                                   }}
                                   class={
@@ -209,6 +215,13 @@ const ElementAttribute = defineComponent({
           onConfirm={({ name, attributeConfig }) =>
             handleBindSourceData(name, attributeConfig)
           }
+          onRemove={({ elementAttrObj, attributeConfig }) => {
+            handleSetValue(undefined, attributeConfig.field!, attributeConfig);
+            sourceDataManage.removeSourceDataDepByComponentId(
+              elementAttrObj.value,
+              currentFocusElement.value?.id!
+            );
+          }}
         />
       </>
     );

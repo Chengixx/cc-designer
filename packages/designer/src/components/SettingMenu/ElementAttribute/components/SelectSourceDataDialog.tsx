@@ -4,14 +4,20 @@ import { SourceDataManage } from "@cgx-designer/hooks";
 import { dataSourceColor } from "../../../../constant/index";
 import { IDE } from "@cgx-designer/extensions";
 import { IEditorElement } from "@cgx-designer/types";
+import { IBindSourceData } from "@cgx-designer/reactivity";
+import { deepClone } from "@cgx-designer/utils";
+import { VBtnColorType } from "@cgx-designer/materials";
 
 export interface SelectSourceDataDialogExpose {
-  handleOpen: (attributeConfig: IEditorElement) => void;
+  handleOpen: (
+    attributeConfig: IEditorElement,
+    elementAttrObj?: IBindSourceData
+  ) => void;
 }
 
 export const SelectSourceDataDialog = defineComponent({
   name: "SelectSourceDataDialog",
-  emits: ["confirm"],
+  emits: ["confirm", "remove"],
   setup(_, { expose, emit }) {
     const Button = elementController.getElementRender("button");
     const Dialog = elementController.getElementRender("dialog");
@@ -19,11 +25,20 @@ export const SelectSourceDataDialog = defineComponent({
     const innerAttributeConfig = ref<IEditorElement>();
     const sourceDataName = ref<string>("");
     const isShow = ref<boolean>(false);
-    const handleOpen = (attributeConfig: IEditorElement) => {
+    const innerElementAttrObj = ref<IBindSourceData>();
+    const handleOpen = (
+      attributeConfig: IEditorElement,
+      elementAttrObj?: IBindSourceData
+    ) => {
       //记得清空
+      innerElementAttrObj.value = undefined;
       sourceDataName.value = "";
       isShow.value = true;
       innerAttributeConfig.value = attributeConfig;
+      if (elementAttrObj) {
+        sourceDataName.value = elementAttrObj.value;
+        innerElementAttrObj.value = deepClone(elementAttrObj);
+      }
     };
     const handleCancel = () => {
       isShow.value = false;
@@ -35,6 +50,14 @@ export const SelectSourceDataDialog = defineComponent({
         attributeConfig: innerAttributeConfig.value,
       };
       emit("confirm", confirmData);
+    };
+    const handleRemove = () => {
+      isShow.value = false;
+      const removeData = {
+        attributeConfig: innerAttributeConfig.value,
+        elementAttrObj: innerElementAttrObj.value,
+      };
+      emit("remove", removeData);
     };
     expose({
       handleOpen,
@@ -87,6 +110,16 @@ export const SelectSourceDataDialog = defineComponent({
             footer: () => (
               <>
                 <Button onClick={handleCancel}>取消</Button>
+                {innerElementAttrObj.value && (
+                  <Button
+                    type="danger"
+                    color={VBtnColorType.danger}
+                    onClick={handleRemove}
+                  >
+                    移除绑定
+                  </Button>
+                )}
+
                 <Button type="primary" onClick={handleConfirm}>
                   确定
                 </Button>
