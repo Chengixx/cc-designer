@@ -175,7 +175,9 @@ const ElementNode = defineComponent({
         if (localSchema.formItem) {
           instance.setValue = handleUpdate;
           instance.getValue = () =>
-            formData[formatField(localSchema.field!)] || props.modelValue;
+            formData[formatField(localSchema.field!)] ||
+            (props.modelValue ??
+              getValueByPath(formData, formatField(localSchema.field!) ?? ""));
         }
 
         elementManage.addElementInstance(localSchema.id, instance);
