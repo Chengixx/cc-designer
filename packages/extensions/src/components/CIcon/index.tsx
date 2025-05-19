@@ -7,7 +7,7 @@ const CIcon = defineComponent({
       type: Object as PropType<any>,
       required: true,
     },
-    heightClass: {
+    sizeClass: {
       type: String,
       default: "",
       require: false,
@@ -35,7 +35,7 @@ const CIcon = defineComponent({
         class={[
           "c-cursor-pointer",
           props.extraClass,
-          props.heightClass ? props.heightClass : "c-w-5 c-h-5",
+          props.sizeClass ? props.sizeClass : "c-w-5 c-h-5",
           props.colorClass
             ? props.colorClass
             : "hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500",
