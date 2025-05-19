@@ -68,29 +68,6 @@ export const deepClone = <T>(obj: T): T => {
   return newObj as T;
 };
 
-//拆对象 组新对象
-export const createEmptyObj = (
-  props: Record<string, any>
-): Record<string, any> => {
-  const templateProps: Record<string, any> = {};
-
-  Object.keys(props).forEach((key) => {
-    if (
-      typeof props[key] === "object" &&
-      !Array.isArray(props[key]) &&
-      props[key] !== null
-    ) {
-      // 如果是对象，则递归调用
-      templateProps[key] = createEmptyObj(props[key]);
-    } else {
-      // 否则设置为 null
-      templateProps[key] = null;
-    }
-  });
-
-  return templateProps;
-};
-
 //字符串第一个字母变大写
 export const stringFirstBigger = (str: string): string => {
   if (!str) return str;
