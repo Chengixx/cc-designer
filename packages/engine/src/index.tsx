@@ -128,12 +128,11 @@ const ElementNode = defineComponent({
     const initComponentInstance = () => {
       if (typeof (localSchema.props ??= {}).defaultValue !== "undefined") {
         const localDefaultValue = isValueIsSourceData(
-          localSchema.props!.defaultValue
+          localSchema.props.defaultValue
         )
-          ? sourceDataManage.getSourceData(
-              localSchema.props!.defaultValue.value
-            ).instance.value
-          : localSchema.props!.defaultValue;
+          ? sourceDataManage.getSourceData(localSchema.props.defaultValue.value)
+              .instance.value
+          : localSchema.props.defaultValue;
         const defaultValue = !props.isPreview
           ? localDefaultValue
           : (formData[formatField(localSchema.field!)] ?? localDefaultValue);
