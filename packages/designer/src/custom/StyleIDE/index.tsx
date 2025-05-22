@@ -59,7 +59,7 @@ const StyleIDE = defineComponent({
             保存
           </Button>
         </div>
-        <div class="c-w-full c-h-40 c-border-2 c-transition-all c-duration-300 hover:c-border-blue-500 dark:c-border-gray-600 dark:hover:c-border-blue-500 border-solid rounded-md overflow-hidden">
+        <div class="c-w-full c-h-40 c-rounded-md c-border-2 c-transition-all c-duration-300 hover:c-border-blue-500 dark:c-border-gray-600 dark:hover:c-border-blue-500 border-solid rounded-md overflow-hidden">
           <IDE
             ref={styleIDERef as any}
             v-model={bindValue.value}
