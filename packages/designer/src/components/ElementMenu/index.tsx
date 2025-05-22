@@ -77,7 +77,6 @@ const ElementMenu = defineComponent({
             <DataSourcePane
               searchValue={searchValue.value}
               onEditSourceData={({ dataItem, dataIndex }) => {
-                console.log(dataItem, dataIndex);
                 createRefDialogRef.value?.handleOpen(dataItem, dataIndex);
               }}
             />

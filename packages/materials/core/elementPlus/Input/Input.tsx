@@ -3,6 +3,7 @@ import { ElInput } from "element-plus";
 import { defineComponent, PropType, ref } from "vue";
 import { isEmpty } from "lodash-es";
 import { exposeDom } from "@cgx-designer/utils";
+import { useMergeAttr } from "@cgx-designer/hooks";
 
 const Input = defineComponent({
   props: {
@@ -14,12 +15,9 @@ const Input = defineComponent({
   setup(props, { attrs, expose, slots }) {
     const elementRef = ref<any>(null);
     expose(exposeDom(elementRef));
+    const renderProps = useMergeAttr(props, attrs);
+
     return () => {
-      const renderProps: Record<string, any> = {
-        ...(!isEmpty(props.elementSchema) && props.elementSchema.props),
-        ...attrs,
-      };
-      //Todo 这里不知道为什么给ref有ts报错啊
       return (
         <ElInput {...renderProps} ref={elementRef}>
           {{

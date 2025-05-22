@@ -1,3 +1,4 @@
+import { useMergeAttr } from "@cgx-designer/hooks";
 import { IEditorElement } from "@cgx-designer/types";
 import { ElSwitch } from "element-plus";
 import { isEmpty } from "lodash-es";
@@ -11,11 +12,9 @@ const Switch = defineComponent({
     },
   },
   setup(props, { attrs }) {
+    const renderProps = useMergeAttr(props, attrs);
+
     return () => {
-      const renderProps: Record<string, any> = {
-        ...(!isEmpty(props.elementSchema) && props.elementSchema.props),
-        ...attrs,
-      };
       return <ElSwitch {...renderProps} />;
     };
   },
