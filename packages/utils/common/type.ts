@@ -35,19 +35,6 @@ export const isIEditorElementArray = (arr: any[]): arr is IEditorElement[] => {
   return true;
 };
 
-//用类型断言去判断是不是Form这个接口
-export const isFormSetting = (obj: any): obj is FormSetting => {
-  return (
-    typeof obj.modelName === "string" &&
-    typeof obj.refName === "string" &&
-    typeof obj.rulesName === "string" &&
-    typeof obj.labelWidth === "number" &&
-    typeof obj.disabled === "boolean" &&
-    ["top", "left", "right"].includes(obj.labelPosition) &&
-    ["default", "small", "large"].includes(obj.size)
-  );
-};
-
 //上面两个方法结合
 export const checkCJsonType = (
   obj: any
@@ -60,7 +47,7 @@ export const checkCJsonType = (
   return (
     typeof obj === "object" &&
     typeof obj.script === "string" &&
-    isFormSetting(obj.formSetting) &&
+    typeof obj.formSetting === "object" &&
     Array.isArray(obj.elementList) &&
     isIEditorElementArray(obj.elementList)
   );
