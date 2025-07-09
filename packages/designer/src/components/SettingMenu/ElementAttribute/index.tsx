@@ -100,7 +100,7 @@ const ElementAttribute = defineComponent({
       );
       const componentId = currentFocusElement.value?.id!;
       //然后往数据源中添加依赖
-      sourceDataItem.instance.addDeps({
+      sourceDataItem.instance.addDependency({
         key: currentFocusElement.value!.id! + attributeConfig.field!,
         type: "component",
         componentId,
