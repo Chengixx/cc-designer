@@ -47,12 +47,10 @@ const EventSettingDialog = defineComponent({
     const methodsList = computed(() => {
       //全局的一个情况下
       if (eventInstance.type === "global") {
-        return Object.entries(functionController.functionMap.value).map(
-          ([label]) => ({
-            label,
-            value: label,
-          })
-        );
+        return Object.entries(functionController.functions).map(([label]) => ({
+          label,
+          value: label,
+        }));
       }
       //用户自己写的script的情况
       if (eventInstance.type === "custom") {

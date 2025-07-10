@@ -58,7 +58,7 @@ export const useFunction = (
     const sourceDataJs = `const {${Object.keys(sourceData.value).join(",")}} = this;`;
     //用new Function去创建 但是注意这里一定要立刻执行 否则没用的
     const globalFunction: Record<string, () => any> = Object.entries(
-      functionController.functionMap.value
+      functionController.functions
     ).reduce((acc: any, [key, value]) => {
       acc[key] = value.callback;
       return acc;
@@ -95,9 +95,7 @@ export const useFunction = (
       //global
       if (action.type === "global") {
         try {
-          functionController.functionMap.value[action.methodName!]?.callback(
-            ...args
-          );
+          functionController.functions[action.methodName!]?.callback(...args);
         } catch (err) {
           console.error(`函数(${action.methodName})报错`, err);
         }
