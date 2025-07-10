@@ -74,10 +74,11 @@ const ElementNode = defineComponent({
     //拖拽编辑的时候 往field后面放一个特殊的东西 用于三向绑定
     //进来就调用一次 并且后面修改elementSchema的时候，如果和localSchema相同就不调用，不然还是要调用
     const addFieldAssit = () => {
-      if (props.isPreview) {
-        return;
-      }
-      if (localSchema.field && typeof localSchema.field === "string") {
+      if (
+        localSchema.field &&
+        typeof localSchema.field === "string" &&
+        !props.isPreview
+      ) {
         localSchema.field = localSchema.field + "-assit";
       }
     };
