@@ -1,4 +1,3 @@
-import { events } from "@cgx-designer/utils";
 import { HoverManage } from "./useHover";
 import { FocusManage } from "./useFocus";
 
@@ -16,7 +15,6 @@ export const useDrag = () => {
     hoverManager.setDisableHoverStatus();
     hoverManager.setShowHoverBox();
     hoverManager.setHoveredElement();
-    events.emit("start");
   };
   const handleDropEnd = (
     hoverManager: HoverManage,
@@ -27,7 +25,6 @@ export const useDrag = () => {
       focusManage.focusTransition.value = true;
     }
     hoverManager.setDisableHoverStatus(false);
-    events.emit("end");
   };
   return { handleDropStart, handleDropEnd };
 };

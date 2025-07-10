@@ -4,10 +4,10 @@ import { deepClone } from "@cgx-designer/utils";
 import { ClearIcon, CopyIcon, TopIcon } from "@cgx-designer/icons";
 import { noCopyDomList, findHigherLevelDomList } from "../../../constant/index";
 import { elementController } from "@cgx-designer/controller";
+import { IEditorElement } from "@cgx-designer/types";
 
 const ButtonTool = defineComponent({
   setup() {
-    const commands: Record<string, Function> | undefined = inject("commands");
     const focusManage = inject("focusManage") as FocusManage;
     const elementManage = inject("elementManage") as ElementManage;
 
@@ -16,14 +16,16 @@ const ButtonTool = defineComponent({
       const newElementSchema = elementManage.deepCopyElement(
         deepClone(focusManage.focusedElement.value!)
       );
-      commands!.handleLastAdd(newElementSchema);
+      elementManage.addElementFromLast(newElementSchema as IEditorElement);
+      focusManage.handleFocus(newElementSchema as IEditorElement);
     };
 
     const handleDelete = (e: MouseEvent) => {
       e.stopPropagation();
       focusManage.startFocusTimedQuery();
       const id = focusManage.focusedElement.value?.id;
-      commands!.handleDelete(id);
+      elementManage.deleteElementById(id!);
+      focusManage.resetFocus();
       focusManage.stopFocusTimedQuery();
     };
 

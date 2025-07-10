@@ -1,9 +1,10 @@
 import { IEditorElement } from "@cgx-designer/types";
 import { getRandomId } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
-import { defineComponent, inject, PropType, ref, watch } from "vue";
+import { defineComponent, PropType, ref, watch, inject } from "vue";
 import { Divider } from "@cgx-designer/extensions";
 import { ClearIcon } from "@cgx-designer/icons";
+import { ElementManage, FocusManage } from "@cgx-designer/hooks";
 
 const ColList = defineComponent({
   props: {
@@ -12,7 +13,8 @@ const ColList = defineComponent({
   setup(_, { attrs }) {
     const Button = elementController.getElementRender("button");
     const InputNumber = elementController.getElementRender("inputNumber");
-    const commandManage = inject("commandManage") as any;
+    const elementManage = inject("elementManage") as ElementManage;
+    const focusManage = inject("focusManage") as FocusManage;
     const bindValue = ref<IEditorElement[]>(
       attrs.modelValue as IEditorElement[]
     );
@@ -36,7 +38,10 @@ const ColList = defineComponent({
     const handleDeleteCol = (index: number) => {
       const id = bindValue.value[index].id!;
       //Todo 深拷贝问题
-      commandManage.commands.handleDelete(id, bindValue.value.length === 1);
+      elementManage.deleteElementById(id);
+      if (bindValue.value.length === 1) {
+        focusManage.resetFocus();
+      }
     };
 
     return () => (

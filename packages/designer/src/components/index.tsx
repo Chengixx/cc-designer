@@ -12,7 +12,6 @@ import {
 } from "./SourceCodeDialog";
 import {
   useCollapse,
-  useCommand,
   useFunction,
   useForm,
   useHover,
@@ -21,6 +20,7 @@ import {
   useTheme,
   useMode,
   useSourceData,
+  useQueue,
 } from "@cgx-designer/hooks";
 import CollapseWidget from "./CollapseWidget";
 import { elementController } from "@cgx-designer/controller";
@@ -43,10 +43,9 @@ const ElementDesigner = defineComponent({
     const modeManage = useMode();
     const hoverManage = useHover(elementManage, modeManage);
     const focusManage = useFocus(elementManage, modeManage);
-    const commandManage = useCommand(elementManage, focusManage);
-    const { commands } = commandManage;
     const sourceDataManage = useSourceData(elementManage);
     const functionManage = useFunction(elementManage, sourceDataManage);
+    const queueManage = useQueue();
     //因为只能有一个实例 所以用provide注入进去
     provide("focusManage", focusManage);
     provide("elementManage", elementManage);
@@ -55,19 +54,16 @@ const ElementDesigner = defineComponent({
     provide("hoverManage", hoverManage);
     provide("formManage", formManage);
     provide("modeManage", modeManage);
-    provide("commandManage", commandManage);
-    provide("commands", commands);
     provide("sourceDataManage", sourceDataManage);
     provide("functionManage", functionManage);
-
+    provide("queueManage", queueManage);
+    
     const buttonMap = createOperationButtonSetting(
       formManage,
       elementManage,
       functionManage,
       focusManage,
       sourceDataManage,
-      commandManage,
-      commands!,
       previewDialogRef,
       exportSourceCodeDialogRef,
       importSourceCodeDialogRef

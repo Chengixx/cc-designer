@@ -26,8 +26,6 @@ export const createOperationButtonSetting = (
   functionManage: FunctionManage,
   focusManage: FocusManage,
   sourceDataManage: SourceDataManage,
-  commandManage: any,
-  commands: Record<string, Function>,
   previewDialogRef: any,
   exportSourceCodeDialogRef: any,
   importSourceCodeDialogRef: any
@@ -43,7 +41,6 @@ export const createOperationButtonSetting = (
           elementManage.elementInstanceList.value
         );
         console.log("当前function管理", functionManage);
-        console.log("当前队列管理", commandManage);
       },
       icon: DebugIcon,
     },
@@ -54,21 +51,24 @@ export const createOperationButtonSetting = (
           Message.warning("已经是空的啦!");
           return;
         }
-        commands.handleClear();
+        elementManage.deleteAllElements();
+        focusManage.resetFocus();
       },
       icon: ClearIcon,
     },
     Undo: {
       label: "撤销",
       handler: () => {
-        commands.undo();
+        //todo 撤销
+        console.log("撤销");
       },
       icon: UndoIcon,
     },
     Redo: {
       label: "重做",
       handler: () => {
-        commands.redo();
+        //todo 重做
+        console.log("重做");
       },
       icon: RedoIcon,
     },

@@ -10,7 +10,6 @@ const ElementTree = defineComponent({
   setup() {
     const elementManage = inject("elementManage") as ElementManage;
     const focusManage = inject("focusManage") as FocusManage;
-    const commands = inject("commands") as Record<string, Function> | null;
     const selectedKey = computed({
       get() {
         return focusManage.focusedElement.value?.id || "";
@@ -35,13 +34,15 @@ const ElementTree = defineComponent({
 
     const handleDeleteNode = (e: MouseEvent, data: IEditorElement) => {
       e.stopPropagation();
-      commands!.handleDelete(data.id);
+      elementManage.deleteElementById(data.id!);
+      focusManage.resetFocus();
     };
 
     const handleCopyNode = (e: MouseEvent, data: IEditorElement) => {
       e.stopPropagation();
       const newElementSchema = elementManage.deepCopyElement(deepClone(data));
-      commands!.handleLastAdd(newElementSchema);
+      elementManage.addElementFromLast(newElementSchema as IEditorElement);
+      focusManage.handleFocus(newElementSchema as IEditorElement);
     };
 
     const buttonRender = [

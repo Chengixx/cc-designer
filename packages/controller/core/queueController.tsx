@@ -113,6 +113,3 @@ export class QueueController {
     };
   };
 }
-
-// 提供全局实例
-export const queueController = new QueueController();

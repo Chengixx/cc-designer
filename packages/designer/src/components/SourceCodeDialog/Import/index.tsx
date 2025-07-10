@@ -2,6 +2,7 @@ import { ref, defineComponent, nextTick, inject } from "vue";
 import { IDE } from "@cgx-designer/extensions";
 import { checkCJsonType } from "@cgx-designer/utils";
 import {
+  ElementManage,
   FormManage,
   FunctionManage,
   SourceDataManage,
@@ -17,10 +18,10 @@ export const ImportSourceCodeDialog = defineComponent({
   setup(_, { expose }) {
     const Button = elementController.getElementRender("button");
     const Dialog = elementController.getElementRender("dialog");
-    const commands: Record<string, Function> | undefined = inject("commands");
     const formManage = inject("formManage") as FormManage;
     const functionManage = inject("functionManage") as FunctionManage;
     const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
+    const elementManage = inject("elementManage") as ElementManage;
     const jsonContent = ref<string>("");
     const IDERef = ref<typeof IDE | null>(null);
     const isShow = ref<boolean>(false);
@@ -37,7 +38,7 @@ export const ImportSourceCodeDialog = defineComponent({
       const value = jsonContent.value;
       try {
         if (value && checkCJsonType(JSON.parse(value))) {
-          commands!.handleImport(JSON.parse(value).elementList);
+          elementManage.setElementList(JSON.parse(value).elementList);
           formManage.setFormSetting(JSON.parse(value).formSetting);
           functionManage.setJavaScriptVal(JSON.parse(value).script);
           sourceDataManage.setSourceData(JSON.parse(value).sourceData);

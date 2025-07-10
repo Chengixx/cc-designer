@@ -1,4 +1,3 @@
-export * from "./useCommand";
 export * from "./useDrag";
 export * from "./useElement";
 export * from "./useFocus";
@@ -13,4 +12,5 @@ export * from "./useMode";
 export * from "./useToggle";
 export * from "./useOrderedChildren";
 export * from "./useSourceData";
-export * from "./useMergeAttr"
+export * from "./useMergeAttr";
+export * from "./useQueue";

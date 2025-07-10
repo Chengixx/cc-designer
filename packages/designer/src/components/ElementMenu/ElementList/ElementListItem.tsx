@@ -2,6 +2,7 @@ import { SvgIcon } from "@cgx-designer/extensions";
 import { elementController } from "@cgx-designer/controller";
 import { getRandomId } from "@cgx-designer/utils";
 import { defineComponent, inject, ref } from "vue";
+import { ElementManage, FocusManage } from "@cgx-designer/hooks";
 
 export const ElementListBarItem = defineComponent({
   props: {
@@ -15,11 +16,13 @@ export const ElementListBarItem = defineComponent({
     },
   },
   setup(props) {
-    const commands: Record<string, Function> | undefined = inject("commands");
+    const elementManage = inject("elementManage") as ElementManage;
+    const focusManage = inject("focusManage") as FocusManage;
     const isHovered = ref<boolean>(false);
     const handleClick = () => {
       const newElementSchema = props.element.template(getRandomId);
-      commands!.handleLastAdd(newElementSchema);
+      elementManage.addElementFromLast(newElementSchema);
+      focusManage.handleFocus(newElementSchema);
     };
 
     return () => (
@@ -55,11 +58,13 @@ export const ElementListBoxItem = defineComponent({
     },
   },
   setup(props) {
-    const commands: Record<string, Function> | undefined = inject("commands");
+    const elementManage = inject("elementManage") as ElementManage;
+    const focusManage = inject("focusManage") as FocusManage;
     const isHovered = ref<boolean>(false);
     const handleClick = () => {
       const newElementSchema = props.element.template(getRandomId);
-      commands!.handleLastAdd(newElementSchema);
+      elementManage.addElementFromLast(newElementSchema);
+      focusManage.handleFocus(newElementSchema);
     };
 
     return () => (

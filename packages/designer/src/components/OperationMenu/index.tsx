@@ -1,4 +1,4 @@
-import { computed, defineComponent, inject, PropType } from "vue";
+import { computed, defineComponent, PropType } from "vue";
 import { OperationButtonSetting } from "./operationButtonSetting";
 import ModeButtonGroup from "./ModeButtonGroup";
 import LeftOperationArea from "./LeftOperationArea";
@@ -12,19 +12,12 @@ const OperationMenu = defineComponent({
     },
   },
   setup(props) {
-    const commandManage = inject("commandManage") as any;
-
     const undoDisabled = computed(() => {
-      const { queue, current } = commandManage;
-      return queue?.length === 0 || (queue?.length > 0 && current === -1);
+      return false;
     });
 
     const redoDisabled = computed(() => {
-      const { queue, current } = commandManage;
-      return (
-        queue?.length === 0 ||
-        (queue?.length > 0 && current === queue.length - 1)
-      );
+      return false;
     });
 
     return () => (
