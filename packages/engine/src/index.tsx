@@ -126,8 +126,11 @@ const ElementNode = defineComponent({
       }
     );
     //初始化的时候，去赋值一下bindValue
-    const initComponentInstance = () => {
-      if (typeof (localSchema.props ??= {}).defaultValue !== "undefined") {
+    const initComponentInstance = (ignoreUndefined: boolean = false) => {
+      if (
+        typeof (localSchema.props ??= {}).defaultValue !== "undefined" ||
+        ignoreUndefined
+      ) {
         const localDefaultValue = isValueIsSourceData(
           localSchema.props.defaultValue
         )
@@ -155,8 +158,11 @@ const ElementNode = defineComponent({
       (nv) => {
         const newSchema = toRaw(deepClone({ ...nv, children: undefined }));
         if (!isEqual(newSchema, tempSchema)) {
+          const isIgnoreUndefined =
+            tempSchema?.props?.defaultValue !== undefined &&
+            !Object.keys(newSchema?.props ?? {}).includes("defaultValue");
           tempSchema = newSchema;
-          initComponentInstance();
+          initComponentInstance(isIgnoreUndefined);
         }
       },
       { deep: true, immediate: true }
