@@ -45,7 +45,7 @@ const ElementDesigner = defineComponent({
     const focusManage = useFocus(elementManage, modeManage);
     const sourceDataManage = useSourceData(elementManage);
     const functionManage = useFunction(elementManage, sourceDataManage);
-    const queueManage = useQueue();
+    const queueManage = useQueue(elementManage, focusManage);
     //因为只能有一个实例 所以用provide注入进去
     provide("focusManage", focusManage);
     provide("elementManage", elementManage);
@@ -57,13 +57,14 @@ const ElementDesigner = defineComponent({
     provide("sourceDataManage", sourceDataManage);
     provide("functionManage", functionManage);
     provide("queueManage", queueManage);
-    
+
     const buttonMap = createOperationButtonSetting(
       formManage,
       elementManage,
       functionManage,
       focusManage,
       sourceDataManage,
+      queueManage,
       previewDialogRef,
       exportSourceCodeDialogRef,
       importSourceCodeDialogRef

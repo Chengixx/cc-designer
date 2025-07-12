@@ -1,5 +1,5 @@
 import { computed, defineComponent, inject } from "vue";
-import { ElementManage, FocusManage } from "@cgx-designer/hooks";
+import { ElementManage, FocusManage, QueueManage } from "@cgx-designer/hooks";
 import { deepClone } from "@cgx-designer/utils";
 import { ClearIcon, CopyIcon, TopIcon } from "@cgx-designer/icons";
 import { noCopyDomList, findHigherLevelDomList } from "../../../constant/index";
@@ -10,7 +10,7 @@ const ButtonTool = defineComponent({
   setup() {
     const focusManage = inject("focusManage") as FocusManage;
     const elementManage = inject("elementManage") as ElementManage;
-
+    const queueManage = inject("queueManage") as QueueManage;
     const handleCopy = (e: MouseEvent) => {
       e.stopPropagation();
       const newElementSchema = elementManage.deepCopyElement(

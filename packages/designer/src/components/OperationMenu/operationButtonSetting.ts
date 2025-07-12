@@ -2,7 +2,11 @@ import { Message } from "@cgx-designer/extensions";
 import { FocusManage } from "@cgx-designer/hooks/src/useFocus";
 import { FormManage } from "@cgx-designer/hooks/src/useForm";
 import { ElementManage } from "@cgx-designer/hooks/src/useElement";
-import { FunctionManage, SourceDataManage } from "@cgx-designer/hooks";
+import {
+  FunctionManage,
+  QueueManage,
+  SourceDataManage,
+} from "@cgx-designer/hooks";
 import {
   ClearIcon,
   DebugIcon,
@@ -26,6 +30,7 @@ export const createOperationButtonSetting = (
   functionManage: FunctionManage,
   focusManage: FocusManage,
   sourceDataManage: SourceDataManage,
+  queueManage: QueueManage,
   previewDialogRef: any,
   exportSourceCodeDialogRef: any,
   importSourceCodeDialogRef: any
@@ -41,6 +46,7 @@ export const createOperationButtonSetting = (
           elementManage.elementInstanceList.value
         );
         console.log("当前function管理", functionManage);
+        console.log("当前队列管理", queueManage.getQueue().value);
       },
       icon: DebugIcon,
     },
@@ -59,16 +65,14 @@ export const createOperationButtonSetting = (
     Undo: {
       label: "撤销",
       handler: () => {
-        //todo 撤销
-        console.log("撤销");
+        queueManage.undo();
       },
       icon: UndoIcon,
     },
     Redo: {
       label: "重做",
       handler: () => {
-        //todo 重做
-        console.log("重做");
+        queueManage.redo();
       },
       icon: RedoIcon,
     },
