@@ -99,13 +99,18 @@ const computedButtonColor = (type: keyof typeof VBtnColorType) => {
 </script>
 
 <template>
-  <div v-for="item in eventItem" :key="item.type">
+  <div v-for="item in eventItem" :key="item.type" class="c-mb-6">
     <!-- item的上面 也就是个体 -->
     <div
-      class="c-h-10 c-w-full c-border-y c-flex c-items-center c-justify-between c-text-xs c-mt-1 c-bg-gray-50 dark:c-bg-darkMode dark:c-border-darkMode"
+      class="c-h-12 c-w-full c-border c-border-gray-200 c-rounded-lg c-flex c-items-center c-justify-between c-text-sm c-font-medium c-bg-gradient-to-r c-from-gray-50 c-to-gray-100 dark:c-from-gray-800 dark:c-to-gray-700 dark:c-border-gray-600 dark:c-text-gray-100 c-shadow-sm"
     >
-      <div class="c-ml-2">{{ item.describe }}</div>
-      <div class="c-mr-2">
+      <div class="c-ml-4 c-flex c-items-center c-gap-2">
+        <div class="c-w-2 c-h-2 c-bg-blue-500 c-rounded-full"></div>
+        <span class="c-text-gray-700 dark:c-text-gray-200">{{
+          item.describe
+        }}</span>
+      </div>
+      <div class="c-mr-4">
         <Button
           link
           variant="text"
@@ -117,7 +122,7 @@ const computedButtonColor = (type: keyof typeof VBtnColorType) => {
       </div>
     </div>
     <!-- 下面的方法 用draggle是因为这样可以拖拽循环 -->
-    <div>
+    <div class="c-mt-3">
       <draggable
         v-model="props.events[item.type]"
         item-key="id"
@@ -129,27 +134,27 @@ const computedButtonColor = (type: keyof typeof VBtnColorType) => {
       >
         <template #item="{ element: eventInstance, index }">
           <div
-            class="c-p-1 c-flex c-items-center c-my-1 c-text-sm hover:c-bg-gray-100 c-transition-all dark:c-border-darkMode dark:hover:c-bg-gray-700"
+            class="c-p-4 c-flex c-items-center c-my-2 c-text-sm c-bg-white c-border c-border-gray-200 c-rounded-lg hover:c-bg-gray-50 hover:c-border-blue-300 c-transition-all c-duration-200 c-shadow-sm hover:c-shadow-md dark:c-bg-gray-800 dark:c-border-gray-600 dark:hover:c-bg-gray-700 dark:hover:c-border-blue-400 c-cursor-move"
           >
             <div
-              class="c-flex-1 c-flex c-justify-start c-items-center c-gap-x-1 c-select-none"
+              class="c-flex-1 c-flex c-justify-start c-items-center c-gap-x-3 c-select-none"
             >
               <div
-                class="c-flex c-items-center c-gap-1"
+                class="c-flex c-items-center c-gap-2 c-px-3 c-py-1 c-bg-blue-100 c-text-blue-700 c-rounded-full c-text-xs c-font-medium dark:c-bg-blue-900 dark:c-text-blue-200"
                 v-if="eventInstance.type === 'custom'"
               >
-                <CustomIcon class="c-w-[16px] c-h-[16px] dark:c-fill-white" />
+                <CustomIcon class="c-w-4 c-h-4 dark:c-fill-white" />
                 自定义事件
               </div>
               <div
-                class="c-flex c-items-center c-gap-1"
+                class="c-flex c-items-center c-gap-2 c-px-3 c-py-1 c-bg-green-100 c-text-green-700 c-rounded-full c-text-xs c-font-medium dark:c-bg-green-900 dark:c-text-green-200"
                 v-if="eventInstance.type === 'global'"
               >
-                <GlobalIcon class="c-w-[16px] c-h-[16px] dark:c-fill-white" />
+                <GlobalIcon class="c-w-4 c-h-4 dark:c-fill-white" />
                 全局事件
               </div>
               <div
-                class="c-flex c-items-center c-gap-1"
+                class="c-flex c-items-center c-gap-2 c-px-3 c-py-1 c-bg-purple-100 c-text-purple-700 c-rounded-full c-text-xs c-font-medium dark:c-bg-purple-900 dark:c-text-purple-200"
                 v-if="eventInstance.type === 'component'"
               >
                 <template
@@ -159,41 +164,46 @@ const computedButtonColor = (type: keyof typeof VBtnColorType) => {
                   "
                 >
                   <SvgIcon
-                    :name="getElementSetting(eventInstance.componentId)!.icon!"
+                    :name="getElementSetting(eventInstance.componentId)?.icon"
+                    class="c-w-4 c-h-4 dark:c-fill-white"
                   />
                 </template>
                 <template v-else>
                   <component
-                    class="c-w-[16px] c-h-[16px] dark:c-fill-white"
+                    class="c-w-4 c-h-4 dark:c-fill-white"
                     :is="
                       getElementSvg(
-                        getElementSetting(eventInstance.componentId)!.key
+                        getElementSetting(eventInstance.componentId)?.key
                       )
                     "
                   />
                 </template>
 
-                <span>{{
-                  getElementSetting(eventInstance.componentId)!.label
+                <span class="c-font-medium">{{
+                  getElementSetting(eventInstance.componentId)?.label
                 }}</span>
               </div>
-              <div>
+              <div
+                class="c-text-gray-500 dark:c-text-gray-400 c-font-mono c-text-xs"
+              >
                 {{ eventInstance.componentId }}
               </div>
-              <div>
+              <div class="c-text-gray-700 dark:c-text-gray-200 c-font-medium">
                 {{ eventInstance.methodName }}
               </div>
             </div>
-            <EditIcon
-              title="编辑"
-              @click="handleEditEvent(index, item.type, eventInstance)"
-              class="c-h-4 c-w-4 c-mr-1 dark:c-fill-white hover:c-fill-blue-500 dark:hover:c-fill-blue-500 c-cursor-pointer"
-            />
-            <ClearIcon
-              title="删除"
-              @click="handleDeleteEvent(index, item.type)"
-              class="c-h-4 c-w-4 dark:c-fill-white hover:c-fill-blue-500 dark:hover:c-fill-blue-500 c-cursor-pointer"
-            />
+            <div class="c-flex c-items-center c-gap-2 c-ml-4">
+              <EditIcon
+                title="编辑"
+                @click="handleEditEvent(index, item.type, eventInstance)"
+                class="c-h-5 c-w-5 c-fill-gray-400 hover:c-fill-blue-500 dark:c-fill-gray-500 dark:hover:c-fill-blue-400 c-cursor-pointer c-transition-colors c-duration-200 c-p-1 c-rounded hover:c-bg-blue-50 dark:hover:c-bg-blue-900/20"
+              />
+              <ClearIcon
+                title="删除"
+                @click="handleDeleteEvent(index, item.type)"
+                class="c-h-5 c-w-5 c-fill-gray-400 hover:c-fill-red-500 dark:c-fill-gray-500 dark:hover:c-fill-red-400 c-cursor-pointer c-transition-colors c-duration-200 c-p-1 c-rounded hover:c-bg-red-50 dark:hover:c-bg-red-900/20"
+              />
+            </div>
           </div>
         </template>
       </draggable>
