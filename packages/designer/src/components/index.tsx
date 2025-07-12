@@ -21,10 +21,12 @@ import {
   useMode,
   useSourceData,
   useQueue,
+  useKeyboard,
 } from "@cgx-designer/hooks";
 import CollapseWidget from "./CollapseWidget";
 import { elementController } from "@cgx-designer/controller";
 import { Loading } from "@cgx-designer/extensions";
+import { isMac } from "@cgx-designer/utils";
 //设计器
 const ElementDesigner = defineComponent({
   setup() {
@@ -69,6 +71,18 @@ const ElementDesigner = defineComponent({
       exportSourceCodeDialogRef,
       importSourceCodeDialogRef
     );
+
+    //mac是command+z，windows是ctrl+z
+    useKeyboard([
+      {
+        key: isMac ? "command+z" : "ctrl+z",
+        handler: queueManage.undo,
+      },
+      {
+        key: isMac ? "command+shift+z" : "ctrl+shift+z",
+        handler: queueManage.redo,
+      },
+    ]);
 
     onMounted(() => {
       collapseManage.initMenuInstance(leftMenuRef.value, rightMenuRef.value);

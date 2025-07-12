@@ -1,6 +1,7 @@
 import { RuleItem } from "@cgx-designer/types";
-import { isArray } from "lodash-es";
 import { Ref } from "vue";
+
+export const isMac = navigator.userAgent.includes("Mac");
 
 //复制
 export const copyToClipboard = (

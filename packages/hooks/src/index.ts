@@ -14,3 +14,4 @@ export * from "./useOrderedChildren";
 export * from "./useSourceData";
 export * from "./useMergeAttr";
 export * from "./useQueue";
+export * from "./useKeyboard";
