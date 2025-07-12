@@ -35,4 +35,4 @@ const OperationIcon = defineComponent({
   },
 });
 
-export default OperationIcon; 
+export default OperationIcon;

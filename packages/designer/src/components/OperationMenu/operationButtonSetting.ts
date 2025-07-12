@@ -46,7 +46,7 @@ export const createOperationButtonSetting = (
           elementManage.elementInstanceList.value
         );
         console.log("当前function管理", functionManage);
-        console.log("当前队列管理", queueManage.getQueue().value);
+        console.log("当前队列管理", queueManage, queueManage.getInstance());
       },
       icon: DebugIcon,
     },

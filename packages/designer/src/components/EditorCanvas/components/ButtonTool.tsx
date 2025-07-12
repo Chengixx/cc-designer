@@ -18,6 +18,7 @@ const ButtonTool = defineComponent({
       );
       elementManage.addElementFromLast(newElementSchema as IEditorElement);
       focusManage.handleFocus(newElementSchema as IEditorElement);
+      queueManage.push("copy");
     };
 
     const handleDelete = (e: MouseEvent) => {
@@ -25,6 +26,7 @@ const ButtonTool = defineComponent({
       focusManage.startFocusTimedQuery();
       const id = focusManage.focusedElement.value?.id;
       elementManage.deleteElementById(id!);
+      queueManage.push("delete");
       focusManage.resetFocus();
       focusManage.stopFocusTimedQuery();
     };

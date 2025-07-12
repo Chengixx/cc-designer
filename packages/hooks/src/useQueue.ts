@@ -1,6 +1,8 @@
 import { QueueController, QueueItem } from "@cgx-designer/controller";
 import { ElementManage } from "./useElement";
 import { FocusManage } from "./useFocus";
+import { deepClone } from "@cgx-designer/utils";
+import { onMounted } from "vue";
 
 export type QueueManage = ReturnType<typeof useQueue>;
 
@@ -8,31 +10,59 @@ export const useQueue = (
   elementManage: ElementManage,
   focusManage: FocusManage
 ) => {
-  const queueController = new QueueController();
+  const execute = (item: QueueItem) => {
+    elementManage.setElementList(item.elementList);
+    if (item.focusElementId) {
+      focusManage.handleFocusById(item.focusElementId);
+    }
+    if (elementManage.elementList.value.length === 0) {
+      focusManage.resetFocus();
+    }
+  };
+  const queueController = new QueueController(execute, 100);
 
-  const getQueue = () => {
-    return queueController.queue;
+  const push = (type: string = "default") => {
+    const elementList = deepClone(elementManage.elementList.value);
+    const focusElementId = focusManage.focusedElement.value?.id;
+    queueController.push({
+      type,
+      elementList,
+      focusElementId: focusElementId || null,
+    });
   };
 
-  const push = (item: Omit<QueueItem, "id" | "timestamp">) => {
-    queueController.push(item);
-  };
+  const undo = () => queueController.undo();
 
-  const undo = () => {
-    queueController.undo();
-    elementManage.setElementList(queueController.currentItem!.data);
-  };
+  const redo = () => queueController.redo();
 
-  const redo = () => {
-    queueController.redo();
-    elementManage.setElementList(queueController.currentItem!.data);
-  };
+  // 使用计算属性获取状态
+  const canUndo = () => queueController.canUndo.value;
+  const canRedo = () => queueController.canRedo.value;
+  const currentState = () => queueController.currentState.value;
+  const undoCount = () => queueController.undoCount.value;
+  const redoCount = () => queueController.redoCount.value;
 
-  const clear = () => {
-    queueController.clear();
-    elementManage.setElementList([]);
-    focusManage.resetFocus();
-  };
+  const clear = () => queueController.clear();
 
-  return { getQueue, push, undo, redo, clear };
+  const getStats = () => queueController.getStats();
+
+  const getInstance = () => queueController;
+
+  onMounted(() => {
+    push("init");
+  });
+
+  return {
+    push,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
+    currentState,
+    undoCount,
+    redoCount,
+    clear,
+    getStats,
+    getInstance,
+  };
 };

@@ -11,7 +11,8 @@ const RightOperationArea = defineComponent({
     },
   },
   setup(props) {
-    const isVuetify = elementController.getCurrentElementLibraryName() === "vuetify";
+    const isVuetify =
+      elementController.getCurrentElementLibraryName() === "vuetify";
 
     return () => (
       <div
@@ -28,4 +29,4 @@ const RightOperationArea = defineComponent({
   },
 });
 
-export default RightOperationArea; 
+export default RightOperationArea;

@@ -2,7 +2,7 @@ import { SvgIcon } from "@cgx-designer/extensions";
 import { elementController } from "@cgx-designer/controller";
 import { getRandomId } from "@cgx-designer/utils";
 import { defineComponent, inject, ref } from "vue";
-import { ElementManage, FocusManage } from "@cgx-designer/hooks";
+import { ElementManage, FocusManage, QueueManage } from "@cgx-designer/hooks";
 
 export const ElementListBarItem = defineComponent({
   props: {
@@ -19,10 +19,12 @@ export const ElementListBarItem = defineComponent({
     const elementManage = inject("elementManage") as ElementManage;
     const focusManage = inject("focusManage") as FocusManage;
     const isHovered = ref<boolean>(false);
+    const queueManage = inject("queueManage") as QueueManage;
     const handleClick = () => {
       const newElementSchema = props.element.template(getRandomId);
       elementManage.addElementFromLast(newElementSchema);
       focusManage.handleFocus(newElementSchema);
+      queueManage.push("add");
     };
 
     return () => (
@@ -61,10 +63,12 @@ export const ElementListBoxItem = defineComponent({
     const elementManage = inject("elementManage") as ElementManage;
     const focusManage = inject("focusManage") as FocusManage;
     const isHovered = ref<boolean>(false);
+    const queueManage = inject("queueManage") as QueueManage;
     const handleClick = () => {
       const newElementSchema = props.element.template(getRandomId);
       elementManage.addElementFromLast(newElementSchema);
       focusManage.handleFocus(newElementSchema);
+      queueManage.push("add");
     };
 
     return () => (

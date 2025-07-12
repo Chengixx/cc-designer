@@ -29,7 +29,8 @@ const OperationButton = defineComponent({
   },
   setup(props) {
     const Button = elementController.getElementRender("button");
-    const isVuetify = elementController.getCurrentElementLibraryName() === "vuetify";
+    const isVuetify =
+      elementController.getCurrentElementLibraryName() === "vuetify";
 
     const renderProps = {
       icon: !isVuetify && props.config.icon,
@@ -53,4 +54,4 @@ const OperationButton = defineComponent({
   },
 });
 
-export default OperationButton; 
+export default OperationButton;

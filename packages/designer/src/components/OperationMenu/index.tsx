@@ -1,8 +1,9 @@
-import { computed, defineComponent, PropType } from "vue";
+import { computed, defineComponent, inject, PropType } from "vue";
 import { OperationButtonSetting } from "./operationButtonSetting";
 import ModeButtonGroup from "./ModeButtonGroup";
 import LeftOperationArea from "./LeftOperationArea";
 import RightOperationArea from "./RightOperationArea";
+import { QueueManage } from "@cgx-designer/hooks";
 
 const OperationMenu = defineComponent({
   props: {
@@ -12,13 +13,7 @@ const OperationMenu = defineComponent({
     },
   },
   setup(props) {
-    const undoDisabled = computed(() => {
-      return false;
-    });
-
-    const redoDisabled = computed(() => {
-      return false;
-    });
+    const queueManage = inject("queueManage") as QueueManage;
 
     return () => (
       <div class="c-h-[40px] c-flex c-items-center c-border-y c-bg-white c-border-gray-200 dark:c-bg-darkMode dark:c-border-darkMode">
@@ -32,8 +27,8 @@ const OperationMenu = defineComponent({
         {/* 左侧操作区域 */}
         <LeftOperationArea
           buttonMap={props.buttonMap}
-          undoDisabled={undoDisabled.value}
-          redoDisabled={redoDisabled.value}
+          undoDisabled={!queueManage.canUndo()}
+          redoDisabled={!queueManage.canRedo()}
         />
 
         {/* 右侧操作区域 */}

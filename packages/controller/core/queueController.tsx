@@ -1,115 +1,139 @@
-import { getRandomId } from "@cgx-designer/utils";
-import { ref, readonly } from "vue";
+import { IEditorElement } from "@cgx-designer/types";
+import { ref, computed } from "vue";
 
 export interface QueueItem {
-  id: string;
   type: string;
-  data: any;
-  timestamp: number;
-  description?: string;
+  elementList: IEditorElement[];
+  focusElementId: string | null;
 }
 
 export class QueueController {
-  private _queue = ref<QueueItem[]>([]);
-  private _currentIndex = ref<number>(-1);
-  private readonly _maxSize = 50;
+  // 撤销列表 - 存储可以撤销的状态
+  private _undoList = ref<QueueItem[]>([]);
+  // 重做列表 - 存储可以重做的状态
+  private _redoList = ref<QueueItem[]>([]);
+  // 当前状态
+  private _currentState = ref<QueueItem | null>(null);
+  private _maxLength: number;
+  private _execute: (item: QueueItem) => void;
+  // 标记是否已经初始化
+  private _isInitialized = ref(false);
 
-  // 公共访问器
-  get queue() {
-    return readonly(this._queue);
+  // 计算属性
+  readonly canUndo = computed(() => this._undoList.value.length > 0);
+  readonly canRedo = computed(() => this._redoList.value.length > 0);
+  readonly currentState = computed(() => this._currentState.value);
+  readonly undoCount = computed(() => this._undoList.value.length);
+  readonly redoCount = computed(() => this._redoList.value.length);
+
+  constructor(execute: (item: QueueItem) => void, maxLength: number = 50) {
+    this._undoList.value = [];
+    this._redoList.value = [];
+    this._currentState.value = null;
+    this._maxLength = maxLength;
+    this._execute = execute;
+    this._isInitialized.value = false;
   }
 
-  get currentIndex() {
-    return readonly(this._currentIndex);
-  }
-
-  get canUndo() {
-    return this._currentIndex.value > 0;
-  }
-
-  get canRedo() {
-    return this._currentIndex.value < this._queue.value.length - 1;
-  }
-
-  get currentItem() {
-    return this._queue.value[this._currentIndex.value] || null;
-  }
-
-  // 添加操作到队列
-  push = (item: Omit<QueueItem, "id" | "timestamp">) => {
-    const queueItem: QueueItem = {
-      ...item,
-      id: getRandomId(),
-      timestamp: Date.now(),
-    };
-
-    // 如果当前不在队列末尾，删除后面的操作
-    if (this._currentIndex.value < this._queue.value.length - 1) {
-      this._queue.value = this._queue.value.slice(
-        0,
-        this._currentIndex.value + 1
-      );
+  /**
+   * 添加新状态到队列
+   * @param item 新的状态
+   */
+  push(item: QueueItem) {
+    // 如果是第一次 push，直接设置当前状态，不加入撤销列表
+    if (!this._isInitialized.value) {
+      this._currentState.value = item;
+      this._isInitialized.value = true;
+      return;
     }
 
-    // 添加新操作
-    this._queue.value.push(queueItem);
+    // 如果有当前状态，将其加入撤销列表
+    if (this._currentState.value !== null) {
+      this._undoList.value.push(this._currentState.value);
 
-    // 如果超过最大大小，删除最旧的操作并调整索引
-    if (this._queue.value.length > this._maxSize) {
-      this._queue.value.shift();
-      // 索引不需要调整，因为删除的是最旧的操作
-    } else {
-      this._currentIndex.value++;
+      // 限制撤销列表长度
+      if (this._undoList.value.length > this._maxLength) {
+        this._undoList.value.shift();
+      }
     }
-  };
 
-  // 撤销操作
-  undo = () => {
-    if (!this.canUndo) return null;
+    // 设置新状态
+    this._currentState.value = item;
 
-    this._currentIndex.value--;
-    return this._queue.value[this._currentIndex.value];
-  };
+    // 清空重做列表（因为有了新的操作）
+    this._redoList.value = [];
+  }
 
-  // 重做操作
-  redo = () => {
-    if (!this.canRedo) return null;
-
-    this._currentIndex.value++;
-    return this._queue.value[this._currentIndex.value];
-  };
-
-  // 清空队列
-  clear = () => {
-    this._queue.value = [];
-    this._currentIndex.value = -1;
-  };
-
-  // 获取指定索引的操作
-  getItem = (index: number) => {
-    if (index < 0 || index >= this._queue.value.length) {
-      return null;
-    }
-    return this._queue.value[index];
-  };
-
-  // 跳转到指定操作
-  goTo = (index: number) => {
-    if (index < 0 || index >= this._queue.value.length) {
+  /**
+   * 撤销操作
+   * @returns 是否成功撤销
+   */
+  undo(): boolean {
+    if (!this.canUndo.value) {
       return false;
     }
-    this._currentIndex.value = index;
-    return true;
-  };
 
-  // 获取队列统计信息
-  getStats = () => {
+    // 从撤销列表取出上一个状态
+    const previousState = this._undoList.value.pop()!;
+
+    // 将当前状态加入重做列表
+    if (this._currentState.value !== null) {
+      this._redoList.value.push(this._currentState.value);
+    }
+
+    // 设置新状态并执行
+    this._currentState.value = previousState;
+    this._execute(previousState);
+
+    return true;
+  }
+
+  /**
+   * 重做操作
+   * @returns 是否成功重做
+   */
+  redo(): boolean {
+    if (!this.canRedo.value) {
+      return false;
+    }
+
+    // 从重做列表取出下一个状态
+    const nextState = this._redoList.value.pop()!;
+
+    // 将当前状态加入撤销列表
+    if (this._currentState.value !== null) {
+      this._undoList.value.push(this._currentState.value);
+    }
+
+    // 设置新状态并执行
+    this._currentState.value = nextState;
+    this._execute(nextState);
+
+    return true;
+  }
+
+  /**
+   * 清空所有状态
+   */
+  clear(): void {
+    this._undoList.value = [];
+    this._redoList.value = [];
+    this._currentState.value = null;
+    this._isInitialized.value = false;
+  }
+
+  /**
+   * 获取统计信息
+   */
+  getStats() {
     return {
-      total: this._queue.value.length,
-      current: this._currentIndex.value + 1,
-      canUndo: this.canUndo,
-      canRedo: this.canRedo,
-      maxSize: this._maxSize,
+      canUndo: this.canUndo.value,
+      canRedo: this.canRedo.value,
+      undoCount: this.undoCount.value,
+      redoCount: this.redoCount.value,
+      maxLength: this._maxLength,
+      hasCurrentState: this._currentState.value !== null,
+      isInitialized: this._isInitialized.value,
     };
-  };
+  }
 }
