@@ -21,6 +21,7 @@ import {
   isValueIsSourceData,
   isAttrIsSourceData,
 } from "@cgx-designer/reactivity";
+import { isEqual } from "lodash-es";
 
 const ElementAttribute = defineComponent({
   setup() {
@@ -62,6 +63,9 @@ const ElementAttribute = defineComponent({
       attributeConfig: IEditorElement,
       editData = currentFocusElement.value
     ) => {
+      //先判断两个值是不是本来就一样了 如果一样 下面的就不用走了,记得不能用=== 要用isEqual，不然可能是对象
+      if (isEqual(getValueByPath(currentFocusElement.value!, field), value))
+        return;
       if (typeof attributeConfig.onChange === "function") {
         attributeConfig.onChange({ value, values: editData });
       }

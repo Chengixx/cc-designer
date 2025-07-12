@@ -30,7 +30,11 @@ export class QueueController {
   readonly undoCount = computed(() => this._undoList.value.length);
   readonly redoCount = computed(() => this._redoList.value.length);
 
-  constructor(execute: (item: QueueItem) => void, maxLength: number = 50, debounceDelay: number = 200) {
+  constructor(
+    execute: (item: QueueItem) => void,
+    maxLength: number = 50,
+    debounceDelay: number = 200
+  ) {
     this._undoList.value = [];
     this._redoList.value = [];
     this._currentState.value = null;
@@ -72,7 +76,7 @@ export class QueueController {
       clearTimeout(this._debounceTimer);
       this._debounceTimer = null;
     }
-    
+
     this._pendingItem = null;
     this._pushInternal(item);
   }
@@ -163,7 +167,7 @@ export class QueueController {
       clearTimeout(this._debounceTimer);
       this._debounceTimer = null;
     }
-    
+
     this._pendingItem = null;
     this._undoList.value = [];
     this._redoList.value = [];
@@ -184,7 +188,7 @@ export class QueueController {
       hasCurrentState: this._currentState.value !== null,
       isInitialized: this._isInitialized.value,
       debounceDelay: this._debounceDelay,
-      hasPendingItem: this._pendingItem !== null
+      hasPendingItem: this._pendingItem !== null,
     };
   }
 }
