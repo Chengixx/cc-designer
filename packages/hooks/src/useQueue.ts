@@ -1,7 +1,7 @@
 import { QueueController, QueueItem } from "@cgx-designer/controller";
 import { ElementManage } from "./useElement";
 import { FocusManage } from "./useFocus";
-import { deepClone } from "@cgx-designer/utils";
+import { deepClone, deepCompareAndModify } from "@cgx-designer/utils";
 import { onMounted } from "vue";
 
 export type QueueManage = ReturnType<typeof useQueue>;
@@ -24,6 +24,7 @@ export const useQueue = (
   const push = (type: string = "default") => {
     const elementList = deepClone(elementManage.elementList.value);
     const focusElementId = focusManage.focusedElement.value?.id;
+    console.log("push", elementList, focusElementId);
     queueController.push({
       type,
       elementList,

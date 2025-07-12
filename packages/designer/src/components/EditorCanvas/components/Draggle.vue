@@ -60,8 +60,9 @@ const handleDragEnd = () => {
     @dragover.prevent
     item-key="id"
   >
-    <template #item="{ element }">
+    <template #item="{ element, index }">
       <div
+        :key="index"
         :class="[
           _noNeedMarginBottom(element) ? 'c-mb-0' : 'c-mb-4',
           element.key === 'row' &&
@@ -69,7 +70,6 @@ const handleDragEnd = () => {
           element.key === 'divider' && 'c-inline-block',
           'editor-element-item c-relative',
         ]"
-        :key="element.id"
       >
         <EditorElement :elementSchema="element" />
       </div>
