@@ -1,7 +1,7 @@
 import { onMounted, onUnmounted } from "vue";
 
 export interface KeyboardHandler {
-  key: string; // 按键，多个按键用逗号分隔，如 "ctrl+c", "ctrl+shift+a"
+  key: string; // 按键，多个按键用逗号分隔，如 "ctrl+c", "ctrl+shift+a", "cmd+z"
   handler: (event: KeyboardEvent) => void;
 }
 
@@ -21,27 +21,60 @@ export const useKeyboard = (handlers: KeyboardHandler[]) => {
     const keys = parseKey(keyStr);
     const eventKey = event.key.toLowerCase();
     const eventCode = event.code.toLowerCase();
-
+    
     return keys.some((key) => {
       const keyParts = key.split("+").map((k) => k.trim());
-
-      // 检查修饰键
-      const hasCtrl = keyParts.includes("ctrl") === event.ctrlKey;
+      
+      // 检查修饰键 - 支持 ctrl/cmd 的跨平台兼容
+      const hasCtrl =
+        keyParts.includes("ctrl") && (event.ctrlKey || event.metaKey);
+      const hasCmd = keyParts.includes("cmd") && event.metaKey;
       const hasShift = keyParts.includes("shift") === event.shiftKey;
       const hasAlt = keyParts.includes("alt") === event.altKey;
       const hasMeta = keyParts.includes("meta") === event.metaKey;
-
+      
       // 检查主键
       const mainKey = keyParts.find(
-        (k) => !["ctrl", "shift", "alt", "meta"].includes(k)
+        (k) => !["ctrl", "shift", "alt", "meta", "cmd"].includes(k)
       );
       const keyMatch =
         mainKey &&
         (eventKey === mainKey ||
           eventCode === mainKey ||
           eventCode.replace("key", "") === mainKey);
-
-      return hasCtrl && hasShift && hasAlt && hasMeta && keyMatch;
+      
+      // 检查所有修饰键是否都匹配
+      const requiredModifiers = keyParts.filter(
+        (k) => ["ctrl", "shift", "alt", "meta", "cmd"].includes(k)
+      );
+      
+      let modifierMatch = true;
+      
+      // 检查每个修饰键
+      if (requiredModifiers.includes("ctrl")) {
+        modifierMatch = modifierMatch && (event.ctrlKey || event.metaKey);
+      }
+      if (requiredModifiers.includes("cmd")) {
+        modifierMatch = modifierMatch && event.metaKey;
+      }
+      if (requiredModifiers.includes("shift")) {
+        modifierMatch = modifierMatch && event.shiftKey;
+      }
+      if (requiredModifiers.includes("alt")) {
+        modifierMatch = modifierMatch && event.altKey;
+      }
+      if (requiredModifiers.includes("meta")) {
+        modifierMatch = modifierMatch && event.metaKey;
+      }
+      
+      // 确保没有额外的修饰键被按下（除了 ctrl/cmd 的跨平台兼容）
+      const hasExtraModifiers = 
+        (event.ctrlKey && !keyParts.includes("ctrl")) ||
+        (event.shiftKey && !keyParts.includes("shift")) ||
+        (event.altKey && !keyParts.includes("alt")) ||
+        (event.metaKey && !keyParts.includes("meta") && !keyParts.includes("cmd") && !keyParts.includes("ctrl"));
+      
+      return modifierMatch && keyMatch && !hasExtraModifiers;
     });
   };
 
@@ -85,7 +118,7 @@ export const useKeyboard = (handlers: KeyboardHandler[]) => {
     addHandler: (handler: KeyboardHandler) => {
       handlers.push(handler);
     },
-
+    
     // 移除处理器
     removeHandler: (key: string) => {
       const index = handlers.findIndex((h) => h.key === key);
@@ -93,10 +126,10 @@ export const useKeyboard = (handlers: KeyboardHandler[]) => {
         handlers.splice(index, 1);
       }
     },
-
+    
     // 获取所有处理器
     getHandlers: () => [...handlers],
-
+    
     // 清空所有处理器
     clearHandlers: () => {
       handlers.length = 0;

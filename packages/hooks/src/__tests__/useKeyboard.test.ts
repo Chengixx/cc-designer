@@ -27,6 +27,14 @@ describe('useKeyboard', () => {
       {
         key: 'delete,backspace',
         handler: vi.fn()
+      },
+      {
+        key: 'cmd+z',
+        handler: vi.fn()
+      },
+      {
+        key: 'cmd+shift+z',
+        handler: vi.fn()
       }
     ];
 
@@ -54,13 +62,13 @@ describe('useKeyboard', () => {
 
   it('should remove handler by key', () => {
     keyboardManage.removeHandler('ctrl+z');
-    expect(handlers).toHaveLength(2);
+    expect(handlers).toHaveLength(4);
     expect(handlers.find(h => h.key === 'ctrl+z')).toBeUndefined();
   });
 
   it('should get all handlers', () => {
     const allHandlers = keyboardManage.getHandlers();
-    expect(allHandlers).toHaveLength(3);
+    expect(allHandlers).toHaveLength(5);
     expect(allHandlers).toEqual(handlers);
   });
 
@@ -68,28 +76,53 @@ describe('useKeyboard', () => {
     keyboardManage.clearHandlers();
     expect(handlers).toHaveLength(0);
   });
+
+  it('should handle multiple shortcuts without conflicts', () => {
+    const conflictHandlers: KeyboardHandler[] = [
+      {
+        key: 'cmd+z',
+        handler: vi.fn()
+      },
+      {
+        key: 'cmd+shift+z',
+        handler: vi.fn()
+      },
+      {
+        key: 'cmd+alt+z',
+        handler: vi.fn()
+      }
+    ];
+
+    const conflictKeyboard = useKeyboard(conflictHandlers);
+    
+    // 验证所有处理器都被正确添加
+    expect(conflictHandlers).toHaveLength(3);
+    expect(conflictHandlers[0].key).toBe('cmd+z');
+    expect(conflictHandlers[1].key).toBe('cmd+shift+z');
+    expect(conflictHandlers[2].key).toBe('cmd+alt+z');
+  });
 });
 
 // 使用示例
 describe('useKeyboard usage examples', () => {
-  it('should demonstrate typical usage', () => {
+  it('should demonstrate typical usage with cross-platform support', () => {
     const handlers: KeyboardHandler[] = [
       {
-        key: 'ctrl+z',
+        key: 'ctrl+z,cmd+z',
         handler: (event) => {
           console.log('Undo action');
-          // 执行撤销操作
+          // 执行撤销操作 - 支持 Windows/Linux 的 Ctrl+Z 和 Mac 的 Cmd+Z
         }
       },
       {
-        key: 'ctrl+y,ctrl+shift+z',
+        key: 'ctrl+y,ctrl+shift+z,cmd+shift+z',
         handler: (event) => {
           console.log('Redo action');
-          // 执行重做操作
+          // 执行重做操作 - 支持多种重做快捷键
         }
       },
       {
-        key: 'ctrl+s',
+        key: 'ctrl+s,cmd+s',
         handler: (event) => {
           console.log('Save action');
           // 执行保存操作
@@ -103,17 +136,31 @@ describe('useKeyboard usage examples', () => {
         }
       },
       {
-        key: 'ctrl+c',
+        key: 'ctrl+c,cmd+c',
         handler: (event) => {
           console.log('Copy action');
           // 执行复制操作
         }
       },
       {
-        key: 'ctrl+v',
+        key: 'ctrl+v,cmd+v',
         handler: (event) => {
           console.log('Paste action');
           // 执行粘贴操作
+        }
+      },
+      {
+        key: 'ctrl+a,cmd+a',
+        handler: (event) => {
+          console.log('Select all action');
+          // 执行全选操作
+        }
+      },
+      {
+        key: 'ctrl+d,cmd+d',
+        handler: (event) => {
+          console.log('Duplicate action');
+          // 执行复制操作
         }
       }
     ];
@@ -122,7 +169,7 @@ describe('useKeyboard usage examples', () => {
 
     // 运行时添加新的快捷键
     keyboardManage.addHandler({
-      key: 'ctrl+shift+s',
+      key: 'ctrl+shift+s,cmd+shift+s',
       handler: (event) => {
         console.log('Save as action');
         // 执行另存为操作
@@ -130,7 +177,7 @@ describe('useKeyboard usage examples', () => {
     });
 
     // 移除某个快捷键
-    keyboardManage.removeHandler('ctrl+s');
+    keyboardManage.removeHandler('ctrl+s,cmd+s');
 
     // 获取当前所有快捷键
     const currentHandlers = keyboardManage.getHandlers();

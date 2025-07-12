@@ -75,11 +75,11 @@ const ElementDesigner = defineComponent({
     //mac是command+z，windows是ctrl+z
     useKeyboard([
       {
-        key: isMac ? "command+z" : "ctrl+z",
+        key: isMac ? "cmd+z" : "ctrl+z",
         handler: queueManage.undo,
       },
       {
-        key: isMac ? "command+shift+z" : "ctrl+shift+z",
+        key: isMac ? "cmd+shift+z" : "ctrl+shift+z",
         handler: queueManage.redo,
       },
     ]);
