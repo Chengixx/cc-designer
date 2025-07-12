@@ -1,4 +1,4 @@
-import { computed, defineComponent, inject, PropType } from "vue";
+import { defineComponent, inject, PropType } from "vue";
 import { OperationButtonSetting } from "./operationButtonSetting";
 import ModeButtonGroup from "./ModeButtonGroup";
 import LeftOperationArea from "./LeftOperationArea";

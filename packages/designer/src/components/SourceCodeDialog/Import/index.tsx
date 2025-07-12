@@ -5,6 +5,7 @@ import {
   ElementManage,
   FormManage,
   FunctionManage,
+  QueueManage,
   SourceDataManage,
 } from "@cgx-designer/hooks";
 import { elementController } from "@cgx-designer/controller";
@@ -22,6 +23,7 @@ export const ImportSourceCodeDialog = defineComponent({
     const functionManage = inject("functionManage") as FunctionManage;
     const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
     const elementManage = inject("elementManage") as ElementManage;
+    const queueManage = inject("queueManage") as QueueManage;
     const jsonContent = ref<string>("");
     const IDERef = ref<typeof IDE | null>(null);
     const isShow = ref<boolean>(false);
@@ -43,6 +45,7 @@ export const ImportSourceCodeDialog = defineComponent({
           functionManage.setJavaScriptVal(JSON.parse(value).script);
           sourceDataManage.setSourceData(JSON.parse(value).sourceData);
           Message.success("导入成功");
+          queueManage.push("import");
           isShow.value = false;
         } else {
           Message.warning("导入失败，请检查数据格式");

@@ -1,5 +1,5 @@
 import { defineComponent, inject } from "vue";
-import { FormManage } from "@cgx-designer/hooks";
+import { FormManage, QueueManage } from "@cgx-designer/hooks";
 import { elementController } from "@cgx-designer/controller";
 import { CFormItem } from "@cgx-designer/extensions";
 import { ElementEngine } from "@cgx-designer/engine";
@@ -10,6 +10,7 @@ const EditFormSetting = defineComponent({
     const formConfigList =
       elementController.getCurrentElementPlugin()?.formConfig;
     const formManage = inject("formManage") as FormManage;
+    const queueManage = inject("queueManage") as QueueManage;
     return () => {
       return (
         <div class="c-h-full c-overflow-y-auto">
@@ -22,9 +23,14 @@ const EditFormSetting = defineComponent({
                     formManage.formSetting,
                     formConfig.field!
                   )}
-                  onUpdate:modelValue={(v: any) =>
-                    setValueByPath(formManage.formSetting, formConfig.field!, v)
-                  }
+                  onUpdate:modelValue={(v: any) => {
+                    // queueManage.push("formSetting");
+                    setValueByPath(
+                      formManage.formSetting,
+                      formConfig.field!,
+                      v
+                    );
+                  }}
                 />
               </CFormItem>
             ))}

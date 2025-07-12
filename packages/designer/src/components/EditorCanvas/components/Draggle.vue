@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import draggable from "vuedraggable";
-import { FocusManage, ModeManage } from "@cgx-designer/hooks";
+import { FocusManage, ModeManage, QueueManage } from "@cgx-designer/hooks";
 import EditorElement from "./EditorElement";
 import { useDrag } from "@cgx-designer/hooks";
 import { inject } from "vue";
@@ -19,16 +19,22 @@ const props = defineProps<{
 const hoverManage = inject("hoverManage") as HoverManage;
 const focusManage = inject("focusManage") as FocusManage;
 const modeManage = inject("modeManage") as ModeManage;
-const { handleDropStart, handleDropEnd } = useDrag();
+const queueManage = inject("queueManage") as QueueManage;
+const { handleDropStart, handleDropEnd: useDragHandleDragEnd } = useDrag();
 const _noNeedMarginBottom = (elementSchema: IEditorElement) =>
   noNeedMarginBottomDomList.includes(elementSchema.key) ||
   elementController.getCurrentElementLibraryName() === "vuetify";
 
 const handleAdd = (index: number) => {
-  //Todo这其实是一个设计上的失误 导致必须在这里进行异步 确保另一边加上数据了
   setTimeout(() => {
     focusManage.handleFocus(props.elementSchemaList[index]);
+    queueManage.push("add");
   }, 0);
+};
+
+const handleDragEnd = () => {
+  useDragHandleDragEnd(hoverManage, focusManage);
+  queueManage.push("drag");
 };
 </script>
 
@@ -49,7 +55,7 @@ const handleAdd = (index: number) => {
       ,
     ]"
     @start="() => handleDropStart(hoverManage, focusManage)"
-    @end="() => handleDropEnd(hoverManage, focusManage)"
+    @end="() => handleDragEnd()"
     @add="(e: any) => handleAdd(e.newIndex)"
     @dragover.prevent
     item-key="id"

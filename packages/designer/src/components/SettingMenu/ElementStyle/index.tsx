@@ -1,4 +1,4 @@
-import { FocusManage } from "@cgx-designer/hooks";
+import { FocusManage, QueueManage } from "@cgx-designer/hooks";
 import { computed, defineComponent, inject } from "vue";
 import { getValueByPath, setValueByPath } from "@cgx-designer/utils";
 import { ElementEngine } from "@cgx-designer/engine";
@@ -9,6 +9,7 @@ import { CFormItem } from "@cgx-designer/extensions";
 const ElementStyle = defineComponent({
   setup() {
     const focusManage = inject("focusManage") as FocusManage;
+    const queueManage = inject("queueManage") as QueueManage;
     const focusedElement = computed(() => {
       return focusManage.focusedElement.value;
     });
@@ -41,6 +42,7 @@ const ElementStyle = defineComponent({
                           styleConfig.field!,
                           v
                         );
+                    queueManage.push("elementStyle");
                   }}
                 />
               </CFormItem>

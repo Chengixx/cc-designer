@@ -59,6 +59,7 @@ export const createOperationButtonSetting = (
         }
         elementManage.deleteAllElements();
         focusManage.resetFocus();
+        queueManage.push("clear");
       },
       icon: ClearIcon,
     },

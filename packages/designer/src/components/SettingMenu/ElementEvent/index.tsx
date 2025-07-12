@@ -1,4 +1,4 @@
-import { FocusManage, FormManage } from "@cgx-designer/hooks";
+import { FocusManage, FormManage, QueueManage } from "@cgx-designer/hooks";
 import { computed, defineComponent, inject } from "vue";
 import { getValueByPath, setValueByPath } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
@@ -9,7 +9,7 @@ const ElementEvent = defineComponent({
     const elementConfigMap = elementController.elementConfigMap;
     const formManage = inject("formManage") as FormManage;
     const focusManage = inject("focusManage") as FocusManage;
-
+    const queueManage = inject("queueManage") as QueueManage;
     const focusedElement = computed(() => {
       return focusManage.focusedElement.value;
     });
@@ -42,6 +42,7 @@ const ElementEvent = defineComponent({
               `on`,
               v
             );
+            queueManage.push("elementEvent");
           }}
         />
       </div>

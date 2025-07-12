@@ -26,8 +26,8 @@ const ButtonTool = defineComponent({
       focusManage.startFocusTimedQuery();
       const id = focusManage.focusedElement.value?.id;
       elementManage.deleteElementById(id!);
-      queueManage.push("delete");
       focusManage.resetFocus();
+      queueManage.push("delete");
       focusManage.stopFocusTimedQuery();
     };
 

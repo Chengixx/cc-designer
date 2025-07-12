@@ -1,6 +1,10 @@
 import { ElementEngine } from "@cgx-designer/engine";
 import { IEditorElement } from "../../../../../types";
-import { FocusManage, SourceDataManage } from "@cgx-designer/hooks";
+import {
+  FocusManage,
+  QueueManage,
+  SourceDataManage,
+} from "@cgx-designer/hooks";
 import { setValueByPath, copyToClipboard } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
 import { defineComponent, Fragment, inject, ref, watch } from "vue";
@@ -23,6 +27,7 @@ const ElementAttribute = defineComponent({
     const elementControllerMap = elementController.elementConfigMap;
     const focusManage = inject("focusManage") as FocusManage;
     const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
+    const queueManage = inject("queueManage") as QueueManage;
     const SelectSourceDataDialogRef = ref<SelectSourceDataDialogExpose | null>(
       null
     );
@@ -61,6 +66,7 @@ const ElementAttribute = defineComponent({
         attributeConfig.onChange({ value, values: editData });
       }
       setValueByPath(currentFocusElement.value!, field, value);
+      queueManage.push("elementAttribute");
     };
     watch(
       () => focusManage.focusedElement.value,
@@ -106,6 +112,7 @@ const ElementAttribute = defineComponent({
         componentId,
         attrName: attributeConfig.field!,
       });
+      queueManage.push("bindSourceData");
     };
     return () => (
       <>
