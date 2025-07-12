@@ -19,17 +19,23 @@ export const useQueue = (
       focusManage.resetFocus();
     }
   };
+
   const queueController = new QueueController(execute, 100);
 
-  const push = (type: string = "default") => {
+  const push = (type: string = "default", immediate: boolean = false) => {
     const elementList = deepClone(elementManage.elementList.value);
     const focusElementId = focusManage.focusedElement.value?.id;
-    console.log("push", elementList, focusElementId);
-    queueController.push({
+    const item = {
       type,
       elementList,
       focusElementId: focusElementId || null,
-    });
+    };
+
+    if (immediate) {
+      queueController.pushImmediate(item);
+    } else {
+      queueController.push(item);
+    }
   };
 
   const undo = () => queueController.undo();
@@ -50,7 +56,7 @@ export const useQueue = (
   const getInstance = () => queueController;
 
   onMounted(() => {
-    push("init");
+    push("init", true); // 初始化时立即执行，跳过防抖
   });
 
   return {

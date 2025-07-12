@@ -18,6 +18,10 @@ export class QueueController {
   private _execute: (item: QueueItem) => void;
   // 标记是否已经初始化
   private _isInitialized = ref(false);
+  // 防抖相关
+  private _debounceTimer: NodeJS.Timeout | null = null;
+  private _debounceDelay: number;
+  private _pendingItem: QueueItem | null = null;
 
   // 计算属性
   readonly canUndo = computed(() => this._undoList.value.length > 0);
@@ -26,20 +30,58 @@ export class QueueController {
   readonly undoCount = computed(() => this._undoList.value.length);
   readonly redoCount = computed(() => this._redoList.value.length);
 
-  constructor(execute: (item: QueueItem) => void, maxLength: number = 50) {
+  constructor(execute: (item: QueueItem) => void, maxLength: number = 50, debounceDelay: number = 200) {
     this._undoList.value = [];
     this._redoList.value = [];
     this._currentState.value = null;
     this._maxLength = maxLength;
     this._execute = execute;
     this._isInitialized.value = false;
+    this._debounceDelay = debounceDelay;
   }
 
   /**
-   * 添加新状态到队列
+   * 添加新状态到队列（带防抖）
    * @param item 新的状态
    */
   push(item: QueueItem) {
+    // 保存最新的 item
+    this._pendingItem = item;
+
+    // 清除之前的定时器
+    if (this._debounceTimer) {
+      clearTimeout(this._debounceTimer);
+    }
+
+    // 设置新的防抖定时器
+    this._debounceTimer = setTimeout(() => {
+      if (this._pendingItem) {
+        this._pushInternal(this._pendingItem);
+        this._pendingItem = null;
+      }
+    }, this._debounceDelay);
+  }
+
+  /**
+   * 立即执行 push（跳过防抖）
+   * @param item 新的状态
+   */
+  pushImmediate(item: QueueItem) {
+    // 清除防抖定时器
+    if (this._debounceTimer) {
+      clearTimeout(this._debounceTimer);
+      this._debounceTimer = null;
+    }
+    
+    this._pendingItem = null;
+    this._pushInternal(item);
+  }
+
+  /**
+   * 内部 push 方法，实际执行添加逻辑
+   * @param item 新的状态
+   */
+  private _pushInternal(item: QueueItem) {
     // 如果是第一次 push，直接设置当前状态，不加入撤销列表
     if (!this._isInitialized.value) {
       this._currentState.value = item;
@@ -116,6 +158,13 @@ export class QueueController {
    * 清空所有状态
    */
   clear(): void {
+    // 清除防抖定时器
+    if (this._debounceTimer) {
+      clearTimeout(this._debounceTimer);
+      this._debounceTimer = null;
+    }
+    
+    this._pendingItem = null;
     this._undoList.value = [];
     this._redoList.value = [];
     this._currentState.value = null;
@@ -134,6 +183,8 @@ export class QueueController {
       maxLength: this._maxLength,
       hasCurrentState: this._currentState.value !== null,
       isInitialized: this._isInitialized.value,
+      debounceDelay: this._debounceDelay,
+      hasPendingItem: this._pendingItem !== null
     };
   }
 }

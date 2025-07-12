@@ -26,10 +26,8 @@ const _noNeedMarginBottom = (elementSchema: IEditorElement) =>
   elementController.getCurrentElementLibraryName() === "vuetify";
 
 const handleAdd = (index: number) => {
-  setTimeout(() => {
-    focusManage.handleFocus(props.elementSchemaList[index]);
-    queueManage.push("add");
-  }, 0);
+  focusManage.handleFocus(props.elementSchemaList[index]);
+  queueManage.push("add");
 };
 
 const handleDragEnd = () => {
