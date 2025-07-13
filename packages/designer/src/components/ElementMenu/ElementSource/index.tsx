@@ -1,5 +1,5 @@
 import { ElementManage } from "@cgx-designer/hooks";
-import { IDE } from "@cgx-designer/extensions";
+import { formatJson, MonacoIDE } from "@cgx-designer/extensions";
 import { defineComponent, inject, ref, toRaw, watch } from "vue";
 import { deepClone, deepCompareAndModify } from "@cgx-designer/utils";
 import { isEqual } from "lodash-es";
@@ -10,7 +10,7 @@ const ElementSource = defineComponent({
   setup() {
     const elementManage = inject("elementManage") as ElementManage;
     const sourceCodeIDERef = ref<any>(null);
-    const modelValue = JSON.stringify(elementManage.elementList.value);
+    const modelValue = formatJson(elementManage.elementList.value);
 
     let tempSchema: IEditorElement | null = null;
 
@@ -26,7 +26,7 @@ const ElementSource = defineComponent({
       () => elementManage.elementList.value,
       (newSchema) => {
         if (!isEqual(tempSchema, toRaw(deepClone(newSchema)))) {
-          sourceCodeIDERef.value!.setEditorValue(JSON.stringify(newSchema));
+          sourceCodeIDERef.value!.setValue(formatJson(newSchema));
         }
       },
       {
@@ -35,10 +35,11 @@ const ElementSource = defineComponent({
     );
 
     return () => (
-      <IDE
+      <MonacoIDE
         modelValue={modelValue}
         ref={sourceCodeIDERef as any}
         onUpdate:modelValue={(v) => handleUpdateSchema(v)}
+        mode="json"
       />
     );
   },

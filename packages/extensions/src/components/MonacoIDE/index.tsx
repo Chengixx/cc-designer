@@ -30,6 +30,12 @@ const MonacoIDE = defineComponent({
     const setValue = (v: string) => monacoEditor!.setValue(v || "");
     const getValue = () => props.modelValue ?? "";
 
+    const format = () => {
+      if (monacoEditor) {
+        monacoEditor.getAction("editor.action.formatDocument")!.run();
+      }
+    };
+
     watch(
       () => themeManage.isDark.value,
       () => {
@@ -44,6 +50,19 @@ const MonacoIDE = defineComponent({
       }
     );
 
+    watch(
+      () => props.modelValue,
+      () => {
+        nextTick(() => {
+          format();
+        });
+      },
+      {
+        immediate: true,
+        deep: true,
+      }
+    );
+
     onMounted(() => {
       monacoEditor = monaco.editor.create(monacoRef.value as HTMLElement, {
         value: getValue(),
@@ -55,11 +74,15 @@ const MonacoIDE = defineComponent({
       monacoEditor.onDidChangeModelContent(() =>
         emit("update:modelValue", monacoEditor?.getValue() ?? "")
       );
+      nextTick(() => {
+        format();
+      });
     });
 
     expose({
       getValue,
       setValue,
+      format,
     });
 
     return () => <div ref={monacoRef} class="c-min-h-40 c-w-full c-h-full" />;
@@ -67,3 +90,5 @@ const MonacoIDE = defineComponent({
 });
 
 export default MonacoIDE;
+
+export * from "./util";
