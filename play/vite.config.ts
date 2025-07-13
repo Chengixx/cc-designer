@@ -5,6 +5,7 @@ import path from "path";
 import { resolve } from "path";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import VueDevTools from "vite-plugin-vue-devtools";
+import monacoEditorPlugin from "vite-plugin-monaco-editor";
 
 export default defineConfig({
   //改一个端口
@@ -18,6 +19,9 @@ export default defineConfig({
     createSvgIconsPlugin({
       iconDirs: [resolve(process.cwd(), "src/icons")],
       symbolId: "icon-[name]",
+    }),
+    monacoEditorPlugin({
+      languageWorkers: ["editorWorkerService", "json", "typescript"],
     }),
   ],
   resolve: {
