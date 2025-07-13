@@ -337,7 +337,10 @@ const isItemHovered = (itemId: string) => {
                     class="c-flex-1 c-min-w-0"
                   >
                     <!-- 组件事件使用三行布局 -->
-                    <div v-if="eventInstance.type === 'component'" class="c-flex c-flex-col c-gap-1">
+                    <div
+                      v-if="eventInstance.type === 'component'"
+                      class="c-flex c-flex-col"
+                    >
                       <span
                         class="c-text-xs c-text-gray-900 dark:c-text-gray-100 c-font-medium c-truncate"
                       >
@@ -346,16 +349,16 @@ const isItemHovered = (itemId: string) => {
                       <span
                         class="c-text-xs c-text-gray-600 dark:c-text-gray-400 c-truncate"
                       >
-                        {{ getElementSetting(eventInstance.componentId)?.label }}
-                      </span>
-                      <span
-                        class="c-text-xs c-text-gray-500 dark:c-text-gray-400 c-font-mono c-truncate"
-                      >
-                        #{{ eventInstance.componentId }}
+                        {{
+                          getElementSetting(eventInstance.componentId)?.label
+                        }}
                       </span>
                     </div>
                     <!-- 其他事件使用水平布局 -->
-                    <div v-else class="c-flex c-items-center c-justify-end c-gap-2">
+                    <div
+                      v-else
+                      class="c-flex c-items-center c-justify-end c-gap-2"
+                    >
                       <span
                         class="c-text-xs c-text-gray-900 dark:c-text-gray-100 c-font-mono c-truncate"
                       >
@@ -376,14 +379,14 @@ const isItemHovered = (itemId: string) => {
                   >
                     <button
                       @click="handleEditEvent(index, item.type, eventInstance)"
-                      class="c-p-1 c-text-gray-400 hover:c-text-blue-500 dark:c-text-gray-500 dark:hover:c-text-blue-400 c-transition-colors c-duration-200 c-rounded-md hover:c-bg-blue-50 dark:hover:c-bg-blue-900/20"
+                      class="c-p-1 c-fill-gray-400 hover:c-fill-blue-500 dark:c-fill-gray-500 dark:hover:c-fill-blue-400 c-transition-colors c-duration-200 c-rounded-md hover:c-bg-blue-50 dark:hover:c-bg-blue-900/20"
                       title="编辑"
                     >
                       <EditIcon class="c-w-4 c-h-4" />
                     </button>
                     <button
                       @click="handleDeleteEvent(index, item.type)"
-                      class="c-p-1 c-text-gray-400 hover:c-text-red-500 dark:c-text-gray-500 dark:hover:c-text-red-400 c-transition-colors c-duration-200 c-rounded-md hover:c-bg-red-50 dark:hover:c-bg-red-900/20"
+                      class="c-p-1 c-fill-gray-400 hover:c-fill-red-500 dark:c-fill-gray-500 dark:hover:c-fill-red-400 c-transition-colors c-duration-200 c-rounded-md hover:c-bg-red-50 dark:hover:c-bg-red-900/20"
                       title="删除"
                     >
                       <ClearIcon class="c-w-4 c-h-4" />
@@ -419,11 +422,9 @@ const isItemHovered = (itemId: string) => {
 /* 拖拽时的样式 */
 .sortable-ghost {
   opacity: 0.5;
-  background: #f3f4f6 !important;
 }
 
 .sortable-chosen {
-  background: #ffffff !important;
   box-shadow:
     0 10px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;

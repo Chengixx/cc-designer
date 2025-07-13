@@ -108,7 +108,7 @@ export const useSourceData = (elementManage: ElementManage) => {
 
   const setSourceDataItem = (name: string, value: any) => {
     const sourceDataItem = getSourceDataByName(name);
-    sourceDataItem.instance.value = value;
+      sourceDataItem.instance.value = value;
   };
 
   const removeSourceDataDepByComponentId = (sourceDataName: string, componentId: string) => {
