@@ -81,14 +81,8 @@ const StyleInput = defineComponent({
                     <Select
                       v-model={stylePrefix.value}
                       style="width: 70px"
-                      elementSchema={{
-                        props: {
-                          options: options,
-                          placeholder: "请选择",
-                        },
-                        field: undefined,
-                        formItem: false,
-                      }}
+                      options={options}
+                      placeholder="请选择"
                     />
                   )}
                 </>

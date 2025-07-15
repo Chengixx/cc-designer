@@ -6,7 +6,10 @@ import { useMergeAttr } from "@cgx-designer/hooks";
 
 const Select = defineComponent({
   props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
+    elementSchema: {
+      type: Object as PropType<IEditorElement>,
+      required: false,
+    },
   },
   setup(props, { attrs }) {
     const renderProps = useMergeAttr(props, attrs);
@@ -17,8 +20,7 @@ const Select = defineComponent({
         console.warn("[warn]:选择器没有选项，请设置选项");
       }
       //保底机制 防止为空的时候直接报错
-      const optionsList: GroupOption[] =
-        renderProps.options ?? [];
+      const optionsList: GroupOption[] = renderProps.options ?? [];
       return (
         <ElSelect
           {...renderProps}

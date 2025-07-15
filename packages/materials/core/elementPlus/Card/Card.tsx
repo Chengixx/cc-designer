@@ -5,7 +5,11 @@ import { useMergeAttr } from "@cgx-designer/hooks";
 
 const Card = defineComponent({
   props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
+    elementSchema: {
+      type: Object as PropType<IEditorElement>,
+      require: false,
+      default: () => {},
+    },
   },
   setup(props, { slots, attrs }) {
     const renderProps = useMergeAttr(props, attrs);

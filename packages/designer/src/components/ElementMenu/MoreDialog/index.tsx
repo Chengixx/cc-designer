@@ -66,35 +66,23 @@ const MoreDialog = defineComponent({
                     <CFormItem label="组件库" labelCol={3}>
                       <Select
                         v-model={lib.value}
-                        elementSchema={{
-                          props: {
-                            ...vuetifyConfig,
-                            options: [
-                              { label: "element-plus", value: "element-plus" },
-                              { label: "vuetify", value: "vuetify" },
-                            ],
-                            placeholder: "请选择组件库",
-                          },
-                          field: undefined,
-                          formItem: false,
-                        }}
+                        {...vuetifyConfig}
+                        options={[
+                          { label: "element-plus", value: "element-plus" },
+                          { label: "vuetify", value: "vuetify" },
+                        ]}
+                        placeholder="请选择组件库"
                       />
                     </CFormItem>
                     <CFormItem label="展示样式" labelCol={3}>
                       <Select
                         v-model={elementController.elementListMode.value}
-                        elementSchema={{
-                          props: {
-                            ...vuetifyConfig,
-                            options: [
-                              { label: "盒状", value: "box" },
-                              { label: "条状", value: "bar" },
-                            ],
-                            placeholder: "请选择展示样式",
-                          },
-                          field: undefined,
-                          formItem: false,
-                        }}
+                        {...vuetifyConfig}
+                        options={[
+                          { label: "盒状", value: "box" },
+                          { label: "条状", value: "bar" },
+                        ]}
+                        placeholder="请选择展示样式"
                       />
                     </CFormItem>
                   </div>

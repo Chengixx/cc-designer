@@ -97,30 +97,18 @@ const RuleSetting = defineComponent({
                         <CFormItem label="校验时机" class="c-mt-2" labelCol={8}>
                           <Select
                             v-model={requiredRule.value.trigger}
-                            elementSchema={{
-                              props: {
-                                ...vuetifyConfig,
-                                multiple: true,
-                                options: triggerOptions,
-                                placeholder: "请选择时机",
-                              },
-                              field: undefined,
-                              formItem: false,
-                            }}
+                            {...vuetifyConfig}
+                            multiple
+                            options={triggerOptions}
+                            placeholder="请选择时机"
                           />
                         </CFormItem>
                         <CFormItem label="类型" class="c-mt-2" labelCol={8}>
                           <Select
                             v-model={requiredRule.value.type}
-                            elementSchema={{
-                              props: {
-                                ...vuetifyConfig,
-                                options: typeOptions,
-                                placeholder: "请选择类型",
-                              },
-                              field: undefined,
-                              formItem: false,
-                            }}
+                            {...vuetifyConfig}
+                            options={typeOptions}
+                            placeholder="请选择类型"
                           />
                         </CFormItem>
                         <CFormItem label="提示信息" class="c-mt-2" labelCol={8}>
@@ -146,30 +134,18 @@ const RuleSetting = defineComponent({
                         <CFormItem label="校验时机" labelCol={8}>
                           <Select
                             v-model={rule.trigger}
-                            elementSchema={{
-                              props: {
-                                ...vuetifyConfig,
-                                multiple: true,
-                                options: triggerOptions,
-                                placeholder: "请选择时机",
-                              },
-                              field: undefined,
-                              formItem: false,
-                            }}
+                            {...vuetifyConfig}
+                            multiple
+                            options={triggerOptions}
+                            placeholder="请选择时机"
                           />
                         </CFormItem>
                         <CFormItem label="类型" class="c-mt-2" labelCol={8}>
                           <Select
                             v-model={rule.type}
-                            elementSchema={{
-                              props: {
-                                ...vuetifyConfig,
-                                options: typeOptions,
-                                placeholder: "请选择类型",
-                              },
-                              field: undefined,
-                              formItem: false,
-                            }}
+                            {...vuetifyConfig}
+                            options={typeOptions}
+                            placeholder="请选择类型"
                           />
                         </CFormItem>
                         <CFormItem label="正则校验" class="c-mt-2" labelCol={8}>
