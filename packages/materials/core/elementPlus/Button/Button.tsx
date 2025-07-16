@@ -1,16 +1,11 @@
-import { IEditorElement } from "@cgx-designer/types";
 import { ElButton } from "element-plus";
-import { defineComponent, PropType } from "vue";
+import { defineComponent } from "vue";
 import { isEmpty } from "lodash-es";
 import { useMergeAttr } from "@cgx-designer/hooks";
+import { createElementProps } from "@cgx-designer/utils";
 
 const Button = defineComponent({
-  props: {
-    elementSchema: {
-      type: Object as PropType<IEditorElement>,
-      default: () => {},
-    },
-  },
+  props: createElementProps(),
   setup(props, { attrs, slots }) {
     const renderProps = useMergeAttr(props, attrs);
 
