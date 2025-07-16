@@ -23,7 +23,7 @@ export const CreateRefDialog = defineComponent({
       if (dataItem) {
         dialogTitle.value = "编辑数据源";
         dataName.value = dataItem.name;
-        initialValue.value = JSON.stringify(dataItem.instance.getValue());
+        initialValue.value = JSON.stringify(dataItem.instance.initialValue);
         innerDataIndex.value = dataIndex!;
       } else {
         dialogTitle.value = "新增数据源";

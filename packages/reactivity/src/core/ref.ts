@@ -1,217 +1,88 @@
+//需要手动收集依赖 因为这边的用途是用于数据源设计器 并不是组件本身
 import { ElementInstance } from "@cgx-designer/types";
+import { isEqual } from "lodash-es";
 
-// 依赖事件接口
-export interface IDependencyEvent {
+export interface IRefEvent {
+  // 事件的唯一标识
   key: string;
+  // Todo事件的类型 现在应该就是只有组件
   type: string;
   componentId: string;
+  //属性名称
   attrName: string;
 }
 
-// 数据源绑定接口
+//绑定以后的schema上的值
 export interface IBindSourceData {
   type: "sourceData";
   dataType: string;
   value: string;
 }
 
-// 响应式处理器
-type ReactiveHandler = {
-  get: (target: any, prop: string | symbol) => any;
-  set: (target: any, prop: string | symbol, value: any) => boolean;
-};
-
-// 依赖管理器
-class DependencyManager {
-  private dependencies = new Map<string, IDependencyEvent>();
-  private instanceFinder?: (id: string) => ElementInstance | undefined;
-
-  setInstanceFinder(finder: (id: string) => ElementInstance | undefined) {
-    this.instanceFinder = finder;
-  }
-
-  addDependency(dep: IDependencyEvent): void {
-    this.dependencies.set(dep.key, dep);
-  }
-
-  removeDependency(key: string): boolean {
-    return this.dependencies.delete(key);
-  }
-
-  clearDependencies(): void {
-    this.dependencies.clear();
-  }
-
-  getDependencies(): IDependencyEvent[] {
-    return Array.from(this.dependencies.values());
-  }
-
-  updateDependencies(newValue: any): void {
-    this.dependencies.forEach((dep) => {
-      const instance = this.instanceFinder?.(dep.componentId);
-      if (!instance) return;
-
-      // 根据属性名决定更新策略
-      if (dep.attrName === "props.defaultValue") {
-        instance.setValue?.(newValue);
-      } else {
-        const attrName = dep.attrName.startsWith("props.")
-          ? dep.attrName.slice(6)
-          : dep.attrName;
-        instance.setAttr?.(attrName, newValue);
-      }
-    });
-  }
-}
-
-// 创建响应式代理
-function createReactiveProxy(
-  value: any,
-  dependencyManager: DependencyManager
-): any {
-  // 如果不是对象，直接返回
-  if (value === null || typeof value !== "object") {
-    return value;
-  }
-
-  const handler: ReactiveHandler = {
-    get(target, prop) {
-      // 特殊属性处理
-      if (prop === "__isReactive") return true;
-      if (prop === "__dependencyManager") return dependencyManager;
-
-      return target[prop];
-    },
-
-    set(target, prop, value) {
-      const oldValue = target[prop];
-      target[prop] = value;
-
-      // 值变化时触发依赖更新
-      if (oldValue !== value) {
-        dependencyManager.updateDependencies(value);
-      }
-
-      return true;
-    },
-  };
-
-  return new Proxy(value, handler);
-}
-
-// 响应式状态管理
 export class RefState {
-  private _value: any;
-  private _proxy: any;
-  private dependencyManager: DependencyManager;
+  //初始值
+  initialValue: any;
+  find: ((id: string) => ElementInstance | undefined) | undefined = undefined;
+  deps: Array<IRefEvent> = [];
 
-  constructor(initialValue: any, deps?: IDependencyEvent[]) {
-    this._value = initialValue;
-    this.dependencyManager = new DependencyManager();
-
-    // 创建响应式代理
-    this._proxy = createReactiveProxy(this._value, this.dependencyManager);
-
+  constructor(initialValue: any, deps?: Array<IRefEvent>) {
+    this.initialValue = initialValue;
     if (deps) {
-      deps.forEach((dep) => this.dependencyManager.addDependency(dep));
+      this.deps = deps;
     }
   }
 
-  get value(): any {
-    return this._proxy;
+  get value() {
+    return this.initialValue;
   }
 
   set value(newValue: any) {
-    this._value = newValue;
-    this._proxy = createReactiveProxy(newValue, this.dependencyManager);
+    // 减少开销 值没有变化的情况下不触发
+    if (isEqual(newValue, this.initialValue)) return;
+    this.initialValue = newValue;
+    this.updateDependencies(newValue);
   }
 
-  // 初始化实例查找器
-  init(instanceFinder: (id: string) => ElementInstance | undefined): void {
-    this.dependencyManager.setInstanceFinder(instanceFinder);
+  updateDependencies(newValue: any): void {
+    for (const dep of this.deps) {
+      const instance = this.find?.(dep.componentId);
+      if (instance) {
+        if (dep.attrName === "props.defaultValue") {
+          instance.setValue?.(newValue);
+        } else {
+          const attrName = dep.attrName.startsWith("props.")
+            ? dep.attrName.slice(6)
+            : dep.attrName;
+          instance.setAttr?.(attrName, newValue);
+        }
+      }
+    }
   }
 
-  // 依赖管理
-  addDependency(dep: IDependencyEvent): void {
-    this.dependencyManager.addDependency(dep);
+  public init(event: (id: string) => ElementInstance | undefined) {
+    this.find = event;
   }
 
-  removeDependency(key: string): boolean {
-    return this.dependencyManager.removeDependency(key);
+  public addDeps(fn: IRefEvent) {
+    this.deps.push(fn);
   }
 
-  clearDependencies(): void {
-    this.dependencyManager.clearDependencies();
+  public removeDeps(name: string) {
+    this.deps = this.deps.filter((item) => item.key !== name);
   }
 
-  getDependencies(): IDependencyEvent[] {
-    return this.dependencyManager.getDependencies();
+  public clearDeps() {
+    this.deps = [];
   }
 
-  // 批量操作
-  addDependencies(deps: IDependencyEvent[]): void {
-    deps.forEach((dep) => this.addDependency(dep));
-  }
-
-  removeDependencies(keys: string[]): void {
-    keys.forEach((key) => this.removeDependency(key));
-  }
-
-  // 工具方法
-  getValue(): any {
-    return this._value;
-  }
-
-  setValueSilently(newValue: any): void {
-    this._value = newValue;
-    this._proxy = createReactiveProxy(newValue, this.dependencyManager);
-  }
-
-  triggerUpdate(): void {
-    this.dependencyManager.updateDependencies(this._value);
-  }
-
-  hasDependencies(): boolean {
-    return this.getDependencies().length > 0;
-  }
-
-  getDependencyCount(): number {
-    return this.getDependencies().length;
+  public getDeps() {
+    return this.deps;
   }
 }
 
-// 工厂函数
 export function createRef(
   initialValue: any,
-  deps?: IDependencyEvent[]
+  deps?: Array<IRefEvent>
 ): RefState {
-  return new RefState(initialValue, deps);
-}
-
-// 工具函数
-export function isBindSourceData(value: any): value is IBindSourceData {
-  return value && typeof value === "object" && value.type === "sourceData";
-}
-
-export function createBindSourceData(
-  dataType: string,
-  value: string
-): IBindSourceData {
-  return {
-    type: "sourceData",
-    dataType,
-    value,
-  };
-}
-
-// 检查是否为响应式对象
-export function isReactive(value: any): boolean {
-  return value && value.__isReactive === true;
-}
-
-// 获取依赖管理器
-export function getDependencyManager(
-  value: any
-): DependencyManager | undefined {
-  return isReactive(value) ? value.__dependencyManager : undefined;
+  return deps ? new RefState(initialValue, deps) : new RefState(initialValue);
 }

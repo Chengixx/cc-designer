@@ -1,156 +1,126 @@
 import { ref } from "vue";
-import { createRef, IDependencyEvent } from "@cgx-designer/reactivity";
+import { createRef, RefState } from "@cgx-designer/reactivity";
 import { ElementManage } from "./useElement";
-import { setValueByPath } from "@cgx-designer/utils";
+import { getValueByPath } from "@cgx-designer/utils";
 
 export type SourceDataManage = ReturnType<typeof useSourceData>;
 
-// 数据源类型
+//TODO 暂时实现ref 考虑是不是要reactive 但是又感觉没意义 用ref就可以了 其次reactive也会荣誉
+//vue的数据源目前应该是两种 ref 和 普通的请求数据源
 export type SourceDataType = "ref" | "http";
 
-// 数据源项接口
 export interface SourceDataItem {
   type: SourceDataType;
   name: string;
-  instance: any;
+  instance: RefState;
 }
 
 export const useSourceData = (elementManage: ElementManage) => {
   const sourceData = ref<SourceDataItem[]>([]);
 
-  // 工具函数：查找数据源
-  const findSourceData = (name: string) =>
-    sourceData.value.find((item) => item.name === name);
-
-  // 工具函数：获取数据源（带错误处理）
-  const getSourceDataByName = (name: string) => {
-    const item = findSourceData(name);
-    if (!item) {
-      throw new Error(`数据源 ${name} not found`);
-    }
-    return item;
-  };
-
-  // 工具函数：更新依赖
-  const updateDependencies = (sourceDataItem: SourceDataItem) => {
-    sourceDataItem.instance.getDependencies().forEach((dep) => {
-      const elementSchema = elementManage.getElementById(dep.componentId);
-      if (!elementSchema) return;
-
-      const bindData = {
-        type: "sourceData",
-        dataType: sourceDataItem.type,
-        value: sourceDataItem.name,
+  const setSourceData = (target: SourceDataItem[]) => {
+    sourceData.value = target;
+    sourceData.value = sourceData.value.map((sourceDataItem) => {
+      const target = createRef(
+        sourceDataItem.instance.initialValue,
+        sourceDataItem.instance.deps
+      );
+      target.init(elementManage.getElementInstanceById);
+      return {
+        ...sourceDataItem,
+        instance: target,
       };
-
-      setValueByPath(elementSchema, dep.attrName, bindData);
     });
   };
 
-  // 工具函数：清理依赖
-  const cleanupDependencies = (sourceDataItem: SourceDataItem) => {
-    sourceDataItem.instance.getDependencies().forEach((dep) => {
-      const elementSchema = elementManage.getElementById(dep.componentId);
-      if (!elementSchema) return;
-
-      if (dep.attrName.startsWith("props.")) {
-        const propName = dep.attrName.slice(6);
-        if (elementSchema.props) {
-          elementSchema.props[propName] = undefined;
-        }
-      } else {
-        setValueByPath(elementSchema, dep.attrName, undefined);
-      }
-    });
-  };
-
-  // 核心方法
   const addSourceData = (
     type: SourceDataType,
     name: string,
     initialValue: any
   ) => {
     const instance = createRef(initialValue);
-    instance.init(elementManage.getElementInstanceById);
-
-    sourceData.value.push({ type, name, instance });
-  };
-
-  const editSourceData = (index: number, name: string, newValue: any) => {
-    if (index < 0 || index >= sourceData.value.length) {
-      throw new Error(`数据源索引 ${index} 超出范围`);
-    }
-
-    const sourceDataItem = sourceData.value[index];
-    sourceDataItem.instance.value = newValue;
-    sourceDataItem.name = name;
-
-    updateDependencies(sourceDataItem);
-  };
-
-  const removeSourceData = (name: string) => {
-    const sourceDataItem = findSourceData(name);
-    if (!sourceDataItem) return;
-
-    cleanupDependencies(sourceDataItem);
-    sourceData.value = sourceData.value.filter((item) => item.name !== name);
-  };
-
-  const getSourceData = (name: string) => getSourceDataByName(name);
-
-  const setSourceData = (target: SourceDataItem[]) => {
-    sourceData.value = target.map((item) => {
-      const instance = createRef(
-        item.instance.getValue(),
-        item.instance.getDependencies()
-      );
-      instance.init(elementManage.getElementInstanceById);
-
-      return { ...item, instance };
+    sourceData.value.push({
+      type,
+      name,
+      instance,
     });
   };
 
-  const setSourceDataItem = (name: string, value: any) => {
-    const sourceDataItem = getSourceDataByName(name);
-    sourceDataItem.instance.value = value;
+  const editSourceData = (index: number, name: string, initialValue: any) => {
+    if (index > -1) {
+      const innerSourceData = sourceData.value[index];
+      innerSourceData.instance.value = initialValue;
+      // 更新名称
+      innerSourceData.name = name;
+      //这个时候应该把所有的依赖都更新一遍
+      innerSourceData.instance.deps.forEach((dep) => {
+        //找到每一个schema 然后去更改里面的值
+        const elementSchema = elementManage.getElementById(dep.componentId);
+        //这里按道理讲不可能为空 除非用户乱改了
+        //拿到之后 把value改成新的
+        getValueByPath(elementSchema!, dep.attrName).value = name;
+      });
+    }
+  };
+
+  //todo 记得删除
+  addSourceData("ref", "test", "测试哈哈哈");
+  addSourceData("ref", "test1", "测试11111");
+
+  const removeSourceData = (name: string) => {
+    //一样的道理 删除之前 要先清除所用的依赖
+    const sourceDataItem = sourceData.value.find((item) => item.name === name);
+    if (sourceDataItem) {
+      sourceDataItem.instance.deps.forEach((dep) => {
+        //找到每一个schema 然后去更改里面的值
+        const elementSchema = elementManage.getElementById(dep.componentId);
+        //这里按道理讲不可能为空 除非用户乱改了
+        //拿到之后 把value改成新的
+        if (dep.attrName.startsWith("props.")) {
+          elementSchema!.props![dep.attrName.slice(6)] = undefined;
+        } else {
+          //todo但是这里值得一提的是 我们的引擎里如果默认值改成undefined
+          // todo可能渲染器是不会响应的 但是我觉得这个倒是无所谓 仅仅影响画布阶段 并且不会产生实际的影响
+          elementSchema![dep.attrName] = undefined;
+        }
+      });
+    }
+    sourceData.value = sourceData.value.filter((item) => item.name !== name);
   };
 
   const removeSourceDataDepByComponentId = (
     sourceDataName: string,
     componentId: string
   ) => {
-    const sourceDataItem = findSourceData(sourceDataName);
-    if (!sourceDataItem) return;
-
-    const currentDeps = sourceDataItem.instance.getDependencies();
-    const filteredDeps = currentDeps.filter(
-      (dep) => dep.componentId !== componentId
+    const sourceDataItem = sourceData.value.find(
+      (item) => item.name === sourceDataName
     );
-
-    sourceDataItem.instance.clearDependencies();
-    sourceDataItem.instance.addDependencies(filteredDeps);
+    if (sourceDataItem) {
+      sourceDataItem.instance.deps = sourceDataItem.instance.deps.filter(
+        (dep) => dep.componentId !== componentId
+      );
+    }
   };
 
-  // 便捷方法
-  const addComponentDependency = (
-    sourceDataName: string,
-    dependency: IDependencyEvent
-  ) => {
-    const sourceDataItem = getSourceDataByName(sourceDataName);
-    sourceDataItem.instance.addDependency(dependency);
+  const getSourceData = (name: string) => {
+    const item = sourceData.value.find((item) => item.name === name);
+    if (item) {
+      return item;
+    } else {
+      throw new Error(`数据源 ${name} not found`);
+    }
   };
 
-  const hasSourceData = (name: string) => findSourceData(name) !== undefined;
-
-  const getSourceDataCount = () => sourceData.value.length;
-
-  const clearAll = () => setSourceData([]);
-
-  const getSourceDataNames = () => sourceData.value.map((item) => item.name);
-
-  // 添加测试数据
-  addSourceData("ref", "test", "测试哈哈哈");
-  addSourceData("ref", "test1", "测试11111");
+  const setSourceDataItem = (name: string, value: any) => {
+    //先找到对应的实例
+    const sourceDataItem = sourceData.value.find((item) => item.name === name);
+    if (sourceDataItem) {
+      // 我们的响应式会自己触发回调
+      sourceDataItem.instance.value = value;
+    } else {
+      throw new Error(`数据源 ${name} not found`);
+    }
+  };
 
   return {
     sourceData,
@@ -161,10 +131,5 @@ export const useSourceData = (elementManage: ElementManage) => {
     setSourceData,
     setSourceDataItem,
     removeSourceDataDepByComponentId,
-    addComponentDependency,
-    hasSourceData,
-    getSourceDataCount,
-    clearAll,
-    getSourceDataNames,
   };
 };
