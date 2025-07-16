@@ -1,17 +1,10 @@
 import { IEditorElement } from "@cgx-designer/types";
 
-export const isValueIsSourceData = (value: any): boolean => {
-  if (
-    value &&
-    typeof value === "object" &&
-    Object.keys(value as any).includes("type") &&
-    (value as any).type === "sourceData"
-  ) {
-    return true;
-  }
-
-  return false;
-};
+export const isValueIsSourceData = (value: any): boolean =>
+  value &&
+  typeof value === "object" &&
+  Object.keys(value as any).includes("type") &&
+  (value as any).type === "sourceData";
 
 export const isAttrIsSourceData = (
   attrName: string,
