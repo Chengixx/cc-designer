@@ -7,7 +7,7 @@ export type DragManage = ReturnType<typeof useDrag>;
 
 export const useDrag = () => {
   const dragStartElement = ref<IEditorElement | null>(null);
-  const handleDropStart = (
+  const handleDrapStart = (
     hoverManager: HoverManage,
     focusManage?: FocusManage
   ) => {
@@ -20,7 +20,7 @@ export const useDrag = () => {
     hoverManager.setShowHoverBox();
     hoverManager.setHoveredElement();
   };
-  const handleDropEnd = (
+  const handleDrapEnd = (
     hoverManager: HoverManage,
     focusManage?: FocusManage
   ) => {
@@ -34,5 +34,5 @@ export const useDrag = () => {
     }
     hoverManager.setDisableHoverStatus(false);
   };
-  return { handleDropStart, handleDropEnd };
+  return { handleDrapStart, handleDrapEnd };
 };

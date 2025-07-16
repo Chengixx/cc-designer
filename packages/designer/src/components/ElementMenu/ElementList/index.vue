@@ -49,7 +49,7 @@ const renderElementListMode = computed(() => {
   return elementController!.elementListMode.value;
 });
 
-const { handleDropStart, handleDropEnd } = useDrag();
+const { handleDrapStart, handleDrapEnd } = useDrag();
 const handleClone = (elementBaseSetting: IElementBaseSetting) => {
   const newElement = elementBaseSetting.template(getRandomId);
   return newElement;
@@ -83,8 +83,8 @@ const handleClone = (elementBaseSetting: IElementBaseSetting) => {
               animation: 180,
             }"
             :ghost-class="themeManage.isDark.value ? 'dark-moving' : 'moving'"
-            @start="() => handleDropStart(hoverManage)"
-            @end="() => handleDropEnd(hoverManage)"
+            @start="() => handleDrapStart(hoverManage)"
+            @end="() => handleDrapEnd(hoverManage)"
             :clone="
               (elementBaseSetting: IElementBaseSetting) =>
                 handleClone(elementBaseSetting)

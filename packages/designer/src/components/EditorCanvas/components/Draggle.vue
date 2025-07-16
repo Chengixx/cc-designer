@@ -20,7 +20,7 @@ const hoverManage = inject("hoverManage") as HoverManage;
 const focusManage = inject("focusManage") as FocusManage;
 const modeManage = inject("modeManage") as ModeManage;
 const queueManage = inject("queueManage") as QueueManage;
-const { handleDropStart, handleDropEnd: useDragHandleDragEnd } = useDrag();
+const { handleDrapStart, handleDrapEnd: useDragHandleDragEnd } = useDrag();
 const _noNeedMarginBottom = (elementSchema: IEditorElement) =>
   noNeedMarginBottomDomList.includes(elementSchema.key) ||
   elementController.getCurrentElementLibraryName() === "vuetify";
@@ -52,7 +52,7 @@ const handleDragEnd = () => {
           : 'c-min-h-[calc(100vh-136px)] c-w-full c-bg-white c-p-2 dark:c-bg-darkMode',
       ,
     ]"
-    @start="() => handleDropStart(hoverManage, focusManage)"
+    @start="() => handleDrapStart(hoverManage, focusManage)"
     @end="() => handleDragEnd()"
     @add="(e: any) => handleAdd(e.newIndex)"
     @dragover.prevent
