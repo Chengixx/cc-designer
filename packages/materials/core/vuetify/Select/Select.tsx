@@ -2,15 +2,13 @@ import { VSelect } from "vuetify/components";
 import { defineComponent } from "vue";
 import { GroupOption } from "../../../types";
 import { createElementProps } from "@cgx-designer/utils";
+import { useMergeAttr } from "@cgx-designer/hooks";
 
 const Select = defineComponent({
   props: createElementProps(),
   setup(props, { attrs }) {
+    const renderProps = useMergeAttr(props, attrs);
     return () => {
-      const renderProps: Record<string, any> = {
-        ...props.elementSchema.props,
-        ...attrs,
-      };
       //向外抛出错误
       if (!!!props.elementSchema.props!.options) {
         console.warn("[warn]:选择器没有选项，请设置选项");

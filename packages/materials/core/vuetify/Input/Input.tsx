@@ -1,32 +1,27 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent, PropType, ref } from "vue";
 import { VTextField } from "vuetify/components";
-import { isEmpty } from "lodash-es";
-import { exposeDom, transformValidatorArray, createElementProps } from "@cgx-designer/utils";
+import {
+  exposeDom,
+  transformValidatorArray,
+  createElementProps,
+} from "@cgx-designer/utils";
+import { useMergeAttr } from "@cgx-designer/hooks";
 
 const Input = defineComponent({
   props: createElementProps(),
   setup(props, { attrs, expose, slots }) {
     const elementRef = ref<any>(null);
     expose(exposeDom(elementRef));
+    const renderProps = useMergeAttr(props, attrs);
     return () => {
-      const renderProps: Record<string, any> = {
-        ...(!isEmpty(props.elementSchema) && props.elementSchema.props),
-        ...attrs,
-      };
-      let rulesList: any[] = [];
-      if (props.elementSchema && props.elementSchema.rules) {
-        rulesList = transformValidatorArray(props.elementSchema.rules);
-      }
+      const rulesList =
+        renderProps.rules && transformValidatorArray(renderProps.rules);
       //Todo 这里不知道为什么给ref有ts报错啊
       return (
         <VTextField {...renderProps} ref={elementRef as any} rules={rulesList}>
           {{
-            "prepend-inner": () => {
-              return slots.prefix && slots.prefix();
-            },
-            "append-inner": () => {
-              return slots.append && slots.append();
-            },
+            "prepend-inner": () => slots.prefix && slots.prefix(),
+            "append-inner": () => slots.append && slots.append(),
           }}
         </VTextField>
       );

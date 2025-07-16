@@ -7,30 +7,20 @@ import {
   VDialog,
 } from "vuetify/components";
 import { CloseIcon } from "@cgx-designer/icons";
-import { ThemeManage } from "@cgx-designer/hooks";
+import { ThemeManage, useMergeAttr } from "@cgx-designer/hooks";
+import { createElementProps } from "@cgx-designer/utils";
 
 const Dialog = defineComponent({
-  props: {
-    modelValue: {
-      type: Boolean,
-      default: false,
-    },
-    title: {
-      type: String,
-    },
-  },
+  props: createElementProps(),
   inheritAttrs: false,
   emits: ["update:modelValue"],
   setup(props, { attrs, slots, emit }) {
+    const themeManage = inject("themeManage") as ThemeManage;
+    const handleLeave = () => {
+      emit("update:modelValue", false);
+    };
+    const renderProps = useMergeAttr(props, attrs);
     return () => {
-      const themeManage = inject("themeManage") as ThemeManage;
-      const handleLeave = () => {
-        emit("update:modelValue", false);
-      };
-      const renderProps: Record<string, any> = {
-        modelValue: props.modelValue,
-        ...attrs,
-      };
       return (
         <VDialog
           {...renderProps}
@@ -47,9 +37,11 @@ const Dialog = defineComponent({
             color={themeManage.isDark.value ? "#141414" : "#fff"}
           >
             {/* 标题,有才显示,为了兼容element */}
-            {props.title && (
+            {renderProps.title && (
               <VCardTitle class="c-flex c-justify-between c-items-center">
-                <span class="c-text-base c-font-medium">{props.title}</span>
+                <span class="c-text-base c-font-medium">
+                  {renderProps.title}
+                </span>
                 <div
                   class="c-h-fit c-w-fit c-cursor-pointer"
                   onClick={handleLeave}
