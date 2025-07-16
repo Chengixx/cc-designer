@@ -103,11 +103,6 @@ export const useFocus = (
     };
   };
 
-  //强制修改一次focus的样式
-  const forceSetFocusWidgetStyle = () => {
-    setFocusWidgetStyle();
-  };
-
   //初始化dom监听实例(拿到的是实例和config)
   const { startObserver, stopObserver } = useMutationObserver(
     document.body,
@@ -116,17 +111,8 @@ export const useFocus = (
   const { startTimedQuery, stopTimedQuery } =
     useTimedQuery(setFocusWidgetStyle);
 
-  const startFocusTimedQuery = () => {
-    startTimedQuery();
-  };
-  const stopFocusTimedQuery = () => {
-    stopTimedQuery();
-  };
-
   const handleFocus = (focusInstanceSchema: IEditorElement, e?: MouseEvent) => {
-    if (e) {
-      e?.stopPropagation();
-    }
+    e?.stopPropagation();
     //比较进来的 如果已经就是当前的 就不用动了
     if (!isEqual(focusedElement.value, focusInstanceSchema)) {
       focusedElement.value = focusInstanceSchema;
@@ -156,11 +142,11 @@ export const useFocus = (
     handleFocus,
     setFocusWidgetRef,
     handleCanvasClick,
-    startFocusTimedQuery,
-    stopFocusTimedQuery,
+    startFocusTimedQuery: startTimedQuery,
+    stopFocusTimedQuery: stopTimedQuery,
     resetFocus,
     setFocusWidgetStyle,
-    forceSetFocusWidgetStyle,
+    forceSetFocusWidgetStyle: setFocusWidgetStyle,
     handleFocusById,
   };
 };
