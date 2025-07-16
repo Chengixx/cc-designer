@@ -1,12 +1,10 @@
 import { useMergeAttr } from "@cgx-designer/hooks";
-import { IEditorElement } from "@cgx-designer/types";
 import { ElColorPicker } from "element-plus";
-import { defineComponent, PropType } from "vue";
+import { defineComponent } from "vue";
+import { createElementProps } from "@cgx-designer/utils";
 
 const ColorPicker = defineComponent({
-  props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
-  },
+  props: createElementProps(),
   setup(props, { attrs }) {
     return () => {
       const renderProps = useMergeAttr(props, attrs);

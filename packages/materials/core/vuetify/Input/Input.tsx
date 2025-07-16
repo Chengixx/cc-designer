@@ -1,16 +1,10 @@
-import { IEditorElement } from "@cgx-designer/types";
-import { defineComponent, PropType, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import { VTextField } from "vuetify/components";
 import { isEmpty } from "lodash-es";
-import { exposeDom, transformValidatorArray } from "@cgx-designer/utils";
+import { exposeDom, transformValidatorArray, createElementProps } from "@cgx-designer/utils";
 
 const Input = defineComponent({
-  props: {
-    elementSchema: {
-      type: Object as PropType<IEditorElement>,
-      default: () => {},
-    },
-  },
+  props: createElementProps(),
   setup(props, { attrs, expose, slots }) {
     const elementRef = ref<any>(null);
     expose(exposeDom(elementRef));

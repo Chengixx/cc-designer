@@ -1,16 +1,11 @@
 import { ElOption, ElSelect } from "element-plus";
-import { defineComponent, PropType } from "vue";
-import { IEditorElement } from "@cgx-designer/types";
+import { defineComponent } from "vue";
 import { GroupOption } from "../../../types";
 import { useMergeAttr } from "@cgx-designer/hooks";
+import { createElementProps } from "@cgx-designer/utils";
 
 const Select = defineComponent({
-  props: {
-    elementSchema: {
-      type: Object as PropType<IEditorElement>,
-      required: false,
-    },
-  },
+  props: createElementProps(),
   setup(props, { attrs }) {
     const renderProps = useMergeAttr(props, attrs);
 

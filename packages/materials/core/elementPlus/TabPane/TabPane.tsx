@@ -1,12 +1,10 @@
 import { ElTabPane } from "element-plus";
-import { defineComponent, PropType, renderSlot } from "vue";
-import { IEditorElement } from "@cgx-designer/types";
+import { defineComponent, renderSlot } from "vue";
 import { useMergeAttr } from "@cgx-designer/hooks";
+import { createElementProps } from "@cgx-designer/utils";
 
 const TabPane = defineComponent({
-  props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
-  },
+  props: createElementProps(),
   setup(props, { slots, attrs }) {
     const renderProps = useMergeAttr(props, attrs);
 

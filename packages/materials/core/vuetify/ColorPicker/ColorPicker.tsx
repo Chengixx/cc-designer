@@ -1,11 +1,9 @@
-import { IEditorElement } from "@cgx-designer/types";
 import { VColorPicker } from "vuetify/components";
-import { defineComponent, PropType } from "vue";
+import { defineComponent } from "vue";
+import { createElementProps } from "@cgx-designer/utils";
 
 const ColorPicker = defineComponent({
-  props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
-  },
+  props: createElementProps(),
   setup(props, { attrs }) {
     return () => {
       const renderProps: Record<string, any> = {

@@ -3,17 +3,14 @@ import {
   computed,
   defineComponent,
   inject,
-  PropType,
   renderSlot,
   watch,
 } from "vue";
 import { ElementManage, FocusManage } from "@cgx-designer/hooks";
-import { IEditorElement } from "@cgx-designer/types";
+import { createElementProps } from "@cgx-designer/utils";
 
 const Tab = defineComponent({
-  props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
-  },
+  props: createElementProps(),
   setup(props, { slots }) {
     const elementManage = inject("elementManage") as ElementManage;
     const focusManage = inject("focusManage") as FocusManage;

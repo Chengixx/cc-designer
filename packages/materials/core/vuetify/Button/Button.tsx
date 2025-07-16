@@ -1,15 +1,10 @@
-import { IEditorElement } from "@cgx-designer/types";
 import { isEmpty } from "lodash-es";
-import { defineComponent, PropType } from "vue";
+import { defineComponent } from "vue";
 import { VBtn } from "vuetify/components";
+import { createElementProps } from "@cgx-designer/utils";
 
 const Button = defineComponent({
-  props: {
-    elementSchema: {
-      type: Object as PropType<IEditorElement>,
-      default: () => {},
-    },
-  },
+  props: createElementProps(),
   setup(props, { attrs, slots }) {
     return () => {
       const renderProps: Record<string, any> = {

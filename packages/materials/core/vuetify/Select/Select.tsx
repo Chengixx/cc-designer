@@ -1,12 +1,10 @@
 import { VSelect } from "vuetify/components";
-import { defineComponent, PropType } from "vue";
-import { IEditorElement } from "@cgx-designer/types";
+import { defineComponent } from "vue";
 import { GroupOption } from "../../../types";
+import { createElementProps } from "@cgx-designer/utils";
 
 const Select = defineComponent({
-  props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
-  },
+  props: createElementProps(),
   setup(props, { attrs }) {
     return () => {
       const renderProps: Record<string, any> = {

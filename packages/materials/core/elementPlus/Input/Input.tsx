@@ -1,17 +1,11 @@
-import { IEditorElement } from "@cgx-designer/types";
 import { ElInput } from "element-plus";
-import { defineComponent, PropType, ref } from "vue";
-import { isEmpty } from "lodash-es";
+import { defineComponent, ref } from "vue";
 import { exposeDom } from "@cgx-designer/utils";
 import { useMergeAttr } from "@cgx-designer/hooks";
+import { createElementProps } from "@cgx-designer/utils";
 
 const Input = defineComponent({
-  props: {
-    elementSchema: {
-      type: Object as PropType<IEditorElement>,
-      default: () => {},
-    },
-  },
+  props: createElementProps(),
   setup(props, { attrs, expose, slots }) {
     const elementRef = ref<any>(null);
     expose(exposeDom(elementRef));
