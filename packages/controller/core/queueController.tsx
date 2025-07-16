@@ -22,7 +22,6 @@ export class QueueController {
   private _debounceTimer: NodeJS.Timeout | null = null;
   private _debounceDelay: number;
   private _pendingItem: QueueItem | null = null;
-
   // 计算属性
   readonly canUndo = computed(() => this._undoList.value.length > 0);
   readonly canRedo = computed(() => this._redoList.value.length > 0);
