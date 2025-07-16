@@ -402,11 +402,7 @@ importers:
 
   packages/types: {}
 
-  packages/utils:
-    dependencies:
-      mitt:
-        specifier: ^3.0.1
-        version: 3.0.1
+  packages/utils: {}
 
   play:
     dependencies:
