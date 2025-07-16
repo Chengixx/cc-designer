@@ -102,30 +102,22 @@ export const useKeyboard = (handlers: KeyboardHandler[]) => {
     document.addEventListener("keydown", handleKeyDown);
   });
 
-  // 卸载时移除事件
+  // 卸载时记得移除事件
   onUnmounted(() => {
     document.removeEventListener("keydown", handleKeyDown);
   });
 
-  // 返回一些工具方法
   return {
-    // 手动添加处理器（运行时）
     addHandler: (handler: KeyboardHandler) => {
       handlers.push(handler);
     },
-
-    // 移除处理器
     removeHandler: (key: string) => {
       const index = handlers.findIndex((h) => h.key === key);
       if (index > -1) {
         handlers.splice(index, 1);
       }
     },
-
-    // 获取所有处理器
     getHandlers: () => [...handlers],
-
-    // 清空所有处理器
     clearHandlers: () => {
       handlers.length = 0;
     },

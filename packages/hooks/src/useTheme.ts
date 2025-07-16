@@ -1,12 +1,10 @@
 import {
   DeepReadonly,
-  getCurrentInstance,
   inject,
   InjectionKey,
   onMounted,
   onUnmounted,
   Ref,
-  ref,
   watch,
 } from "vue";
 import { useMutationObserver } from "./useMutationObserver";

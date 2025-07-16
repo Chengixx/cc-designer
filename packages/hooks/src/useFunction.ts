@@ -84,7 +84,7 @@ export const useFunction = (
       functionsList.value = fnList;
     }
   };
-  //Todo执行函数
+  //执行函数
   const executeFunctions = (actions: EventInstance[], ...args: any) => {
     if (!actions || actions.length === 0) {
       console.warn("没有任何方法");

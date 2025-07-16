@@ -19,8 +19,8 @@ export const useSourceData = (elementManage: ElementManage) => {
   const sourceData = ref<SourceDataItem[]>([]);
 
   // 工具函数：查找数据源
-  const findSourceData = (name: string) => 
-    sourceData.value.find(item => item.name === name);
+  const findSourceData = (name: string) =>
+    sourceData.value.find((item) => item.name === name);
 
   // 工具函数：获取数据源（带错误处理）
   const getSourceDataByName = (name: string) => {
@@ -33,7 +33,7 @@ export const useSourceData = (elementManage: ElementManage) => {
 
   // 工具函数：更新依赖
   const updateDependencies = (sourceDataItem: SourceDataItem) => {
-    sourceDataItem.instance.getDependencies().forEach(dep => {
+    sourceDataItem.instance.getDependencies().forEach((dep) => {
       const elementSchema = elementManage.getElementById(dep.componentId);
       if (!elementSchema) return;
 
@@ -49,7 +49,7 @@ export const useSourceData = (elementManage: ElementManage) => {
 
   // 工具函数：清理依赖
   const cleanupDependencies = (sourceDataItem: SourceDataItem) => {
-    sourceDataItem.instance.getDependencies().forEach(dep => {
+    sourceDataItem.instance.getDependencies().forEach((dep) => {
       const elementSchema = elementManage.getElementById(dep.componentId);
       if (!elementSchema) return;
 
@@ -65,10 +65,14 @@ export const useSourceData = (elementManage: ElementManage) => {
   };
 
   // 核心方法
-  const addSourceData = (type: SourceDataType, name: string, initialValue: any) => {
+  const addSourceData = (
+    type: SourceDataType,
+    name: string,
+    initialValue: any
+  ) => {
     const instance = createRef(initialValue);
     instance.init(elementManage.getElementInstanceById);
-    
+
     sourceData.value.push({ type, name, instance });
   };
 
@@ -89,41 +93,49 @@ export const useSourceData = (elementManage: ElementManage) => {
     if (!sourceDataItem) return;
 
     cleanupDependencies(sourceDataItem);
-    sourceData.value = sourceData.value.filter(item => item.name !== name);
+    sourceData.value = sourceData.value.filter((item) => item.name !== name);
   };
 
   const getSourceData = (name: string) => getSourceDataByName(name);
 
   const setSourceData = (target: SourceDataItem[]) => {
-    sourceData.value = target.map(item => {
+    sourceData.value = target.map((item) => {
       const instance = createRef(
         item.instance.getValue(),
         item.instance.getDependencies()
       );
       instance.init(elementManage.getElementInstanceById);
-      
+
       return { ...item, instance };
     });
   };
 
   const setSourceDataItem = (name: string, value: any) => {
     const sourceDataItem = getSourceDataByName(name);
-      sourceDataItem.instance.value = value;
+    sourceDataItem.instance.value = value;
   };
 
-  const removeSourceDataDepByComponentId = (sourceDataName: string, componentId: string) => {
+  const removeSourceDataDepByComponentId = (
+    sourceDataName: string,
+    componentId: string
+  ) => {
     const sourceDataItem = findSourceData(sourceDataName);
     if (!sourceDataItem) return;
 
     const currentDeps = sourceDataItem.instance.getDependencies();
-    const filteredDeps = currentDeps.filter(dep => dep.componentId !== componentId);
-    
+    const filteredDeps = currentDeps.filter(
+      (dep) => dep.componentId !== componentId
+    );
+
     sourceDataItem.instance.clearDependencies();
     sourceDataItem.instance.addDependencies(filteredDeps);
   };
 
   // 便捷方法
-  const addComponentDependency = (sourceDataName: string, dependency: IDependencyEvent) => {
+  const addComponentDependency = (
+    sourceDataName: string,
+    dependency: IDependencyEvent
+  ) => {
     const sourceDataItem = getSourceDataByName(sourceDataName);
     sourceDataItem.instance.addDependency(dependency);
   };
@@ -134,7 +146,7 @@ export const useSourceData = (elementManage: ElementManage) => {
 
   const clearAll = () => setSourceData([]);
 
-  const getSourceDataNames = () => sourceData.value.map(item => item.name);
+  const getSourceDataNames = () => sourceData.value.map((item) => item.name);
 
   // 添加测试数据
   addSourceData("ref", "test", "测试哈哈哈");

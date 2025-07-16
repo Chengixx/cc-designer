@@ -40,7 +40,7 @@ const ElementDesigner = defineComponent({
     //所有的hook实例
     const formManage = useForm();
     const elementManage = useElement();
-    const collapseManage = useCollapse();
+    const collapseManage = useCollapse(leftMenuRef, rightMenuRef);
     const themeManage = useTheme();
     const modeManage = useMode();
     const hoverManage = useHover(elementManage, modeManage);
@@ -84,9 +84,6 @@ const ElementDesigner = defineComponent({
       },
     ]);
 
-    onMounted(() => {
-      collapseManage.initMenuInstance(leftMenuRef.value, rightMenuRef.value);
-    });
     return () => {
       return (
         <>
