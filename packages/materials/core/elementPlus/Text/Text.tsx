@@ -1,26 +1,22 @@
 import { useMergeAttr } from "@cgx-designer/hooks";
-import { IEditorElement } from "@cgx-designer/types";
-import { defineComponent, PropType } from "vue";
+import { defineComponent } from "vue";
+import { createElementProps } from "@cgx-designer/utils";
 
 const Text = defineComponent({
-  props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
-  },
+  props: createElementProps(),
   setup(props, { attrs }) {
     const renderProps = useMergeAttr(props, attrs);
 
-    return () => {
-      return (
-        <span
-          style={{
-            fontSize: renderProps.size,
-            color: renderProps.color,
-          }}
-        >
-          {renderProps.label}
-        </span>
-      );
-    };
+    return () => (
+      <span
+        style={{
+          fontSize: renderProps.size,
+          color: renderProps.color,
+        }}
+      >
+        {renderProps.label}
+      </span>
+    );
   },
 });
 

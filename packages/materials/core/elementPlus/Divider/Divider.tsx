@@ -6,10 +6,10 @@ import { createElementProps } from "@cgx-designer/utils";
 const Divider = defineComponent({
   props: createElementProps(),
   setup(props, { attrs }) {
-    return () => {
-      const renderProps = useMergeAttr(props, attrs);
-      return <ElDivider {...renderProps}>{renderProps.placeholder}</ElDivider>;
-    };
+    const renderProps = useMergeAttr(props, attrs);
+    return () => (
+      <ElDivider {...renderProps}>{renderProps.placeholder}</ElDivider>
+    );
   },
 });
 

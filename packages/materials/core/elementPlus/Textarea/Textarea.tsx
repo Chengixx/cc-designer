@@ -8,9 +8,7 @@ const Textarea = defineComponent({
   setup(props, { attrs }) {
     const renderProps = useMergeAttr(props, attrs);
 
-    return () => {
-      return <ElInput type="textarea" {...renderProps} />;
-    };
+    return () => <ElInput type="textarea" {...renderProps} />;
   },
 });
 

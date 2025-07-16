@@ -8,11 +8,9 @@ const Col = defineComponent({
   setup(props, { slots, attrs }) {
     const renderProps = useMergeAttr(props, attrs);
 
-    return () => {
-      return (
-        <ElCol span={renderProps.span}>{renderSlot(slots, "editNode")}</ElCol>
-      );
-    };
+    return () => (
+      <ElCol span={renderProps.span}>{renderSlot(slots, "editNode")}</ElCol>
+    );
   },
 });
 

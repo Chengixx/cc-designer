@@ -8,9 +8,7 @@ const InputNumber = defineComponent({
   setup(props, { attrs }) {
     const renderProps = useMergeAttr(props, attrs);
 
-    return () => {
-      return <ElInputNumber {...renderProps} />;
-    };
+    return () => <ElInputNumber {...renderProps} />;
   },
 });
 

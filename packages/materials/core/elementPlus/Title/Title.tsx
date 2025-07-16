@@ -7,18 +7,16 @@ const Title = defineComponent({
   setup(props, { attrs }) {
     const renderProps = useMergeAttr(props, attrs);
 
-    return () => {
-      return (
-        <h1
-          style={{
-            fontSize: renderProps.size,
-            color: renderProps.color,
-          }}
-        >
-          {renderProps.label}
-        </h1>
-      );
-    };
+    return () => (
+      <h1
+        style={{
+          fontSize: renderProps.size,
+          color: renderProps.color,
+        }}
+      >
+        {renderProps.label}
+      </h1>
+    );
   },
 });
 

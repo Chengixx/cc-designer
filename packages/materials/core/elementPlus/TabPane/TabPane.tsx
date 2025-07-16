@@ -8,15 +8,13 @@ const TabPane = defineComponent({
   setup(props, { slots, attrs }) {
     const renderProps = useMergeAttr(props, attrs);
 
-    return () => {
-      return (
-        <ElTabPane label={renderProps.label} name={renderProps.name}>
-          <div class="c-w-full c-min-h-[60px]">
-            {renderSlot(slots, "editNode")}
-          </div>
-        </ElTabPane>
-      );
-    };
+    return () => (
+      <ElTabPane label={renderProps.label} name={renderProps.name}>
+        <div class="c-w-full c-min-h-[60px]">
+          {renderSlot(slots, "editNode")}
+        </div>
+      </ElTabPane>
+    );
   },
 });
 

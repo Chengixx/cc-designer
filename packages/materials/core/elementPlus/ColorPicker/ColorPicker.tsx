@@ -6,11 +6,8 @@ import { createElementProps } from "@cgx-designer/utils";
 const ColorPicker = defineComponent({
   props: createElementProps(),
   setup(props, { attrs }) {
-    return () => {
-      const renderProps = useMergeAttr(props, attrs);
-
-      return <ElColorPicker {...renderProps} />;
-    };
+    const renderProps = useMergeAttr(props, attrs);
+    return () => <ElColorPicker {...renderProps} />;
   },
 });
 

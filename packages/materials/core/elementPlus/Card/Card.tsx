@@ -8,22 +8,16 @@ const Card = defineComponent({
   setup(props, { slots, attrs }) {
     const renderProps = useMergeAttr(props, attrs);
 
-    return () => {
-      return (
-        <div class="c-p-1 c-w-full">
-          <ElCard class="c-w-full" shadow={renderProps.shadow}>
-            {{
-              header: () => {
-                return <>{renderProps.label}</>;
-              },
-              default: () => {
-                return <>{renderSlot(slots, "editNode")}</>;
-              },
-            }}
-          </ElCard>
-        </div>
-      );
-    };
+    return () => (
+      <div class="c-p-1 c-w-full">
+        <ElCard class="c-w-full" shadow={renderProps.shadow}>
+          {{
+            header: () => <>{renderProps.label}</>,
+            default: () => <>{renderSlot(slots, "editNode")}</>,
+          }}
+        </ElCard>
+      </div>
+    );
   },
 });
 

@@ -9,20 +9,17 @@ const Button = defineComponent({
   setup(props, { attrs, slots }) {
     const renderProps = useMergeAttr(props, attrs);
 
-    return () => {
-      return (
-        <ElButton {...renderProps}>
-          {{
-            ...slots,
-            default: () => {
-              return !isEmpty(props.elementSchema)
-                ? renderProps.label
-                : slots.default?.();
-            },
-          }}
-        </ElButton>
-      );
-    };
+    return () => (
+      <ElButton {...renderProps}>
+        {{
+          ...slots,
+          default: () =>
+            !isEmpty(props.elementSchema)
+              ? renderProps.label
+              : slots.default?.(),
+        }}
+      </ElButton>
+    );
   },
 });
 

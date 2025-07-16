@@ -11,15 +11,11 @@ const Input = defineComponent({
     expose(exposeDom(elementRef));
     const renderProps = useMergeAttr(props, attrs);
 
-    return () => {
-      return (
-        <ElInput {...renderProps} ref={elementRef}>
-          {{
-            ...slots,
-          }}
-        </ElInput>
-      );
-    };
+    return () => (
+      <ElInput {...renderProps} ref={elementRef}>
+        {{ ...slots }}
+      </ElInput>
+    );
   },
 });
 

@@ -1,11 +1,5 @@
 import { ElTabs, TabPaneName, TabsPaneContext } from "element-plus";
-import {
-  computed,
-  defineComponent,
-  inject,
-  renderSlot,
-  watch,
-} from "vue";
+import { computed, defineComponent, inject, renderSlot, watch } from "vue";
 import { ElementManage, FocusManage } from "@cgx-designer/hooks";
 import { createElementProps } from "@cgx-designer/utils";
 
@@ -58,23 +52,21 @@ const Tab = defineComponent({
         }
       }
     );
-    return () => {
-      return (
-        <ElTabs
-          stretch={props.elementSchema.props!.stretch}
-          type={
-            props.elementSchema.props!.type === "default"
-              ? undefined
-              : props.elementSchema.props!.type
-          }
-          v-model={props.elementSchema.props!.activeName}
-          onTabChange={(v) => handleTabChange(v)}
-          onTabClick={(context, event) => handleTabClick(context, event)}
-        >
-          {renderSlot(slots, "editNode")}
-        </ElTabs>
-      );
-    };
+    return () => (
+      <ElTabs
+        stretch={props.elementSchema.props!.stretch}
+        type={
+          props.elementSchema.props!.type === "default"
+            ? undefined
+            : props.elementSchema.props!.type
+        }
+        v-model={props.elementSchema.props!.activeName}
+        onTabChange={(v) => handleTabChange(v)}
+        onTabClick={(context, event) => handleTabClick(context, event)}
+      >
+        {renderSlot(slots, "editNode")}
+      </ElTabs>
+    );
   },
 });
 

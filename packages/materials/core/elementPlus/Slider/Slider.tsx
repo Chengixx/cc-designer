@@ -8,9 +8,7 @@ const Slider = defineComponent({
   setup(props, { attrs }) {
     const renderProps = useMergeAttr(props, attrs);
 
-    return () => {
-      return <ElSlider {...renderProps}></ElSlider>;
-    };
+    return () => <ElSlider {...renderProps}></ElSlider>;
   },
 });
 

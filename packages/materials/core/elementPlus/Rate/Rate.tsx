@@ -8,9 +8,7 @@ const Rate = defineComponent({
   setup(props, { attrs }) {
     const renderProps = useMergeAttr(props, attrs);
 
-    return () => {
-      return <ElRate {...renderProps}></ElRate>;
-    };
+    return () => <ElRate {...renderProps}></ElRate>;
   },
 });
 

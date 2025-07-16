@@ -8,9 +8,7 @@ const Switch = defineComponent({
   setup(props, { attrs }) {
     const renderProps = useMergeAttr(props, attrs);
 
-    return () => {
-      return <ElSwitch {...renderProps} />;
-    };
+    return () => <ElSwitch {...renderProps} />;
   },
 });
 
