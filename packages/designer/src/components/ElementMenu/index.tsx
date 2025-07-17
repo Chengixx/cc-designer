@@ -62,7 +62,7 @@ const ElementMenu = defineComponent({
         key: "2",
         headerSlot: () => (
           <div class="c-w-full c-flex c-gap-x-1 c-items-center c-pr-2">
-            <SearchBox v-model={searchValue.value} />
+            <SearchBox v-model={searchValue.value} placeholder="搜索数据源" />
             <div
               onClick={() => {
                 createRefDialogRef.value?.handleOpen();

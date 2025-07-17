@@ -8,7 +8,7 @@ const SearchBox = defineComponent({
       type: String,
       default: "",
     },
-    placeHolder: {
+    placeholder: {
       type: String,
       default: "请输入查询条件",
     },
@@ -28,7 +28,7 @@ const SearchBox = defineComponent({
       return (
         <div class="c-w-full c-px-1 c-py-2 dark:c-border-darkMode">
           <Input
-            placeholder="搜索组件"
+            placeholder={props.placeholder}
             v-model={bindValue.value}
             clearable
             density="compact"
