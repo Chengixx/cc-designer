@@ -39,7 +39,9 @@ const ElementMenu = defineComponent({
         icon: ElementIcon,
         tip: "组件库",
         key: "0",
-        headerSlot: () => <SearchBox v-model={searchValue.value} />,
+        headerSlot: () => (
+          <SearchBox v-model={searchValue.value} placeholder="搜索组件" />
+        ),
         render: () => (
           <div class="c-min-w-[296px]">
             <ElementList searchValue={searchValue.value} />
