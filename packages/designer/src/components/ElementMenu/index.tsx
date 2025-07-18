@@ -101,7 +101,7 @@ const ElementMenu = defineComponent({
       {
         icon: MoreIcon,
         tip: "更多",
-        key: "3",
+        key: "4",
         click: () => {
           moreDialogRef.value?.handleOpen();
         },
