@@ -160,7 +160,7 @@ const ElementMenu = defineComponent({
             </div>
           </div>
           {/* 左侧渲染内容 */}
-          <div class="c-h-[calc(100vh-48px)] c-relative c-overflow-y-auto c-overflow-x-hidden c-w-[300px] c-border-t c-border-gray-200 dark:c-border-darkMode">
+          <div class="c-h-[calc(100vh-48px)] c-relative c-overflow-y-auto c-overflow-x-hidden c-border-t c-border-gray-200 dark:c-border-darkMode">
             {/* 顶部区间 */}
             <div class="c-sticky c-bg-white dark:c-bg-darkMode c-top-0 c-z-10 c-border-b c-border-gray-200 dark:c-border-darkMode">
               {/* 标题tip */}
