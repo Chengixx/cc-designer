@@ -14,7 +14,7 @@ import draggable from "vuedraggable";
 import { ElementManage } from "@cgx-designer/hooks";
 import { SvgIcon, CTooltip } from "@cgx-designer/extensions";
 import { EventInstance, EventItem } from "@cgx-designer/types";
-import { VBtnColorType } from "@cgx-designer/materials";
+import { computedButtonColor } from "@cgx-designer/utils";
 
 const Button = elementController.getElementRender("button");
 const elementManage = inject("elementManage") as ElementManage;
@@ -112,18 +112,6 @@ const getElementSetting = (id: string) => {
 
 const getElementSvg = (tag: string) => {
   return elementController!.elementConfigMap[tag].icon;
-};
-
-const isVuetify = computed(() => {
-  return elementController.getCurrentElementLibraryName() === "vuetify";
-});
-
-const computedButtonColor = (type: keyof typeof VBtnColorType) => {
-  if (isVuetify.value) {
-    return VBtnColorType[type];
-  } else {
-    return undefined;
-  }
 };
 
 // 获取事件类型图标和颜色

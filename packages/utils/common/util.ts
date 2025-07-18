@@ -1,3 +1,5 @@
+import { elementController } from "@cgx-designer/controller";
+import { VBtnColorType } from "@cgx-designer/materials";
 import { RuleItem } from "@cgx-designer/types";
 import { Ref } from "vue";
 
@@ -215,8 +217,8 @@ export const transformValidatorArray = (validatorList: RuleItem[]): any[] => {
  * @param {Ref<any>} elementRef 接受一个ref
  * @returns 返回的是代理对象
  */
-export function exposeDom<T>(elementRef: Ref<T | null>) {
-  return new Proxy(
+export const exposeDom = <T>(elementRef: Ref<T | null>) =>
+  new Proxy(
     {},
     {
       //使用的时候 直接返回实例中的属性或者方法
@@ -237,4 +239,9 @@ export function exposeDom<T>(elementRef: Ref<T | null>) {
       },
     }
   );
-}
+
+//判断是否是vuetify来做按钮样式
+export const computedButtonColor = (type: keyof typeof VBtnColorType) =>
+  elementController.getCurrentElementLibraryName() === "vuetify"
+    ? VBtnColorType[type]
+    : undefined;

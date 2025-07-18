@@ -18,6 +18,8 @@ import { CollapseManage, FocusManage } from "@cgx-designer/hooks";
 import { JSX } from "vue/jsx-runtime";
 import MoreDialog from "./MoreDialog";
 import { CreateRefDialog } from "./CreateRefDialog";
+import { elementController } from "@cgx-designer/controller";
+import { computedButtonColor } from "@cgx-designer/utils";
 
 interface IMenuItem {
   icon: any;
@@ -34,6 +36,7 @@ const ElementMenu = defineComponent({
     const focusManage = inject("focusManage") as FocusManage;
     const moreDialogRef = ref<typeof MoreDialog>();
     const createRefDialogRef = ref<typeof CreateRefDialog>();
+    const Button = elementController.getElementRender("button");
     const topMenuList: IMenuItem[] = [
       {
         icon: ElementIcon,
@@ -65,13 +68,15 @@ const ElementMenu = defineComponent({
         headerSlot: () => (
           <div class="c-w-full c-flex c-gap-x-1 c-items-center c-pr-2">
             <SearchBox v-model={searchValue.value} placeholder="搜索数据源" />
-            <div
-              onClick={() => {
-                createRefDialogRef.value?.handleOpen();
-              }}
+            <Button
+              link
+              variant="text"
+              color={computedButtonColor("success")}
+              type="success"
+              onClick={createRefDialogRef.value?.handleOpen}
             >
-              <AddIcon class="c-w-4 c-h-4 c-cursor-pointer dark:c-fill-white hover:c-fill-green-400 dark:hover:c-fill-green-400" />
-            </div>
+              新增
+            </Button>
           </div>
         ),
         render: () => (
