@@ -8,11 +8,11 @@ const CollapseWidget = defineComponent({
     return () => (
       <>
         {/* 左侧小按钮 */}
-        <CollapseButton
+        {/* <CollapseButton
           isLeft={true}
           collapseState={collapseManage.leftMenuCollapseState.value}
           toggleMenu={collapseManage.toggleLeftMenu}
-        />
+        /> */}
         {/* 右侧小按钮 */}
         <CollapseButton
           isLeft={false}
