@@ -1,4 +1,4 @@
-import ElementDesigner from "./src/components/index";
+import ElementDesigner from "./src/core/index";
 import {
   SelectOption,
   ColList,
