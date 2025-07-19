@@ -27,16 +27,19 @@ interface IMenuItem {
   width?: number | string;
   click?: () => void;
   render?: () => JSX.Element;
+  customRender?: () => JSX.Element;
   headerSlot?: () => JSX.Element;
 }
 
 const ActionMenu = defineComponent({
   setup() {
+    const Button = elementController.getElementRender("button");
     const collapseManage = inject("collapseManage") as CollapseManage;
     const focusManage = inject("focusManage") as FocusManage;
     const moreDialogRef = ref<typeof MoreDialog>();
     const createRefDialogRef = ref<typeof CreateRefDialog>();
-    const Button = elementController.getElementRender("button");
+    const searchValue = ref<string>("");
+    const settingTab = ref<string | undefined>("0");
     const topMenuList: IMenuItem[] = [
       {
         icon: ElementIcon,
@@ -87,8 +90,7 @@ const ActionMenu = defineComponent({
         icon: SourceCodeIcon,
         tip: "源码",
         key: "3",
-        width: "300px",
-        render: () => <ElementSource />,
+        customRender: () => <ElementSource />,
       },
     ];
 
@@ -102,8 +104,7 @@ const ActionMenu = defineComponent({
         },
       },
     ];
-    const searchValue = ref<string>("");
-    const settingTab = ref<string>("0");
+
     const currentActiveRenderData = computed(() => {
       return topMenuList.find((item) => item.key === settingTab.value);
     });
@@ -140,8 +141,50 @@ const ActionMenu = defineComponent({
       );
     };
 
+    const RenderPanelTitle = () => {
+      return (
+        <div
+          class={[
+            "c-bg-white dark:c-bg-darkMode c-border-b c-border-gray-200 dark:c-border-darkMode",
+            currentActiveRenderData.value?.customRender && "c-w-full",
+          ]}
+        >
+          {/* 标题tip */}
+          <div
+            class="c-h-[38px] c-px-3 c-flex c-justify-between c-items-center c-font-bold c-w-full"
+            style={{
+              minWidth: currentActiveRenderData.value?.width || undefined,
+            }}
+          >
+            {currentActiveRenderData.value?.tip}
+            {/* 右边的小按钮 */}
+            <div
+              onClick={() => {
+                if (currentActiveRenderData.value?.width) {
+                  focusManage.startFocusTimedQuery();
+                  collapseManage.toggleLeftMenu();
+                  setTimeout(() => {
+                    focusManage.stopFocusTimedQuery();
+                    settingTab.value = undefined;
+                  }, 350);
+                } else {
+                  collapseManage.toggleLeftMenu();
+                  settingTab.value = undefined;
+                }
+              }}
+            >
+              <CloseIcon class="c-w-4 h-4 c-cursor-pointer dark:c-fill-white" />
+            </div>
+          </div>
+
+          {/* 如果有的话 来一个headerSlot */}
+          {currentActiveRenderData.value?.headerSlot?.()}
+        </div>
+      );
+    };
+
     return () => (
-      <div class=" c-flex dark:c-bg-darkMode">
+      <div class=" c-flex dark:c-bg-darkMode c-relative">
         {/* 最左侧的小长条 */}
         <div class="c-w-[48px] c-h-[calc(100vh-48px)] c-border-t c-border-r c-border-gray-200 dark:c-border-darkMode c-flex c-flex-col c-justify-between">
           {/* 左侧上面菜单 */}
@@ -166,32 +209,7 @@ const ActionMenu = defineComponent({
           }}
         >
           {/* 顶部区间 */}
-          <div class="c-bg-white dark:c-bg-darkMode c-border-b c-border-gray-200 dark:c-border-darkMode">
-            {/* 标题tip */}
-            <div
-              class="c-h-[38px] c-px-3 c-flex c-justify-between c-items-center c-font-bold c-w-full"
-              style={{
-                minWidth: currentActiveRenderData.value?.width || undefined,
-              }}
-            >
-              {currentActiveRenderData.value?.tip}
-              {/* 右边的小按钮 */}
-              <div
-                onClick={() => {
-                  focusManage.startFocusTimedQuery();
-                  collapseManage.toggleLeftMenu();
-                  setTimeout(() => {
-                    focusManage.stopFocusTimedQuery();
-                  }, 350);
-                }}
-              >
-                <CloseIcon class="c-w-4 h-4 c-cursor-pointer dark:c-fill-white" />
-              </div>
-            </div>
-
-            {/* 如果有的话 来一个headerSlot */}
-            {currentActiveRenderData.value?.headerSlot?.()}
-          </div>
+          {RenderPanelTitle()}
           {/* 下面真正的内容 */}
           <div
             class="c-overflow-y-auto c-flex-1"
@@ -202,6 +220,14 @@ const ActionMenu = defineComponent({
             {currentActiveRenderData.value?.render?.()}
           </div>
         </div>
+
+        {currentActiveRenderData.value?.customRender && (
+          <div class="c-overflow-hidden c-absolute c-left-[48px] c-z-50 c-w-[calc(100vw-48px)] c-h-[calc(100vh-48px)] c-flex c-flex-col c-justify-center c-items-center c-border-t c-border-gray-200 dark:c-border-darkMode">
+            {/* 顶部区间 */}
+            {RenderPanelTitle()}
+            {currentActiveRenderData.value?.customRender?.()}
+          </div>
+        )}
 
         <MoreDialog ref={moreDialogRef} />
         <CreateRefDialog ref={createRefDialogRef} />
