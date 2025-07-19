@@ -65,7 +65,7 @@ const handleClone = (elementBaseSetting: IElementBaseSetting) => {
     </div>
   </template>
   <template v-else>
-    <Collapse v-model="activeCollapse">
+    <Collapse v-model="activeCollapse" no-border-top>
       <CollapseItem
         :paddingBottom="renderElementListMode === 'bar'"
         v-for="item in renderElementList"

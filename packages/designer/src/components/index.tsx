@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, provide, ref } from "vue";
 import { createOperationButtonSetting } from "./OperationMenu/operationButtonSetting";
 import CGXLogo from "./CGXLogo";
-import ElementMenu from "./ElementMenu";
+import ActionMenu from "./ActionMenu";
 import OperationMenu from "./OperationMenu";
 import EditorCanvas from "./EditorCanvas";
 import SettingMenu from "./SettingMenu";
@@ -34,13 +34,10 @@ const ElementDesigner = defineComponent({
     const previewDialogRef = ref<any>(null);
     const exportSourceCodeDialogRef = ref<any>(null);
     const importSourceCodeDialogRef = ref<any>(null);
-    //左右菜单实例
-    const leftMenuRef = ref<HTMLDivElement | null>(null);
-    const rightMenuRef = ref<HTMLDivElement | null>(null);
     //所有的hook实例
     const formManage = useForm();
     const elementManage = useElement();
-    const collapseManage = useCollapse(leftMenuRef, rightMenuRef);
+    const collapseManage = useCollapse();
     const themeManage = useTheme();
     const modeManage = useMode();
     const hoverManage = useHover(elementManage, modeManage);
@@ -84,43 +81,32 @@ const ElementDesigner = defineComponent({
       },
     ]);
 
-    return () => {
-      return (
-        <>
-          {!elementController.isReady.value && <Loading />}
-
-          {elementController.isReady.value && (
+    return () => (
+      <>
+        {elementController.isReady.value ? (
+          <>
             <div
               class="c-relative"
               key={elementController.elementLibrary.value!.name || "key"}
             >
+              {/* 顶部条 */}
               <div class="c-h-12">
                 <CGXLogo />
               </div>
               <CollapseWidget />
-              <div class="c-w-full c-h-full c-flex c-justify-between c-overflow-hidden c-bg-gray-100 dark:c-bg-black">
+              {/* 下面内容的主体 */}
+              <div class="c-w-full c-h-full c-flex c-justify-between c-bg-gray-100 dark:c-bg-black">
                 {/* 编辑器左侧，可选择的组件列表 */}
-                <div
-                  ref={leftMenuRef}
-                  class={[
-                    collapseManage.leftMenuCollapseState.value
-                      ? "c-w-[348px]"
-                      : "c-w-[48px]",
-                    " c-bg-white c-h-full c-transition-all c-duration-300",
-                  ]}
-                >
-                  <ElementMenu />
+                <div class="c-bg-white c-h-full c-transition-all c-duration-300">
+                  <ActionMenu />
                 </div>
                 {/* 中间部分 */}
                 <div class="c-h-full c-flex-1 dark:c-bg-black">
                   {/* 编辑器顶部 */}
                   <OperationMenu buttonMap={buttonMap} />
-                  {/* 编辑器画布的地方 */}
-                  <div class="c-box-border">
-                    {/* 滚动条 */}
-                    <div class="c-h-full c-relative c-flex c-justify-center c-px-5 c-py-2">
-                      <EditorCanvas />
-                    </div>
+                  {/* 下面的画布 */}
+                  <div class="c-h-full c-relative c-flex c-justify-center c-px-5 c-py-2">
+                    <EditorCanvas />
                   </div>
                 </div>
                 {/* 编辑器右侧 */}
@@ -131,21 +117,22 @@ const ElementDesigner = defineComponent({
                       : "c-w-0",
                     " c-bg-white c-h-full c-transition-all c-duration-300",
                   ]}
-                  ref={rightMenuRef}
                 >
                   <SettingMenu />
                 </div>
-                {/* 预览dialog */}
-                <PreviewDialog ref={previewDialogRef} />
-                {/* 导入导出dialog */}
-                <ExportSourceCodeDialog ref={exportSourceCodeDialogRef} />
-                <ImportSourceCodeDialog ref={importSourceCodeDialogRef} />
               </div>
             </div>
-          )}
-        </>
-      );
-    };
+            {/* 预览dialog */}
+            <PreviewDialog ref={previewDialogRef} />
+            {/* 导入导出dialog */}
+            <ExportSourceCodeDialog ref={exportSourceCodeDialogRef} />
+            <ImportSourceCodeDialog ref={importSourceCodeDialogRef} />
+          </>
+        ) : (
+          <Loading />
+        )}
+      </>
+    );
   },
 });
 

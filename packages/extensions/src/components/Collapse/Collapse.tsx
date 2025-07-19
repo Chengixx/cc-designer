@@ -18,6 +18,10 @@ const Collapse = defineComponent({
       type: Boolean,
       default: false,
     },
+    noBorderTop: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ["update:modelValue", "change"],
   setup(props, { emit, slots }) {
@@ -56,7 +60,12 @@ const Collapse = defineComponent({
     });
     return () => {
       return (
-        <div class="c-border-t c-border-[#d8d8d8] dark:c-border-darkMode">
+        <div
+          class={[
+            "c-border-t c-border-[#d8d8d8] dark:c-border-darkMode",
+            props.noBorderTop && "c-border-t-0",
+          ]}
+        >
           {slots.default?.()}
         </div>
       );
