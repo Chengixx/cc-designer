@@ -109,41 +109,40 @@ const ActionMenu = defineComponent({
       },
     ];
 
-    const currentActiveRenderData = computed(() => {
-      return menuList.find((item) => item.key === settingTab.value);
-    });
+    const currentActiveRenderData = computed(() =>
+      menuList.find((item) => item.key === settingTab.value)
+    );
 
-    const RenderMenuItem = (Icon: IMenuItem) => {
-      const clickEvent = () => {
-        if (Icon.click) {
-          Icon.click();
-        } else {
-          if (collapseManage.leftMenuCollapseState.value === false) {
-            collapseManage.toggleLeftMenu();
-          }
-          if (settingTab.value !== Icon.key) {
-            searchValue.value = "";
-          }
-          settingTab.value = Icon.key;
-        }
-      };
-      return (
-        <div class="c-w-full c-h-[48px] c-flex c-justify-center c-items-center">
-          <CTooltip tooltip={Icon.tip} placement="right">
-            <div onClick={clickEvent}>
-              <Icon.icon
-                class={[
-                  "c-w-5 c-h-5 c-cursor-pointer",
-                  settingTab.value === Icon.key
-                    ? "c-fill-blue-500 dark:c-fill-blue-300"
-                    : "c-fill-gray-600 dark:c-fill-gray-400",
-                ]}
-              />
-            </div>
-          </CTooltip>
-        </div>
-      );
-    };
+    const RenderMenuItem = (Icon: IMenuItem) => (
+      <div class="c-w-full c-h-[48px] c-flex c-justify-center c-items-center">
+        <CTooltip tooltip={Icon.tip} placement="right">
+          <div
+            onClick={() => {
+              if (Icon.click) {
+                Icon.click();
+              } else {
+                if (collapseManage.leftMenuCollapseState.value === false) {
+                  collapseManage.toggleLeftMenu();
+                }
+                if (settingTab.value !== Icon.key) {
+                  searchValue.value = "";
+                }
+                settingTab.value = Icon.key;
+              }
+            }}
+          >
+            <Icon.icon
+              class={[
+                "c-w-5 c-h-5 c-cursor-pointer",
+                settingTab.value === Icon.key
+                  ? "c-fill-blue-500 dark:c-fill-blue-300"
+                  : "c-fill-gray-600 dark:c-fill-gray-400",
+              ]}
+            />
+          </div>
+        </CTooltip>
+      </div>
+    );
 
     const RenderPanelTitle = () => {
       return (
@@ -188,7 +187,7 @@ const ActionMenu = defineComponent({
     };
 
     return () => (
-      <div class=" c-flex dark:c-bg-darkMode c-relative">
+      <div class="c-bg-white c-flex dark:c-bg-darkMode c-relative">
         {/* 最左侧的小长条 */}
         <div class="c-w-[48px] c-h-[calc(100vh-48px)] c-border-t c-border-r c-border-gray-200 dark:c-border-darkMode c-flex c-flex-col c-justify-between">
           {/* 左侧上面菜单 */}

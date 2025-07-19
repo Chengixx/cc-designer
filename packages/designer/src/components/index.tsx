@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, provide, ref } from "vue";
+import { defineComponent, provide, ref } from "vue";
 import { createOperationButtonSetting } from "./OperationMenu/operationButtonSetting";
 import CGXLogo from "./CGXLogo";
 import ActionMenu from "./ActionMenu";
@@ -89,39 +89,25 @@ const ElementDesigner = defineComponent({
               class="c-relative"
               key={elementController.elementLibrary.value!.name || "key"}
             >
-              {/* 顶部条 */}
-              <div class="c-h-12">
-                <CGXLogo />
-              </div>
-              <CollapseWidget />
+              {/* 顶部条Logo以及部分操作栏 */}
+              <CGXLogo />
               {/* 下面内容的主体 */}
               <div class="c-w-full c-h-full c-flex c-justify-between c-bg-gray-100 dark:c-bg-black">
-                {/* 编辑器左侧，可选择的组件列表 */}
-                <div class="c-bg-white c-h-full c-transition-all c-duration-300">
-                  <ActionMenu />
-                </div>
+                {/* 编辑器左侧菜单 */}
+                <ActionMenu />
                 {/* 中间部分 */}
-                <div class="c-h-full c-flex-1 dark:c-bg-black">
-                  {/* 编辑器顶部 */}
+                <div class="c-h-full c-flex-1">
+                  {/* 编辑器顶部操作栏 */}
                   <OperationMenu buttonMap={buttonMap} />
                   {/* 下面的画布 */}
-                  <div class="c-h-full c-relative c-flex c-justify-center c-px-5 c-py-2">
-                    <EditorCanvas />
-                  </div>
+                  <EditorCanvas />
                 </div>
-                {/* 编辑器右侧 */}
-                <div
-                  class={[
-                    collapseManage.rightMenuCollapseState.value
-                      ? "c-w-[300px]"
-                      : "c-w-0",
-                    " c-bg-white c-h-full c-transition-all c-duration-300",
-                  ]}
-                >
-                  <SettingMenu />
-                </div>
+                {/* 编辑器右侧菜单 */}
+                <SettingMenu />
               </div>
             </div>
+            {/* 折叠按钮小控件 */}
+            <CollapseWidget />
             {/* 预览dialog */}
             <PreviewDialog ref={previewDialogRef} />
             {/* 导入导出dialog */}

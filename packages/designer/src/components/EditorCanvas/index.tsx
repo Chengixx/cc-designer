@@ -51,7 +51,7 @@ const EditorCanvas = defineComponent({
     });
     return () => {
       return (
-        <>
+        <div class="c-h-full c-relative c-flex c-justify-center c-px-5 c-py-2">
           {elementManage.elementList.value.length == 0 && (
             <div class="c-pointer-events-none c-z-10 c-absolute c-left-1/2 c-top-1/2 c-transform -c-translate-x-1/2 -c-translate-y-1/2 c-text-gray-400 c-text-lg">
               <Empty />
@@ -81,7 +81,7 @@ const EditorCanvas = defineComponent({
               />
             </Form>
           </div>
-        </>
+        </div>
       );
     };
   },
