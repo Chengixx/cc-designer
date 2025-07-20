@@ -8,15 +8,21 @@ importers:
 
   .:
     dependencies:
+      '@cgx-designer/base-materials':
+        specifier: workspace:*
+        version: link:packages/base-materials
       '@cgx-designer/controller':
         specifier: workspace:*
         version: link:packages/controller
-      '@cgx-designer/designer':
+      '@cgx-designer/element-designer':
         specifier: workspace:*
-        version: link:packages/designer
-      '@cgx-designer/engine':
+        version: link:packages/element-designer
+      '@cgx-designer/element-engine':
         specifier: workspace:*
-        version: link:packages/engine
+        version: link:packages/element-engine
+      '@cgx-designer/element-renderer':
+        specifier: workspace:*
+        version: link:packages/element-renderer
       '@cgx-designer/extensions':
         specifier: workspace:*
         version: link:packages/extensions
@@ -26,15 +32,12 @@ importers:
       '@cgx-designer/icons':
         specifier: workspace:*
         version: link:packages/icons
-      '@cgx-designer/materials':
+      '@cgx-designer/private-materials':
         specifier: workspace:*
-        version: link:packages/materials
+        version: link:packages/private-materials
       '@cgx-designer/reactivity':
         specifier: workspace:*
         version: link:packages/reactivity
-      '@cgx-designer/renderer':
-        specifier: workspace:*
-        version: link:packages/renderer
       '@cgx-designer/types':
         specifier: workspace:*
         version: link:packages/types
@@ -202,6 +205,16 @@ importers:
         specifier: ^2.0.21
         version: 2.2.10(typescript@5.8.3)
 
+  packages/base-materials:
+    dependencies:
+      element-plus:
+        specifier: ^2.8.0
+        version: 2.9.9(vue@3.5.13(typescript@5.8.3))
+    devDependencies:
+      typescript:
+        specifier: ^5.2.2
+        version: 5.8.3
+
   packages/cgx-designer:
     dependencies:
       rollup-plugin-terser:
@@ -214,7 +227,7 @@ importers:
 
   packages/controller: {}
 
-  packages/designer:
+  packages/element-designer:
     dependencies:
       '@element-plus/icons-vue':
         specifier: ^2.3.1
@@ -284,7 +297,7 @@ importers:
         specifier: ^2.0.21
         version: 2.2.10(typescript@5.8.3)
 
-  packages/engine:
+  packages/element-engine:
     dependencies:
       '@element-plus/icons-vue':
         specifier: ^2.3.1
@@ -353,6 +366,8 @@ importers:
       vue-tsc:
         specifier: ^2.0.21
         version: 2.2.10(typescript@5.8.3)
+
+  packages/element-renderer: {}
 
   packages/extensions:
     dependencies:
@@ -386,19 +401,20 @@ importers:
 
   packages/icons: {}
 
-  packages/materials:
+  packages/private-materials:
     dependencies:
       element-plus:
         specifier: ^2.8.0
         version: 2.9.9(vue@3.5.13(typescript@5.8.3))
+      vuedraggable:
+        specifier: ^4.1.0
+        version: 4.1.0(vue@3.5.13(typescript@5.8.3))
     devDependencies:
       typescript:
         specifier: ^5.2.2
         version: 5.8.3
 
   packages/reactivity: {}
-
-  packages/renderer: {}
 
   packages/types: {}
 

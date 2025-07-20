@@ -1,6 +1,6 @@
 import { ref, watch, computed } from "vue";
 import { ElementManage } from "./useElement";
-import { useParentDomList } from "@cgx-designer/designer";
+import { useParentDomList } from "@cgx-designer/element-designer";
 import { IEditorElement } from "@cgx-designer/types";
 import { ModeManage } from "./useMode";
 

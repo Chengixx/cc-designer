@@ -28,13 +28,25 @@ export default defineConfig({
   resolve: {
     alias: {
       "@cgx-designer/controller": path.resolve(__dirname, "../controller"),
-      "@cgx-designer/materials": path.resolve(__dirname, "../materials"),
+      "@cgx-designer/base-materials": path.resolve(
+        __dirname,
+        "../base-materials"
+      ),
       "@cgx-designer/utils": path.resolve(__dirname, "../utils"),
       "@cgx-designer/hooks": path.resolve(__dirname, "../hooks"),
       "@cgx-designer/extensions": path.resolve(__dirname, "../extensions"),
-      "@cgx-designer/designer": path.resolve(__dirname, "../designer"),
-      "@cgx-designer/engine": path.resolve(__dirname, "../engine"),
-      "@cgx-designer/renderer": path.resolve(__dirname, "../renderer"),
+      "@cgx-designer/element-designer": path.resolve(
+        __dirname,
+        "../element-designer"
+      ),
+      "@cgx-designer/element-engine": path.resolve(
+        __dirname,
+        "../element-engine"
+      ),
+      "@cgx-designer/element-renderer": path.resolve(
+        __dirname,
+        "../element-renderer"
+      ),
       "@cgx-designer/types": path.resolve(__dirname, "../types"),
     },
   },
@@ -49,9 +61,12 @@ export default defineConfig({
         index: path.resolve(__dirname, "./index.ts"),
         elementPlus: path.resolve(
           __dirname,
-          "../materials/core/elementPlus/index.ts"
+          "../base-materials/core/elementPlus/index.ts"
         ),
-        vuetify: path.resolve(__dirname, "../materials/core/vuetify/index.ts"),
+        vuetify: path.resolve(
+          __dirname,
+          "../base-materials/core/vuetify/index.ts"
+        ),
       },
       fileName: (ModuleFormat, entryName) => {
         console.log("文件名", ModuleFormat, entryName);
@@ -59,7 +74,7 @@ export default defineConfig({
         const isIndexEntry = entryName === "index";
         const path = isIndexEntry
           ? `index.${extension}`
-          : `materials/core/${entryName}/index.${extension}`;
+          : `base-materials/core/${entryName}/index.${extension}`;
         return path;
       },
     },

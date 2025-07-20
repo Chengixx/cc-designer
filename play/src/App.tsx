@@ -1,7 +1,7 @@
 import { defineComponent, reactive, ref } from "vue";
 import { ElButton, ElFormItem, ElInput } from "element-plus";
-import { ElementDesigner } from "@cgx-designer/designer";
-import { ElementRenderer } from "@cgx-designer/renderer";
+import { ElementDesigner } from "@cgx-designer/element-designer";
+import { ElementRenderer } from "@cgx-designer/element-renderer";
 import {
   FormSetting,
   BuilderSchema,

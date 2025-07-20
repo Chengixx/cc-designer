@@ -1,0 +1,19 @@
+{
+  "name": "@cgx-designer/private-materials",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "element-plus": "^2.8.0",
+    "vuedraggable": "^4.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

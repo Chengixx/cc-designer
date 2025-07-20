@@ -5,7 +5,7 @@ import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/dark/css-vars.css";
 import "virtual:svg-icons-register";
 //引入vuetify
-import { vuetifyPlugin } from "cgx-designer/dist/materials/core/vuetify";
+import { vuetifyPlugin } from "cgx-designer/dist/base-materials/core/vuetify";
 import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
@@ -17,7 +17,7 @@ const vuetify = createVuetify({
 });
 
 import { elementController } from "cgx-designer";
-import { elementPlusPlugin } from "cgx-designer/dist/materials/core/elementPlus";
+import { elementPlusPlugin } from "cgx-designer/dist/base-materials/core/elementPlus";
 import "cgx-designer/dist/module.css";
 // import "cgx-designer/dist/style.css";
 

@@ -1,6 +1,6 @@
 import { ComponentPublicInstance } from "vue";
 import { elementController } from "@cgx-designer/controller";
-import { ElementRenderer } from "@cgx-designer/renderer";
+import { ElementRenderer } from "@cgx-designer/element-renderer";
 import { SourceDataItem } from "@cgx-designer/hooks";
 
 //元素被渲染之后的的schema

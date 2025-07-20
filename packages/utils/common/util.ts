@@ -1,5 +1,5 @@
 import { elementController } from "@cgx-designer/controller";
-import { VBtnColorType } from "@cgx-designer/materials";
+import { VBtnColorType } from "@cgx-designer/base-materials";
 import { RuleItem } from "@cgx-designer/types";
 import { Ref } from "vue";
 

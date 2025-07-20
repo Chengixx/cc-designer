@@ -3,7 +3,7 @@ import { ElementManage } from "./useElement";
 import { isEqual } from "lodash-es";
 import { useMutationObserver } from "./useMutationObserver";
 import { useTimedQuery } from "./useTimedQuery";
-import { useParentDomList } from "@cgx-designer/designer";
+import { useParentDomList } from "@cgx-designer/element-designer";
 import { IEditorElement } from "@cgx-designer/types";
 import { ModeManage } from "./useMode";
 
