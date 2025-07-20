@@ -1,18 +1,20 @@
 import { computed, defineComponent, inject, nextTick, ref, watch } from "vue";
-import { ElementManage, FocusManage, QueueManage } from "@cgx-designer/hooks";
+import {
+  ElementManage,
+  FocusManage,
+  HoverManage,
+  QueueManage,
+} from "@cgx-designer/hooks";
 import { deepClone } from "@cgx-designer/utils";
 import { ClearIcon, CopyIcon, TopIcon } from "@cgx-designer/icons";
-import {
-  noCopyDomList,
-  findHigherLevelDomList,
-  useParentDomList,
-} from "../../../constant/index";
+import { noCopyDomList, findHigherLevelDomList } from "../../../constant/index";
 import { elementController } from "@cgx-designer/controller";
 import { IEditorElement } from "@cgx-designer/types";
 
 const ButtonTool = defineComponent({
   setup() {
     const focusManage = inject("focusManage") as FocusManage;
+    const hoverManage = inject("hoverManage") as HoverManage;
     const elementManage = inject("elementManage") as ElementManage;
     const queueManage = inject("queueManage") as QueueManage;
 
@@ -84,7 +86,7 @@ const ButtonTool = defineComponent({
       >
         {/* 组件信息 */}
         <div
-          class="c-mr-1 c-flex c-flex-col c-gap-y-1 c-items-center c-pointer-events-auto c-transition-all"
+          class="c-mr-1 c-flex c-flex-col c-gap-y-1 c-items-center c-pointer-events-auto"
           onMouseenter={() => (isHover.value = true)}
           onMouseleave={() => (isHover.value = false)}
         >
@@ -101,6 +103,13 @@ const ButtonTool = defineComponent({
                   onClick={(e: MouseEvent) => {
                     e.stopPropagation();
                     focusManage.handleFocus(elementSchema);
+                  }}
+                  onMouseenter={(e: MouseEvent) => {
+                    hoverManage.handleHover(e, elementSchema);
+                  }}
+                  onMouseleave={(e: MouseEvent) => {
+                    e.stopPropagation();
+                    hoverManage.setHoveredElement();
                   }}
                 >
                   <ElementIcon class="c-w-[16px] c-h-[16px] c-fill-white" />
