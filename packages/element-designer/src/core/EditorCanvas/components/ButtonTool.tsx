@@ -19,29 +19,11 @@ const ButtonTool = defineComponent({
     const position = ref<"top" | "bottom">("top");
     const TOOL_HEIGHT = 28;
 
-    const getComponentInstance = computed(() => {
-      const id = focusManage.focusedElement.value?.id || "";
-      const elementSchema = elementManage.getElementById(id);
-      const elementInstance = elementManage.getElementInstanceById(id);
-      if (!id || !elementInstance || !elementSchema) return null;
-      if (elementSchema.formItem && !!!elementSchema.noShowFormItem) {
-        return elementManage.getElementInstanceById(id + "-form-item").$el;
-      }
-      if (elementInstance.$el.nodeName === "#text") {
-        return null;
-      }
-      if (useParentDomList.includes(elementSchema.key)) {
-        return elementInstance.$el.parentElement;
-      } else {
-        return elementInstance.$el;
-      }
-    });
-
     // 监听聚焦元素变化，动态判断操作条位置
     watch(
-      () => getComponentInstance.value,
+      () => focusManage.focusedElementDom.value,
       () => {
-        const el = getComponentInstance.value;
+        const el = focusManage.focusedElementDom.value;
         if (!el) return;
         nextTick(() => {
           const rect = el.getBoundingClientRect();
