@@ -46,28 +46,50 @@ const ButtonTool = defineComponent({
     });
 
     return () => {
+      const ElementIcon =
+        (focusManage.focusedElement.value &&
+          elementController.getElementConfig(
+            focusManage.focusedElement.value?.key!
+          ).icon) ||
+        (() => null);
+
       return (
-        <div class="c-absolute c-bottom-1 c-right-1 c-cursor-pointer c-flex">
-          <div class="c-mr-1 c-flex c-items-center c-text-xs c-text-gray-500 c-pointer-events-none">
+        <div class="c-absolute -c-top-7 c-right-1 c-cursor-pointer c-flex">
+          {/* 组件信息 */}
+          <div class="c-mr-1 c-flex c-items-center c-text-xs c-bg-blue-500 c-p-1 c-text-white c-pointer-events-none c-rounded">
+            <ElementIcon class="c-w-[16px] c-h-[16px] hover:c-fill-blue-500 c-fill-white dark:hover:c-fill-blue-500" />
             {elementTag.value}
           </div>
-          <div class="c-pointer-events-auto c-flex c-items-center c-gap-x-1">
+          {/* 操作按钮 */}
+          <div class="c-pointer-events-auto c-bg-blue-500 c-flex c-items-center c-overflow-hidden">
             {!noCopyDomList.includes(
               focusManage.focusedElement.value?.key!
             ) && (
-              <div onClick={(e: MouseEvent) => handleCopy(e)} title="复制组件">
-                <CopyIcon class="c-w-[16px] c-h-[16px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
+              <div
+                onClick={(e: MouseEvent) => handleCopy(e)}
+                title="复制组件"
+                class="hover:c-bg-blue-600 c-transition-colors c-duration-300 c-h-full c-w-fit c-p-1 c-flex c-justify-center c-items-center"
+              >
+                <CopyIcon class="c-w-[13px] c-h-[13px] c-fill-white" />
               </div>
             )}
             {findHigherLevelDomList.includes(
               focusManage.focusedElement.value?.key!
             ) && (
-              <div onClick={(e: MouseEvent) => handleTop(e)} title="父级元素">
-                <TopIcon class="c-w-[18px] c-h-[18px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
+              <div
+                onClick={(e: MouseEvent) => handleTop(e)}
+                title="父级元素"
+                class="hover:c-bg-blue-600 c-transition-colors c-duration-300 c-h-full c-w-fit c-p-1 c-flex c-justify-center c-items-center"
+              >
+                <TopIcon class="c-w-[13px] c-h-[13px] c-fill-white" />
               </div>
             )}
-            <div onClick={(e: MouseEvent) => handleDelete(e)} title="删除组件">
-              <ClearIcon class="c-w-[16px] c-h-[16px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
+            <div
+              onClick={(e: MouseEvent) => handleDelete(e)}
+              title="删除组件"
+              class="hover:c-bg-blue-600 c-transition-colors c-duration-300 c-h-full c-w-fit c-p-1 c-flex c-justify-center c-items-center"
+            >
+              <ClearIcon class="c-w-[13px] c-h-[13px] c-fill-white" />
             </div>
           </div>
         </div>
