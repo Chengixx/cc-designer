@@ -36,7 +36,7 @@ const ElementBread = defineComponent({
         {renderElement.value.map((element, index) => {
           const Icon = getElementSvg(element.key);
           return (
-            <div class="c-text-base c-mr-1 c-flex c-justify-center c-items-center c-gap-x-1">
+            <div class="c-text-sm c-mr-1 c-flex c-justify-center c-items-center c-gap-x-1">
               <div
                 onClick={() => {
                   if (index === renderElement.value.length - 1) return;
@@ -47,7 +47,7 @@ const ElementBread = defineComponent({
                 }}
                 class="c-flex c-justify-center c-items-center c-gap-x-1 c-cursor-pointer"
               >
-                {index === 0 && <Icon class="c-w-3 c-h-3 dark:c-fill-white" />}
+                {index === 0 && <Icon class="c-w-3 dark:c-fill-white" />}
                 {getElementBaseLabel(element.key)}
               </div>
               {index !== renderElement.value.length - 1 && (
