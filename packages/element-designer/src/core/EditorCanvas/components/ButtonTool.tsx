@@ -18,6 +18,7 @@ const ButtonTool = defineComponent({
 
     const position = ref<"top" | "bottom">("top");
     const TOOL_HEIGHT = 28;
+    const isHover = ref(false);
 
     // 监听聚焦元素变化，动态判断操作条位置
     watch(
@@ -36,7 +37,10 @@ const ButtonTool = defineComponent({
     const toolStyle = computed(() => {
       return position.value === "top"
         ? { top: `-${TOOL_HEIGHT}px`, bottom: undefined }
-        : { top: undefined, bottom: `-${TOOL_HEIGHT}px` };
+        : {
+            top: undefined,
+            bottom: `-${TOOL_HEIGHT * elementTree.value.length}px`,
+          };
     });
 
     const handleCopy = (e: MouseEvent) => {
@@ -66,66 +70,77 @@ const ButtonTool = defineComponent({
       focusManage.handleFocus(parentDom!);
     };
 
-    const elementTag = computed(() => {
-      if (!focusManage.focusedElement.value) return "";
-      return elementController.getElementConfig(
-        focusManage.focusedElement.value?.key!
-      ).label;
+    const elementTree = computed(() => {
+      const innerTree = elementManage.getElementTreePathById(
+        focusManage.focusedElement.value?.id!
+      );
+      return isHover.value ? innerTree : innerTree.slice(-1);
     });
 
-    return () => {
-      const ElementIcon =
-        (focusManage.focusedElement.value &&
-          elementController.getElementConfig(
-            focusManage.focusedElement.value?.key!
-          ).icon) ||
-        (() => null);
-
-      return (
+    return () => (
+      <div
+        class="c-absolute c-right-1 c-cursor-pointer c-flex"
+        style={toolStyle.value}
+      >
+        {/* 组件信息 */}
         <div
-          class="c-absolute c-right-1 c-cursor-pointer c-flex"
-          style={toolStyle.value}
+          class="c-mr-1 c-flex c-flex-col c-gap-y-1 c-items-center c-pointer-events-auto c-transition-all"
+          onMouseenter={() => (isHover.value = true)}
+          onMouseleave={() => (isHover.value = false)}
         >
-          {/* 组件信息 */}
-          <div class="c-mr-1 c-flex c-items-center c-text-xs c-bg-blue-500 c-p-1 c-text-white c-pointer-events-none c-rounded c-gap-x-1">
-            <ElementIcon class="c-w-[16px] c-h-[16px] hover:c-fill-blue-500 c-fill-white dark:hover:c-fill-blue-500" />
-            {elementTag.value}
-          </div>
-          {/* 操作按钮 */}
-          <div class="c-pointer-events-auto c-bg-blue-500 c-flex c-items-center c-overflow-hidden">
-            {!noCopyDomList.includes(
-              focusManage.focusedElement.value?.key!
-            ) && (
-              <div
-                onClick={(e: MouseEvent) => handleCopy(e)}
-                title="复制组件"
-                class="hover:c-bg-blue-600 c-transition-colors c-duration-300 c-h-full c-w-fit c-p-1 c-flex c-justify-center c-items-center"
-              >
-                <CopyIcon class="c-w-[13px] c-h-[13px] c-fill-white" />
-              </div>
-            )}
-            {findHigherLevelDomList.includes(
-              focusManage.focusedElement.value?.key!
-            ) && (
-              <div
-                onClick={(e: MouseEvent) => handleTop(e)}
-                title="父级元素"
-                class="hover:c-bg-blue-600 c-transition-colors c-duration-300 c-h-full c-w-fit c-p-1 c-flex c-justify-center c-items-center"
-              >
-                <TopIcon class="c-w-[13px] c-h-[13px] c-fill-white" />
-              </div>
-            )}
+          {elementTree.value.length &&
+            elementTree.value.reverse().map((elementSchema) => {
+              const elmentConfig = elementController.getElementConfig(
+                elementSchema.key
+              );
+              const ElementIcon = elmentConfig.icon;
+              const elementTag = elmentConfig.label;
+              return (
+                <div
+                  class="c-w-full c-flex c-gap-x-1 c-p-1 c-bg-blue-500 c-rounded c-text-xs c-text-white"
+                  onClick={(e: MouseEvent) => {
+                    e.stopPropagation();
+                    focusManage.handleFocus(elementSchema);
+                  }}
+                >
+                  <ElementIcon class="c-w-[16px] c-h-[16px] c-fill-white" />
+                  {elementTag}
+                </div>
+              );
+            })}
+        </div>
+        {/* 操作按钮 */}
+        <div class="c-pointer-events-auto c-bg-blue-500 c-flex c-items-center c-overflow-hidden c-h-6">
+          {!noCopyDomList.includes(focusManage.focusedElement.value?.key!) && (
             <div
-              onClick={(e: MouseEvent) => handleDelete(e)}
-              title="删除组件"
-              class="hover:c-bg-blue-600 c-transition-colors c-duration-300 c-h-full c-w-fit c-p-1 c-flex c-justify-center c-items-center"
+              onClick={(e: MouseEvent) => handleCopy(e)}
+              title="复制组件"
+              class="hover:c-bg-blue-600 c-transition-colors c-duration-300 c-w-fit c-p-1 c-flex c-justify-center c-items-center"
             >
-              <ClearIcon class="c-w-[13px] c-h-[13px] c-fill-white" />
+              <CopyIcon class="c-w-[13px] c-h-[13px] c-fill-white" />
             </div>
+          )}
+          {findHigherLevelDomList.includes(
+            focusManage.focusedElement.value?.key!
+          ) && (
+            <div
+              onClick={(e: MouseEvent) => handleTop(e)}
+              title="父级元素"
+              class="hover:c-bg-blue-600 c-transition-colors c-duration-300 c-w-fit c-p-1 c-flex c-justify-center c-items-center"
+            >
+              <TopIcon class="c-w-[13px] c-h-[13px] c-fill-white" />
+            </div>
+          )}
+          <div
+            onClick={(e: MouseEvent) => handleDelete(e)}
+            title="删除组件"
+            class="hover:c-bg-blue-600 c-transition-colors c-duration-300 c-w-fit c-p-1 c-flex c-justify-center c-items-center"
+          >
+            <ClearIcon class="c-w-[13px] c-h-[13px] c-fill-white" />
           </div>
         </div>
-      );
-    };
+      </div>
+    );
   },
 });
 export default ButtonTool;
