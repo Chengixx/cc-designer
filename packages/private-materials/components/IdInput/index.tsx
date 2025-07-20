@@ -1,6 +1,6 @@
 import { defineComponent, PropType } from "vue";
 import { IEditorElement } from "@cgx-designer/types";
-import { elementController } from "@cgx-designer/controller/core/elementController";
+import { elementController } from "@cgx-designer/controller";
 
 const IdInput = defineComponent({
   props: {

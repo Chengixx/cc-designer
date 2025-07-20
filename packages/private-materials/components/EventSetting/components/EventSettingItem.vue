@@ -9,7 +9,7 @@ import {
   QuestionMarkIcon,
 } from "@cgx-designer/icons";
 import { elementController } from "@cgx-designer/controller";
-import { computed, inject, PropType, ref } from "vue";
+import { inject, PropType, ref } from "vue";
 import draggable from "vuedraggable";
 import { ElementManage } from "@cgx-designer/hooks";
 import { SvgIcon, CTooltip } from "@cgx-designer/extensions";

@@ -17,7 +17,7 @@ import { elementController } from "@cgx-designer/controller";
 import ElementIDE from "./ElementIDE";
 import { Message, TabPane, Tabs, TabPaneName } from "@cgx-designer/extensions";
 import { Empty } from "@cgx-designer/extensions";
-import functionController from "@cgx-designer/controller/core/functionController";
+import { functionController } from "@cgx-designer/controller";
 
 const EventSettingDialog = defineComponent({
   emits: ["add", "edit"],

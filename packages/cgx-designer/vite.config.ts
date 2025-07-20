@@ -14,6 +14,7 @@ export default defineConfig({
     dts({
       entryRoot: "../",
       outDir: "dist",
+      exclude: ["../**/__test__/**"],
     }),
     cssInjectedByJsPlugin(),
     visualizer({
@@ -27,27 +28,33 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@cgx-designer/controller": path.resolve(__dirname, "../controller"),
+      "@cgx-designer/controller": path.resolve(
+        __dirname,
+        "../controller/index"
+      ),
       "@cgx-designer/base-materials": path.resolve(
         __dirname,
         "../base-materials"
       ),
-      "@cgx-designer/utils": path.resolve(__dirname, "../utils"),
-      "@cgx-designer/hooks": path.resolve(__dirname, "../hooks"),
-      "@cgx-designer/extensions": path.resolve(__dirname, "../extensions"),
+      "@cgx-designer/utils": path.resolve(__dirname, "../utils/index"),
+      "@cgx-designer/hooks": path.resolve(__dirname, "../hooks/index"),
+      "@cgx-designer/extensions": path.resolve(
+        __dirname,
+        "../extensions/index"
+      ),
       "@cgx-designer/element-designer": path.resolve(
         __dirname,
-        "../element-designer"
+        "../element-designer/index"
       ),
       "@cgx-designer/element-engine": path.resolve(
         __dirname,
-        "../element-engine"
+        "../element-engine/index"
       ),
       "@cgx-designer/element-renderer": path.resolve(
         __dirname,
-        "../element-renderer"
+        "../element-renderer/index"
       ),
-      "@cgx-designer/types": path.resolve(__dirname, "../types"),
+      "@cgx-designer/types": path.resolve(__dirname, "../types/index"),
     },
   },
   build: {
@@ -57,6 +64,7 @@ export default defineConfig({
     },
     lib: {
       name: "cgx-designer",
+      formats: ["es", "cjs"],
       entry: {
         index: path.resolve(__dirname, "./index.ts"),
         elementPlus: path.resolve(
@@ -84,6 +92,8 @@ export default defineConfig({
         globals: {
           vue: "Vue",
         },
+        preserveModules: true,
+        preserveModulesRoot: "../",
       },
     },
   },

@@ -44,6 +44,4 @@ export class FunctionController {
   };
 }
 
-const functionController = new FunctionController();
-
-export default functionController;
+export const functionController = new FunctionController();

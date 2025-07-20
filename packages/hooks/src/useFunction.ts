@@ -1,8 +1,10 @@
 import { computed, ref, watchEffect } from "vue";
 import { ElementManage } from "./useElement";
 import { ElementInstance, EventInstance } from "@cgx-designer/types";
-import { elementController } from "@cgx-designer/controller";
-import functionController from "@cgx-designer/controller/core/functionController";
+import {
+  elementController,
+  functionController,
+} from "@cgx-designer/controller";
 import { SourceDataManage } from "./useSourceData";
 
 export type FunctionManage = ReturnType<typeof useFunction>;
