@@ -7,6 +7,7 @@ export default {
   content: [
     "./packages/core/src/**/*.{vue,js,ts,jsx,tsx}",
     "./packages/base-materials/core/**/*.{vue,js,ts,jsx,tsx}",
+    "./packages/private-materials/core/**/*.{vue,js,ts,jsx,tsx}",
     "./packages/extensions/src/**/*.{vue,js,ts,jsx,tsx}",
     "./packages/element-designer/src/**/*.{vue,js,ts,jsx,tsx}",
     "./packages/element-engine/src/**/*.{vue,js,ts,jsx,tsx}",
