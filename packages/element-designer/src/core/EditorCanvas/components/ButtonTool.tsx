@@ -15,7 +15,8 @@ const ButtonTool = defineComponent({
     const focusManage = inject("focusManage") as FocusManage;
     const elementManage = inject("elementManage") as ElementManage;
     const queueManage = inject("queueManage") as QueueManage;
-    const top = ref("-28px");
+    const top = ref<string | undefined>("-28px");
+    const bottom = ref<string | undefined>();
     const handleCopy = (e: MouseEvent) => {
       e.stopPropagation();
       const newElementSchema = elementManage.deepCopyElement(
@@ -70,17 +71,19 @@ const ButtonTool = defineComponent({
     });
 
     watch(
-      () => focusManage.focusedElement.value,
+      () => getComponentInstance.value,
       () => {
-        if (!focusManage.focusedElement.value) return;
+        if (!getComponentInstance.value) return;
         nextTick(() => {
           const elementInstance = getComponentInstance.value;
-          console.log(elementInstance);
+          // console.log(elementInstance, elementInstance.getBoundingClientRect());
           //如果实例几乎在最上面
           if (elementInstance.getBoundingClientRect().top < 110) {
-            top.value = elementInstance.getBoundingClientRect().height + "px";
+            bottom.value = "-28px";
+            top.value = undefined;
           } else {
             top.value = "-28px";
+            bottom.value = undefined;
           }
         });
       }
@@ -96,13 +99,14 @@ const ButtonTool = defineComponent({
 
       return (
         <div
-          class="c-absolute -c-top-7 c-right-1 c-cursor-pointer c-flex"
+          class="c-absolute c-right-1 c-cursor-pointer c-flex"
           style={{
             top: top.value,
+            bottom: bottom.value,
           }}
         >
           {/* 组件信息 */}
-          <div class="c-mr-1 c-flex c-items-center c-text-xs c-bg-blue-500 c-p-1 c-text-white c-pointer-events-none c-rounded">
+          <div class="c-mr-1 c-flex c-items-center c-text-xs c-bg-blue-500 c-p-1 c-text-white c-pointer-events-none c-rounded c-gap-x-1">
             <ElementIcon class="c-w-[16px] c-h-[16px] hover:c-fill-blue-500 c-fill-white dark:hover:c-fill-blue-500" />
             {elementTag.value}
           </div>
