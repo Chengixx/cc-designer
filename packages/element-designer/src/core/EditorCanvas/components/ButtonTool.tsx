@@ -15,8 +15,48 @@ const ButtonTool = defineComponent({
     const focusManage = inject("focusManage") as FocusManage;
     const elementManage = inject("elementManage") as ElementManage;
     const queueManage = inject("queueManage") as QueueManage;
-    const top = ref<string | undefined>("-28px");
-    const bottom = ref<string | undefined>();
+
+    const position = ref<"top" | "bottom">("top");
+    const TOOL_HEIGHT = 28;
+
+    const getComponentInstance = computed(() => {
+      const id = focusManage.focusedElement.value?.id || "";
+      const elementSchema = elementManage.getElementById(id);
+      const elementInstance = elementManage.getElementInstanceById(id);
+      if (!id || !elementInstance || !elementSchema) return null;
+      if (elementSchema.formItem && !!!elementSchema.noShowFormItem) {
+        return elementManage.getElementInstanceById(id + "-form-item").$el;
+      }
+      if (elementInstance.$el.nodeName === "#text") {
+        return null;
+      }
+      if (useParentDomList.includes(elementSchema.key)) {
+        return elementInstance.$el.parentElement;
+      } else {
+        return elementInstance.$el;
+      }
+    });
+
+    // 监听聚焦元素变化，动态判断操作条位置
+    watch(
+      () => getComponentInstance.value,
+      () => {
+        const el = getComponentInstance.value;
+        if (!el) return;
+        nextTick(() => {
+          const rect = el.getBoundingClientRect();
+          position.value = rect.top < 110 ? "bottom" : "top";
+        });
+      },
+      { immediate: true }
+    );
+
+    const toolStyle = computed(() => {
+      return position.value === "top"
+        ? { top: `-${TOOL_HEIGHT}px`, bottom: undefined }
+        : { top: undefined, bottom: `-${TOOL_HEIGHT}px` };
+    });
+
     const handleCopy = (e: MouseEvent) => {
       e.stopPropagation();
       const newElementSchema = elementManage.deepCopyElement(
@@ -51,44 +91,6 @@ const ButtonTool = defineComponent({
       ).label;
     });
 
-    const getComponentInstance = computed(() => {
-      const id = focusManage.focusedElement.value?.id || "";
-      const elementSchema = elementManage.getElementById(id);
-      const elementInstance = elementManage.getElementInstanceById(id);
-      if (!id || !elementInstance || !elementSchema) return null;
-      if (elementSchema.formItem && !!!elementSchema.noShowFormItem) {
-        return elementManage.getElementInstanceById(id + "-form-item").$el;
-      }
-      if (elementInstance.$el.nodeName === "#text") {
-        return null;
-      }
-      // 有这个的话要返回他的父亲给他
-      if (useParentDomList.includes(elementSchema.key)) {
-        return elementInstance.$el.parentElement;
-      } else {
-        return elementInstance.$el;
-      }
-    });
-
-    watch(
-      () => getComponentInstance.value,
-      () => {
-        if (!getComponentInstance.value) return;
-        nextTick(() => {
-          const elementInstance = getComponentInstance.value;
-          // console.log(elementInstance, elementInstance.getBoundingClientRect());
-          //如果实例几乎在最上面
-          if (elementInstance.getBoundingClientRect().top < 110) {
-            bottom.value = "-28px";
-            top.value = undefined;
-          } else {
-            top.value = "-28px";
-            bottom.value = undefined;
-          }
-        });
-      }
-    );
-
     return () => {
       const ElementIcon =
         (focusManage.focusedElement.value &&
@@ -100,10 +102,7 @@ const ButtonTool = defineComponent({
       return (
         <div
           class="c-absolute c-right-1 c-cursor-pointer c-flex"
-          style={{
-            top: top.value,
-            bottom: bottom.value,
-          }}
+          style={toolStyle.value}
         >
           {/* 组件信息 */}
           <div class="c-mr-1 c-flex c-items-center c-text-xs c-bg-blue-500 c-p-1 c-text-white c-pointer-events-none c-rounded c-gap-x-1">
