@@ -1,8 +1,12 @@
-import { computed, defineComponent, inject } from "vue";
+import { computed, defineComponent, inject, nextTick, ref, watch } from "vue";
 import { ElementManage, FocusManage, QueueManage } from "@cgx-designer/hooks";
 import { deepClone } from "@cgx-designer/utils";
 import { ClearIcon, CopyIcon, TopIcon } from "@cgx-designer/icons";
-import { noCopyDomList, findHigherLevelDomList } from "../../../constant/index";
+import {
+  noCopyDomList,
+  findHigherLevelDomList,
+  useParentDomList,
+} from "../../../constant/index";
 import { elementController } from "@cgx-designer/controller";
 import { IEditorElement } from "@cgx-designer/types";
 
@@ -11,6 +15,7 @@ const ButtonTool = defineComponent({
     const focusManage = inject("focusManage") as FocusManage;
     const elementManage = inject("elementManage") as ElementManage;
     const queueManage = inject("queueManage") as QueueManage;
+    const top = ref("-28px");
     const handleCopy = (e: MouseEvent) => {
       e.stopPropagation();
       const newElementSchema = elementManage.deepCopyElement(
@@ -45,6 +50,42 @@ const ButtonTool = defineComponent({
       ).label;
     });
 
+    const getComponentInstance = computed(() => {
+      const id = focusManage.focusedElement.value?.id || "";
+      const elementSchema = elementManage.getElementById(id);
+      const elementInstance = elementManage.getElementInstanceById(id);
+      if (!id || !elementInstance || !elementSchema) return null;
+      if (elementSchema.formItem && !!!elementSchema.noShowFormItem) {
+        return elementManage.getElementInstanceById(id + "-form-item").$el;
+      }
+      if (elementInstance.$el.nodeName === "#text") {
+        return null;
+      }
+      // 有这个的话要返回他的父亲给他
+      if (useParentDomList.includes(elementSchema.key)) {
+        return elementInstance.$el.parentElement;
+      } else {
+        return elementInstance.$el;
+      }
+    });
+
+    watch(
+      () => focusManage.focusedElement.value,
+      () => {
+        if (!focusManage.focusedElement.value) return;
+        nextTick(() => {
+          const elementInstance = getComponentInstance.value;
+          console.log(elementInstance);
+          //如果实例几乎在最上面
+          if (elementInstance.getBoundingClientRect().top < 110) {
+            top.value = elementInstance.getBoundingClientRect().height + "px";
+          } else {
+            top.value = "-28px";
+          }
+        });
+      }
+    );
+
     return () => {
       const ElementIcon =
         (focusManage.focusedElement.value &&
@@ -54,7 +95,12 @@ const ButtonTool = defineComponent({
         (() => null);
 
       return (
-        <div class="c-absolute -c-top-7 c-right-1 c-cursor-pointer c-flex">
+        <div
+          class="c-absolute -c-top-7 c-right-1 c-cursor-pointer c-flex"
+          style={{
+            top: top.value,
+          }}
+        >
           {/* 组件信息 */}
           <div class="c-mr-1 c-flex c-items-center c-text-xs c-bg-blue-500 c-p-1 c-text-white c-pointer-events-none c-rounded">
             <ElementIcon class="c-w-[16px] c-h-[16px] hover:c-fill-blue-500 c-fill-white dark:hover:c-fill-blue-500" />
