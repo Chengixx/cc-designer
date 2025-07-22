@@ -1,6 +1,6 @@
 import { defineComponent, PropType } from "vue";
-import { OperationButtonSetting } from "./operationButtonSetting";
-import OperationIcon from "./OperationIcon";
+import { OperationButtonSetting } from "../operationButtonSetting";
+import OperationIcon from "../OperationIcon";
 
 const LeftOperationArea = defineComponent({
   props: {

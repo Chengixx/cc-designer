@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import draggable from "vuedraggable";
 import { FocusManage, ModeManage, QueueManage } from "@cgx-designer/hooks";
-import EditorElement from "./EditorElement";
+import EditorElement from "../EditorElement";
 import { useDrag } from "@cgx-designer/hooks";
 import { inject } from "vue";
 import { HoverManage } from "@cgx-designer/hooks";

@@ -1,6 +1,6 @@
 import { FocusManage, HoverManage } from "@cgx-designer/hooks";
 import { defineComponent, inject, onMounted, ref } from "vue";
-import ButtonTool from "./ButtonTool";
+import ButtonTool from "../ButtonTool";
 
 const PanelWidget = defineComponent({
   setup() {

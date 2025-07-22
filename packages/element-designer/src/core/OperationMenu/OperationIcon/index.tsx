@@ -1,5 +1,5 @@
 import { defineComponent, PropType } from "vue";
-import { OperationButtonSetting } from "./operationButtonSetting";
+import { OperationButtonSetting } from "../operationButtonSetting";
 
 const OperationIcon = defineComponent({
   props: {

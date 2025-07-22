@@ -1,5 +1,5 @@
 import { defineComponent, PropType } from "vue";
-import { OperationButtonSetting } from "./operationButtonSetting";
+import { OperationButtonSetting } from "../operationButtonSetting";
 import { elementController } from "@cgx-designer/controller";
 
 type ButtonType =

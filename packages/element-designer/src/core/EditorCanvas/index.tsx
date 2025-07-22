@@ -1,15 +1,15 @@
 import { computed, defineComponent, inject, onMounted, ref } from "vue";
-import Draggle from "./components/Draggle.vue";
+import Draggle from "./Draggle/index.vue";
+import PanelWidget from "./PanelWidget";
 import {
   FormManage,
   FunctionManage,
   HoverManage,
   ModeManage,
   ModeSize,
+  ElementManage,
+  FocusManage,
 } from "@cgx-designer/hooks";
-import { ElementManage } from "@cgx-designer/hooks";
-import PanelWidget from "./components/PanelWidget";
-import { FocusManage } from "@cgx-designer/hooks/src/useFocus";
 import { stringFirstBigger } from "@cgx-designer/utils";
 import { Empty } from "@cgx-designer/extensions";
 import { elementController } from "@cgx-designer/controller";

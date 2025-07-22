@@ -3,10 +3,10 @@ import { FocusManage } from "@cgx-designer/hooks";
 import { ElementManage } from "@cgx-designer/hooks";
 import { HoverManage } from "@cgx-designer/hooks";
 import { IEditorElement } from "@cgx-designer/types";
-import Draggle from "./Draggle.vue";
+import Draggle from "../Draggle/index.vue";
 import { ElementEngine } from "@cgx-designer/element-engine";
 import { useParentDomList } from "../../../constant";
-import DragWidget from "./DragWidget";
+import DragWidget from "../DragWidget";
 import { useEventListener } from "@vueuse/core";
 
 const EditorElement = defineComponent({

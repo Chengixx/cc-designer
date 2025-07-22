@@ -1,7 +1,7 @@
 import { defineComponent, PropType } from "vue";
-import { OperationButtonSetting } from "./operationButtonSetting";
+import { OperationButtonSetting } from "../operationButtonSetting";
 import { elementController } from "@cgx-designer/controller";
-import OperationButton from "./OperationButton";
+import OperationButton from "../OperationButton";
 
 const RightOperationArea = defineComponent({
   props: {
