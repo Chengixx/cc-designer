@@ -6,6 +6,7 @@ import path from "path";
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 import { visualizer } from "rollup-plugin-visualizer";
 import { terser } from "rollup-plugin-terser";
+import nodeExternals from 'rollup-plugin-node-externals';
 
 export default defineConfig({
   plugins: [
@@ -21,10 +22,11 @@ export default defineConfig({
       gzipSize: true,
       brotliSize: true,
       emitFile: false,
-      filename: "test.html",
-      open: true,
+      filename: "analz.html",
+      open: false,
     }),
     terser(),
+    nodeExternals()
   ],
   resolve: {
     alias: {
@@ -77,13 +79,11 @@ export default defineConfig({
         ),
       },
       fileName: (ModuleFormat, entryName) => {
-        console.log("文件名", ModuleFormat, entryName);
         const extension = ModuleFormat === "es" ? "js" : ModuleFormat;
-        const isIndexEntry = entryName === "index";
-        const path = isIndexEntry
-          ? `index.${extension}`
-          : `base-materials/core/${entryName}/index.${extension}`;
-        return path;
+        if (["elementPlus", "vuetify"].includes(entryName)) {
+          return `base-materials/core/${entryName}/index.${extension}`;
+        }
+        return `${entryName}.${extension}`;
       },
     },
     rollupOptions: {
