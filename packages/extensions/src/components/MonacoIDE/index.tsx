@@ -85,7 +85,7 @@ const MonacoIDE = defineComponent({
       format,
     });
 
-    return () => <div ref={monacoRef} class="c-min-h-40 c-w-full c-h-full" />;
+    return () => <div ref={monacoRef} class="c-w-full c-h-full" />;
   },
 });
 
