@@ -1,6 +1,5 @@
-import { TabPane, Tabs } from "@cgx-designer/extensions";
+import { formatJson, MonacoIDE, TabPane, Tabs } from "@cgx-designer/extensions";
 import { ref, defineComponent, nextTick } from "vue";
-import { IDE } from "@cgx-designer/extensions";
 import { BuilderSchema } from "@cgx-designer/types";
 import {
   copyToClipboard,
@@ -22,11 +21,11 @@ export const ExportSourceCodeDialog = defineComponent({
     const jsonContent = ref<string>("");
     const cgxContent = ref<string>("");
     const sfcContent = ref<string>("");
-    const IDERef = ref<typeof IDE | null>(null);
+    const IDERef = ref<typeof MonacoIDE | null>(null);
     const isShow = ref<boolean>(false);
     const handleOpen = (builderSchema: BuilderSchema) => {
       nextTick(() => {
-        jsonContent.value = JSON.stringify(builderSchema);
+        jsonContent.value = formatJson(builderSchema);
         cgxContent.value =
           createSourceCode(builderSchema).createCGXSourceCode();
         sfcContent.value =
@@ -66,24 +65,28 @@ export const ExportSourceCodeDialog = defineComponent({
               <Tabs v-model={currentTab.value} class="no-padding-tabs">
                 <TabPane label="json代码">
                   <div class="c-h-[70vh]">
-                    <IDE ref={IDERef as any} v-model={jsonContent.value} />
+                    <MonacoIDE
+                      ref={IDERef as any}
+                      v-model={jsonContent.value}
+                      mode="json"
+                    />
                   </div>
                 </TabPane>
                 <TabPane label="vue代码">
                   <div class="c-h-[70vh]">
-                    <IDE
+                    <MonacoIDE
                       ref={IDERef as any}
                       v-model={cgxContent.value}
-                      mode="html"
+                      mode="vue"
                     />
                   </div>
                 </TabPane>
                 <TabPane label="SFC代码">
                   <div class="c-h-[70vh]">
-                    <IDE
+                    <MonacoIDE
                       ref={IDERef as any}
                       v-model={sfcContent.value}
-                      mode="html"
+                      mode="vue"
                     />
                   </div>
                 </TabPane>

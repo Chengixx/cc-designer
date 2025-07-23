@@ -41,7 +41,7 @@ const MonacoIDE = defineComponent({
       () => {
         nextTick(() => {
           monaco.editor.setTheme(
-            themeManage.isDark.value ? "vs-dark" : "vs-light"
+            themeManage.isDark.value ? "dark-plus" : "light-plus"
           );
         });
       },

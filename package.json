@@ -37,7 +37,9 @@
     "element-plus": "^2.8.0",
     "lodash-es": "^4.17.21",
     "vue": "^3.4.29",
-    "vuetify": "^3.7.6"
+    "vuetify": "^3.7.6",
+    "@shikijs/monaco": "^1.24.4",
+    "shiki": "^1.24.4"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
