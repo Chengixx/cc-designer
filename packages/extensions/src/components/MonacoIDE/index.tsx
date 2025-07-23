@@ -27,12 +27,12 @@ const MonacoIDE = defineComponent({
     const themeManage = inject("themeManage") as ThemeManage;
     let monacoEditor: monaco.editor.IStandaloneCodeEditor | null = null;
     const monacoRef = ref<HTMLDivElement | null>(null);
-    const setValue = (v: string) => monacoEditor!.setValue(v || "");
+    const setValue = (v: string) => monacoEditor?.setValue(v || "");
     const getValue = () => props.modelValue ?? "";
 
     const format = () => {
       if (monacoEditor) {
-        monacoEditor.getAction("editor.action.formatDocument")!.run();
+        monacoEditor.getAction("editor.action.formatDocument")?.run();
       }
     };
 

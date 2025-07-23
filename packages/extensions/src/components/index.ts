@@ -13,7 +13,8 @@ import MonacoIDE from "./MonacoIDE";
 export * from "./Message/index";
 export * from "./Tabs/index";
 export * from "./Collapse/index";
-export * from "./MonacoIDE/index";
+export * from "./MonacoIDE/util";
+export * from "./MonacoIDE/init";
 
 export {
   CCard,
