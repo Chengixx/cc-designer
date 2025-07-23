@@ -2,7 +2,7 @@ import { ref, defineComponent, inject } from "vue";
 import { elementController } from "@cgx-designer/controller";
 import { SourceDataManage } from "@cgx-designer/hooks";
 import { dataSourceColor } from "../../../../constant/index";
-import { IDE } from "@cgx-designer/extensions";
+import { MonacoIDE } from "@cgx-designer/extensions";
 import { IEditorElement } from "@cgx-designer/types";
 import { IBindSourceData } from "@cgx-designer/reactivity";
 import { deepClone } from "@cgx-designer/utils";
@@ -117,7 +117,7 @@ export const SelectSourceDataDialog = defineComponent({
                   )}
                 </div>
                 <div class="c-flex-1 c-ml-2 c-border c-p-2 c-h-full dark:c-border-darkMode">
-                  <IDE v-model={sourceDataName.value} />
+                  <MonacoIDE v-model={sourceDataName.value} />
                 </div>
               </div>
             ),

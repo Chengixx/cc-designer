@@ -4,7 +4,6 @@ import Divider from "./Divider";
 import CTree from "./Tree";
 import CFormItem from "./CFormItem";
 import Empty from "./Empty";
-import IDE from "./IDE";
 import Loading from "./Loading/index.vue";
 import SvgIcon from "./SvgIcon";
 import CTooltip from "./Tooltip/index.vue";
@@ -13,8 +12,7 @@ import MonacoIDE from "./MonacoIDE";
 export * from "./Message/index";
 export * from "./Tabs/index";
 export * from "./Collapse/index";
-export * from "./MonacoIDE/util";
-export * from "./MonacoIDE/init";
+export * from "./MonacoIDE/index";
 
 export {
   CCard,
@@ -23,7 +21,6 @@ export {
   CTree,
   CFormItem,
   Empty,
-  IDE,
   Loading,
   SvgIcon,
   CTooltip,

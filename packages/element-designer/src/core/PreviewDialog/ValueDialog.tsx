@@ -1,5 +1,5 @@
 import { elementController } from "@cgx-designer/controller";
-import { IDE } from "@cgx-designer/extensions";
+import { MonacoIDE } from "@cgx-designer/extensions";
 import { defineComponent, ref } from "vue";
 
 export interface ValueDialogExpose {
@@ -41,7 +41,7 @@ export const ValueDialog = defineComponent({
             default: () => {
               return (
                 <div class="c-h-[60vh] c-overflow-y-auto">
-                  <IDE readonly v-model={IDEValue.value} />
+                  <MonacoIDE readonly v-model={IDEValue.value} />
                 </div>
               );
             },

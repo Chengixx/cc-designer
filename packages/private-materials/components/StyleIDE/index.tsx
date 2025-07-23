@@ -1,24 +1,25 @@
-import { IDE } from "@cgx-designer/extensions";
+import { formatJson, MonacoIDE } from "@cgx-designer/extensions";
 import { defineComponent, ref, watch } from "vue";
 import { CssIcon } from "@cgx-designer/icons";
 import { Message } from "@cgx-designer/extensions";
 import { elementController } from "@cgx-designer/controller";
 import { VBtnColorType } from "@cgx-designer/base-materials";
+import { javaScript } from "./../../../../play/src/data";
 
 const StyleIDE = defineComponent({
   inheritAttrs: false,
   emits: ["update:modelValue"],
   setup(_, { attrs, emit }) {
     const Button = elementController.getElementRender("button");
-    const styleIDERef = ref<typeof IDE | null>(null);
+    const styleIDERef = ref<typeof MonacoIDE | null>(null);
     const bindValue = ref<string | null>(null);
     const handleSave = () => {
       //保底机制
       if (!bindValue.value) {
-        bindValue.value = JSON.stringify({});
+        bindValue.value = formatJson({});
       }
       try {
-        styleIDERef.value?.formatCode();
+        styleIDERef.value?.format();
         const target = JSON.parse(bindValue.value!);
         emit("update:modelValue", target);
         Message.success("保存成功");
@@ -30,8 +31,8 @@ const StyleIDE = defineComponent({
       () => attrs.modelValue,
       (nv) => {
         if (!nv) return;
-        bindValue.value = JSON.stringify(nv);
-        styleIDERef.value?.setEditorValue(bindValue.value);
+        bindValue.value = formatJson(nv);
+        styleIDERef.value?.setValue(bindValue.value);
       },
       { immediate: true, deep: true }
     );
@@ -60,10 +61,10 @@ const StyleIDE = defineComponent({
           </Button>
         </div>
         <div class="c-w-full c-h-40 c-rounded-md c-border-2 c-transition-all c-duration-300 hover:c-border-blue-500 dark:c-border-gray-600 dark:hover:c-border-blue-500 border-solid rounded-md overflow-hidden">
-          <IDE
+          <MonacoIDE
             ref={styleIDERef as any}
             v-model={bindValue.value}
-            showFormatButton={false}
+            mode="javaScript"
           />
         </div>
       </>

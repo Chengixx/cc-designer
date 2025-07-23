@@ -15,7 +15,6 @@
     "@types/js-beautify": "^1.14.3",
     "typescript": "^5.2.2",
     "@types/ace": "^0.0.52",
-    "ace-builds": "^1.35.4",
     "monaco-editor": "^0.52.2"
   },
   "keywords": [],

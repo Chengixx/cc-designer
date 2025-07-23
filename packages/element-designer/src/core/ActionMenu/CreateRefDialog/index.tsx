@@ -1,7 +1,7 @@
 import { ref, defineComponent, inject } from "vue";
 import { elementController } from "@cgx-designer/controller";
 import { SourceDataItem, SourceDataManage } from "@cgx-designer/hooks";
-import { CFormItem, IDE } from "@cgx-designer/extensions";
+import { CFormItem, MonacoIDE } from "@cgx-designer/extensions";
 
 export const CreateRefDialog = defineComponent({
   setup(_, { expose }) {
@@ -68,7 +68,7 @@ export const CreateRefDialog = defineComponent({
                 <div class="c-mb-1 c-font-medium c-text-sm c-text-gray-600 c-flex c-items-center dark:c-text-gray-300">
                   数据源初始值
                 </div>
-                <IDE v-model={initialValue.value} />
+                <MonacoIDE v-model={initialValue.value} mode="javaScript" />
               </div>
             ),
             footer: () => (

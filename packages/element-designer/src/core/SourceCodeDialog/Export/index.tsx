@@ -21,7 +21,6 @@ export const ExportSourceCodeDialog = defineComponent({
     const jsonContent = ref<string>("");
     const cgxContent = ref<string>("");
     const sfcContent = ref<string>("");
-    const IDERef = ref<typeof MonacoIDE | null>(null);
     const isShow = ref<boolean>(false);
     const handleOpen = (builderSchema: BuilderSchema) => {
       nextTick(() => {
@@ -65,29 +64,17 @@ export const ExportSourceCodeDialog = defineComponent({
               <Tabs v-model={currentTab.value} class="no-padding-tabs">
                 <TabPane label="json代码">
                   <div class="c-h-[70vh]">
-                    <MonacoIDE
-                      ref={IDERef as any}
-                      v-model={jsonContent.value}
-                      mode="json"
-                    />
+                    <MonacoIDE v-model={jsonContent.value} mode="json" />
                   </div>
                 </TabPane>
                 <TabPane label="vue代码">
                   <div class="c-h-[70vh]">
-                    <MonacoIDE
-                      ref={IDERef as any}
-                      v-model={cgxContent.value}
-                      mode="vue"
-                    />
+                    <MonacoIDE v-model={cgxContent.value} mode="vue" />
                   </div>
                 </TabPane>
                 <TabPane label="SFC代码">
                   <div class="c-h-[70vh]">
-                    <MonacoIDE
-                      ref={IDERef as any}
-                      v-model={sfcContent.value}
-                      mode="vue"
-                    />
+                    <MonacoIDE v-model={sfcContent.value} mode="vue" />
                   </div>
                 </TabPane>
               </Tabs>

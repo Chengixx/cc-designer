@@ -69,6 +69,7 @@ const MonacoIDE = defineComponent({
         language: props.mode,
         readOnly: props.readonly,
         theme: props.theme,
+        automaticLayout: true,
       });
 
       monacoEditor.onDidChangeModelContent(() =>
@@ -85,10 +86,11 @@ const MonacoIDE = defineComponent({
       format,
     });
 
-    return () => <div ref={monacoRef} class="c-w-full c-h-full" />;
+    return () => <div ref={monacoRef} class="c-min-h-40 c-w-full c-h-full" />;
   },
 });
 
 export default MonacoIDE;
 
 export * from "./util";
+export * from "./init";

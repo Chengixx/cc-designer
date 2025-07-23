@@ -1,5 +1,4 @@
 import { ref, defineComponent, nextTick, inject } from "vue";
-import { IDE } from "@cgx-designer/extensions";
 import { checkCJsonType } from "@cgx-designer/utils";
 import {
   ElementManage,
@@ -9,7 +8,7 @@ import {
   SourceDataManage,
 } from "@cgx-designer/hooks";
 import { elementController } from "@cgx-designer/controller";
-import { Message } from "@cgx-designer/extensions";
+import { Message, MonacoIDE } from "@cgx-designer/extensions";
 
 export interface ImportSourceCodeDialogExpose {
   handleOpen: () => void;
@@ -25,7 +24,6 @@ export const ImportSourceCodeDialog = defineComponent({
     const elementManage = inject("elementManage") as ElementManage;
     const queueManage = inject("queueManage") as QueueManage;
     const jsonContent = ref<string>("");
-    const IDERef = ref<typeof IDE | null>(null);
     const isShow = ref<boolean>(false);
     const handleOpen = () => {
       nextTick(() => {
@@ -69,8 +67,8 @@ export const ImportSourceCodeDialog = defineComponent({
         >
           {{
             default: () => (
-              <div class="c-h-[70vh]">
-                <IDE ref={IDERef as any} v-model={jsonContent.value} />
+              <div class="c-h-[70vh] c-bg-blue-100">
+                <MonacoIDE v-model={jsonContent.value} mode="json" />
               </div>
             ),
             footer: () => (
