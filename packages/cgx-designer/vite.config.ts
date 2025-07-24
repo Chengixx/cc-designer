@@ -8,6 +8,21 @@ import { visualizer } from "rollup-plugin-visualizer";
 import { terser } from "rollup-plugin-terser";
 import nodeExternals from "rollup-plugin-node-externals";
 
+const dirResolve = (dir: string) => path.resolve(__dirname, `../${dir}`);
+
+const alias = {
+  "@cgx-designer/controller": dirResolve("controller/index"),
+  "@cgx-designer/base-materials": dirResolve("base-materials"),
+  "@cgx-designer/utils": dirResolve("utils/index"),
+  "@cgx-designer/hooks": dirResolve("hooks/index"),
+  "@cgx-designer/extensions": dirResolve("extensions/index"),
+  "@cgx-designer/element-designer": dirResolve("element-designer/index"),
+  "@cgx-designer/element-engine": dirResolve("element-engine/index"),
+  "@cgx-designer/element-renderer": dirResolve("element-renderer/index"),
+  "@cgx-designer/private-materials": dirResolve("private-materials/index"),
+  "@cgx-designer/types": dirResolve("types/index"),
+};
+
 export default defineConfig({
   plugins: [
     vue(),
@@ -29,39 +44,7 @@ export default defineConfig({
     nodeExternals(),
   ],
   resolve: {
-    alias: {
-      "@cgx-designer/controller": path.resolve(
-        __dirname,
-        "../controller/index"
-      ),
-      "@cgx-designer/base-materials": path.resolve(
-        __dirname,
-        "../base-materials"
-      ),
-      "@cgx-designer/utils": path.resolve(__dirname, "../utils/index"),
-      "@cgx-designer/hooks": path.resolve(__dirname, "../hooks/index"),
-      "@cgx-designer/extensions": path.resolve(
-        __dirname,
-        "../extensions/index"
-      ),
-      "@cgx-designer/element-designer": path.resolve(
-        __dirname,
-        "../element-designer/index"
-      ),
-      "@cgx-designer/element-engine": path.resolve(
-        __dirname,
-        "../element-engine/index"
-      ),
-      "@cgx-designer/element-renderer": path.resolve(
-        __dirname,
-        "../element-renderer/index"
-      ),
-      "@cgx-designer/private-materials": path.resolve(
-        __dirname,
-        "../private-materials/index"
-      ),
-      "@cgx-designer/types": path.resolve(__dirname, "../types/index"),
-    },
+    alias,
   },
   build: {
     outDir: "dist",
