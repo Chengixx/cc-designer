@@ -18,12 +18,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "rollup-plugin-node-externals": "^8.0.1",
+    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-visualizer": "^5.14.0"
   },
   "author": "lcc",
   "license": "ISC",
   "dependencies": {
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-node-externals": "^8.0.1"
+    "vuedraggable": "4.1.0"
   }
 }
