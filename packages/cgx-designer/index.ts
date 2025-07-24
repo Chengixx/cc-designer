@@ -5,4 +5,5 @@ export * from "@cgx-designer/extensions";
 export * from "@cgx-designer/element-designer";
 export * from "@cgx-designer/element-engine";
 export * from "@cgx-designer/element-renderer";
+export * from "@cgx-designer/private-materials";
 export * from "@cgx-designer/types";

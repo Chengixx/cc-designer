@@ -31,8 +31,15 @@ const MonacoIDE = defineComponent({
     const getValue = () => props.modelValue ?? "";
 
     const format = () => {
-      if (monacoEditor) {
-        monacoEditor.getAction("editor.action.formatDocument")?.run();
+      try {
+        if (monacoEditor) {
+          monacoEditor.getAction("editor.action.formatDocument")?.run();
+        }
+      } catch (error) {
+        console.warn(
+          "cgx-designer: Monaco格式化失败，如需此功能请下载vite插件",
+          error
+        );
       }
     };
 

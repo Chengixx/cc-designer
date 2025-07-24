@@ -6,7 +6,7 @@ import path from "path";
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 import { visualizer } from "rollup-plugin-visualizer";
 import { terser } from "rollup-plugin-terser";
-import nodeExternals from 'rollup-plugin-node-externals';
+import nodeExternals from "rollup-plugin-node-externals";
 
 export default defineConfig({
   plugins: [
@@ -26,7 +26,7 @@ export default defineConfig({
       open: false,
     }),
     terser(),
-    nodeExternals()
+    nodeExternals(),
   ],
   resolve: {
     alias: {
@@ -55,6 +55,10 @@ export default defineConfig({
       "@cgx-designer/element-renderer": path.resolve(
         __dirname,
         "../element-renderer/index"
+      ),
+      "@cgx-designer/private-materials": path.resolve(
+        __dirname,
+        "../private-materials/index"
       ),
       "@cgx-designer/types": path.resolve(__dirname, "../types/index"),
     },

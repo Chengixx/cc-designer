@@ -27,9 +27,14 @@ import CollapseWidget from "./CollapseWidget";
 import { elementController } from "@cgx-designer/controller";
 import { Loading } from "@cgx-designer/extensions";
 import { isMac } from "@cgx-designer/utils";
+import { initMonacoVue } from "../init";
+import { registerPrivateCompoents } from "@cgx-designer/private-materials";
+
 //设计器
 const ElementDesigner = defineComponent({
   setup() {
+    registerPrivateCompoents();
+    initMonacoVue();
     //dialog实例
     const previewDialogRef = ref<any>(null);
     const exportSourceCodeDialogRef = ref<any>(null);
