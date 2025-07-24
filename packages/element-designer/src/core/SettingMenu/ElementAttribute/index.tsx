@@ -7,7 +7,7 @@ import {
 } from "@cgx-designer/hooks";
 import { setValueByPath, copyToClipboard } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
-import { defineComponent, Fragment, inject, ref, watch } from "vue";
+import { defineComponent, Fragment, inject, ref, render, watch } from "vue";
 import { deepClone, getValueByPath } from "@cgx-designer/utils";
 import { vuetifyProps } from "@cgx-designer/base-materials";
 import { CIcon, Empty } from "@cgx-designer/extensions";
@@ -118,6 +118,56 @@ const ElementAttribute = defineComponent({
       });
       queueManage.push("bindSourceData");
     };
+
+    //渲染额外小icon
+    const renderExtraWidget = (attributeConfig: IEditorElement) => {
+      const showExtra = attributeConfig.showExtra;
+
+      if (showExtra === "copy") {
+        return (
+          <CIcon
+            icon={ClipBoardIcon}
+            onClick={() => {
+              const v = currentFocusElement.value!.id;
+              if (v !== undefined && v !== null) {
+                copyToClipboard(
+                  v as string,
+                  () => Message.success("复制成功"),
+                  () => Message.warning("复制失败")
+                );
+              }
+            }}
+          ></CIcon>
+        );
+      }
+
+      if (showExtra === "dataSource") {
+        const isSourceData = isAttrIsSourceData(
+          attributeConfig.field!,
+          currentFocusElement.value!
+        );
+        return (
+          <div
+            onClick={() => {
+              SelectSourceDataDialogRef.value?.handleOpen(
+                attributeConfig,
+                isSourceData
+                  ? getValueByPath(
+                      currentFocusElement.value!,
+                      attributeConfig.field!
+                    )
+                  : undefined
+              );
+            }}
+            class={
+              isSourceData && "c-bg-blue-300 c-rounded-md dark:c-bg-blue-90"
+            }
+          >
+            <BindIcon class="c-w-5 c-h-5 dark:c-fill-white c-cursor-pointer" />
+          </div>
+        );
+      }
+    };
     return () => (
       <>
         {/* // !此处不给key值vue会重复利用上一次的 是不行的 */}
@@ -165,53 +215,11 @@ const ElementAttribute = defineComponent({
                           />
                         );
                       },
-                      extra: () => {
-                        const isSourceData = isAttrIsSourceData(
-                          attributeConfig.field!,
-                          currentFocusElement.value!
-                        );
-                        return (
-                          <>
-                            <div class="c-ml-1">
-                              {attributeConfig.field === "id" ? (
-                                <CIcon
-                                  icon={ClipBoardIcon}
-                                  onClick={() => {
-                                    const v = currentFocusElement.value!.id;
-                                    if (v !== undefined && v !== null) {
-                                      copyToClipboard(
-                                        v as string,
-                                        () => Message.success("复制成功"),
-                                        () => Message.warning("复制失败")
-                                      );
-                                    }
-                                  }}
-                                ></CIcon>
-                              ) : (
-                                <div
-                                  onClick={() => {
-                                    SelectSourceDataDialogRef.value?.handleOpen(
-                                      attributeConfig,
-                                      isSourceData
-                                        ? getValueByPath(
-                                            currentFocusElement.value!,
-                                            attributeConfig.field!
-                                          )
-                                        : undefined
-                                    );
-                                  }}
-                                  class={
-                                    isSourceData &&
-                                    "c-bg-blue-300 c-rounded-md dark:c-bg-blue-90"
-                                  }
-                                >
-                                  <BindIcon class="c-w-5 c-h-5 dark:c-fill-white c-cursor-pointer" />
-                                </div>
-                              )}
-                            </div>
-                          </>
-                        );
-                      },
+                      extra: () => (
+                        <div class="c-ml-1">
+                          {renderExtraWidget(attributeConfig)}
+                        </div>
+                      ),
                     }}
                   </CFormItem>
                 )}

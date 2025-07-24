@@ -5,6 +5,7 @@ import {
   stringFirstSmaller,
 } from "@cgx-designer/utils";
 import { EventItem, IEditorElement } from "@cgx-designer/types";
+import { hideExtraKeyList } from "../constant";
 
 export const BaseComponent = defineComponent({
   name: "BaseComponent",
@@ -199,11 +200,23 @@ export class ElementController {
     if (!Object.keys(elementBaseConfig).includes("group")) {
       elementBaseConfig.group = "自定义组件";
     }
+    //每个元素的配置项正常都可以使用变量 除非特殊说了false
+    //只有有属性的才走 否则不要重新走
+    if (elementBaseConfig.config?.attribute) {
+      elementBaseConfig.config.attribute.forEach((elementAttributeItem) => {
+        if (hideExtraKeyList.includes(elementAttributeItem.key)) return;
+        if (!Object.keys(elementAttributeItem).includes("showExtra")) {
+          elementAttributeItem.showExtra = "dataSource";
+        }
+      });
+    }
+
     //每个元素都应该有id输入框 用于复制
     ((elementBaseConfig.config ??= {}).attribute ??= []).unshift({
       label: "组件ID",
       key: "idInput",
       field: "id",
+      showExtra: "copy",
       props: {
         readonly: true,
       },
