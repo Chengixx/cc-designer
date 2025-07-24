@@ -42,6 +42,7 @@
     "shiki": "^1.24.4"
   },
   "devDependencies": {
+    "monaco-editor": "^0.52.2",
     "@types/lodash-es": "^4.17.12",
     "@mdi/font": "^7.4.47",
     "@types/node": "^20.16.1",

@@ -8,14 +8,10 @@
   },
   "dependencies": {
     "element-plus": "^2.8.0",
-    "js-beautify": "^1.15.1",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
-    "@types/js-beautify": "^1.14.3",
-    "typescript": "^5.2.2",
-    "@types/ace": "^0.0.52",
-    "monaco-editor": "^0.52.2"
+    "typescript": "^5.2.2"
   },
   "keywords": [],
   "author": "",
