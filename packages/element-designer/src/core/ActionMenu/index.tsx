@@ -121,6 +121,7 @@ const ActionMenu = defineComponent({
               if (Icon.click) {
                 Icon.click();
               } else {
+                focusManage.startFocusTimedQuery();
                 if (collapseManage.leftMenuCollapseState.value === false) {
                   collapseManage.toggleLeftMenu();
                 }
@@ -128,6 +129,9 @@ const ActionMenu = defineComponent({
                   searchValue.value = "";
                 }
                 settingTab.value = Icon.key;
+                setTimeout(() => {
+                  focusManage.stopFocusTimedQuery();
+                }, 350);
               }
             }}
           >
