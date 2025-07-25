@@ -50,7 +50,7 @@ export interface IElementBaseSetting {
 export interface ElementPlugin {
   name: ElementLib;
   template: Record<string, IElementBaseSetting>;
-  formConfig: IElementSchema[]; //表单配置
+  formConfig: IAttributeSchema[]; //表单配置
 }
 
 export type ElementLib = "element-plus" | "vuetify";

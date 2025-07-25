@@ -49,7 +49,7 @@ const ComputedStyleWidget = defineComponent({
               key={key}
               modelValue={getValueByPath(styleState.value, key)}
               onUpdate:modelValue={(v) =>
-                setValueByPath(styleState.value, key, v)
+                setValueByPath((styleState.value ??= {}), key, v)
               }
               class={[
                 "c-absolute c-transform",

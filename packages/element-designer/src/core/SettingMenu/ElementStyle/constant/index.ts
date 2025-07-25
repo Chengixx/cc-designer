@@ -1,11 +1,10 @@
-import { IElementSchema } from "@cgx-designer/types";
+import { IAttributeSchema, IElementSchema } from "@cgx-designer/types";
 import { getValueByPath, setValueByPath } from "@cgx-designer/utils";
 
-export const defaultStyleSchema: IElementSchema[] = [
+export const defaultStyleSchema: IAttributeSchema[] = [
   {
     key: "styleIDE",
     field: "style",
-    props: {},
   },
   {
     label: "宽度",
@@ -41,6 +40,5 @@ export const defaultStyleSchema: IElementSchema[] = [
   {
     key: "computedStyle",
     field: "style",
-    props: {},
   },
 ];
