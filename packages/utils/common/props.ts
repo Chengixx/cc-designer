@@ -1,5 +1,5 @@
 import { PropType } from "vue";
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 
 /**
  * 创建标准的elementSchema props定义
@@ -11,7 +11,7 @@ export const createElementProps = <T extends Record<string, any> = {}>(
 ) => {
   return {
     elementSchema: {
-      type: Object as PropType<IEditorElement>,
+      type: Object as PropType<IElementSchema>,
       required: false,
       default: () => ({}),
     },
@@ -29,7 +29,7 @@ export const createRequiredElementProps = <T extends Record<string, any> = {}>(
 ) => {
   return {
     elementSchema: {
-      type: Object as PropType<IEditorElement>,
+      type: Object as PropType<IElementSchema>,
       required: true,
     },
     ...additionalProps,
@@ -42,7 +42,7 @@ export const createRequiredElementProps = <T extends Record<string, any> = {}>(
  */
 export type ElementPropsFactory<T extends Record<string, any> = {}> = {
   elementSchema: {
-    type: PropType<IEditorElement>;
+    type: PropType<IElementSchema>;
     required: boolean;
     default?: () => {};
   };

@@ -1,8 +1,8 @@
-import { FormSetting, IEditorElement } from "@cgx-designer/types";
+import { FormSetting, IElementSchema } from "@cgx-designer/types";
 import { SourceDataItem } from "@cgx-designer/hooks";
 
-//用类型断言去判断是不是IEditorElement这个接口
-export const isIEditorElementArray = (arr: any[]): arr is IEditorElement[] => {
+//用类型断言去判断是不是IElementSchema这个接口
+export const isIElementSchemaArray = (arr: any[]): arr is IElementSchema[] => {
   if (!Array.isArray(arr)) {
     return false;
   }
@@ -20,7 +20,7 @@ export const isIEditorElementArray = (arr: any[]): arr is IEditorElement[] => {
 
     if (
       obj.elementList !== undefined &&
-      !isIEditorElementArray(obj.elementList)
+      !isIElementSchemaArray(obj.elementList)
     ) {
       return false;
     }
@@ -40,7 +40,7 @@ export const checkCJsonType = (
   obj: any
 ): obj is {
   formSetting: FormSetting;
-  elementList: IEditorElement[];
+  elementList: IElementSchema[];
   script: string;
   sourceData: SourceDataItem[];
 } => {
@@ -49,6 +49,6 @@ export const checkCJsonType = (
     typeof obj.script === "string" &&
     typeof obj.formSetting === "object" &&
     Array.isArray(obj.elementList) &&
-    isIEditorElementArray(obj.elementList)
+    isIElementSchemaArray(obj.elementList)
   );
 };

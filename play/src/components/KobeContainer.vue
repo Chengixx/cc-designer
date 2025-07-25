@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { IEditorElement } from "cgx-designer";
+import { IElementSchema } from "cgx-designer";
 import { PropType } from "vue";
 
 defineProps({
   elementSchema: {
-    type: Object as PropType<IEditorElement>,
+    type: Object as PropType<IElementSchema>,
   },
 });
 </script>

@@ -4,7 +4,7 @@ import { isEqual } from "lodash-es";
 import { useMutationObserver } from "./useMutationObserver";
 import { useTimedQuery } from "./useTimedQuery";
 import { useParentDomList } from "@cgx-designer/element-designer";
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 import { ModeManage } from "./useMode";
 
 export type FocusManage = ReturnType<typeof useFocus>;
@@ -29,7 +29,7 @@ export const useFocus = (
   //是否要动画
   const focusTransition = ref<boolean>(true);
   //当前focus的元素
-  const focusedElement = ref<IEditorElement | null>(null);
+  const focusedElement = ref<IElementSchema | null>(null);
   //当前focus的元素的dom实例
   const focusedElementDom = computed(() => {
     const id = focusedElement.value?.id;
@@ -111,7 +111,7 @@ export const useFocus = (
   const { startTimedQuery, stopTimedQuery } =
     useTimedQuery(setFocusWidgetStyle);
 
-  const handleFocus = (focusInstanceSchema: IEditorElement, e?: MouseEvent) => {
+  const handleFocus = (focusInstanceSchema: IElementSchema, e?: MouseEvent) => {
     e?.stopPropagation();
     //比较进来的 如果已经就是当前的 就不用动了
     if (!isEqual(focusedElement.value, focusInstanceSchema)) {

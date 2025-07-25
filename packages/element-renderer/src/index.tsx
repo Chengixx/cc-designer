@@ -11,7 +11,7 @@ import ElementBuilderNode from "./ElementBuilderNode";
 import {
   BuilderSchema,
   FormSetting,
-  IEditorElement,
+  IElementSchema,
 } from "@cgx-designer/types";
 import { deepCompareAndModify, stringFirstBigger } from "@cgx-designer/utils";
 import {
@@ -33,7 +33,7 @@ const ElementBuilder = defineComponent({
       default: () => ({}),
     },
     elementSchemaList: {
-      type: Array as PropType<IEditorElement[]>,
+      type: Array as PropType<IElementSchema[]>,
       require: false,
       default: () => [],
     },

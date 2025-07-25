@@ -1,4 +1,4 @@
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 import { defineComponent, PropType, ref, watch } from "vue";
 import {
   GroupOption,
@@ -11,7 +11,7 @@ import { Divider } from "@cgx-designer/extensions";
 
 const SelectOption = defineComponent({
   props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
+    elementSchema: { type: Object as PropType<IElementSchema>, required: true },
     disabledFlag: { type: Boolean, default: false },
   },
   setup({ disabledFlag }, { attrs, emit }) {

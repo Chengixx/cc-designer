@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { isIEditorElementArray } from "../common";
-import { IEditorElement } from "@cgx-designer/types";
+import { isIElementSchemaArray } from "../common";
+import { IElementSchema } from "@cgx-designer/types";
 
-describe("isIEditorElementArray", () => {
+describe("isIElementSchemaArray", () => {
   it("应对包含无效元素的数组返回 false", () => {
     const invalidArrays = [
       [{ key: "key1", id: 1 }],
@@ -19,12 +19,12 @@ describe("isIEditorElementArray", () => {
     ];
 
     invalidArrays.forEach((arr) => {
-      expect(isIEditorElementArray(arr)).toBe(false);
+      expect(isIElementSchemaArray(arr)).toBe(false);
     });
   });
 
-  it("应对有效的 IEditorElement 数组返回 true", () => {
-    const validArray: IEditorElement[] = [
+  it("应对有效的 IElementSchema 数组返回 true", () => {
+    const validArray: IElementSchema[] = [
       { key: "key1", id: "str", elementList: [], props: {} },
       {
         key: "key2",
@@ -40,10 +40,10 @@ describe("isIEditorElementArray", () => {
       },
     ];
 
-    expect(isIEditorElementArray(validArray)).toBe(true);
+    expect(isIElementSchemaArray(validArray)).toBe(true);
   });
 
   it("应处理空数组", () => {
-    expect(isIEditorElementArray([])).toBe(true);
+    expect(isIElementSchemaArray([])).toBe(true);
   });
 });

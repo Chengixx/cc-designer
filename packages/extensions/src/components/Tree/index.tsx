@@ -1,6 +1,6 @@
 import { computed, defineComponent, provide, ref } from "vue";
 import TreeNodes from "./TreeNodes.vue";
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 
 const CTree = defineComponent({
   inheritAttrs: false,
@@ -11,7 +11,7 @@ const CTree = defineComponent({
       default: "",
     },
     elementList: {
-      type: Array<IEditorElement>,
+      type: Array<IElementSchema>,
       default: () => [],
     },
     draggable: {
@@ -21,7 +21,7 @@ const CTree = defineComponent({
   },
   setup(props, { slots, emit }) {
     const expandedKeys = ref<string[]>([]);
-    const handleSelect = (id: string, elementSchema: IEditorElement) => {
+    const handleSelect = (id: string, elementSchema: IElementSchema) => {
       localSelectedKey.value = id;
       emit("nodeClick", { id, elementSchema });
     };

@@ -1,5 +1,5 @@
 import { ElementEngine } from "@cgx-designer/element-engine";
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 import { computed, defineComponent, PropType } from "vue";
 import { CFormItem } from "@cgx-designer/extensions";
 
@@ -9,7 +9,7 @@ const ElementIDE = defineComponent({
       type: [Object, String] as PropType<any>,
     },
     actionArgsConfigs: {
-      type: Object as PropType<IEditorElement[]>,
+      type: Object as PropType<IElementSchema[]>,
       required: true,
     },
   },

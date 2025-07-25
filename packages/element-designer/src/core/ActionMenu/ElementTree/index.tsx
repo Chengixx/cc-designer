@@ -1,6 +1,6 @@
 import { defineComponent, inject, computed } from "vue";
 import { ElementManage, FocusManage } from "@cgx-designer/hooks";
-import { IEditorElement, TreeNode } from "@cgx-designer/types";
+import { IElementSchema, TreeNode } from "@cgx-designer/types";
 import { deepClone } from "@cgx-designer/utils";
 import { CTree } from "@cgx-designer/extensions";
 import { Empty } from "@cgx-designer/extensions";
@@ -32,17 +32,17 @@ const ElementTree = defineComponent({
       }
     };
 
-    const handleDeleteNode = (e: MouseEvent, data: IEditorElement) => {
+    const handleDeleteNode = (e: MouseEvent, data: IElementSchema) => {
       e.stopPropagation();
       elementManage.deleteElementById(data.id!);
       focusManage.resetFocus();
     };
 
-    const handleCopyNode = (e: MouseEvent, data: IEditorElement) => {
+    const handleCopyNode = (e: MouseEvent, data: IElementSchema) => {
       e.stopPropagation();
       const newElementSchema = elementManage.deepCopyElement(deepClone(data));
-      elementManage.addElementFromLast(newElementSchema as IEditorElement);
-      focusManage.handleFocus(newElementSchema as IEditorElement);
+      elementManage.addElementFromLast(newElementSchema as IElementSchema);
+      focusManage.handleFocus(newElementSchema as IElementSchema);
     };
 
     const buttonRender = [
@@ -72,7 +72,7 @@ const ElementTree = defineComponent({
                 extension: ({
                   elementSchema,
                 }: {
-                  elementSchema: IEditorElement;
+                  elementSchema: IElementSchema;
                 }) => (
                   <div class="c-h-8 c-flex c-items-center c-gap-x-1 c-pr-1">
                     {buttonRender.map((item) => (

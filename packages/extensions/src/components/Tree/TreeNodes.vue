@@ -19,14 +19,14 @@
 import { computed, inject } from "vue";
 import TreeNode from "./TreeNode";
 import draggable from "vuedraggable";
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 
 defineOptions({
   name: "TreeNodes",
 });
 const props = defineProps({
   elementList: {
-    type: Array<IEditorElement>,
+    type: Array<IElementSchema>,
   },
 });
 

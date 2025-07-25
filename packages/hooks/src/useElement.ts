@@ -1,12 +1,12 @@
 import { ref } from "vue";
 import { cloneDeep, isEmpty } from "lodash-es";
-import { ElementInstance, IEditorElement } from "@cgx-designer/types";
+import { ElementInstance, IElementSchema } from "@cgx-designer/types";
 import { getRandomId } from "@cgx-designer/utils";
 
 export type ElementManage = ReturnType<typeof useElement>;
 
 export const useElement = () => {
-  const elementList = ref<IEditorElement[]>([]);
+  const elementList = ref<IElementSchema[]>([]);
   const elementInstanceList = ref<Record<string, ElementInstance>>({});
   const isDesignMode = ref<boolean>(true);
   const setMode = (mode: boolean = false) => {
@@ -21,15 +21,15 @@ export const useElement = () => {
   const getElementInstanceById = (id: string) => {
     return elementInstanceList.value[id];
   };
-  const setElementList = (newElements: IEditorElement[]) => {
+  const setElementList = (newElements: IElementSchema[]) => {
     elementList.value = newElements;
   };
   const deleteElementById = (
     id: string | number,
-    elements: IEditorElement[] = elementList.value,
+    elements: IElementSchema[] = elementList.value,
     //!此循环是为了最后一个删除的时候，删除父级
-    parentElement?: IEditorElement
-  ): IEditorElement[] | null => {
+    parentElement?: IElementSchema
+  ): IElementSchema[] | null => {
     for (let item of elements) {
       if (item.id === id) {
         elements.splice(elements.indexOf(item), 1);
@@ -49,16 +49,16 @@ export const useElement = () => {
     const result = cloneDeep(elementList.value);
     return result;
   };
-  const deleteAllElements = (): IEditorElement[] | null => {
+  const deleteAllElements = (): IElementSchema[] | null => {
     elementList.value = [];
     const result = cloneDeep(elementList.value);
     return result;
   };
   const getElementById = (
     id: string | number,
-    elements: IEditorElement[] = elementList.value
-  ): IEditorElement | null => {
-    let result: IEditorElement | null = null;
+    elements: IElementSchema[] = elementList.value
+  ): IElementSchema | null => {
+    let result: IElementSchema | null = null;
     for (let item of elements) {
       if (item.id === id) {
         result = item;
@@ -74,10 +74,10 @@ export const useElement = () => {
   };
   const getParentElementById = (
     id: string | number,
-    elements: IEditorElement[] = elementList.value,
-    parentElement: IEditorElement | null = null
-  ): IEditorElement | null => {
-    let result: IEditorElement | null = null;
+    elements: IElementSchema[] = elementList.value,
+    parentElement: IElementSchema | null = null
+  ): IElementSchema | null => {
+    let result: IElementSchema | null = null;
     for (let item of elements) {
       if (item.id === id) {
         if (elements === elementList.value) {
@@ -92,14 +92,14 @@ export const useElement = () => {
     }
     return result;
   };
-  const addElementFromLast = (newElementSchema: IEditorElement) => {
+  const addElementFromLast = (newElementSchema: IElementSchema) => {
     elementList.value.push(newElementSchema);
     const result = cloneDeep(elementList.value);
     return result;
   };
 
-  const deepCopyElement = (elementSchema: IEditorElement) => {
-    let newElementSchema: IEditorElement | {} = {};
+  const deepCopyElement = (elementSchema: IElementSchema) => {
+    let newElementSchema: IElementSchema | {} = {};
     const id = getRandomId();
     for (let key in elementSchema) {
       if (key === "id") {
@@ -122,13 +122,13 @@ export const useElement = () => {
   };
   const getElementTreePathById = (
     id: string,
-    targetElementList: IEditorElement[] = elementList.value
-  ): IEditorElement[] => {
+    targetElementList: IElementSchema[] = elementList.value
+  ): IElementSchema[] => {
     const findPath = (
-      elements: IEditorElement[]
-    ): IEditorElement[] | undefined => {
+      elements: IElementSchema[]
+    ): IElementSchema[] | undefined => {
       for (const element of elements) {
-        const path: IEditorElement[] = [element];
+        const path: IElementSchema[] = [element];
 
         if (element.id === id) {
           return path;

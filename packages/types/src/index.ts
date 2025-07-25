@@ -7,7 +7,7 @@ import { SourceDataItem } from "@cgx-designer/hooks";
 export interface ISchemaPrototype {
   key: string;
   field?: string;
-  elementList?: IEditorElement[];
+  elementList?: IElementSchema[];
   props?: Record<string, any>;
 }
 
@@ -21,7 +21,7 @@ export interface IAttributeSchema extends ISchemaPrototype {
 }
 
 //元素被渲染之后的的schema
-export interface IEditorElement extends ISchemaPrototype {
+export interface IElementSchema extends ISchemaPrototype {
   id?: string;
   formItem?: boolean;
   noShowFormItem?: boolean;
@@ -50,7 +50,7 @@ export interface IElementBaseSetting {
 export interface ElementPlugin {
   name: ElementLib;
   template: Record<string, IElementBaseSetting>;
-  formConfig: IEditorElement[]; //表单配置
+  formConfig: IElementSchema[]; //表单配置
 }
 
 export type ElementLib = "element-plus" | "vuetify";
@@ -117,7 +117,7 @@ export interface RuleItem {
 //完整生成的schema
 export interface BuilderSchema {
   formSetting: FormSetting;
-  elementList: IEditorElement[];
+  elementList: IElementSchema[];
   script: string;
   sourceData: SourceDataItem[];
 }
@@ -152,7 +152,7 @@ const Form = elementController.getElementRender("form");
 //可以传递的参数
 export interface ElementBuilderProps {
   formData?: Record<string, any>;
-  elementSchemaList?: IEditorElement[];
+  elementSchemaList?: IElementSchema[];
   formSetting?: FormSetting;
   script?: string;
   //此schema为上面三个配置项的总和 如果有此配置项 以此配置项为主

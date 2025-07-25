@@ -2,7 +2,7 @@ import { inject, ref, defineComponent, watch, computed, PropType } from "vue";
 import { FocusManage } from "@cgx-designer/hooks";
 import { ElementManage } from "@cgx-designer/hooks";
 import { HoverManage } from "@cgx-designer/hooks";
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 import Draggle from "../Draggle/index.vue";
 import { ElementEngine } from "@cgx-designer/element-engine";
 import { useParentDomList } from "../../../constant";
@@ -11,7 +11,7 @@ import { useEventListener } from "@vueuse/core";
 
 const EditorElement = defineComponent({
   props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
+    elementSchema: { type: Object as PropType<IElementSchema>, required: true },
   },
   setup(props) {
     const hoverManage = inject("hoverManage") as HoverManage;
@@ -76,7 +76,7 @@ const EditorElement = defineComponent({
                   return (
                     <>
                       {props.elementSchema.elementList!.map(
-                        (childElementSchema: IEditorElement) => {
+                        (childElementSchema: IElementSchema) => {
                           return (
                             <EditorElement
                               elementSchema={childElementSchema}

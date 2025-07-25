@@ -1,10 +1,10 @@
 import { defineComponent, PropType } from "vue";
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 import { ElementEngine } from "@cgx-designer/element-engine";
 
 const ElementBuilderNode = defineComponent({
   props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
+    elementSchema: { type: Object as PropType<IElementSchema>, required: true },
   },
   setup(props) {
     return () => {
@@ -16,7 +16,7 @@ const ElementBuilderNode = defineComponent({
               return (
                 <>
                   {props.elementSchema.elementList?.map(
-                    (childElementSchema: IEditorElement) => {
+                    (childElementSchema: IElementSchema) => {
                       return (
                         <ElementBuilderNode
                           elementSchema={childElementSchema}

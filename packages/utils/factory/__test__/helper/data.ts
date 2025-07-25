@@ -1,4 +1,4 @@
-import { BuilderSchema, FormSetting, IEditorElement } from "@cgx-designer/types";
+import { BuilderSchema, FormSetting, IElementSchema } from "@cgx-designer/types";
 
 export const javaScript = `
       const { inject , get } = this;
@@ -17,7 +17,7 @@ export const javaScript = `
       })
     `;
 
-export const elementSchemaList: IEditorElement[] = [
+export const elementSchemaList: IElementSchema[] = [
   {
     id: "IRj2GmLB",
     field: "bar",
@@ -166,7 +166,7 @@ t , get } = this;\n\n      function lcc () {\n          console.log(lcc222);\n  
 n\n      inject({\n        lcc,\n        test,\n      })\n    "});
 </script>`;
 
-export const testElementSchema: IEditorElement = {
+export const testElementSchema: IElementSchema = {
   id: "etIkZQxN",
   field: "input-etIkZQxN",
   key: "input",

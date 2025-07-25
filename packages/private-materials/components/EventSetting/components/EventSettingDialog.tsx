@@ -11,7 +11,7 @@ import {
 import ScriptIDE from "./ScriptIDE";
 import { ElementManage, FunctionManage } from "@cgx-designer/hooks";
 import MethodsList from "./MethodsList";
-import { EventInstance, IEditorElement } from "@cgx-designer/types";
+import { EventInstance, IElementSchema } from "@cgx-designer/types";
 import { deepClone, getRandomId } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
 import ElementIDE from "./ElementIDE";
@@ -41,7 +41,7 @@ const EventSettingDialog = defineComponent({
     //缓存
     const cacheData = ref<any>({});
     //当前选中的组件
-    const elementSchema = ref<IEditorElement | null>(null);
+    const elementSchema = ref<IElementSchema | null>(null);
     //当前选中的组件（tree）
     //渲染的方法列表 拿来用的
     const methodsList = computed(() => {
@@ -94,7 +94,7 @@ const EventSettingDialog = defineComponent({
                 label: "设置数据",
                 field: "0",
                 id: getRandomId(),
-              } as IEditorElement);
+              } as IElementSchema);
           }
 
           return actionItem?.argsConfigs ?? [];
@@ -103,7 +103,7 @@ const EventSettingDialog = defineComponent({
       return [];
     });
     //选中组件
-    const handleNodeClick = (data: IEditorElement) => {
+    const handleNodeClick = (data: IElementSchema) => {
       //切换的时候 如果已经有arg 要存一下 因为切换的时候会清空
       if (eventInstance.args) {
         cacheData.value[eventInstance.componentId! + eventInstance.methodName] =
@@ -237,7 +237,7 @@ const EventSettingDialog = defineComponent({
                               onNodeClick={({
                                 elementSchema,
                               }: {
-                                elementSchema: IEditorElement;
+                                elementSchema: IElementSchema;
                               }) => handleNodeClick(elementSchema)}
                             />
                           ) : (

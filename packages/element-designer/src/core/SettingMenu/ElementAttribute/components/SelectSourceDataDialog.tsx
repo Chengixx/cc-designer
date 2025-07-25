@@ -3,7 +3,7 @@ import { elementController } from "@cgx-designer/controller";
 import { SourceDataManage } from "@cgx-designer/hooks";
 import { dataSourceColor } from "../../../../constant/index";
 import { MonacoIDE } from "@cgx-designer/extensions";
-import { IAttributeSchema, IEditorElement } from "@cgx-designer/types";
+import { IAttributeSchema, IElementSchema } from "@cgx-designer/types";
 import { IBindSourceData } from "@cgx-designer/reactivity";
 import { deepClone } from "@cgx-designer/utils";
 import { VBtnColorType } from "@cgx-designer/base-materials";

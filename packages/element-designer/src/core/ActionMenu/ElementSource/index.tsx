@@ -3,7 +3,7 @@ import { formatJson, MonacoIDE } from "@cgx-designer/extensions";
 import { defineComponent, inject, ref, toRaw, watch } from "vue";
 import { deepClone, deepCompareAndModify } from "@cgx-designer/utils";
 import { isEqual } from "lodash-es";
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 
 // !注意这个IDE是用来修改script用的
 const ElementSource = defineComponent({
@@ -12,7 +12,7 @@ const ElementSource = defineComponent({
     const sourceCodeIDERef = ref<any>(null);
     const modelValue = formatJson(elementManage.elementList.value);
 
-    let tempSchema: IEditorElement | null = null;
+    let tempSchema: IElementSchema | null = null;
 
     const handleUpdateSchema = (v: string) => {
       if (!v) return;

@@ -1,4 +1,4 @@
-import { ElementInstance, IEditorElement } from "@cgx-designer/types";
+import { ElementInstance, IElementSchema } from "@cgx-designer/types";
 import {
   deepClone,
   deepCompareAndModify,
@@ -30,7 +30,7 @@ import { IBindSourceData, isValueIsSourceData } from "@cgx-designer/reactivity";
 const ElementNode = defineComponent({
   props: {
     elementSchema: {
-      type: Object as PropType<IEditorElement>,
+      type: Object as PropType<IElementSchema>,
       required: true,
     },
     //编辑状态还是预览状态
@@ -50,7 +50,7 @@ const ElementNode = defineComponent({
     const elementRef = ref<ElementInstance>();
     const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
     const formItemRef = ref<ElementInstance>();
-    const localSchema = reactive<IEditorElement>(
+    const localSchema = reactive<IElementSchema>(
       deepClone(props.elementSchema)
     );
     //格式化field
@@ -152,7 +152,7 @@ const ElementNode = defineComponent({
 
     //监听json变化 json变化了 就要重新赋值的
     //!此处一定要用oldData保存数据 防止无限递归
-    let tempSchema: IEditorElement | null = null;
+    let tempSchema: IElementSchema | null = null;
     watch(
       () => localSchema,
       (nv) => {
@@ -307,7 +307,7 @@ const ElementNode = defineComponent({
             >
               {{
                 // 这个是普通的插槽,就是给他一个个循环出来就好了不用过多的操作
-                node: (childElementSchema: IEditorElement) => {
+                node: (childElementSchema: IElementSchema) => {
                   return (
                     <ElementNode
                       elementSchema={childElementSchema}

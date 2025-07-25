@@ -4,7 +4,7 @@ import {
   getRandomId,
   stringFirstSmaller,
 } from "@cgx-designer/utils";
-import { ElementListMode, ElementMaterial, ElementPlugin, EventItem, IEditorElement, IElementBaseSetting } from "@cgx-designer/types";
+import { ElementListMode, ElementMaterial, ElementPlugin, EventItem, IElementSchema, IElementBaseSetting } from "@cgx-designer/types";
 import { hideExtraKeyList } from "../constant";
 
 export const BaseComponent = defineComponent({
@@ -26,7 +26,7 @@ export class ElementController {
   //当前组件库的基础组件(用于删除和缓存)
   libElementKeys: string[] = [];
   //初始的模板，初始的schema
-  elementTemplate: Record<string, (uuid: Function) => IEditorElement> = {};
+  elementTemplate: Record<string, (uuid: Function) => IElementSchema> = {};
   //能用的是哪些,用于渲染左侧物料列表
   elementList = ref<ElementMaterial[]>([]);
   //左侧物料列表的模式
@@ -147,7 +147,7 @@ export class ElementController {
   //注册元素基础schema
   registerElementTemplate = (
     key: string,
-    template: (uuid: Function) => IEditorElement
+    template: (uuid: Function) => IElementSchema
   ) => {
     this.elementTemplate[key] = template;
   };

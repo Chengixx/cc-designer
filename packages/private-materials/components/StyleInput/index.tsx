@@ -1,11 +1,11 @@
 import { computed, defineComponent, PropType, ref, watch } from "vue";
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 import { elementController } from "@cgx-designer/controller";
 import { GroupOption } from "@cgx-designer/base-materials";
 
 const StyleInput = defineComponent({
   props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
+    elementSchema: { type: Object as PropType<IElementSchema>, required: true },
   },
   emits: ["update:modelValue"],
   // 加入这个即可防止直接v-model透传

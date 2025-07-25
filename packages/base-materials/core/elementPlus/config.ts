@@ -1,6 +1,6 @@
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 
-export const elementPlusFormConfig: IEditorElement[] = [
+export const elementPlusFormConfig: IElementSchema[] = [
   {
     label: "标签宽度",
     key: "inputNumber",

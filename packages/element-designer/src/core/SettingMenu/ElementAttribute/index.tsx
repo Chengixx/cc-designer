@@ -1,5 +1,5 @@
 import { ElementEngine } from "@cgx-designer/element-engine";
-import { IAttributeSchema, IEditorElement } from "@cgx-designer/types";
+import { IAttributeSchema, IElementSchema } from "@cgx-designer/types";
 import {
   FocusManage,
   QueueManage,
@@ -32,7 +32,7 @@ const ElementAttribute = defineComponent({
     const SelectSourceDataDialogRef = ref<SelectSourceDataDialogExpose | null>(
       null
     );
-    const currentFocusElement = ref<IEditorElement | null>(null);
+    const currentFocusElement = ref<IElementSchema | null>(null);
     // 获取当前选中元素的属性
     const componentAttributes = ref<IAttributeSchema[]>([]);
     //判断是否是数据源

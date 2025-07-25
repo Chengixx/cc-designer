@@ -1,4 +1,4 @@
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 import { FocusManage } from "@cgx-designer/hooks";
 import { DragIcon } from "@cgx-designer/icons";
 import { useWindowSize } from "@vueuse/core";
@@ -6,7 +6,7 @@ import { computed, defineComponent, inject, PropType, ref, watch } from "vue";
 
 const DragWidget = defineComponent({
   props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
+    elementSchema: { type: Object as PropType<IElementSchema>, required: true },
   },
   setup(props) {
     const focusManage = inject("focusManage") as FocusManage;

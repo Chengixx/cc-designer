@@ -1,12 +1,12 @@
 import { HoverManage } from "./useHover";
 import { FocusManage } from "./useFocus";
 import { ref } from "vue";
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 
 export type DragManage = ReturnType<typeof useDrag>;
 
 export const useDrag = () => {
-  const dragStartElement = ref<IEditorElement | null>(null);
+  const dragStartElement = ref<IElementSchema | null>(null);
   const handleDrapStart = (
     hoverManager: HoverManage,
     focusManage?: FocusManage

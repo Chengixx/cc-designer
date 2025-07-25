@@ -5,7 +5,7 @@ import EditorElement from "../EditorElement";
 import { useDrag } from "@cgx-designer/hooks";
 import { inject } from "vue";
 import { HoverManage } from "@cgx-designer/hooks";
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 import { noNeedMarginBottomDomList } from "../../../constant";
 import { elementController } from "@cgx-designer/controller";
 defineOptions({
@@ -13,7 +13,7 @@ defineOptions({
 });
 const emits = defineEmits(["drop"]);
 const props = defineProps<{
-  elementSchemaList: IEditorElement[];
+  elementSchemaList: IElementSchema[];
   isNested: boolean;
 }>();
 const hoverManage = inject("hoverManage") as HoverManage;
@@ -21,7 +21,7 @@ const focusManage = inject("focusManage") as FocusManage;
 const modeManage = inject("modeManage") as ModeManage;
 const queueManage = inject("queueManage") as QueueManage;
 const { handleDrapStart, handleDrapEnd: useDragHandleDragEnd } = useDrag();
-const _noNeedMarginBottom = (elementSchema: IEditorElement) =>
+const _noNeedMarginBottom = (elementSchema: IElementSchema) =>
   noNeedMarginBottomDomList.includes(elementSchema.key) ||
   elementController.getCurrentElementLibraryName() === "vuetify";
 

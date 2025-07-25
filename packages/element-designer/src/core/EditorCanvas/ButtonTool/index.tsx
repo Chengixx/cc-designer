@@ -9,7 +9,7 @@ import { deepClone } from "@cgx-designer/utils";
 import { ClearIcon, CopyIcon, TopIcon } from "@cgx-designer/icons";
 import { noCopyDomList, findHigherLevelDomList } from "../../../constant/index";
 import { elementController } from "@cgx-designer/controller";
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 
 const ButtonTool = defineComponent({
   setup() {
@@ -50,8 +50,8 @@ const ButtonTool = defineComponent({
       const newElementSchema = elementManage.deepCopyElement(
         deepClone(focusManage.focusedElement.value!)
       );
-      elementManage.addElementFromLast(newElementSchema as IEditorElement);
-      focusManage.handleFocus(newElementSchema as IEditorElement);
+      elementManage.addElementFromLast(newElementSchema as IElementSchema);
+      focusManage.handleFocus(newElementSchema as IElementSchema);
       queueManage.push("copy");
     };
 

@@ -1,7 +1,7 @@
 import { ref, watch, computed } from "vue";
 import { ElementManage } from "./useElement";
 import { useParentDomList } from "@cgx-designer/element-designer";
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 import { ModeManage } from "./useMode";
 
 export type HoverManage = ReturnType<typeof useHover>;
@@ -19,7 +19,7 @@ export const useHover = (
   //是否可以进行hover，因为拖拽的时候不要显示
   const disableHover = ref<boolean>(false);
   //当前选中的hover
-  const hoveredElement = ref<IEditorElement | null>(null);
+  const hoveredElement = ref<IElementSchema | null>(null);
   //是否显示hoverBox
   const showHoverBox = ref<boolean>(false);
   //当前hover到的元素实例
@@ -56,13 +56,13 @@ export const useHover = (
   const setHoverWidgetRef = (el: HTMLDivElement) => {
     hoverWidgetRef.value = el;
   };
-  const setHoveredElement = (elementSchema: IEditorElement | null = null) => {
+  const setHoveredElement = (elementSchema: IElementSchema | null = null) => {
     hoveredElement.value = elementSchema;
   };
   const setShowHoverBox = (status: boolean = false) => {
     showHoverBox.value = status;
   };
-  const handleHover = (e: MouseEvent, hoverInstanceSchema: IEditorElement) => {
+  const handleHover = (e: MouseEvent, hoverInstanceSchema: IElementSchema) => {
     if (disableHover.value) return;
     //元素会有重叠 所以这里需要防止冒泡
     e.stopPropagation();

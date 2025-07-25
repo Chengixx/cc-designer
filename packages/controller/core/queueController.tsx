@@ -1,9 +1,9 @@
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 import { ref, computed } from "vue";
 
 export interface QueueItem {
   type: string;
-  elementList: IEditorElement[];
+  elementList: IElementSchema[];
   focusElementId: string | null;
 }
 

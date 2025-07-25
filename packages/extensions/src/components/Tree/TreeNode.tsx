@@ -1,4 +1,4 @@
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 import {
   computed,
   defineComponent,
@@ -18,7 +18,7 @@ const TreeNode = defineComponent({
   name: "TreeNode",
   props: {
     elementSchema: {
-      type: Object as PropType<IEditorElement>,
+      type: Object as PropType<IElementSchema>,
       required: true,
     },
   },
@@ -30,7 +30,7 @@ const TreeNode = defineComponent({
     const selectedKey = inject("selectedKey") as Ref<string>;
     const handleSelect = inject("handleSelect") as (
       id: string,
-      elementSchema: IEditorElement
+      elementSchema: IElementSchema
     ) => void;
     const registerExpandedKeys = inject("registerExpandedKeys") as (
       id: string

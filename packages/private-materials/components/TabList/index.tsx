@@ -1,5 +1,5 @@
 import { ElementManage, FocusManage } from "@cgx-designer/hooks";
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 import { getRandomId } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
 import { computed, defineComponent, inject, PropType, ref } from "vue";
@@ -9,15 +9,15 @@ import { ClearIcon } from "@cgx-designer/icons";
 
 const TabList = defineComponent({
   props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
+    elementSchema: { type: Object as PropType<IElementSchema>, required: true },
   },
   setup(_, { attrs }) {
     const Button = elementController.getElementRender("button");
     const Input = elementController.getElementRender("input");
     const elementManage = inject("elementManage") as ElementManage;
     const focusManage = inject("focusManage") as FocusManage;
-    const bindValue = ref<IEditorElement[]>(
-      attrs.modelValue as IEditorElement[]
+    const bindValue = ref<IElementSchema[]>(
+      attrs.modelValue as IElementSchema[]
     );
     const parentTab = computed(() => {
       if (!bindValue.value.length) return null;
@@ -43,7 +43,7 @@ const TabList = defineComponent({
       bindValue.value.push(tabPaneSchema);
     };
 
-    const handleSetTabActiveName = (tabPaneSchema: IEditorElement) => {
+    const handleSetTabActiveName = (tabPaneSchema: IElementSchema) => {
       if (parentTab.value) {
         parentTab.value.props!.activeName = tabPaneSchema.props!.name;
       }

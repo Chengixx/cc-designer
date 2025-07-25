@@ -1,7 +1,7 @@
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 import { vuetifyConfig } from "./vuetify";
 
-export const vuetifyFormConfig: IEditorElement[] = [
+export const vuetifyFormConfig: IElementSchema[] = [
   {
     label: "是否禁用",
     key: "switch",

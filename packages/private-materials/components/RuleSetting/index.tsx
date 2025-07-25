@@ -1,6 +1,6 @@
 import { RuleItem } from "@cgx-designer/types";
 import { CCard, Divider } from "@cgx-designer/extensions";
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 import { defineComponent, onMounted, PropType, ref, watch } from "vue";
 import { triggerOptions, typeOptions } from "./constant";
 import { CFormItem } from "@cgx-designer/extensions";
@@ -16,7 +16,7 @@ interface RuleSettingAttrs {
 const RuleSetting = defineComponent({
   props: {
     elementSchema: {
-      type: Object as PropType<IEditorElement>,
+      type: Object as PropType<IElementSchema>,
     },
   },
   setup(_, { attrs }) {

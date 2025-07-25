@@ -1,4 +1,4 @@
-import { IEditorElement } from "@cgx-designer/types";
+import { IElementSchema } from "@cgx-designer/types";
 import { getRandomId } from "@cgx-designer/utils";
 import { elementController } from "@cgx-designer/controller";
 import { defineComponent, PropType, ref, watch, inject } from "vue";
@@ -8,21 +8,21 @@ import { ElementManage, FocusManage } from "@cgx-designer/hooks";
 
 const ColList = defineComponent({
   props: {
-    elementSchema: { type: Object as PropType<IEditorElement>, required: true },
+    elementSchema: { type: Object as PropType<IElementSchema>, required: true },
   },
   setup(_, { attrs }) {
     const Button = elementController.getElementRender("button");
     const InputNumber = elementController.getElementRender("inputNumber");
     const elementManage = inject("elementManage") as ElementManage;
     const focusManage = inject("focusManage") as FocusManage;
-    const bindValue = ref<IEditorElement[]>(
-      attrs.modelValue as IEditorElement[]
+    const bindValue = ref<IElementSchema[]>(
+      attrs.modelValue as IElementSchema[]
     );
 
     watch(
       () => attrs.modelValue,
       (val) => {
-        bindValue.value = val as IEditorElement[];
+        bindValue.value = val as IElementSchema[];
       },
       {
         immediate: true,
