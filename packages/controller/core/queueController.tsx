@@ -1,27 +1,21 @@
-import { IElementSchema } from "@cgx-designer/types";
+import { IQueueItem } from "@cgx-designer/types";
 import { ref, computed } from "vue";
-
-export interface QueueItem {
-  type: string;
-  elementList: IElementSchema[];
-  focusElementId: string | null;
-}
 
 export class QueueController {
   // 撤销列表 - 存储可以撤销的状态
-  private _undoList = ref<QueueItem[]>([]);
+  private _undoList = ref<IQueueItem[]>([]);
   // 重做列表 - 存储可以重做的状态
-  private _redoList = ref<QueueItem[]>([]);
+  private _redoList = ref<IQueueItem[]>([]);
   // 当前状态
-  private _currentState = ref<QueueItem | null>(null);
+  private _currentState = ref<IQueueItem | null>(null);
   private _maxLength: number;
-  private _execute: (item: QueueItem) => void;
+  private _execute: (item: IQueueItem) => void;
   // 标记是否已经初始化
   private _isInitialized = ref(false);
   // 防抖相关
   private _debounceTimer: NodeJS.Timeout | null = null;
   private _debounceDelay: number;
-  private _pendingItem: QueueItem | null = null;
+  private _pendingItem: IQueueItem | null = null;
   // 计算属性
   readonly canUndo = computed(() => this._undoList.value.length > 0);
   readonly canRedo = computed(() => this._redoList.value.length > 0);
@@ -30,7 +24,7 @@ export class QueueController {
   readonly redoCount = computed(() => this._redoList.value.length);
 
   constructor(
-    execute: (item: QueueItem) => void,
+    execute: (item: IQueueItem) => void,
     maxLength: number = 50,
     debounceDelay: number = 200
   ) {
@@ -47,7 +41,7 @@ export class QueueController {
    * 添加新状态到队列（带防抖）
    * @param item 新的状态
    */
-  push(item: QueueItem) {
+  push(item: IQueueItem) {
     // 保存最新的 item
     this._pendingItem = item;
 
@@ -69,7 +63,7 @@ export class QueueController {
    * 立即执行 push（跳过防抖）
    * @param item 新的状态
    */
-  pushImmediate(item: QueueItem) {
+  pushImmediate(item: IQueueItem) {
     // 清除防抖定时器
     if (this._debounceTimer) {
       clearTimeout(this._debounceTimer);
@@ -84,7 +78,7 @@ export class QueueController {
    * 内部 push 方法，实际执行添加逻辑
    * @param item 新的状态
    */
-  private _pushInternal(item: QueueItem) {
+  private _pushInternal(item: IQueueItem) {
     // 如果是第一次 push，直接设置当前状态，不加入撤销列表
     if (!this._isInitialized.value) {
       this._currentState.value = item;

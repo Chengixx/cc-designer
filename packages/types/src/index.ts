@@ -168,3 +168,18 @@ export interface ElementBuilderExpose {
 }
 
 export type ElementBuilderInstance = InstanceType<typeof ElementRenderer>;
+
+//全局函数
+export interface IGlobalFunction {
+  key: string;
+  tip?: string;
+  name: string;
+  callback: (...args: any[]) => any;
+}
+
+//队列项
+export interface IQueueItem {
+  type: string;
+  elementList: IElementSchema[];
+  focusElementId: string | null;
+}

@@ -59,7 +59,7 @@ export const useFunction = (
     //在这里之前 我会把我们的响应式数据暴露出去，让用起来就和vue一样
     const sourceDataJs = `const {${Object.keys(sourceData.value).join(",")}} = this;`;
     //用new Function去创建 但是注意这里一定要立刻执行 否则没用的
-    const globalFunction: Record<string, () => any> = Object.entries(
+    const IGlobalFunction: Record<string, () => any> = Object.entries(
       functionController.functions
     ).reduce((acc: any, [key, value]) => {
       acc[key] = value.callback;
@@ -67,7 +67,7 @@ export const useFunction = (
     }, {});
     try {
       new Function(sourceDataJs + js).bind({
-        ...globalFunction,
+        ...IGlobalFunction,
         get: getElementInstanceById,
         inject,
         elementManage,

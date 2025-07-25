@@ -4,16 +4,20 @@ import {
   getRandomId,
   stringFirstSmaller,
 } from "@cgx-designer/utils";
-import { ElementListMode, ElementMaterial, ElementPlugin, EventItem, IElementSchema, IElementBaseSetting } from "@cgx-designer/types";
+import {
+  ElementListMode,
+  ElementMaterial,
+  ElementPlugin,
+  IElementSchema,
+  IElementBaseSetting,
+} from "@cgx-designer/types";
 import { hideExtraKeyList } from "../constant";
 
 export const BaseComponent = defineComponent({
   name: "BaseComponent",
   inheritAttrs: false,
   setup(_, { slots }) {
-    return () => {
-      return <Fragment>{slots.default ? slots.default() : null}</Fragment>;
-    };
+    return () => <Fragment>{slots.default ? slots.default() : null}</Fragment>;
   },
 });
 

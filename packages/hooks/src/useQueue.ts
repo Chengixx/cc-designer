@@ -1,4 +1,4 @@
-import { QueueController, QueueItem } from "@cgx-designer/controller";
+import { QueueController, IQueueItem } from "@cgx-designer/controller";
 import { ElementManage } from "./useElement";
 import { FocusManage } from "./useFocus";
 import { deepClone, deepCompareAndModify } from "@cgx-designer/utils";
@@ -10,7 +10,7 @@ export const useQueue = (
   elementManage: ElementManage,
   focusManage: FocusManage
 ) => {
-  const execute = (item: QueueItem) => {
+  const execute = (item: IQueueItem) => {
     elementManage.setElementList(item.elementList);
     if (item.focusElementId) {
       focusManage.handleFocusById(item.focusElementId);

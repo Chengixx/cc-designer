@@ -1,14 +1,8 @@
+import { IGlobalFunction } from "@cgx-designer/types";
 import { ref, readonly } from "vue";
 
-export interface GlobalFunction {
-  key: string;
-  tip?: string;
-  name: string;
-  callback: (...args: any[]) => any;
-}
-
 export class FunctionController {
-  private functionMap = ref<Record<string, GlobalFunction>>({
+  private functionMap = ref<Record<string, IGlobalFunction>>({
     test: {
       key: "test1",
       name: "测试",
@@ -23,7 +17,7 @@ export class FunctionController {
     return readonly(this.functionMap.value);
   }
 
-  registerFunction = (functionPrototype: GlobalFunction) => {
+  registerFunction = (functionPrototype: IGlobalFunction) => {
     this.functionMap.value[functionPrototype.key] = functionPrototype;
   };
 
