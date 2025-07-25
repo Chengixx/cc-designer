@@ -22,19 +22,22 @@ const ButtonTool = defineComponent({
     const TOOL_HEIGHT = 28;
     const isHover = ref(false);
 
-    // 监听聚焦元素变化，动态判断操作条位置
-    watch(
-      () => focusManage.focusedElementDom.value,
-      () => {
-        const el = focusManage.focusedElementDom.value;
-        if (!el) return;
-        nextTick(() => {
-          const rect = el.getBoundingClientRect();
-          position.value = rect.top < 110 ? "bottom" : "top";
-        });
-      },
-      { immediate: true }
-    );
+    // 更新操作条位置
+    const updateToolPosition = () => {
+      const el = focusManage.focusedElementDom.value;
+      if (!el) return;
+
+      nextTick(() => {
+        const rect = el.getBoundingClientRect();
+        position.value = rect.top < 110 ? "bottom" : "top";
+      });
+    };
+
+    watch(() => focusManage.focusedElementDom.value, updateToolPosition, {
+      immediate: true,
+    });
+
+    watch(() => focusManage.focusWidgetRect.value, updateToolPosition);
 
     const toolStyle = computed(() => {
       return position.value === "top"
