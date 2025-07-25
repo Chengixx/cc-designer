@@ -1,4 +1,4 @@
-import { IElementBaseSetting } from "@cgx-designer/controller";
+import { IElementBaseSetting } from "@cgx-designer/types";
 import { TextIcon } from "@cgx-designer/icons";
 
 const Text: IElementBaseSetting = {

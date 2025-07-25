@@ -1,4 +1,4 @@
-import { IElementBaseSetting } from "@cgx-designer/controller";
+import { IElementBaseSetting } from "@cgx-designer/types";
 
 const Form: IElementBaseSetting = {
   key: "form",

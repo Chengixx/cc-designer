@@ -1,5 +1,5 @@
 import { ElementEngine } from "@cgx-designer/element-engine";
-import { IEditorElement } from "@cgx-designer/types";
+import { IAttributeSchema, IEditorElement } from "@cgx-designer/types";
 import {
   FocusManage,
   QueueManage,
@@ -34,9 +34,9 @@ const ElementAttribute = defineComponent({
     );
     const currentFocusElement = ref<IEditorElement | null>(null);
     // 获取当前选中元素的属性
-    const componentAttributes = ref<IEditorElement[]>([]);
+    const componentAttributes = ref<IAttributeSchema[]>([]);
     //判断是否是数据源
-    const getisValueIsSourceData = (attributeConfig: IEditorElement) => {
+    const getisValueIsSourceData = (attributeConfig: IAttributeSchema) => {
       const value = getValueByPath(
         currentFocusElement.value!,
         attributeConfig.field!
@@ -44,7 +44,7 @@ const ElementAttribute = defineComponent({
       return isValueIsSourceData(value);
     };
     //是否显示通过回调函数来做
-    const showAttributeConfigWidget = (attributeConfig: IEditorElement) => {
+    const showAttributeConfigWidget = (attributeConfig: IAttributeSchema) => {
       let show: boolean = true;
       if (typeof attributeConfig.show === "boolean") {
         show = attributeConfig.show;
@@ -60,7 +60,7 @@ const ElementAttribute = defineComponent({
     const handleSetValue = (
       value: any,
       field: string,
-      attributeConfig: IEditorElement,
+      attributeConfig: IAttributeSchema,
       editData = currentFocusElement.value
     ) => {
       //先判断两个值是不是本来就一样了 如果一样 下面的就不用走了,记得不能用=== 要用isEqual，不然可能是对象
@@ -95,7 +95,7 @@ const ElementAttribute = defineComponent({
     //绑定数据源
     const handleBindSourceData = (
       name: string,
-      attributeConfig: IEditorElement
+      attributeConfig: IAttributeSchema
     ) => {
       //首先先把值改成当前数据源的值
       const sourceDataItem = sourceDataManage.getSourceData(name);
@@ -120,7 +120,7 @@ const ElementAttribute = defineComponent({
     };
 
     //渲染额外小icon
-    const renderExtraWidget = (attributeConfig: IEditorElement) => {
+    const renderExtraWidget = (attributeConfig: IAttributeSchema) => {
       const showExtra = attributeConfig.showExtra;
 
       if (showExtra === "copy") {

@@ -1,4 +1,4 @@
-import { IElementBaseSetting } from "@cgx-designer/controller";
+import { IElementBaseSetting } from "@cgx-designer/types";
 import { DividerIcon } from "@cgx-designer/icons";
 
 const Divider: IElementBaseSetting = {

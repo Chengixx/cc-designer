@@ -1,4 +1,4 @@
-import { IElementBaseSetting } from "@cgx-designer/controller";
+import { IElementBaseSetting } from "@cgx-designer/types";
 import { TabIcon } from "@cgx-designer/icons";
 
 const Tab: IElementBaseSetting = {

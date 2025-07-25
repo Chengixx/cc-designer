@@ -3,19 +3,64 @@ import { elementController } from "@cgx-designer/controller";
 import { ElementRenderer } from "@cgx-designer/element-renderer";
 import { SourceDataItem } from "@cgx-designer/hooks";
 
-//元素被渲染之后的的schema
-export interface IEditorElement {
-  id?: string;
+//schema原型
+export interface ISchemaPrototype {
   key: string;
   field?: string;
   elementList?: IEditorElement[];
-  formItem?: boolean;
-  noShowFormItem?: boolean;
   props?: Record<string, any>;
+}
+
+//属性的schema
+export interface IAttributeSchema extends ISchemaPrototype {
   getter?: (...args: any[]) => any;
   setter?: (...args: any[]) => undefined | void;
+  show?: (...args: any[]) => boolean;
+  onChange?: (...args: any[]) => undefined | void;
   [key: string]: any;
 }
+
+//元素被渲染之后的的schema
+export interface IEditorElement extends ISchemaPrototype {
+  id?: string;
+  formItem?: boolean;
+  noShowFormItem?: boolean;
+  [key: string]: any;
+}
+
+//元素基础类型
+export interface IElementBaseSetting {
+  key: string;
+  label: string;
+  render: any;
+  group?: string;
+  icon?: any;
+  template?: any;
+  formItem?: boolean;
+  noPushList?: boolean;
+  [key: string]: any;
+  config?: {
+    //全部变成可选的
+    attribute?: IAttributeSchema[];
+    event?: EventItem[];
+    action?: EventItem[];
+  };
+}
+
+export interface ElementPlugin {
+  name: ElementLib;
+  template: Record<string, IElementBaseSetting>;
+  formConfig: IEditorElement[]; //表单配置
+}
+
+export type ElementLib = "element-plus" | "vuetify";
+
+export type ElementListMode = "bar" | "box";
+
+export type ElementMaterial = {
+  title: string;
+  materials: IElementBaseSetting[];
+};
 
 //元素被渲染之后的实例
 export interface ElementInstance extends ComponentPublicInstance {

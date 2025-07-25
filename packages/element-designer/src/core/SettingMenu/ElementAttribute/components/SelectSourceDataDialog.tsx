@@ -3,14 +3,14 @@ import { elementController } from "@cgx-designer/controller";
 import { SourceDataManage } from "@cgx-designer/hooks";
 import { dataSourceColor } from "../../../../constant/index";
 import { MonacoIDE } from "@cgx-designer/extensions";
-import { IEditorElement } from "@cgx-designer/types";
+import { IAttributeSchema, IEditorElement } from "@cgx-designer/types";
 import { IBindSourceData } from "@cgx-designer/reactivity";
 import { deepClone } from "@cgx-designer/utils";
 import { VBtnColorType } from "@cgx-designer/base-materials";
 
 export interface SelectSourceDataDialogExpose {
   handleOpen: (
-    attributeConfig: IEditorElement,
+    attributeConfig: IAttributeSchema,
     elementAttrObj?: IBindSourceData
   ) => void;
 }
@@ -23,14 +23,14 @@ export const SelectSourceDataDialog = defineComponent({
     const Dialog = elementController.getElementRender("dialog");
     const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
     //这个属性仅仅用于解除绑定
-    const innerAttributeConfig = ref<IEditorElement>();
+    const innerAttributeConfig = ref<IAttributeSchema>();
     const currentSelectIndex = ref<number>(-1);
     const sourceDataName = ref<string>("");
     const isShow = ref<boolean>(false);
     const innerElementAttrObj = ref<IBindSourceData>();
 
     const handleOpen = (
-      attributeConfig: IEditorElement,
+      attributeConfig: IAttributeSchema,
       elementAttrObj?: IBindSourceData
     ) => {
       //记得清空

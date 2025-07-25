@@ -4,7 +4,7 @@ import {
   getRandomId,
   stringFirstSmaller,
 } from "@cgx-designer/utils";
-import { EventItem, IEditorElement } from "@cgx-designer/types";
+import { ElementListMode, ElementMaterial, ElementPlugin, EventItem, IEditorElement, IElementBaseSetting } from "@cgx-designer/types";
 import { hideExtraKeyList } from "../constant";
 
 export const BaseComponent = defineComponent({
@@ -16,40 +16,6 @@ export const BaseComponent = defineComponent({
     };
   },
 });
-
-//元素基础类型
-export interface IElementBaseSetting {
-  key: string;
-  label: string;
-  render: any;
-  group?: string;
-  icon?: any;
-  template?: any;
-  formItem?: boolean;
-  noPushList?: boolean;
-  [key: string]: any;
-  config?: {
-    //全部变成可选的
-    attribute?: IEditorElement[];
-    event?: EventItem[];
-    action?: EventItem[];
-  };
-}
-
-export interface ElementPlugin {
-  name: ElementLib;
-  template: Record<string, IElementBaseSetting>;
-  formConfig: IEditorElement[]; //表单配置
-}
-
-export type ElementLib = "element-plus" | "vuetify";
-
-export type ElementListMode = "bar" | "box";
-
-export type ElementMaterial = {
-  title: string;
-  materials: IElementBaseSetting[];
-};
 
 //创建组件基础配置的东西
 export class ElementController {
