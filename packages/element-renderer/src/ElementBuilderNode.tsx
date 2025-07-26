@@ -10,23 +10,19 @@ const ElementBuilderNode = defineComponent({
     return () => (
       <ElementEngine elementSchema={props.elementSchema} isPreview>
         {{
-          editNode: () => {
-            //就返回循环的elementList啊
-            return (
-              <>
-                {props.elementSchema.elementList?.map(
-                  (childElementSchema: IElementSchema) => {
-                    return (
-                      <ElementBuilderNode
-                        elementSchema={childElementSchema}
-                        key={childElementSchema.id}
-                      />
-                    );
-                  }
-                )}
-              </>
-            );
-          },
+          //就返回循环的elementList
+          editNode: () => (
+            <>
+              {props.elementSchema.elementList?.map(
+                (childElementSchema: IElementSchema) => (
+                  <ElementBuilderNode
+                    elementSchema={childElementSchema}
+                    key={childElementSchema.id}
+                  />
+                )
+              )}
+            </>
+          ),
         }}
       </ElementEngine>
     );
