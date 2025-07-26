@@ -55,33 +55,31 @@ export const ImportSourceCodeDialog = defineComponent({
     expose({
       handleOpen,
     });
-    return () => {
-      return (
-        <Dialog
-          title="导入"
-          v-model={isShow.value}
-          destroyOnClose
-          style={{
-            marginTop: "5vh !important",
-          }}
-        >
-          {{
-            default: () => (
-              <div class="c-h-[70vh] c-bg-blue-100">
-                <MonacoIDE v-model={jsonContent.value} mode="json" />
-              </div>
-            ),
-            footer: () => (
-              <>
-                <Button onClick={handleCancel}>取消</Button>
-                <Button type="primary" onClick={handleConfirm}>
-                  确定
-                </Button>
-              </>
-            ),
-          }}
-        </Dialog>
-      );
-    };
+    return () => (
+      <Dialog
+        title="导入"
+        v-model={isShow.value}
+        destroyOnClose
+        style={{
+          marginTop: "5vh !important",
+        }}
+      >
+        {{
+          default: () => (
+            <div class="c-h-[70vh] c-bg-blue-100">
+              <MonacoIDE v-model={jsonContent.value} mode="json" />
+            </div>
+          ),
+          footer: () => (
+            <>
+              <Button onClick={handleCancel}>取消</Button>
+              <Button type="primary" onClick={handleConfirm}>
+                确定
+              </Button>
+            </>
+          ),
+        }}
+      </Dialog>
+    );
   },
 });

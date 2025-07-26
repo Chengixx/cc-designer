@@ -58,44 +58,42 @@ const ElementTree = defineComponent({
       },
     ];
 
-    return () => {
-      return (
-        <>
-          {elementManage.elementList.value.length ? (
-            <CTree
-              v-model:elementList={elementManage.elementList.value}
-              v-model:selectedKey={selectedKey.value}
-              onNodeClick={handleNodeClick}
-              draggable
-            >
-              {{
-                extension: ({
-                  elementSchema,
-                }: {
-                  elementSchema: IElementSchema;
-                }) => (
-                  <div class="c-h-8 c-flex c-items-center c-gap-x-1 c-pr-1">
-                    {buttonRender.map((item) => (
-                      <div
-                        title={item.title}
-                        class="c-h-full c-flex c-items-center c-justify-center"
-                        onClick={(e: MouseEvent) =>
-                          item.onClick(e, elementSchema)
-                        }
-                      >
-                        <item.Icon class="c-w-[14px] c-h-[14px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
-                      </div>
-                    ))}
-                  </div>
-                ),
-              }}
-            </CTree>
-          ) : (
-            <Empty />
-          )}
-        </>
-      );
-    };
+    return () => (
+      <>
+        {elementManage.elementList.value.length ? (
+          <CTree
+            v-model:elementList={elementManage.elementList.value}
+            v-model:selectedKey={selectedKey.value}
+            onNodeClick={handleNodeClick}
+            draggable
+          >
+            {{
+              extension: ({
+                elementSchema,
+              }: {
+                elementSchema: IElementSchema;
+              }) => (
+                <div class="c-h-8 c-flex c-items-center c-gap-x-1 c-pr-1">
+                  {buttonRender.map((item) => (
+                    <div
+                      title={item.title}
+                      class="c-h-full c-flex c-items-center c-justify-center"
+                      onClick={(e: MouseEvent) =>
+                        item.onClick(e, elementSchema)
+                      }
+                    >
+                      <item.Icon class="c-w-[14px] c-h-[14px] hover:c-fill-blue-500 dark:c-fill-white dark:hover:c-fill-blue-500" />
+                    </div>
+                  ))}
+                </div>
+              ),
+            }}
+          </CTree>
+        ) : (
+          <Empty />
+        )}
+      </>
+    );
   },
 });
 

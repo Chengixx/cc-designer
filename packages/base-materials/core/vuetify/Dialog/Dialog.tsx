@@ -20,45 +20,41 @@ const Dialog = defineComponent({
       emit("update:modelValue", false);
     };
     const renderProps = useMergeAttr(props, attrs);
-    return () => {
-      return (
-        <VDialog
-          {...renderProps}
-          onAfterLeave={handleLeave}
-          width="auto"
-          style={{
-            marginTop: "0vh !important",
-          }}
+    return () => (
+      <VDialog
+        {...renderProps}
+        onAfterLeave={handleLeave}
+        width="auto"
+        style={{
+          marginTop: "0vh !important",
+        }}
+      >
+        <VCard
+          minHeight={"80vh"}
+          minWidth={"50vw"}
+          maxWidth={"50vw"}
+          color={themeManage.isDark.value ? "#141414" : "#fff"}
         >
-          <VCard
-            minHeight={"80vh"}
-            minWidth={"50vw"}
-            maxWidth={"50vw"}
-            color={themeManage.isDark.value ? "#141414" : "#fff"}
-          >
-            {/* 标题,有才显示,为了兼容element */}
-            {renderProps.title && (
-              <VCardTitle class="c-flex c-justify-between c-items-center">
-                <span class="c-text-base c-font-medium">
-                  {renderProps.title}
-                </span>
-                <div
-                  class="c-h-fit c-w-fit c-cursor-pointer"
-                  onClick={handleLeave}
-                >
-                  <CloseIcon class="c-w-5 c-h-5 c-fill-gray-500 hover:c-fill-blue-500" />
-                </div>
-              </VCardTitle>
-            )}
+          {/* 标题,有才显示,为了兼容element */}
+          {renderProps.title && (
+            <VCardTitle class="c-flex c-justify-between c-items-center">
+              <span class="c-text-base c-font-medium">{renderProps.title}</span>
+              <div
+                class="c-h-fit c-w-fit c-cursor-pointer"
+                onClick={handleLeave}
+              >
+                <CloseIcon class="c-w-5 c-h-5 c-fill-gray-500 hover:c-fill-blue-500" />
+              </div>
+            </VCardTitle>
+          )}
 
-            {/* 文章内容 */}
-            <VCardText>{slots.default && slots.default()}</VCardText>
-            {/* 下面的操作插槽 */}
-            <VCardActions>{slots.footer && slots.footer()}</VCardActions>
-          </VCard>
-        </VDialog>
-      );
-    };
+          {/* 文章内容 */}
+          <VCardText>{slots.default && slots.default()}</VCardText>
+          {/* 下面的操作插槽 */}
+          <VCardActions>{slots.footer && slots.footer()}</VCardActions>
+        </VCard>
+      </VDialog>
+    );
   },
 });
 

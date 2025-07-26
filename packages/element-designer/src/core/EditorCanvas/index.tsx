@@ -49,41 +49,39 @@ const EditorCanvas = defineComponent({
         ...formManage.formSetting,
       };
     });
-    return () => {
-      return (
-        <div class="c-h-full c-relative c-flex c-justify-center c-px-5 c-py-2">
-          {elementManage.elementList.value.length == 0 && (
-            <div class="c-pointer-events-none c-z-10 c-absolute c-left-1/2 c-top-1/2 c-transform -c-translate-x-1/2 -c-translate-y-1/2 c-text-gray-400 c-text-lg">
-              <Empty />
-            </div>
-          )}
-          <div
-            class={[
-              "c-overflow-y-auto c-h-[calc(100vh-116px)] c-relative c-transition-all",
-              modeManage.mode.value !== "pc"
-                ? "c-border-[10px] c-border-black dark:c-border-gray-700 c-box-border c-rounded-2xl"
-                : "c-rounded-md",
-            ]}
-            style={{ width: ModeSize[modeManage.mode.value] }}
-            ref={editorCanvasRef}
-            onClick={(e) => focusManage.handleCanvasClick(e)}
-          >
-            {/* hover的盒子,选中的时候如果在这 */}
-            <PanelWidget />
-            <Form
-              {...getFormFunction.value}
-              {...getFormProps.value}
-              class="c-w-full"
-            >
-              <Draggle
-                elementSchemaList={elementManage.elementList.value}
-                isNested={false}
-              />
-            </Form>
+    return () => (
+      <div class="c-h-full c-relative c-flex c-justify-center c-px-5 c-py-2">
+        {elementManage.elementList.value.length == 0 && (
+          <div class="c-pointer-events-none c-z-10 c-absolute c-left-1/2 c-top-1/2 c-transform -c-translate-x-1/2 -c-translate-y-1/2 c-text-gray-400 c-text-lg">
+            <Empty />
           </div>
+        )}
+        <div
+          class={[
+            "c-overflow-y-auto c-h-[calc(100vh-116px)] c-relative c-transition-all",
+            modeManage.mode.value !== "pc"
+              ? "c-border-[10px] c-border-black dark:c-border-gray-700 c-box-border c-rounded-2xl"
+              : "c-rounded-md",
+          ]}
+          style={{ width: ModeSize[modeManage.mode.value] }}
+          ref={editorCanvasRef}
+          onClick={(e) => focusManage.handleCanvasClick(e)}
+        >
+          {/* hover的盒子,选中的时候如果在这 */}
+          <PanelWidget />
+          <Form
+            {...getFormFunction.value}
+            {...getFormProps.value}
+            class="c-w-full"
+          >
+            <Draggle
+              elementSchemaList={elementManage.elementList.value}
+              isNested={false}
+            />
+          </Form>
         </div>
-      );
-    };
+      </div>
+    );
   },
 });
 export default EditorCanvas;

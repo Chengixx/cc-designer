@@ -24,29 +24,27 @@ const SearchBox = defineComponent({
         emit("update:modelValue", value);
       },
     });
-    return () => {
-      return (
-        <div class="c-w-full c-px-1 c-py-2 dark:c-border-darkMode">
-          <Input
-            placeholder={props.placeholder}
-            v-model={bindValue.value}
-            clearable
-            density="compact"
-            variant="outlined"
-            hide-details
-            single-line
-          >
-            {{
-              prefix: () => {
-                return (
-                  <SearchIcon class="c-select-none c-w-[17px] c-h-[17px] dark:c-fill-white" />
-                );
-              },
-            }}
-          </Input>
-        </div>
-      );
-    };
+    return () => (
+      <div class="c-w-full c-px-1 c-py-2 dark:c-border-darkMode">
+        <Input
+          placeholder={props.placeholder}
+          v-model={bindValue.value}
+          clearable
+          density="compact"
+          variant="outlined"
+          hide-details
+          single-line
+        >
+          {{
+            prefix: () => {
+              return (
+                <SearchIcon class="c-select-none c-w-[17px] c-h-[17px] dark:c-fill-white" />
+              );
+            },
+          }}
+        </Input>
+      </div>
+    );
   },
 });
 export default SearchBox;

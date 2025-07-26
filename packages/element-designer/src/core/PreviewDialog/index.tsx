@@ -58,54 +58,52 @@ const PreviewDialog = defineComponent({
       handleOpen,
       handleClose,
     });
-    return () => {
-      return (
-        <>
-          <Dialog
-            destroyOnClose
-            title="预览"
-            v-model={dialogShow.value}
-            beforeClose={handleClose}
-            style={{
-              marginTop: "5vh !important",
-            }}
-          >
-            {{
-              default: () => {
-                return (
-                  <div class="c-h-[70vh] c-overflow-y-auto">
-                    <ElementRenderer
-                      key={ElementBuilderKey.value}
-                      ref={elementBuilderRef as any}
-                      script={functionManage.javaScriptVal.value}
-                      elementSchemaList={deepClone(
-                        elementManage.elementList.value
-                      )}
-                      formSetting={formManage.formSetting}
-                      sourceData={cloneDeep(sourceDataManage.sourceData.value)}
-                    />
-                  </div>
-                );
-              },
-              footer: () => {
-                return (
-                  <div>
-                    <Button onClick={handleClose}>关闭</Button>
-                    <Button type="primary" onClick={handleValidFormData}>
-                      模拟校验
-                    </Button>
-                    <Button type="primary" onClick={handleGetFormData}>
-                      查看数据
-                    </Button>
-                  </div>
-                );
-              },
-            }}
-          </Dialog>
-          <ValueDialog ref={ValueDialogRef} />
-        </>
-      );
-    };
+    return () => (
+      <>
+        <Dialog
+          destroyOnClose
+          title="预览"
+          v-model={dialogShow.value}
+          beforeClose={handleClose}
+          style={{
+            marginTop: "5vh !important",
+          }}
+        >
+          {{
+            default: () => {
+              return (
+                <div class="c-h-[70vh] c-overflow-y-auto">
+                  <ElementRenderer
+                    key={ElementBuilderKey.value}
+                    ref={elementBuilderRef as any}
+                    script={functionManage.javaScriptVal.value}
+                    elementSchemaList={deepClone(
+                      elementManage.elementList.value
+                    )}
+                    formSetting={formManage.formSetting}
+                    sourceData={cloneDeep(sourceDataManage.sourceData.value)}
+                  />
+                </div>
+              );
+            },
+            footer: () => {
+              return (
+                <div>
+                  <Button onClick={handleClose}>关闭</Button>
+                  <Button type="primary" onClick={handleValidFormData}>
+                    模拟校验
+                  </Button>
+                  <Button type="primary" onClick={handleGetFormData}>
+                    查看数据
+                  </Button>
+                </div>
+              );
+            },
+          }}
+        </Dialog>
+        <ValueDialog ref={ValueDialogRef} />
+      </>
+    );
   },
 });
 export default PreviewDialog;

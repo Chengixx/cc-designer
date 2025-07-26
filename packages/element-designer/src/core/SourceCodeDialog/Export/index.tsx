@@ -49,47 +49,45 @@ export const ExportSourceCodeDialog = defineComponent({
     expose({
       handleOpen,
     });
-    return () => {
-      return (
-        <Dialog
-          title="导出"
-          v-model={isShow.value}
-          destroyOnClose
-          style={{
-            marginTop: "5vh !important",
-          }}
-        >
-          {{
-            default: () => (
-              <Tabs v-model={currentTab.value} class="no-padding-tabs">
-                <TabPane label="json代码">
-                  <div class="c-h-[70vh]">
-                    <MonacoIDE v-model={jsonContent.value} mode="json" />
-                  </div>
-                </TabPane>
-                <TabPane label="vue代码">
-                  <div class="c-h-[70vh]">
-                    <MonacoIDE v-model={cgxContent.value} mode="vue" />
-                  </div>
-                </TabPane>
-                <TabPane label="SFC代码">
-                  <div class="c-h-[70vh]">
-                    <MonacoIDE v-model={sfcContent.value} mode="vue" />
-                  </div>
-                </TabPane>
-              </Tabs>
-            ),
-            footer: () => (
-              <>
-                <Button onClick={handleCancel}>取消</Button>
-                <Button type="primary" onClick={handleConfirm}>
-                  确定
-                </Button>
-              </>
-            ),
-          }}
-        </Dialog>
-      );
-    };
+    return () => (
+      <Dialog
+        title="导出"
+        v-model={isShow.value}
+        destroyOnClose
+        style={{
+          marginTop: "5vh !important",
+        }}
+      >
+        {{
+          default: () => (
+            <Tabs v-model={currentTab.value} class="no-padding-tabs">
+              <TabPane label="json代码">
+                <div class="c-h-[70vh]">
+                  <MonacoIDE v-model={jsonContent.value} mode="json" />
+                </div>
+              </TabPane>
+              <TabPane label="vue代码">
+                <div class="c-h-[70vh]">
+                  <MonacoIDE v-model={cgxContent.value} mode="vue" />
+                </div>
+              </TabPane>
+              <TabPane label="SFC代码">
+                <div class="c-h-[70vh]">
+                  <MonacoIDE v-model={sfcContent.value} mode="vue" />
+                </div>
+              </TabPane>
+            </Tabs>
+          ),
+          footer: () => (
+            <>
+              <Button onClick={handleCancel}>取消</Button>
+              <Button type="primary" onClick={handleConfirm}>
+                确定
+              </Button>
+            </>
+          ),
+        }}
+      </Dialog>
+    );
   },
 });

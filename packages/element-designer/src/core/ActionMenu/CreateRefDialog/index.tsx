@@ -49,39 +49,37 @@ export const CreateRefDialog = defineComponent({
     expose({
       handleOpen,
     });
-    return () => {
-      return (
-        <Dialog
-          title={dialogTitle.value}
-          v-model={isShow.value}
-          destroyOnClose
-          style={{
-            marginTop: "5vh !important",
-          }}
-        >
-          {{
-            default: () => (
-              <div class="c-h-[70vh] c-overflow-y-auto">
-                <CFormItem label="数据源名称" labelCol={4}>
-                  <Input v-model={dataName.value} />
-                </CFormItem>
-                <div class="c-mb-1 c-font-medium c-text-sm c-text-gray-600 c-flex c-items-center dark:c-text-gray-300">
-                  数据源初始值
-                </div>
-                <MonacoIDE v-model={initialValue.value} mode="javaScript" />
+    return () => (
+      <Dialog
+        title={dialogTitle.value}
+        v-model={isShow.value}
+        destroyOnClose
+        style={{
+          marginTop: "5vh !important",
+        }}
+      >
+        {{
+          default: () => (
+            <div class="c-h-[70vh] c-overflow-y-auto">
+              <CFormItem label="数据源名称" labelCol={4}>
+                <Input v-model={dataName.value} />
+              </CFormItem>
+              <div class="c-mb-1 c-font-medium c-text-sm c-text-gray-600 c-flex c-items-center dark:c-text-gray-300">
+                数据源初始值
               </div>
-            ),
-            footer: () => (
-              <>
-                <Button onClick={handleCancel}>取消</Button>
-                <Button type="primary" onClick={handleConfirm}>
-                  确定
-                </Button>
-              </>
-            ),
-          }}
-        </Dialog>
-      );
-    };
+              <MonacoIDE v-model={initialValue.value} mode="javaScript" />
+            </div>
+          ),
+          footer: () => (
+            <>
+              <Button onClick={handleCancel}>取消</Button>
+              <Button type="primary" onClick={handleConfirm}>
+                确定
+              </Button>
+            </>
+          ),
+        }}
+      </Dialog>
+    );
   },
 });

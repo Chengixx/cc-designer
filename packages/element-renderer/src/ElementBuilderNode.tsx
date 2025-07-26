@@ -7,31 +7,29 @@ const ElementBuilderNode = defineComponent({
     elementSchema: { type: Object as PropType<IElementSchema>, required: true },
   },
   setup(props) {
-    return () => {
-      return (
-        <ElementEngine elementSchema={props.elementSchema} isPreview>
-          {{
-            editNode: () => {
-              //就返回循环的elementList啊
-              return (
-                <>
-                  {props.elementSchema.elementList?.map(
-                    (childElementSchema: IElementSchema) => {
-                      return (
-                        <ElementBuilderNode
-                          elementSchema={childElementSchema}
-                          key={childElementSchema.id}
-                        />
-                      );
-                    }
-                  )}
-                </>
-              );
-            },
-          }}
-        </ElementEngine>
-      );
-    };
+    return () => (
+      <ElementEngine elementSchema={props.elementSchema} isPreview>
+        {{
+          editNode: () => {
+            //就返回循环的elementList啊
+            return (
+              <>
+                {props.elementSchema.elementList?.map(
+                  (childElementSchema: IElementSchema) => {
+                    return (
+                      <ElementBuilderNode
+                        elementSchema={childElementSchema}
+                        key={childElementSchema.id}
+                      />
+                    );
+                  }
+                )}
+              </>
+            );
+          },
+        }}
+      </ElementEngine>
+    );
   },
 });
 

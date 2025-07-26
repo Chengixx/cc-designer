@@ -61,46 +61,44 @@ const EditorElement = defineComponent({
       return focusManage.focusedElement.value?.id === props.elementSchema.id;
     });
 
-    return () => {
-      return (
-        <>
-          {isFocus.value && <DragWidget elementSchema={props.elementSchema} />}
-          <ElementEngine elementSchema={props.elementSchema} ref={elementRef}>
-            {{
-              editNode: () => {
-                if (
-                  props.elementSchema?.key === "row" ||
-                  props.elementSchema?.key === "tab"
-                ) {
-                  //就返回循环的elementList啊
-                  return (
-                    <>
-                      {props.elementSchema.elementList!.map(
-                        (childElementSchema: IElementSchema) => {
-                          return (
-                            <EditorElement
-                              elementSchema={childElementSchema}
-                              key={childElementSchema.id}
-                            />
-                          );
-                        }
-                      )}
-                    </>
-                  );
-                } else {
-                  return (
-                    <Draggle
-                      elementSchemaList={props.elementSchema.elementList!}
-                      isNested
-                    />
-                  );
-                }
-              },
-            }}
-          </ElementEngine>
-        </>
-      );
-    };
+    return () => (
+      <>
+        {isFocus.value && <DragWidget elementSchema={props.elementSchema} />}
+        <ElementEngine elementSchema={props.elementSchema} ref={elementRef}>
+          {{
+            editNode: () => {
+              if (
+                props.elementSchema?.key === "row" ||
+                props.elementSchema?.key === "tab"
+              ) {
+                //就返回循环的elementList啊
+                return (
+                  <>
+                    {props.elementSchema.elementList!.map(
+                      (childElementSchema: IElementSchema) => {
+                        return (
+                          <EditorElement
+                            elementSchema={childElementSchema}
+                            key={childElementSchema.id}
+                          />
+                        );
+                      }
+                    )}
+                  </>
+                );
+              } else {
+                return (
+                  <Draggle
+                    elementSchemaList={props.elementSchema.elementList!}
+                    isNested
+                  />
+                );
+              }
+            },
+          }}
+        </ElementEngine>
+      </>
+    );
   },
 });
 

@@ -26,37 +26,35 @@ export const ValueDialog = defineComponent({
       handleOpen,
       handleClose,
     });
-    return () => {
-      return (
-        <Dialog
-          destroyOnClose
-          title="预览表单数据"
-          v-model={dialogShow.value}
-          beforeClose={handleClose}
-          style={{
-            marginTop: "10vh !important",
-          }}
-        >
-          {{
-            default: () => {
-              return (
-                <div class="c-h-[60vh] c-overflow-y-auto">
-                  <MonacoIDE readonly v-model={IDEValue.value} />
-                </div>
-              );
-            },
-            footer: () => {
-              return (
-                <div>
-                  <Button variant="outlined" onClick={handleClose}>
-                    关闭
-                  </Button>
-                </div>
-              );
-            },
-          }}
-        </Dialog>
-      );
-    };
+    return () => (
+      <Dialog
+        destroyOnClose
+        title="预览表单数据"
+        v-model={dialogShow.value}
+        beforeClose={handleClose}
+        style={{
+          marginTop: "10vh !important",
+        }}
+      >
+        {{
+          default: () => {
+            return (
+              <div class="c-h-[60vh] c-overflow-y-auto">
+                <MonacoIDE readonly v-model={IDEValue.value} />
+              </div>
+            );
+          },
+          footer: () => {
+            return (
+              <div>
+                <Button variant="outlined" onClick={handleClose}>
+                  关闭
+                </Button>
+              </div>
+            );
+          },
+        }}
+      </Dialog>
+    );
   },
 });

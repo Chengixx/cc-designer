@@ -138,31 +138,29 @@ const ElementBuilder = defineComponent({
       setFormData,
       resetFormDataToEmpty,
     });
-    return () => {
-      return (
-        <>
-          {useElementSchemaList.value.length || !isEmpty(slots) ? (
-            <Form
-              v-model={modelValue.value}
-              ref={formRef}
-              model={formData}
-              {...getFormAttrs.value}
-              {...getFormFunction.value}
-            >
-              {slots.before && slots.before()}
-              {useElementSchemaList.value.map((elementSchema) => (
-                <ElementBuilderNode elementSchema={elementSchema} />
-              ))}
-              {slots.default && slots.default()}
-            </Form>
-          ) : (
-            <div class="c-h-full c-flex c-justify-center c-items-center">
-              <Empty />
-            </div>
-          )}
-        </>
-      );
-    };
+    return () => (
+      <>
+        {useElementSchemaList.value.length || !isEmpty(slots) ? (
+          <Form
+            v-model={modelValue.value}
+            ref={formRef}
+            model={formData}
+            {...getFormAttrs.value}
+            {...getFormFunction.value}
+          >
+            {slots.before && slots.before()}
+            {useElementSchemaList.value.map((elementSchema) => (
+              <ElementBuilderNode elementSchema={elementSchema} />
+            ))}
+            {slots.default && slots.default()}
+          </Form>
+        ) : (
+          <div class="c-h-full c-flex c-justify-center c-items-center">
+            <Empty />
+          </div>
+        )}
+      </>
+    );
   },
 });
 export default ElementBuilder;
