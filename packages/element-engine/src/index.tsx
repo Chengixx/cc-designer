@@ -82,7 +82,7 @@ const ElementNode = defineComponent({
         localSchema.field = localSchema.field + "-assit";
       }
     };
-    addFieldAssit();
+
     watch(
       () => props.elementSchema,
       (newElementSchema) => {
@@ -98,6 +98,7 @@ const ElementNode = defineComponent({
       },
       {
         deep: true,
+        immediate: true,
       }
     );
     //更新值
@@ -307,18 +308,14 @@ const ElementNode = defineComponent({
             >
               {{
                 // 这个是普通的插槽,就是给他一个个循环出来就好了不用过多的操作
-                node: (childElementSchema: IElementSchema) => {
-                  return (
-                    <ElementNode
-                      elementSchema={childElementSchema}
-                      isPreview={props.isPreview}
-                    />
-                  );
-                },
+                node: (childElementSchema: IElementSchema) => (
+                  <ElementNode
+                    elementSchema={childElementSchema}
+                    isPreview={props.isPreview}
+                  />
+                ),
                 //这个是拖拽的插槽，应该要用draggle,这里会提供一个插槽 到外面如果需要拖拽的话 是用插槽穿进来的
-                editNode: () => {
-                  return <>{slots.editNode ? slots.editNode() : null}</>;
-                },
+                editNode: () => <>{slots.editNode ? slots.editNode() : null}</>,
               }}
             </ElementRender>
           )}
