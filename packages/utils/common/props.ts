@@ -46,4 +46,4 @@ export type ElementPropsFactory<T extends Record<string, any> = {}> = {
     required: boolean;
     default?: () => {};
   };
-} & T; 
+} & T;
