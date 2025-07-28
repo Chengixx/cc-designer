@@ -1,8 +1,8 @@
 import { ref, watch, computed } from "vue";
 import { ElementManage } from "./useElement";
-import { useParentDomList } from "@cgx-designer/element-designer";
 import { IElementSchema } from "@cgx-designer/types";
 import { ModeManage } from "./useMode";
+import { getElementDomInstance } from "./useElementDom";
 
 export type HoverManage = ReturnType<typeof useHover>;
 
@@ -22,46 +22,33 @@ export const useHover = (
   const hoveredElement = ref<IElementSchema | null>(null);
   //是否显示hoverBox
   const showHoverBox = ref<boolean>(false);
-  //当前hover到的元素实例
-  const hoveredElementDom = computed(() => {
-    const id = hoveredElement.value?.id;
-    const elementInstance = elementManage.getElementInstanceById(id!);
-    if (!id || !elementInstance) return null;
-    //如果是表单组件,就给表单的item
-    if (
-      hoveredElement.value?.formItem &&
-      !!!hoveredElement.value.noShowFormItem
-    ) {
-      return elementManage.elementInstanceList.value[
-        hoveredElement.value?.id + "-form-item"
-      ].$el;
-    }
-    if (elementInstance.$el.nodeName === "#text") {
-      return null;
-    }
-    //默认给一个$el实例
-    if (useParentDomList.includes(hoveredElement.value?.key!)) {
-      return elementInstance.$el.parentElement;
-    } else {
-      return elementInstance.$el;
-    }
-  });
+
+  //当前hover到的元素实例 - 使用共享逻辑
+  const hoveredElementDom = computed(() =>
+    getElementDomInstance(elementManage, hoveredElement.value)
+  );
+
   const initCanvas = (ref: HTMLDivElement) => {
     containerRef.value = ref;
   };
+
   const setDisableHoverStatus = (status: boolean = true) => {
     disableHover.value = status;
   };
+
   //初始化这个hover的物件ref
   const setHoverWidgetRef = (el: HTMLDivElement) => {
     hoverWidgetRef.value = el;
   };
+
   const setHoveredElement = (elementSchema: IElementSchema | null = null) => {
     hoveredElement.value = elementSchema;
   };
+
   const setShowHoverBox = (status: boolean = false) => {
     showHoverBox.value = status;
   };
+
   const handleHover = (e: MouseEvent, hoverInstanceSchema: IElementSchema) => {
     if (disableHover.value) return;
     //元素会有重叠 所以这里需要防止冒泡
@@ -69,26 +56,44 @@ export const useHover = (
     hoveredElement.value = hoverInstanceSchema;
     setHoverWidgetStyle();
   };
+
   //修改这个hover物件的样式
   const setHoverWidgetStyle = () => {
-    if (!hoveredElementDom.value) return;
-    const { top: containerTop, left: containerLeft } =
-      containerRef.value!.getBoundingClientRect();
-    const { top, left, width, height } =
-      hoveredElementDom.value.getBoundingClientRect();
-    const modeStyle =
+    if (
+      !hoveredElementDom.value ||
+      !containerRef.value ||
+      !hoverWidgetRef.value
+    ) {
+      return;
+    }
+
+    // 获取容器和元素的边界信息
+    const containerRect = containerRef.value.getBoundingClientRect();
+    const elementRect = hoveredElementDom.value.getBoundingClientRect();
+
+    if (!elementRect) return;
+
+    // 计算模式偏移量
+    const modeOffset =
       currentMode.value !== "pc" ? { left: 10, top: 10 } : { left: 0, top: 0 };
-    hoverWidgetRef.value!.style.left =
-      left - containerLeft - modeStyle.left + "px";
-    hoverWidgetRef.value!.style.top =
-      top -
-      containerTop +
-      containerRef.value?.scrollTop! -
-      modeStyle.top +
-      "px";
-    hoverWidgetRef.value!.style.width = width + "px";
-    hoverWidgetRef.value!.style.height = height + "px";
+
+    // 计算元素相对于容器的位置
+    const relativeLeft =
+      elementRect.left - containerRect.left - modeOffset.left;
+    const relativeTop =
+      elementRect.top -
+      containerRect.top +
+      (containerRef.value.scrollTop || 0) -
+      modeOffset.top;
+
+    // 设置悬停框的样式
+    const hoverWidget = hoverWidgetRef.value;
+    hoverWidget.style.left = `${relativeLeft}px`;
+    hoverWidget.style.top = `${relativeTop}px`;
+    hoverWidget.style.width = `${elementRect.width}px`;
+    hoverWidget.style.height = `${elementRect.height}px`;
   };
+
   const handleCancelHover = (e: MouseEvent) => {
     e.stopPropagation();
     hoveredElement.value = null;
@@ -106,6 +111,7 @@ export const useHover = (
       }, 300);
     }
   });
+
   return {
     setHoveredElement,
     setHoverWidgetRef,

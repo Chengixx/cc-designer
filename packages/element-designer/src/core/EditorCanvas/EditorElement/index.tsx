@@ -5,9 +5,9 @@ import { HoverManage } from "@cgx-designer/hooks";
 import { IElementSchema } from "@cgx-designer/types";
 import Draggle from "../Draggle/index.vue";
 import { ElementEngine } from "@cgx-designer/element-engine";
-import { useParentDomList } from "../../../constant";
 import DragWidget from "../DragWidget";
 import { useEventListener } from "@vueuse/core";
+import { getElementDomInstance } from "@cgx-designer/hooks";
 
 const EditorElement = defineComponent({
   props: {
@@ -18,26 +18,12 @@ const EditorElement = defineComponent({
     const elementManage = inject("elementManage") as ElementManage;
     const focusManage = inject("focusManage") as FocusManage;
     const elementRef = ref<HTMLBaseElement | null>(null);
-    const getComponentInstance = computed(() => {
-      const id = props.elementSchema.id!;
-      const elementInstance = elementManage.getElementInstanceById(id);
-      if (!id || !elementInstance) return null;
-      if (
-        props.elementSchema.formItem &&
-        !!!props.elementSchema.noShowFormItem
-      ) {
-        return elementManage.getElementInstanceById(id + "-form-item").$el;
-      }
-      if (elementInstance.$el.nodeName === "#text") {
-        return null;
-      }
-      // 有这个的话要返回他的父亲给他
-      if (useParentDomList.includes(props.elementSchema.key)) {
-        return elementInstance.$el.parentElement;
-      } else {
-        return elementInstance.$el;
-      }
-    });
+
+    // 使用共享的DOM实例逻辑
+    const getComponentInstance = computed(() =>
+      getElementDomInstance(elementManage, props.elementSchema)
+    );
+
     watch(
       () => getComponentInstance.value,
       (componentInstance) => {

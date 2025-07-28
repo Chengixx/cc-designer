@@ -15,3 +15,4 @@ export * from "./useSourceData";
 export * from "./useMergeAttr";
 export * from "./useQueue";
 export * from "./useKeyboard";
+export * from "./useElementDom";

@@ -3,9 +3,9 @@ import { ElementManage } from "./useElement";
 import { isEqual } from "lodash-es";
 import { useMutationObserver } from "./useMutationObserver";
 import { useTimedQuery } from "./useTimedQuery";
-import { useParentDomList } from "@cgx-designer/element-designer";
 import { IElementSchema } from "@cgx-designer/types";
 import { ModeManage } from "./useMode";
+import { getElementDomInstance } from "./useElementDom";
 
 export type FocusManage = ReturnType<typeof useFocus>;
 
@@ -30,30 +30,12 @@ export const useFocus = (
   const focusTransition = ref<boolean>(true);
   //当前focus的元素
   const focusedElement = ref<IElementSchema | null>(null);
-  //当前focus的元素的dom实例
-  const focusedElementDom = computed(() => {
-    const id = focusedElement.value?.id;
-    const elementInstance = elementManage.getElementInstanceById(id!);
-    if (!id || !elementInstance) return null;
-    //如果是表单组件,就给表单的item
-    if (
-      focusedElement.value?.formItem &&
-      !!!focusedElement.value.noShowFormItem
-    ) {
-      return elementManage.elementInstanceList.value[
-        focusedElement.value?.id + "-form-item"
-      ].$el;
-    }
-    if (elementInstance.$el.nodeName === "#text") {
-      return null;
-    }
-    //默认给一个$el实例
-    if (useParentDomList.includes(focusedElement.value?.key!)) {
-      return elementInstance.$el.parentElement;
-    } else {
-      return elementInstance.$el;
-    }
-  });
+
+  //当前focus的元素的dom实例 - 使用共享逻辑
+  const focusedElementDom = computed(() =>
+    getElementDomInstance(elementManage, focusedElement.value)
+  );
+
   const initCanvas = (ref: HTMLDivElement) => {
     containerRef.value = ref;
     //且需要监听他的滚动，给赋值
@@ -76,30 +58,48 @@ export const useFocus = (
 
   //修改这个focus物件的样式
   const setFocusWidgetStyle = () => {
-    if (!focusedElementDom.value) return;
-    const { top: containerTop, left: containerLeft } =
-      containerRef.value!.getBoundingClientRect();
-    const { top, left, width, height } =
-      focusedElementDom.value?.getBoundingClientRect() ??
-      focusedElementDom.value?.nextElementSibling?.getBoundingClientRect();
-    const modeStyle =
-      currentMode.value !== "pc" ? { left: 10, top: 10 } : { left: 0, top: 0 };
-    focusWidgetRef.value!.style.left =
-      left - containerLeft - modeStyle.left + "px";
-    focusWidgetRef.value!.style.top =
-      top -
-      containerTop +
-      containerRef.value?.scrollTop! -
-      modeStyle.top +
-      "px";
-    focusWidgetRef.value!.style.width = width + "px";
-    focusWidgetRef.value!.style.height = height + "px";
+    if (
+      !focusedElementDom.value ||
+      !containerRef.value ||
+      !focusWidgetRef.value
+    ) {
+      return;
+    }
 
+    // 获取容器和元素的边界信息
+    const containerRect = containerRef.value.getBoundingClientRect();
+    const elementRect =
+      focusedElementDom.value.getBoundingClientRect() ||
+      focusedElementDom.value.nextElementSibling?.getBoundingClientRect();
+
+    if (!elementRect) return;
+
+    // 计算模式偏移量
+    const modeOffset =
+      currentMode.value !== "pc" ? { left: 10, top: 10 } : { left: 0, top: 0 };
+
+    // 计算元素相对于容器的位置
+    const relativeLeft =
+      elementRect.left - containerRect.left - modeOffset.left;
+    const relativeTop =
+      elementRect.top -
+      containerRect.top +
+      (containerRef.value.scrollTop || 0) -
+      modeOffset.top;
+
+    // 设置焦点框的样式
+    const focusWidget = focusWidgetRef.value;
+    focusWidget.style.left = `${relativeLeft}px`;
+    focusWidget.style.top = `${relativeTop}px`;
+    focusWidget.style.width = `${elementRect.width}px`;
+    focusWidget.style.height = `${elementRect.height}px`;
+
+    // 更新焦点框的矩形信息
     focusWidgetRect.value = {
-      left: left - containerLeft - modeStyle.left,
-      top: top - containerTop + containerRef.value?.scrollTop! - modeStyle.top,
-      width,
-      height,
+      left: relativeLeft,
+      top: relativeTop,
+      width: elementRect.width,
+      height: elementRect.height,
     };
   };
 
@@ -133,6 +133,7 @@ export const useFocus = (
   onUnmounted(() => {
     stopObserver();
   });
+
   return {
     focusedElement,
     focusedElementDom,
