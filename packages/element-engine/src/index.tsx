@@ -82,25 +82,6 @@ const ElementNode = defineComponent({
         localSchema.field = localSchema.field + "-assit";
       }
     };
-
-    watch(
-      () => props.elementSchema,
-      (newElementSchema) => {
-        if (
-          !isEqual(
-            omit(localSchema, "children"),
-            omit(newElementSchema, "children")
-          )
-        ) {
-          deepCompareAndModify(localSchema, deepClone(newElementSchema));
-          addFieldAssit();
-        }
-      },
-      {
-        deep: true,
-        immediate: true,
-      }
-    );
     //更新值
     const handleUpdate = (nv: any) => {
       if (isEqual(nv, bindValue.value)) return;
@@ -153,21 +134,35 @@ const ElementNode = defineComponent({
     });
 
     //监听json变化 json变化了 就要重新赋值的
-    //!此处一定要用oldData保存数据 防止无限递归
     let tempSchema: IElementSchema | null = null;
     watch(
-      () => localSchema,
-      (nv) => {
-        const newSchema = toRaw(deepClone({ ...nv, children: undefined }));
-        if (!isEqual(newSchema, tempSchema)) {
-          const isIgnoreUndefined =
-            tempSchema?.props?.defaultValue !== undefined &&
-            !Object.keys(newSchema?.props ?? {}).includes("defaultValue");
-          tempSchema = newSchema;
-          initComponentInstance(isIgnoreUndefined);
+      () => props.elementSchema,
+      (newElementSchema) => {
+        if (
+          !isEqual(
+            omit(localSchema, "children"),
+            omit(newElementSchema, "children")
+          )
+        ) {
+          deepCompareAndModify(localSchema, deepClone(newElementSchema));
+          addFieldAssit();
+          //! 这里需要用localSchema 因为localSchema是响应式的 而newElementSchema不是
+          const newSchema = toRaw(
+            deepClone({ ...localSchema, children: undefined })
+          );
+          if (!isEqual(newSchema, tempSchema)) {
+            const isIgnoreUndefined =
+              tempSchema?.props?.defaultValue !== undefined &&
+              !Object.keys(newSchema?.props ?? {}).includes("defaultValue");
+            tempSchema = newSchema;
+            initComponentInstance(isIgnoreUndefined);
+          }
         }
       },
-      { deep: true, immediate: true }
+      {
+        deep: true,
+        immediate: true,
+      }
     );
     //给管理中传入ref实例
     const handleAddElementInstance = () => {
