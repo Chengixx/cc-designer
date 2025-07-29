@@ -103,6 +103,7 @@ const ElementNode = defineComponent({
     );
     //更新值
     const handleUpdate = (nv: any) => {
+      if (isEqual(nv, bindValue.value)) return;
       //!与此同时 如果defaultValue是sourceData 也要更新source去触发对应的更新
       if (
         isValueIsSourceData(localSchema.props?.defaultValue) &&
@@ -120,12 +121,12 @@ const ElementNode = defineComponent({
       }
     };
     //监听当前的绑定的值 变了的话 要去更改
-    watch(
-      () => bindValue.value,
-      () => {
-        handleUpdate(bindValue.value);
-      }
-    );
+    // watch(
+    //   () => bindValue.value,
+    //   () => {
+    //     handleUpdate(bindValue.value);
+    //   }
+    // );
     //初始化的时候，去赋值一下bindValue
     const initComponentInstance = (ignoreUndefined: boolean = false) => {
       if (
@@ -242,7 +243,8 @@ const ElementNode = defineComponent({
     const getElementModel = computed(() => {
       if (!!!props.elementSchema.container) {
         return {
-          modelValue: bindValue.value,
+          modelValue:
+            bindValue.value ?? props.elementSchema.props?.defaultValue,
           "onUpdate:modelValue": handleUpdate,
         };
       }
