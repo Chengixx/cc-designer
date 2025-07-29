@@ -13,7 +13,7 @@ import {
   FormSetting,
   IElementSchema,
 } from "@cgx-designer/types";
-import { deepCompareAndModify, stringFirstBigger } from "@cgx-designer/utils";
+import { deepCompareAndModify, capitalizeFirstLetter } from "@cgx-designer/utils";
 import {
   SourceDataItem,
   useElement,
@@ -110,7 +110,7 @@ const ElementBuilder = defineComponent({
       const onEvent: Record<string, Function> = {};
       formFunctionOn &&
         Object.keys(formFunctionOn).forEach((item) => {
-          onEvent["on" + stringFirstBigger(item)] = (...args: any[]) =>
+          onEvent["on" + capitalizeFirstLetter(item)] = (...args: any[]) =>
             functionManage.executeFunctions(formFunctionOn[item], ...args);
         });
       return { ...onEvent };

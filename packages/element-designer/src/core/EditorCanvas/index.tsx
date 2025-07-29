@@ -10,7 +10,7 @@ import {
   ElementManage,
   FocusManage,
 } from "@cgx-designer/hooks";
-import { stringFirstBigger } from "@cgx-designer/utils";
+import { capitalizeFirstLetter } from "@cgx-designer/utils";
 import { Empty } from "@cgx-designer/extensions";
 import { elementController } from "@cgx-designer/controller";
 
@@ -34,7 +34,7 @@ const EditorCanvas = defineComponent({
       const onEvent: Record<string, Function> = {};
       formManage.formSetting.on &&
         Object.keys(formManage.formSetting.on).forEach((item) => {
-          onEvent["on" + stringFirstBigger(item)] = (...args: any[]) =>
+          onEvent["on" + capitalizeFirstLetter(item)] = (...args: any[]) =>
             functionManage.executeFunctions(
               formManage.formSetting.on![item],
               ...args

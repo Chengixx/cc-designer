@@ -2,7 +2,7 @@ import { defineAsyncComponent, defineComponent, Fragment, ref } from "vue";
 import {
   deepClone,
   getRandomId,
-  stringFirstSmaller,
+  lowercaseFirstLetter,
 } from "@cgx-designer/utils";
 import {
   ElementListMode,
@@ -100,7 +100,7 @@ export class ElementController {
   };
   //增加当前组件库的key
   addLibElementKey = (key: string) => {
-    this.libElementKeys.push(stringFirstSmaller(key));
+    this.libElementKeys.push(lowercaseFirstLetter(key));
   };
   //注册元素到左侧菜单栏，必须走这里过
   register = (elementBaseConfig: IElementBaseSetting) => {

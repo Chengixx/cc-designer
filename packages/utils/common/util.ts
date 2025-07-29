@@ -111,7 +111,7 @@ export const deepClone = <T>(obj: T): T => {
  * @param str 输入字符串
  * @returns 首字母大写的字符串
  */
-export const stringFirstBigger = (str: string): string => {
+export const capitalizeFirstLetter = (str: string): string => {
   if (!str) return str;
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
@@ -121,7 +121,7 @@ export const stringFirstBigger = (str: string): string => {
  * @param str 输入字符串
  * @returns 首字母小写的字符串
  */
-export const stringFirstSmaller = (str: string): string => {
+export const lowercaseFirstLetter = (str: string): string => {
   if (!str) return str;
   return str.charAt(0).toLowerCase() + str.slice(1);
 };
