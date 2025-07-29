@@ -177,7 +177,7 @@ const ElementNode = defineComponent({
         instance.setAttr = (key: string, value: any) =>
           ((localSchema.props ??= {})[key] = value);
 
-        instance.getAttr = (key: string) => localSchema.props![key];
+        instance.getAttr = (key: string) => localSchema.props?.[key];
         //如果是表单组件 把输入值和获取值方法也放一下
         if (localSchema.formItem) {
           instance.setValue = handleUpdate;
