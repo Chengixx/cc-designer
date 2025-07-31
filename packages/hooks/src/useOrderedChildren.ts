@@ -1,6 +1,5 @@
 import { shallowRef, isVNode } from "vue";
 import { flattedChildren } from "@cgx-designer/utils";
-
 import type { ComponentInternalInstance, VNode } from "vue";
 
 const getOrderedChildren = <T>(

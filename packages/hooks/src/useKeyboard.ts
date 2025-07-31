@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted } from "vue";
+import { useEventListener } from "@vueuse/core";
 
 export interface KeyboardHandler {
   key: string; // 按键，多个按键用逗号分隔，如 "ctrl+c", "ctrl+shift+a", "cmd+z"
@@ -82,9 +82,8 @@ export const useKeyboard = (handlers: KeyboardHandler[]) => {
       (target.tagName === "INPUT" ||
         target.tagName === "TEXTAREA" ||
         target.contentEditable === "true")
-    ) {
+    )
       return;
-    }
 
     // 查找匹配的处理器
     const matchedHandler = handlers.find((handler) =>
@@ -97,15 +96,8 @@ export const useKeyboard = (handlers: KeyboardHandler[]) => {
     }
   };
 
-  // 挂载时绑定事件
-  onMounted(() => {
-    document.addEventListener("keydown", handleKeyDown);
-  });
-
-  // 卸载时记得移除事件
-  onUnmounted(() => {
-    document.removeEventListener("keydown", handleKeyDown);
-  });
+  // 绑定事件
+  useEventListener(document, "keydown", handleKeyDown);
 
   return {
     addHandler: (handler: KeyboardHandler) => {

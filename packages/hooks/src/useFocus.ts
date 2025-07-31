@@ -6,6 +6,7 @@ import { useTimedQuery } from "./useTimedQuery";
 import { IElementSchema } from "@cgx-designer/types";
 import { ModeManage } from "./useMode";
 import { getElementDomInstance } from "./useElementDom";
+import { useEventListener } from "@vueuse/core";
 
 export type FocusManage = ReturnType<typeof useFocus>;
 
@@ -38,10 +39,8 @@ export const useFocus = (
 
   const initCanvas = (ref: HTMLDivElement) => {
     containerRef.value = ref;
-    //且需要监听他的滚动，给赋值
-    containerRef.value?.addEventListener("scroll", () => {
-      setFocusWidgetStyle();
-    });
+    // useEventListener(containerRef, "scroll", setFocusWidgetStyle);
+    useEventListener(window, "resize", setFocusWidgetStyle);
     startObserver();
   };
 

@@ -1,5 +1,6 @@
 import { useSupported } from "@vueuse/core";
 import { computed, onBeforeUnmount, Ref, ref, toValue, watch } from "vue";
+
 export const defaultObserverConfig: MutationObserverInit = {
   childList: true,
   attributes: true,
@@ -69,6 +70,7 @@ export function useMutationObserver(
   };
   // 在组件卸载前清理 MutationObserver
   onBeforeUnmount(() => cleanup());
+
   return {
     startObserver,
     stopObserver,
