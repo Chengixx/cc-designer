@@ -87,6 +87,12 @@ const ElementDesigner = defineComponent({
         key: isMac ? "cmd+shift+z" : "ctrl+shift+z",
         handler: queueManage.redo,
       },
+      {
+        key: isMac ? "cmd+f" : "ctrl+f",
+        handler: () => {
+          searchBarRef.value.show();
+        },
+      },
     ]);
 
     return () => (
