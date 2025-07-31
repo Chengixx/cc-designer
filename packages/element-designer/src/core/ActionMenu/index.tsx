@@ -35,8 +35,8 @@ interface IMenuItem {
 const ActionMenu = defineComponent({
   setup() {
     const Button = elementController.getElementRender("button");
-    const collapseManage = inject("collapseManage") as CollapseManage;
-    const focusManage = inject("focusManage") as FocusManage;
+    const collapseManager = inject("collapseManager") as CollapseManage;
+    const focusManager = inject("focusManager") as FocusManage;
     const moreDialogRef = ref<typeof MoreDialog>();
     const createRefDialogRef = ref<typeof CreateRefDialog>();
     const searchValue = ref<string>("");
@@ -121,16 +121,16 @@ const ActionMenu = defineComponent({
               if (Icon.click) {
                 Icon.click();
               } else {
-                focusManage.startFocusTimedQuery();
-                if (collapseManage.leftMenuCollapseState.value === false) {
-                  collapseManage.toggleLeftMenu();
+                focusManager.startFocusTimedQuery();
+                if (collapseManager.leftMenuCollapseState.value === false) {
+                  collapseManager.toggleLeftMenu();
                 }
                 if (settingTab.value !== Icon.key) {
                   searchValue.value = "";
                 }
                 settingTab.value = Icon.key;
                 setTimeout(() => {
-                  focusManage.stopFocusTimedQuery();
+                  focusManager.stopFocusTimedQuery();
                 }, 350);
               }
             }}
@@ -168,14 +168,14 @@ const ActionMenu = defineComponent({
             <div
               onClick={() => {
                 if (!currentActiveRenderData.value?.isFullScreen) {
-                  focusManage.startFocusTimedQuery();
-                  collapseManage.toggleLeftMenu();
+                  focusManager.startFocusTimedQuery();
+                  collapseManager.toggleLeftMenu();
                   setTimeout(() => {
-                    focusManage.stopFocusTimedQuery();
+                    focusManager.stopFocusTimedQuery();
                     settingTab.value = undefined;
                   }, 350);
                 } else {
-                  collapseManage.toggleLeftMenu();
+                  collapseManager.toggleLeftMenu();
                   settingTab.value = undefined;
                 }
               }}
@@ -211,10 +211,10 @@ const ActionMenu = defineComponent({
         <div
           class={[
             "c-overflow-hidden c-transition-all c-duration-300 c-h-[calc(100vh-48px)] c-flex c-flex-col c-relative c-border-t c-border-gray-200 dark:c-border-darkMode",
-            collapseManage.leftMenuCollapseState.value && "c-border-r",
+            collapseManager.leftMenuCollapseState.value && "c-border-r",
           ]}
           style={{
-            width: collapseManage.leftMenuCollapseState.value
+            width: collapseManager.leftMenuCollapseState.value
               ? currentActiveRenderData.value?.width || undefined
               : "0",
           }}

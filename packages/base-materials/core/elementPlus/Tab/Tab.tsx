@@ -6,18 +6,18 @@ import { createElementProps } from "@cgx-designer/utils";
 const Tab = defineComponent({
   props: createElementProps(),
   setup(props, { slots }) {
-    const elementManage = inject("elementManage") as ElementManage;
-    const focusManage = inject("focusManage") as FocusManage;
+    const elementManager = inject("elementManager") as ElementManage;
+    const focusManager = inject("focusManager") as FocusManage;
     //原型元素
     const prototypeElementSchema = computed(() => {
-      return elementManage.getElementById(props.elementSchema.id!);
+      return elementManager.getElementById(props.elementSchema.id!);
     });
     //用于聚焦某个tabPane
     const handleFocusTabPane = (index: number) => {
-      if (!elementManage.isDesignMode.value) return;
+      if (!elementManager.isDesignMode.value) return;
       const tabPaneId = props.elementSchema.elementList![index].id!;
-      const tabPanePrototype = elementManage.getElementById(tabPaneId);
-      focusManage.handleFocus(tabPanePrototype!);
+      const tabPanePrototype = elementManager.getElementById(tabPaneId);
+      focusManager.handleFocus(tabPanePrototype!);
     };
     //切换tab
     const handleTabChange = (v: TabPaneName) => {

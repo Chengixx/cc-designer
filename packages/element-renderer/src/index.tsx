@@ -61,12 +61,12 @@ const ElementBuilder = defineComponent({
   },
   setup(props, { expose, slots }) {
     const Form = elementController.getElementRender("form");
-    const elementManage = useElement();
-    const sourceDataManage = useSourceData(elementManage);
-    const functionManage = useFunction(elementManage, sourceDataManage);
-    provide("elementManage", elementManage);
-    provide("functionManage", functionManage);
-    provide("sourceDataManage", sourceDataManage);
+    const elementManager = useElement();
+    const sourceDataManager = useSourceData(elementManager);
+    const functionManager = useFunction(elementManager, sourceDataManager);
+    provide("elementManager", elementManager);
+    provide("functionManager", functionManager);
+    provide("sourceDataManager", sourceDataManager);
     //!以下正式builder逻辑，上面注入目前只是为了不报警告
     let formData = reactive(props.formData);
     const modelValue = ref<any>(null);
@@ -95,9 +95,9 @@ const ElementBuilder = defineComponent({
         : props.sourceData;
     });
     //!一进来先赋值一遍
-    sourceDataManage.setSourceData(useSourceDataList.value);
-    elementManage.setElementList(useElementSchemaList.value);
-    elementManage.setMode(false);
+    sourceDataManager.setSourceData(useSourceDataList.value);
+    elementManager.setElementList(useElementSchemaList.value);
+    elementManager.setMode(false);
     //脚本配置
     const useScript = computed(() => {
       return props.builderSchema.script || props.script;
@@ -111,7 +111,7 @@ const ElementBuilder = defineComponent({
       formFunctionOn &&
         Object.keys(formFunctionOn).forEach((item) => {
           onEvent["on" + capitalizeFirstLetter(item)] = (...args: any[]) =>
-            functionManage.executeFunctions(formFunctionOn[item], ...args);
+            functionManager.executeFunctions(formFunctionOn[item], ...args);
         });
       return { ...onEvent };
     });
@@ -120,7 +120,7 @@ const ElementBuilder = defineComponent({
       () => useScript.value,
       () => {
         //监听脚本内容 如果有 就直接更新了
-        functionManage.setJavaScriptVal(useScript.value);
+        functionManager.setJavaScriptVal(useScript.value);
       },
       { immediate: true }
     );

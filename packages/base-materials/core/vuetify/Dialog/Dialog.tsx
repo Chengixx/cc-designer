@@ -15,7 +15,7 @@ const Dialog = defineComponent({
   inheritAttrs: false,
   emits: ["update:modelValue"],
   setup(props, { attrs, slots, emit }) {
-    const themeManage = inject("themeManage") as ThemeManage;
+    const themeManager = inject("themeManager") as ThemeManage;
     const handleLeave = () => {
       emit("update:modelValue", false);
     };
@@ -33,7 +33,7 @@ const Dialog = defineComponent({
           minHeight={"80vh"}
           minWidth={"50vw"}
           maxWidth={"50vw"}
-          color={themeManage.isDark.value ? "#141414" : "#fff"}
+          color={themeManager.isDark.value ? "#141414" : "#fff"}
         >
           {/* 标题,有才显示,为了兼容element */}
           {renderProps.title && (

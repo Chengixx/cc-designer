@@ -18,11 +18,11 @@ export const ImportSourceCodeDialog = defineComponent({
   setup(_, { expose }) {
     const Button = elementController.getElementRender("button");
     const Dialog = elementController.getElementRender("dialog");
-    const formManage = inject("formManage") as FormManage;
-    const functionManage = inject("functionManage") as FunctionManage;
-    const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
-    const elementManage = inject("elementManage") as ElementManage;
-    const queueManage = inject("queueManage") as QueueManage;
+    const formManager = inject("formManager") as FormManage;
+    const functionManager = inject("functionManager") as FunctionManage;
+    const sourceDataManager = inject("sourceDataManager") as SourceDataManage;
+    const elementManager = inject("elementManager") as ElementManage;
+    const queueManager = inject("queueManager") as QueueManage;
     const jsonContent = ref<string>("");
     const isShow = ref<boolean>(false);
     const handleOpen = () => {
@@ -38,12 +38,12 @@ export const ImportSourceCodeDialog = defineComponent({
       const value = jsonContent.value;
       try {
         if (value && checkCJsonType(JSON.parse(value))) {
-          elementManage.setElementList(JSON.parse(value).elementList);
-          formManage.setFormSetting(JSON.parse(value).formSetting);
-          functionManage.setJavaScriptVal(JSON.parse(value).script);
-          sourceDataManage.setSourceData(JSON.parse(value).sourceData);
+          elementManager.setElementList(JSON.parse(value).elementList);
+          formManager.setFormSetting(JSON.parse(value).formSetting);
+          functionManager.setJavaScriptVal(JSON.parse(value).script);
+          sourceDataManager.setSourceData(JSON.parse(value).sourceData);
           Message.success("导入成功");
-          queueManage.push("import");
+          queueManager.push("import");
           isShow.value = false;
         } else {
           Message.warning("导入失败，请检查数据格式");

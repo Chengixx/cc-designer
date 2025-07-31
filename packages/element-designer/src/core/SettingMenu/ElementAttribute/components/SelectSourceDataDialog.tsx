@@ -21,7 +21,7 @@ export const SelectSourceDataDialog = defineComponent({
   setup(_, { expose, emit }) {
     const Button = elementController.getElementRender("button");
     const Dialog = elementController.getElementRender("dialog");
-    const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
+    const sourceDataManager = inject("sourceDataManager") as SourceDataManage;
     //这个属性仅仅用于解除绑定
     const innerAttributeConfig = ref<IAttributeSchema>();
     const currentSelectIndex = ref<number>(-1);
@@ -42,7 +42,7 @@ export const SelectSourceDataDialog = defineComponent({
       if (elementAttrObj) {
         sourceDataName.value = elementAttrObj.value;
         innerElementAttrObj.value = deepClone(elementAttrObj);
-        currentSelectIndex.value = sourceDataManage.sourceData.value.findIndex(
+        currentSelectIndex.value = sourceDataManager.sourceData.value.findIndex(
           (dataItem) => dataItem.name === elementAttrObj.value
         );
       }
@@ -85,7 +85,7 @@ export const SelectSourceDataDialog = defineComponent({
                 <div class="c-w-full c-h-10 c-flex c-justify-center c-items-center c-border-b dark:c-border-darkMode">
                   变量列表
                 </div>
-                {sourceDataManage.sourceData.value.map(
+                {sourceDataManager.sourceData.value.map(
                   (dataItem, dataIndex) => {
                     return (
                       <div

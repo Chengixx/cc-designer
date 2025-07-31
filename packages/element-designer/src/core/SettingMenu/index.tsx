@@ -9,14 +9,14 @@ import ElementBread from "./ElementBread";
 
 const SettingMenu = defineComponent({
   setup() {
-    const collapseManage = inject("collapseManage") as CollapseManage;
-    const focusManage = inject("focusManage") as FocusManage;
+    const collapseManager = inject("collapseManager") as CollapseManage;
+    const focusManager = inject("focusManager") as FocusManage;
     const settingTab = ref<string>("0");
     return () => (
       <div
         class={[
           "c-h-[calc(100vh-48px)] c-border-l c-bg-white c-border-gray-200 c-overflow-hidden dark:c-bg-darkMode dark:c-border-darkMode c-transition-[width] c-duration-300",
-          collapseManage.rightMenuCollapseState.value ? "c-w-[300px]" : "c-w-0",
+          collapseManager.rightMenuCollapseState.value ? "c-w-[300px]" : "c-w-0",
         ]}
       >
         <div class="c-h-full c-border-t c-border-gray-200 dark:c-border-darkMode c-min-w-[300px]">
@@ -24,7 +24,7 @@ const SettingMenu = defineComponent({
           <Tabs v-model={settingTab.value} class="no-padding-tabs">
             <TabPane label="属性">
               <div class="c-h-[calc(100vh-128px)] c-overflow-y-auto c-px-2 c-pt-2 c-border-t dark:c-border-darkMode">
-                {focusManage.focusedElement.value ? (
+                {focusManager.focusedElement.value ? (
                   <ElementAttribute />
                 ) : (
                   <EditorFormSetting />

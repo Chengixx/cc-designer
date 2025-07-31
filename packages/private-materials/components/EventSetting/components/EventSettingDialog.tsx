@@ -24,8 +24,8 @@ const EventSettingDialog = defineComponent({
   setup(_, { expose, emit }) {
     const Button = elementController.getElementRender("button");
     const Dialog = elementController.getElementRender("dialog");
-    const functionManage = inject("functionManage") as FunctionManage;
-    const elementManage = inject("elementManage") as ElementManage;
+    const functionManager = inject("functionManager") as FunctionManage;
+    const elementManager = inject("elementManager") as ElementManage;
     const dialogShow = ref<boolean>(false);
     const isAdd = ref<boolean>(true);
     const selectedKey = ref<string>("");
@@ -54,7 +54,7 @@ const EventSettingDialog = defineComponent({
       }
       //用户自己写的script的情况
       if (eventInstance.type === "custom") {
-        return Object.entries(functionManage.functionsList.value)
+        return Object.entries(functionManager.functionsList.value)
           .filter(([_key, value]) => typeof value === "function")
           .map(([label]) => ({ label, value: label }));
       }
@@ -163,7 +163,7 @@ const EventSettingDialog = defineComponent({
         elementSchema.value = null;
         if (newEventInstance!.componentId) {
           //这就是说明是组件联动的
-          const newElementSchema = elementManage.getElementById(
+          const newElementSchema = elementManager.getElementById(
             newEventInstance!.componentId
           );
           elementSchema.value = newElementSchema;
@@ -228,10 +228,10 @@ const EventSettingDialog = defineComponent({
                     <TabPane label="组件联动" name="component">
                       <div class="c-px-2 c-pt-2  c-border-t dark:c-border-darkMode c-flex c-flex-col c-h-[calc(70vh-40px-.5rem)]">
                         <div class="c-h-[40vh] c-overflow-y-auto c-w-full c-border-b dark:c-border-darkMode">
-                          {elementManage.elementList.value.length ? (
+                          {elementManager.elementList.value.length ? (
                             <CTree
                               v-model:elementList={
-                                elementManage.elementList.value
+                                elementManager.elementList.value
                               }
                               v-model:selectedKey={selectedKey.value}
                               onNodeClick={({

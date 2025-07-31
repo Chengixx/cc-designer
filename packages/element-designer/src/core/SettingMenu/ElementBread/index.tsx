@@ -5,11 +5,11 @@ import { computed, defineComponent, inject } from "vue";
 
 const ElementBread = defineComponent({
   setup() {
-    const elementManage = inject("elementManage") as ElementManage;
-    const focusManage = inject("focusManage") as FocusManage;
+    const elementManager = inject("elementManager") as ElementManage;
+    const focusManager = inject("focusManager") as FocusManage;
     const elementTreePath = computed(() => {
-      const focusElement = focusManage.focusedElement.value;
-      let tempElementTreePath = elementManage.getElementTreePathById(
+      const focusElement = focusManager.focusedElement.value;
+      let tempElementTreePath = elementManager.getElementTreePathById(
         focusElement?.id!
       );
       //加上根节点
@@ -41,9 +41,9 @@ const ElementBread = defineComponent({
                 onClick={() => {
                   if (index === renderElement.value.length - 1) return;
                   if (element.key === "主页") {
-                    focusManage.resetFocus();
+                    focusManager.resetFocus();
                   }
-                  focusManage.handleFocusById(element.id!);
+                  focusManager.handleFocusById(element.id!);
                 }}
                 class="c-flex c-justify-center c-items-center c-gap-x-1 c-cursor-pointer"
               >

@@ -8,7 +8,7 @@ export const CreateRefDialog = defineComponent({
     const Button = elementController.getElementRender("button");
     const Dialog = elementController.getElementRender("dialog");
     const Input = elementController.getElementRender("input");
-    const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
+    const sourceDataManager = inject("sourceDataManager") as SourceDataManage;
     const dialogTitle = ref<string>("新增数据源");
     const initialValue = ref<string>("");
     const innerDataIndex = ref<number>(-1);
@@ -34,12 +34,12 @@ export const CreateRefDialog = defineComponent({
     };
     const handleConfirm = () => {
       dialogTitle.value === "新增数据源"
-        ? sourceDataManage.addSourceData(
+        ? sourceDataManager.addSourceData(
             "ref",
             dataName.value,
             JSON.parse(initialValue.value)
           )
-        : sourceDataManage.editSourceData(
+        : sourceDataManager.editSourceData(
             innerDataIndex.value,
             dataName.value,
             JSON.parse(initialValue.value)

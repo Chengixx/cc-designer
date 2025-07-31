@@ -13,7 +13,7 @@ const OperationMenu = defineComponent({
     },
   },
   setup(props) {
-    const queueManage = inject("queueManage") as QueueManage;
+    const queueManager = inject("queueManager") as QueueManage;
 
     return () => (
       <div class="c-h-[40px] c-flex c-items-center c-border-y c-bg-white c-border-gray-200 dark:c-bg-darkMode dark:c-border-darkMode">
@@ -27,8 +27,8 @@ const OperationMenu = defineComponent({
         {/* 左侧操作区域 */}
         <LeftOperationArea
           buttonMap={props.buttonMap}
-          undoDisabled={!queueManage.canUndo()}
-          redoDisabled={!queueManage.canRedo()}
+          undoDisabled={!queueManager.canUndo()}
+          redoDisabled={!queueManager.canRedo()}
         />
 
         {/* 右侧操作区域 */}

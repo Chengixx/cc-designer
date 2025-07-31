@@ -16,15 +16,15 @@ export const ElementListBarItem = defineComponent({
     },
   },
   setup(props) {
-    const elementManage = inject("elementManage") as ElementManage;
-    const focusManage = inject("focusManage") as FocusManage;
+    const elementManager = inject("elementManager") as ElementManage;
+    const focusManager = inject("focusManager") as FocusManage;
     const isHovered = ref<boolean>(false);
-    const queueManage = inject("queueManage") as QueueManage;
+    const queueManager = inject("queueManager") as QueueManage;
     const handleClick = () => {
       const newElementSchema = props.element.template(getRandomId);
-      elementManage.addElementFromLast(newElementSchema);
-      focusManage.handleFocus(newElementSchema);
-      queueManage.push("add");
+      elementManager.addElementFromLast(newElementSchema);
+      focusManager.handleFocus(newElementSchema);
+      queueManager.push("add");
     };
 
     return () => (
@@ -60,15 +60,15 @@ export const ElementListBoxItem = defineComponent({
     },
   },
   setup(props) {
-    const elementManage = inject("elementManage") as ElementManage;
-    const focusManage = inject("focusManage") as FocusManage;
+    const elementManager = inject("elementManager") as ElementManage;
+    const focusManager = inject("focusManager") as FocusManage;
     const isHovered = ref<boolean>(false);
-    const queueManage = inject("queueManage") as QueueManage;
+    const queueManager = inject("queueManager") as QueueManage;
     const handleClick = () => {
       const newElementSchema = props.element.template(getRandomId);
-      elementManage.addElementFromLast(newElementSchema);
-      focusManage.handleFocus(newElementSchema);
-      queueManage.push("add");
+      elementManager.addElementFromLast(newElementSchema);
+      focusManager.handleFocus(newElementSchema);
+      queueManager.push("add");
     };
 
     return () => (

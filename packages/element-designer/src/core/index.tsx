@@ -42,35 +42,35 @@ const ElementDesigner = defineComponent({
     const importSourceCodeDialogRef = ref<any>(null);
     const searchBarRef = ref<any>(null);
     //所有的hook实例
-    const formManage = useForm();
-    const elementManage = useElement();
-    const collapseManage = useCollapse();
-    const themeManage = useTheme();
-    const modeManage = useMode();
-    const hoverManage = useHover(elementManage, modeManage);
-    const focusManage = useFocus(elementManage, modeManage);
-    const sourceDataManage = useSourceData(elementManage);
-    const functionManage = useFunction(elementManage, sourceDataManage);
-    const queueManage = useQueue(elementManage, focusManage);
+    const formManager = useForm();
+    const elementManager = useElement();
+    const collapseManager = useCollapse();
+    const themeManager = useTheme();
+    const modeManager = useMode();
+    const hoverManager = useHover(elementManager, modeManager);
+    const focusManager = useFocus(elementManager, modeManager);
+    const sourceDataManager = useSourceData(elementManager);
+    const functionManager = useFunction(elementManager, sourceDataManager);
+    const queueManager = useQueue(elementManager, focusManager);
     //因为只能有一个实例 所以用provide注入进去
-    provide("focusManage", focusManage);
-    provide("elementManage", elementManage);
-    provide("themeManage", themeManage);
-    provide("collapseManage", collapseManage);
-    provide("hoverManage", hoverManage);
-    provide("formManage", formManage);
-    provide("modeManage", modeManage);
-    provide("sourceDataManage", sourceDataManage);
-    provide("functionManage", functionManage);
-    provide("queueManage", queueManage);
+    provide("focusManager", focusManager);
+    provide("elementManager", elementManager);
+    provide("themeManager", themeManager);
+    provide("collapseManager", collapseManager);
+    provide("hoverManager", hoverManager);
+    provide("formManager", formManager);
+    provide("modeManager", modeManager);
+    provide("sourceDataManager", sourceDataManager);
+    provide("functionManager", functionManager);
+    provide("queueManager", queueManager);
 
     const manages = {
-      formManage,
-      elementManage,
-      functionManage,
-      focusManage,
-      sourceDataManage,
-      queueManage,
+      formManager,
+      elementManager,
+      functionManager,
+      focusManager,
+      sourceDataManager,
+      queueManager,
     };
 
     const refs = {
@@ -86,11 +86,11 @@ const ElementDesigner = defineComponent({
     useKeyboard([
       {
         key: isMac ? "cmd+z" : "ctrl+z",
-        handler: queueManage.undo,
+        handler: queueManager.undo,
       },
       {
         key: isMac ? "cmd+shift+z" : "ctrl+shift+z",
-        handler: queueManage.redo,
+        handler: queueManager.redo,
       },
       {
         key: isMac ? "cmd+f" : "ctrl+f",

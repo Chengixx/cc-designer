@@ -17,10 +17,10 @@ const PreviewDialog = defineComponent({
   setup(_, { expose }) {
     const Button = elementController.getElementRender("button");
     const Dialog = elementController.getElementRender("dialog");
-    const elementManage = inject("elementManage") as ElementManage;
-    const formManage = inject("formManage") as FormManage;
-    const functionManage = inject("functionManage") as FunctionManage;
-    const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
+    const elementManager = inject("elementManager") as ElementManage;
+    const formManager = inject("formManager") as FormManage;
+    const functionManager = inject("functionManager") as FunctionManage;
+    const sourceDataManager = inject("sourceDataManager") as SourceDataManage;
     const elementBuilderRef = ref<ElementBuilderExpose | null>(null);
     const ValueDialogRef = ref<ValueDialogExpose | null>(null);
     const dialogShow = ref<boolean>(false);
@@ -76,12 +76,12 @@ const PreviewDialog = defineComponent({
                   <ElementRenderer
                     key={ElementBuilderKey.value}
                     ref={elementBuilderRef as any}
-                    script={functionManage.javaScriptVal.value}
+                    script={functionManager.javaScriptVal.value}
                     elementSchemaList={deepClone(
-                      elementManage.elementList.value
+                      elementManager.elementList.value
                     )}
-                    formSetting={formManage.formSetting}
-                    sourceData={cloneDeep(sourceDataManage.sourceData.value)}
+                    formSetting={formManager.formSetting}
+                    sourceData={cloneDeep(sourceDataManager.sourceData.value)}
                   />
                 </div>
               );

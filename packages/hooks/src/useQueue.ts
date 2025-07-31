@@ -7,24 +7,24 @@ import { onMounted } from "vue";
 export type QueueManage = ReturnType<typeof useQueue>;
 
 export const useQueue = (
-  elementManage: ElementManage,
-  focusManage: FocusManage
+  elementManager: ElementManage,
+  focusManager: FocusManage
 ) => {
   const execute = (item: IQueueItem) => {
-    elementManage.setElementList(item.elementList);
+    elementManager.setElementList(item.elementList);
     if (item.focusElementId) {
-      focusManage.handleFocusById(item.focusElementId);
+      focusManager.handleFocusById(item.focusElementId);
     }
-    if (elementManage.elementList.value.length === 0) {
-      focusManage.resetFocus();
+    if (elementManager.elementList.value.length === 0) {
+      focusManager.resetFocus();
     }
   };
 
   const queueController = new QueueController(execute, 100);
 
   const push = (type: string = "default", immediate: boolean = false) => {
-    const elementList = deepClone(elementManage.elementList.value);
-    const focusElementId = focusManage.focusedElement.value?.id;
+    const elementList = deepClone(elementManager.elementList.value);
+    const focusElementId = focusManager.focusedElement.value?.id;
     const item = {
       type,
       elementList,

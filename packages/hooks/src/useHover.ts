@@ -7,11 +7,11 @@ import { getElementDomInstance } from "./useElementDom";
 export type HoverManage = ReturnType<typeof useHover>;
 
 export const useHover = (
-  elementManage: ElementManage,
-  modeManage: ModeManage
+  elementManager: ElementManage,
+  modeManager: ModeManage
 ) => {
   //当前手机还是电脑还是平板模式
-  const currentMode = computed(() => modeManage.mode.value);
+  const currentMode = computed(() => modeManager.mode.value);
   //总的容器
   const containerRef = ref<HTMLDivElement | null>(null);
   //初始化要展示的hover总容器
@@ -25,7 +25,7 @@ export const useHover = (
 
   //当前hover到的元素实例 - 使用共享逻辑
   const hoveredElementDom = computed(() =>
-    getElementDomInstance(elementManage, hoveredElement.value)
+    getElementDomInstance(elementManager, hoveredElement.value)
   );
 
   const initCanvas = (ref: HTMLDivElement) => {

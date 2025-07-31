@@ -15,9 +15,9 @@ interface ModeTypes {
 const ModeButtonGroup = defineComponent({
   directives: { ripple: Ripple },
   setup() {
-    const modeManage = inject("modeManage") as ModeManage;
-    const focusManage = inject("focusManage") as FocusManage;
-    const { setMode } = modeManage;
+    const modeManager = inject("modeManager") as ModeManage;
+    const focusManager = inject("focusManager") as FocusManage;
+    const { setMode } = modeManager;
     const modeTypes: ModeTypes[] = [
       { label: "Pc", value: "pc" },
       { label: "Pad", value: "ipad" },
@@ -32,7 +32,7 @@ const ModeButtonGroup = defineComponent({
             <div
               class={[
                 "c-flex-1 flex c-justify-center c-items-center c-text-center",
-                modeManage.mode.value === modeItem.value &&
+                modeManager.mode.value === modeItem.value &&
                   "c-bg-gray-200 dark:c-bg-gray-700",
                 // 如果不是第一个和最后一个
                 index !== 0 &&
@@ -41,10 +41,10 @@ const ModeButtonGroup = defineComponent({
               ]}
               onClick={(e: MouseEvent) => {
                 e.preventDefault();
-                focusManage.startFocusTimedQuery();
+                focusManager.startFocusTimedQuery();
                 setMode(modeItem.value);
                 setTimeout(() => {
-                  focusManage.stopFocusTimedQuery();
+                  focusManager.stopFocusTimedQuery();
                 }, 350);
               }}
             >
@@ -55,7 +55,7 @@ const ModeButtonGroup = defineComponent({
                 <ModeIconRender
                   style={{
                     fill:
-                      modeManage.mode.value === modeItem.value
+                      modeManager.mode.value === modeItem.value
                         ? "#0079f2"
                         : "#666",
                   }}

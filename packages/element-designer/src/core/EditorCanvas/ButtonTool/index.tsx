@@ -41,10 +41,10 @@ const BottonToolIconSell = (props: {
 
 const ButtonTool = defineComponent({
   setup() {
-    const focusManage = inject("focusManage") as FocusManage;
-    const hoverManage = inject("hoverManage") as HoverManage;
-    const elementManage = inject("elementManage") as ElementManage;
-    const queueManage = inject("queueManage") as QueueManage;
+    const focusManager = inject("focusManager") as FocusManage;
+    const hoverManager = inject("hoverManager") as HoverManage;
+    const elementManager = inject("elementManager") as ElementManage;
+    const queueManager = inject("queueManager") as QueueManage;
     const editorCanvasRef = inject("editorCanvasRef") as Ref<HTMLDivElement>;
     const position = ref<"top" | "bottom">("top");
     const TOOL_HEIGHT = 28;
@@ -52,7 +52,7 @@ const ButtonTool = defineComponent({
 
     // 更新操作条位置
     const updateToolPosition = () => {
-      const el = focusManage.focusedElementDom.value;
+      const el = focusManager.focusedElementDom.value;
       if (!el) return;
 
       nextTick(() => {
@@ -61,11 +61,11 @@ const ButtonTool = defineComponent({
       });
     };
 
-    watch(() => focusManage.focusedElementDom.value, updateToolPosition, {
+    watch(() => focusManager.focusedElementDom.value, updateToolPosition, {
       immediate: true,
     });
 
-    watch(() => focusManage.focusWidgetRect.value, updateToolPosition);
+    watch(() => focusManager.focusWidgetRect.value, updateToolPosition);
 
     const toolStyle = computed(() =>
       position.value === "top"
@@ -77,7 +77,7 @@ const ButtonTool = defineComponent({
     );
 
     const horizontalPosition = computed(() => {
-      const rect = focusManage.focusWidgetRect.value;
+      const rect = focusManager.focusWidgetRect.value;
       const container = editorCanvasRef?.value;
       if (!rect || !container) return "c-right-1";
 
@@ -110,34 +110,34 @@ const ButtonTool = defineComponent({
 
     const handleCopy = (e: MouseEvent) => {
       e.stopPropagation();
-      const newElementSchema = elementManage.deepCopyElement(
-        deepClone(focusManage.focusedElement.value!)
+      const newElementSchema = elementManager.deepCopyElement(
+        deepClone(focusManager.focusedElement.value!)
       );
-      elementManage.addElementFromLast(newElementSchema as IElementSchema);
-      focusManage.handleFocus(newElementSchema as IElementSchema);
-      queueManage.push("copy");
+      elementManager.addElementFromLast(newElementSchema as IElementSchema);
+      focusManager.handleFocus(newElementSchema as IElementSchema);
+      queueManager.push("copy");
     };
 
     const handleDelete = (e: MouseEvent) => {
       e.stopPropagation();
-      focusManage.startFocusTimedQuery();
-      const id = focusManage.focusedElement.value?.id;
-      elementManage.deleteElementById(id!);
-      focusManage.resetFocus();
-      queueManage.push("delete");
-      focusManage.stopFocusTimedQuery();
+      focusManager.startFocusTimedQuery();
+      const id = focusManager.focusedElement.value?.id;
+      elementManager.deleteElementById(id!);
+      focusManager.resetFocus();
+      queueManager.push("delete");
+      focusManager.stopFocusTimedQuery();
     };
 
     const handleTop = (e: MouseEvent) => {
       e.stopPropagation();
-      const id = focusManage.focusedElement.value?.id;
-      const parentDom = elementManage.getParentElementById(id!);
-      focusManage.handleFocus(parentDom!);
+      const id = focusManager.focusedElement.value?.id;
+      const parentDom = elementManager.getParentElementById(id!);
+      focusManager.handleFocus(parentDom!);
     };
 
     const elementTree = computed(() => {
-      const innerTree = elementManage.getElementTreePathById(
-        focusManage.focusedElement.value?.id!
+      const innerTree = elementManager.getElementTreePathById(
+        focusManager.focusedElement.value?.id!
       );
       return isHover.value ? innerTree : innerTree.slice(-1);
     });
@@ -165,15 +165,15 @@ const ButtonTool = defineComponent({
                   class="c-w-full c-flex c-gap-x-1 c-p-1 c-bg-blue-500 c-rounded c-text-xs c-text-white"
                   onClick={(e: MouseEvent) => {
                     e.stopPropagation();
-                    focusManage.handleFocus(elementSchema);
+                    focusManager.handleFocus(elementSchema);
                     setIsHover(false);
                   }}
                   onMouseenter={(e: MouseEvent) => {
-                    hoverManage.handleHover(e, elementSchema);
+                    hoverManager.handleHover(e, elementSchema);
                   }}
                   onMouseleave={(e: MouseEvent) => {
                     e.stopPropagation();
-                    hoverManage.setHoveredElement();
+                    hoverManager.setHoveredElement();
                   }}
                 >
                   <ElementIcon class="c-w-[16px] c-h-[16px] c-fill-white" />
@@ -189,7 +189,7 @@ const ButtonTool = defineComponent({
             title="复制组件"
             clickCb={handleCopy}
             show={
-              !noCopyDomList.includes(focusManage.focusedElement.value?.key!)
+              !noCopyDomList.includes(focusManager.focusedElement.value?.key!)
             }
           />
           <BottonToolIconSell
@@ -197,7 +197,7 @@ const ButtonTool = defineComponent({
             title="父级元素"
             clickCb={handleTop}
             show={findHigherLevelDomList.includes(
-              focusManage.focusedElement.value?.key!
+              focusManager.focusedElement.value?.key!
             )}
           />
           <BottonToolIconSell

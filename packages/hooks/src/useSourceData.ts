@@ -15,7 +15,7 @@ export interface SourceDataItem {
   instance: RefState;
 }
 
-export const useSourceData = (elementManage: ElementManage) => {
+export const useSourceData = (elementManager: ElementManage) => {
   const sourceData = ref<SourceDataItem[]>([]);
 
   const setSourceData = (target: SourceDataItem[]) => {
@@ -25,7 +25,7 @@ export const useSourceData = (elementManage: ElementManage) => {
         sourceDataItem.instance.initialValue,
         sourceDataItem.instance.deps
       );
-      target.init(elementManage.getElementInstanceById);
+      target.init(elementManager.getElementInstanceById);
       return {
         ...sourceDataItem,
         instance: target,
@@ -55,7 +55,7 @@ export const useSourceData = (elementManage: ElementManage) => {
       //这个时候应该把所有的依赖都更新一遍
       innerSourceData.instance.deps.forEach((dep) => {
         //找到每一个schema 然后去更改里面的值
-        const elementSchema = elementManage.getElementById(dep.componentId);
+        const elementSchema = elementManager.getElementById(dep.componentId);
         //这里按道理讲不可能为空 除非用户乱改了
         //拿到之后 把value改成新的
         getValueByPath(elementSchema!, dep.attrName).value = name;
@@ -74,7 +74,7 @@ export const useSourceData = (elementManage: ElementManage) => {
     if (sourceDataItem) {
       sourceDataItem.instance.deps.forEach((dep) => {
         //找到每一个schema 然后去更改里面的值
-        const elementSchema = elementManage.getElementById(dep.componentId);
+        const elementSchema = elementManager.getElementById(dep.componentId);
         //这里按道理讲不可能为空 除非用户乱改了
         //拿到之后 把value改成新的
         if (dep.attrName.startsWith("props.")) {

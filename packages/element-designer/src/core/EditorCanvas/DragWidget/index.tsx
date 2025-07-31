@@ -9,20 +9,20 @@ const DragWidget = defineComponent({
     elementSchema: { type: Object as PropType<IElementSchema>, required: true },
   },
   setup(props) {
-    const focusManage = inject("focusManage") as FocusManage;
+    const focusManager = inject("focusManager") as FocusManage;
     const widgetRef = ref<HTMLElement | null>(null);
     const { width: windowWidth } = useWindowSize();
     const isDragWidgetHovered = ref<boolean>(false);
     const handleClick = (e: MouseEvent) => {
-      focusManage.handleFocus(props.elementSchema, e);
+      focusManager.handleFocus(props.elementSchema, e);
     };
     const computedWidgetLeftValue = () => {
-      if (focusManage.focusedElement.value?.key === "col") {
-        if (!focusManage.focusedElementDom.value) return "0px";
-        const parentElement = focusManage.focusedElementDom.value.parentElement;
+      if (focusManager.focusedElement.value?.key === "col") {
+        if (!focusManager.focusedElementDom.value) return "0px";
+        const parentElement = focusManager.focusedElementDom.value.parentElement;
         const parentRect = parentElement.getBoundingClientRect();
         const focusWidgetRect =
-          focusManage.focusedElementDom.value.getBoundingClientRect();
+          focusManager.focusedElementDom.value.getBoundingClientRect();
         return focusWidgetRect.left - parentRect.left + "px";
       } else {
         return "0px";

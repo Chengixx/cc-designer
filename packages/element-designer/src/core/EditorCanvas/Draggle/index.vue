@@ -16,23 +16,23 @@ const props = defineProps<{
   elementSchemaList: IElementSchema[];
   isNested: boolean;
 }>();
-const hoverManage = inject("hoverManage") as HoverManage;
-const focusManage = inject("focusManage") as FocusManage;
-const modeManage = inject("modeManage") as ModeManage;
-const queueManage = inject("queueManage") as QueueManage;
+const hoverManager = inject("hoverManager") as HoverManage;
+const focusManager = inject("focusManager") as FocusManage;
+const modeManager = inject("modeManager") as ModeManage;
+const queueManager = inject("queueManager") as QueueManage;
 const { handleDrapStart, handleDrapEnd: useDragHandleDragEnd } = useDrag();
 const _noNeedMarginBottom = (elementSchema: IElementSchema) =>
   noNeedMarginBottomDomList.includes(elementSchema.key) ||
   elementController.getCurrentElementLibraryName() === "vuetify";
 
 const handleAdd = (index: number) => {
-  focusManage.handleFocus(props.elementSchemaList[index]);
-  queueManage.push("add");
+  focusManager.handleFocus(props.elementSchemaList[index]);
+  queueManager.push("add");
 };
 
 const handleDragEnd = () => {
-  useDragHandleDragEnd(hoverManage, focusManage);
-  queueManage.push("drag");
+  useDragHandleDragEnd(hoverManager, focusManager);
+  queueManager.push("drag");
 };
 </script>
 
@@ -47,12 +47,12 @@ const handleDragEnd = () => {
     :class="[
       props.isNested
         ? 'c-min-h-[60px] c-border-dashed c-border c-border-[#d9d9d9] c-h-full'
-        : modeManage.mode.value === 'pc'
+        : modeManager.mode.value === 'pc'
           ? 'c-min-h-[calc(100vh-116px)] c-w-full c-bg-white c-p-2 dark:c-bg-darkMode'
           : 'c-min-h-[calc(100vh-136px)] c-w-full c-bg-white c-p-2 dark:c-bg-darkMode',
       ,
     ]"
-    @start="() => handleDrapStart(hoverManage, focusManage)"
+    @start="() => handleDrapStart(hoverManager, focusManager)"
     @end="() => handleDragEnd()"
     @add="(e: any) => handleAdd(e.newIndex)"
     @dragover.prevent

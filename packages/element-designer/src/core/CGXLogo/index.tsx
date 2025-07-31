@@ -7,7 +7,7 @@ import { elementController } from "@cgx-designer/controller";
 import { vuetifyConfig } from "@cgx-designer/base-materials";
 
 const CGXLogo = () => {
-  const themeManage = inject("themeManage") as ThemeManage;
+  const themeManager = inject("themeManager") as ThemeManage;
   const Switch = elementController.getElementRender("switch");
   return (
     <div class="c-w-full c-h-12 c-bg-white c-flex c-items-center dark:c-bg-[#141414] c-px-3">
@@ -19,7 +19,7 @@ const CGXLogo = () => {
         <CcIcon
           class="c-mr-1 c-w-[24px] c-h-[24px]"
           style={{
-            filter: themeManage.isDark.value
+            filter: themeManager.isDark.value
               ? "drop-shadow(2px 2px 6px #409eff)"
               : "drop-shadow(2px 2px 6px #999999)",
           }}
@@ -27,7 +27,7 @@ const CGXLogo = () => {
         <span
           class="dark:c-text-[#5a9cf8] c-font-semibold"
           style={{
-            filter: themeManage.isDark.value
+            filter: themeManager.isDark.value
               ? "drop-shadow(2px 2px 6px #409eff)"
               : "drop-shadow(2px 2px 6px #999999)",
           }}
@@ -40,7 +40,7 @@ const CGXLogo = () => {
         <Switch
           title="切换黑暗|明亮主题"
           {...vuetifyConfig}
-          v-model={themeManage.isDark.value}
+          v-model={themeManager.isDark.value}
           inline-prompt
           active-action-icon={DarkIcon}
           inactive-action-icon={LightIcon}

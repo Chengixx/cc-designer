@@ -9,7 +9,7 @@ const EditFormSetting = defineComponent({
   setup() {
     const formConfigList =
       elementController.getCurrentElementPlugin()?.formConfig;
-    const formManage = inject("formManage") as FormManage;
+    const formManager = inject("formManager") as FormManage;
     return () => (
       <div class="c-h-full c-overflow-y-auto">
         {formConfigList &&
@@ -18,11 +18,11 @@ const EditFormSetting = defineComponent({
               <ElementEngine
                 elementSchema={{ ...formConfig, formItem: false }}
                 modelValue={getValueByPath(
-                  formManage.formSetting,
+                  formManager.formSetting,
                   formConfig.field!
                 )}
                 onUpdate:modelValue={(v: any) => {
-                  setValueByPath(formManage.formSetting, formConfig.field!, v);
+                  setValueByPath(formManager.formSetting, formConfig.field!, v);
                 }}
               />
             </CFormItem>

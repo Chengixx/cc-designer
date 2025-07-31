@@ -7,11 +7,11 @@ import { EventSetting } from "@cgx-designer/private-materials";
 const ElementEvent = defineComponent({
   setup() {
     const elementConfigMap = elementController.elementConfigMap;
-    const formManage = inject("formManage") as FormManage;
-    const focusManage = inject("focusManage") as FocusManage;
-    const queueManage = inject("queueManage") as QueueManage;
+    const formManager = inject("formManager") as FormManage;
+    const focusManager = inject("focusManager") as FocusManage;
+    const queueManager = inject("queueManager") as QueueManage;
     const focusedElement = computed(() => {
-      return focusManage.focusedElement.value;
+      return focusManager.focusedElement.value;
     });
 
     const eventList = computed(() => {
@@ -33,16 +33,16 @@ const ElementEvent = defineComponent({
           key={focusedElement.value?.id}
           eventList={eventList.value}
           modelValue={getValueByPath(
-            focusedElement.value || formManage.formSetting,
+            focusedElement.value || formManager.formSetting,
             `on`
           )}
           onUpdateModelValue={(v: any) => {
             setValueByPath(
-              focusedElement.value || formManage.formSetting,
+              focusedElement.value || formManager.formSetting,
               `on`,
               v
             );
-            queueManage.push("elementEvent");
+            queueManager.push("elementEvent");
           }}
         />
       </div>

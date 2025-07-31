@@ -14,22 +14,22 @@ const TabList = defineComponent({
   setup(_, { attrs }) {
     const Button = elementController.getElementRender("button");
     const Input = elementController.getElementRender("input");
-    const elementManage = inject("elementManage") as ElementManage;
-    const focusManage = inject("focusManage") as FocusManage;
+    const elementManager = inject("elementManager") as ElementManage;
+    const focusManager = inject("focusManager") as FocusManage;
     const bindValue = ref<IElementSchema[]>(
       attrs.modelValue as IElementSchema[]
     );
     const parentTab = computed(() => {
       if (!bindValue.value.length) return null;
-      const pTab = elementManage.getParentElementById(bindValue.value[0].id!);
+      const pTab = elementManager.getParentElementById(bindValue.value[0].id!);
       return pTab;
     });
 
     const handleDeleteTab = (index: number) => {
       //删除完之后如果长度为0 全部删除
       if (bindValue.value.length == 1) {
-        elementManage.deleteElementById(parentTab.value!.id!);
-        focusManage.focusedElement.value = null;
+        elementManager.deleteElementById(parentTab.value!.id!);
+        focusManager.focusedElement.value = null;
         return;
       }
       bindValue.value.splice(index, 1);

@@ -45,10 +45,10 @@ const ElementNode = defineComponent({
   emits: ["update:modelValue"],
   setup(props, { slots, emit }) {
     const FormItem = elementController.getElementRender("formItem");
-    const elementManage = inject("elementManage") as ElementManage;
-    const functionManage = inject("functionManage") as FunctionManage;
+    const elementManager = inject("elementManager") as ElementManage;
+    const functionManager = inject("functionManager") as FunctionManage;
     const elementRef = ref<ElementInstance>();
-    const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
+    const sourceDataManager = inject("sourceDataManager") as SourceDataManage;
     const formItemRef = ref<ElementInstance>();
     const localSchema = reactive<IElementSchema>(
       deepClone(props.elementSchema)
@@ -57,7 +57,7 @@ const ElementNode = defineComponent({
     const formatField = (field: string | IBindSourceData) => {
       if (!field) return undefined;
       const result = isValueIsSourceData(field)
-        ? sourceDataManage.getSourceData((field! as IBindSourceData).value)
+        ? sourceDataManager.getSourceData((field! as IBindSourceData).value)
             .instance.value
         : field;
       return result;
@@ -90,7 +90,7 @@ const ElementNode = defineComponent({
         isValueIsSourceData(localSchema.props?.defaultValue) &&
         props.isPreview
       ) {
-        sourceDataManage.setSourceDataItem(
+        sourceDataManager.setSourceDataItem(
           localSchema.props!.defaultValue.value,
           nv
         );
@@ -117,7 +117,7 @@ const ElementNode = defineComponent({
         const localDefaultValue = isValueIsSourceData(
           localSchema.props.defaultValue
         )
-          ? sourceDataManage.getSourceData(localSchema.props.defaultValue.value)
+          ? sourceDataManager.getSourceData(localSchema.props.defaultValue.value)
               .instance.value
           : localSchema.props.defaultValue;
         const defaultValue = !props.isPreview
@@ -183,13 +183,13 @@ const ElementNode = defineComponent({
               getValueByPath(formData, formatField(localSchema.field!) ?? ""));
         }
 
-        elementManage.addElementInstance(localSchema.id, instance);
+        elementManager.addElementInstance(localSchema.id, instance);
         if (
           formItemRef.value &&
           localSchema.formItem &&
           !!!localSchema.noShowFormItem
         ) {
-          elementManage.addElementInstance(
+          elementManager.addElementInstance(
             localSchema.id + "-form-item",
             formItemRef.value!
           );
@@ -199,9 +199,9 @@ const ElementNode = defineComponent({
     //给管理中删除ref实例
     const handleRemoveElementInstance = () => {
       if (localSchema.id) {
-        elementManage.deleteElementInstance(localSchema.id);
+        elementManager.deleteElementInstance(localSchema.id);
         if (localSchema.formItem && !!!localSchema.noShowFormItem) {
-          elementManage.deleteElementInstance(localSchema.id + "-form-item");
+          elementManager.deleteElementInstance(localSchema.id + "-form-item");
         }
       }
     };
@@ -214,7 +214,7 @@ const ElementNode = defineComponent({
             props[key] = deepClone(props[key]);
           }
           if (isValueIsSourceData(props[key])) {
-            const sourceData = sourceDataManage.getSourceData(props[key].value)
+            const sourceData = sourceDataManager.getSourceData(props[key].value)
               .instance.value;
             props[key] = sourceData;
           }
@@ -230,7 +230,7 @@ const ElementNode = defineComponent({
       localSchema.on &&
         Object.keys(localSchema.on).forEach((item) => {
           onEvent["on" + capitalizeFirstLetter(item)] = (...args: any[]) =>
-            functionManage.executeFunctions(localSchema.on[item], ...args);
+            functionManager.executeFunctions(localSchema.on[item], ...args);
         });
       return { ...onEvent };
     });

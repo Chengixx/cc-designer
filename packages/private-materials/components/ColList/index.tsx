@@ -13,8 +13,8 @@ const ColList = defineComponent({
   setup(_, { attrs }) {
     const Button = elementController.getElementRender("button");
     const InputNumber = elementController.getElementRender("inputNumber");
-    const elementManage = inject("elementManage") as ElementManage;
-    const focusManage = inject("focusManage") as FocusManage;
+    const elementManager = inject("elementManager") as ElementManage;
+    const focusManager = inject("focusManager") as FocusManage;
     const bindValue = ref<IElementSchema[]>(
       attrs.modelValue as IElementSchema[]
     );
@@ -38,9 +38,9 @@ const ColList = defineComponent({
     const handleDeleteCol = (index: number) => {
       const id = bindValue.value[index].id!;
       //Todo 深拷贝问题
-      elementManage.deleteElementById(id);
+      elementManager.deleteElementById(id);
       if (bindValue.value.length === 1) {
-        focusManage.resetFocus();
+        focusManager.resetFocus();
       }
     };
 

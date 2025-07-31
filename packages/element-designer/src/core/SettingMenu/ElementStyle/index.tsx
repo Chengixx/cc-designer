@@ -8,10 +8,10 @@ import { CFormItem } from "@cgx-designer/extensions";
 
 const ElementStyle = defineComponent({
   setup() {
-    const focusManage = inject("focusManage") as FocusManage;
-    const queueManage = inject("queueManage") as QueueManage;
+    const focusManager = inject("focusManager") as FocusManage;
+    const queueManager = inject("queueManager") as QueueManage;
     const focusedElement = computed(() => {
-      return focusManage.focusedElement.value;
+      return focusManager.focusedElement.value;
     });
 
     return () => (
@@ -42,7 +42,7 @@ const ElementStyle = defineComponent({
                           styleConfig.field!,
                           v
                         );
-                    queueManage.push("elementStyle");
+                    queueManager.push("elementStyle");
                   }}
                 />
               </CFormItem>

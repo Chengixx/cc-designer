@@ -9,12 +9,12 @@ export const useDrag = () => {
   const dragStartElement = ref<IElementSchema | null>(null);
   const handleDrapStart = (
     hoverManager: HoverManage,
-    focusManage?: FocusManage
+    focusManager?: FocusManage
   ) => {
-    if (focusManage) {
-      dragStartElement.value = focusManage.focusedElement.value;
-      focusManage.focusTransition.value = false;
-      focusManage.startFocusTimedQuery();
+    if (focusManager) {
+      dragStartElement.value = focusManager.focusedElement.value;
+      focusManager.focusTransition.value = false;
+      focusManager.startFocusTimedQuery();
     }
     hoverManager.setDisableHoverStatus();
     hoverManager.setShowHoverBox();
@@ -22,13 +22,13 @@ export const useDrag = () => {
   };
   const handleDrapEnd = (
     hoverManager: HoverManage,
-    focusManage?: FocusManage
+    focusManager?: FocusManage
   ) => {
-    if (focusManage) {
-      focusManage.stopFocusTimedQuery();
-      focusManage.focusTransition.value = true;
+    if (focusManager) {
+      focusManager.stopFocusTimedQuery();
+      focusManager.focusTransition.value = true;
       if (dragStartElement.value) {
-        focusManage.handleFocus(dragStartElement.value);
+        focusManager.handleFocus(dragStartElement.value);
         dragStartElement.value = null;
       }
     }

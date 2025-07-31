@@ -25,8 +25,8 @@ defineExpose({
 const props = defineProps({
   searchValue: { type: String, default: "", required: true },
 });
-const hoverManage = inject("hoverManage") as HoverManage;
-const themeManage = inject("themeManage") as ThemeManage;
+const hoverManager = inject("hoverManager") as HoverManage;
+const themeManager = inject("themeManager") as ThemeManage;
 const activeCollapse = ref(
   elementController.elementList.value.map((item) => item.title)
 );
@@ -82,9 +82,9 @@ const handleClone = (elementBaseSetting: IElementBaseSetting) => {
               sort: false,
               animation: 180,
             }"
-            :ghost-class="themeManage.isDark.value ? 'dark-moving' : 'moving'"
-            @start="() => handleDrapStart(hoverManage)"
-            @end="() => handleDrapEnd(hoverManage)"
+            :ghost-class="themeManager.isDark.value ? 'dark-moving' : 'moving'"
+            @start="() => handleDrapStart(hoverManager)"
+            @end="() => handleDrapEnd(hoverManager)"
             :clone="
               (elementBaseSetting: IElementBaseSetting) =>
                 handleClone(elementBaseSetting)

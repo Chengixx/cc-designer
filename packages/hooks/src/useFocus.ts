@@ -15,13 +15,13 @@ export type FocusElementRect = Omit<
 >;
 
 export const useFocus = (
-  elementManage: ElementManage,
-  modeManage: ModeManage
+  elementManager: ElementManage,
+  modeManager: ModeManage
 ) => {
   //当前选中的元素的rect
   const focusWidgetRect = ref<FocusElementRect | null>(null);
   //当前手机还是电脑还是平板模式
-  const currentMode = computed(() => modeManage.mode.value);
+  const currentMode = computed(() => modeManager.mode.value);
   //总的容器
   const containerRef = ref<HTMLDivElement | null>(null);
   //初始化要展示的focus总容器
@@ -33,7 +33,7 @@ export const useFocus = (
 
   //当前focus的元素的dom实例 - 使用共享逻辑
   const focusedElementDom = computed(() =>
-    getElementDomInstance(elementManage, focusedElement.value)
+    getElementDomInstance(elementManager, focusedElement.value)
   );
 
   const initCanvas = (ref: HTMLDivElement) => {
@@ -120,7 +120,7 @@ export const useFocus = (
   };
 
   const handleFocusById = (id: string) => {
-    const elementSchema = elementManage.getElementById(id);
+    const elementSchema = elementManager.getElementById(id);
     if (elementSchema) {
       focusedElement.value = elementSchema;
     }

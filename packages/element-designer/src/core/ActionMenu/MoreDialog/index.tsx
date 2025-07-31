@@ -13,8 +13,8 @@ const MoreDialog = defineComponent({
   setup(_, { expose }) {
     const Button = elementController.getElementRender("button");
     const Dialog = elementController.getElementRender("dialog");
-    const elementManage = inject("elementManage") as ElementManage;
-    const focusManage = inject("focusManage") as FocusManage;
+    const elementManager = inject("elementManager") as ElementManage;
+    const focusManager = inject("focusManager") as FocusManage;
     const Select = elementController.getElementRender("select");
     const lib = ref<ElementLib>(
       elementController.getCurrentElementLibraryName()!
@@ -26,8 +26,8 @@ const MoreDialog = defineComponent({
     };
 
     const handleChange = (value: ElementLib) => {
-      focusManage.resetFocus();
-      elementManage.deleteAllElements();
+      focusManager.resetFocus();
+      elementManager.deleteAllElements();
       elementController.clearLibElements();
       elementController.install(libMap[value]);
     };

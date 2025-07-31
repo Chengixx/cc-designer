@@ -8,41 +8,41 @@ import { ClearIcon, CopyIcon } from "@cgx-designer/icons";
 
 const ElementTree = defineComponent({
   setup() {
-    const elementManage = inject("elementManage") as ElementManage;
-    const focusManage = inject("focusManage") as FocusManage;
+    const elementManager = inject("elementManager") as ElementManage;
+    const focusManager = inject("focusManager") as FocusManage;
     const selectedKey = computed({
       get() {
-        return focusManage.focusedElement.value?.id || "";
+        return focusManager.focusedElement.value?.id || "";
       },
       set(e) {
-        const elementSchema = elementManage.getElementById(e);
+        const elementSchema = elementManager.getElementById(e);
         if (elementSchema) {
-          focusManage.handleFocus(elementSchema);
+          focusManager.handleFocus(elementSchema);
         }
       },
     });
 
     const handleNodeClick = (data: TreeNode) => {
-      const element = elementManage.getElementById(data.id);
+      const element = elementManager.getElementById(data.id);
       if (
-        focusManage.focusedElement.value ||
-        element?.id !== focusManage.focusedElement.value!.id
+        focusManager.focusedElement.value ||
+        element?.id !== focusManager.focusedElement.value!.id
       ) {
-        focusManage.handleFocus(element!);
+        focusManager.handleFocus(element!);
       }
     };
 
     const handleDeleteNode = (e: MouseEvent, data: IElementSchema) => {
       e.stopPropagation();
-      elementManage.deleteElementById(data.id!);
-      focusManage.resetFocus();
+      elementManager.deleteElementById(data.id!);
+      focusManager.resetFocus();
     };
 
     const handleCopyNode = (e: MouseEvent, data: IElementSchema) => {
       e.stopPropagation();
-      const newElementSchema = elementManage.deepCopyElement(deepClone(data));
-      elementManage.addElementFromLast(newElementSchema as IElementSchema);
-      focusManage.handleFocus(newElementSchema as IElementSchema);
+      const newElementSchema = elementManager.deepCopyElement(deepClone(data));
+      elementManager.addElementFromLast(newElementSchema as IElementSchema);
+      focusManager.handleFocus(newElementSchema as IElementSchema);
     };
 
     const buttonRender = [
@@ -60,9 +60,9 @@ const ElementTree = defineComponent({
 
     return () => (
       <>
-        {elementManage.elementList.value.length ? (
+        {elementManager.elementList.value.length ? (
           <CTree
-            v-model:elementList={elementManage.elementList.value}
+            v-model:elementList={elementManager.elementList.value}
             v-model:selectedKey={selectedKey.value}
             onNodeClick={handleNodeClick}
             draggable

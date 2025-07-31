@@ -5,9 +5,9 @@ import { onClickOutside } from "@vueuse/core";
 
 const SearchBar = defineComponent({
   setup(_, { expose }) {
-    const elementManage = inject("elementManage") as ElementManage;
-    const focusManage = inject("focusManage") as FocusManage;
-    const hoverManage = inject("hoverManage") as HoverManage;
+    const elementManager = inject("elementManager") as ElementManage;
+    const focusManager = inject("focusManager") as FocusManage;
+    const hoverManager = inject("hoverManager") as HoverManage;
     const isVisible = ref(false);
     const searchValue = ref("");
     const inputRef = ref<HTMLInputElement>();
@@ -110,7 +110,7 @@ const SearchBar = defineComponent({
       if (!searchValue.value.trim()) return [];
 
       const query = searchValue.value.toLowerCase();
-      return elementManage.elementList.value.filter((element) => {
+      return elementManager.elementList.value.filter((element) => {
         const id = element.id?.toLowerCase() || "";
         const key = element.key?.toLowerCase() || "";
 
@@ -133,18 +133,18 @@ const SearchBar = defineComponent({
     // 处理搜索结果点击
     const handleResultClick = (element: any) => {
       // 选中元素
-      focusManage.handleFocus(element);
+      focusManager.handleFocus(element);
       hide();
     };
 
     // 处理搜索结果悬停
     const handleResultHover = (e: MouseEvent, element: any) => {
-      hoverManage.handleHover(e, element);
+      hoverManager.handleHover(e, element);
     };
 
     // 处理搜索结果离开
     const handleResultLeave = (e: MouseEvent) => {
-      hoverManage.handleCancelHover(e);
+      hoverManager.handleCancelHover(e);
     };
 
     // 处理键盘事件

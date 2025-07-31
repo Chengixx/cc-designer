@@ -26,9 +26,9 @@ import { isEqual } from "lodash-es";
 const ElementAttribute = defineComponent({
   setup() {
     const elementControllerMap = elementController.elementConfigMap;
-    const focusManage = inject("focusManage") as FocusManage;
-    const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
-    const queueManage = inject("queueManage") as QueueManage;
+    const focusManager = inject("focusManager") as FocusManage;
+    const sourceDataManager = inject("sourceDataManager") as SourceDataManage;
+    const queueManager = inject("queueManager") as QueueManage;
     const SelectSourceDataDialogRef = ref<SelectSourceDataDialogExpose | null>(
       null
     );
@@ -70,10 +70,10 @@ const ElementAttribute = defineComponent({
         attributeConfig.onChange({ value, values: editData });
       }
       setValueByPath(currentFocusElement.value!, field, value);
-      queueManage.push("elementAttribute");
+      queueManager.push("elementAttribute");
     };
     watch(
-      () => focusManage.focusedElement.value,
+      () => focusManager.focusedElement.value,
       (nv) => {
         //这种情况一般是选中之后又点一下 就是取消了
         if (!nv) {
@@ -98,7 +98,7 @@ const ElementAttribute = defineComponent({
       attributeConfig: IAttributeSchema
     ) => {
       //首先先把值改成当前数据源的值
-      const sourceDataItem = sourceDataManage.getSourceData(name);
+      const sourceDataItem = sourceDataManager.getSourceData(name);
       handleSetValue(
         {
           type: "sourceData",
@@ -116,7 +116,7 @@ const ElementAttribute = defineComponent({
         componentId,
         attrName: attributeConfig.field!,
       });
-      queueManage.push("bindSourceData");
+      queueManager.push("bindSourceData");
     };
 
     //渲染额外小icon
@@ -235,7 +235,7 @@ const ElementAttribute = defineComponent({
           }
           onRemove={({ elementAttrObj, attributeConfig }) => {
             handleSetValue(undefined, attributeConfig.field!, attributeConfig);
-            sourceDataManage.removeSourceDataDepByComponentId(
+            sourceDataManager.removeSourceDataDepByComponentId(
               elementAttrObj.value,
               currentFocusElement.value?.id!
             );

@@ -8,9 +8,9 @@ import { IElementSchema } from "@cgx-designer/types";
 // !注意这个IDE是用来修改script用的
 const ElementSource = defineComponent({
   setup() {
-    const elementManage = inject("elementManage") as ElementManage;
+    const elementManager = inject("elementManager") as ElementManage;
     const sourceCodeIDERef = ref<any>(null);
-    const modelValue = formatJson(elementManage.elementList.value);
+    const modelValue = formatJson(elementManager.elementList.value);
 
     let tempSchema: IElementSchema | null = null;
 
@@ -18,12 +18,12 @@ const ElementSource = defineComponent({
       if (!v) return;
       try {
         tempSchema = JSON.parse(v);
-        deepCompareAndModify(elementManage.elementList.value, tempSchema!);
+        deepCompareAndModify(elementManager.elementList.value, tempSchema!);
       } catch (e) {}
     };
 
     watch(
-      () => elementManage.elementList.value,
+      () => elementManager.elementList.value,
       (newSchema) => {
         if (!isEqual(tempSchema, toRaw(deepClone(newSchema)))) {
           sourceCodeIDERef.value!.setValue(formatJson(newSchema));

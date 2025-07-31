@@ -24,7 +24,7 @@ const MonacoIDE = defineComponent({
   },
   emits: ["update:modelValue"],
   setup(props, { emit, expose }) {
-    const themeManage = inject("themeManage") as ThemeManage;
+    const themeManager = inject("themeManager") as ThemeManage;
     let monacoEditor: monaco.editor.IStandaloneCodeEditor | null = null;
     const monacoRef = ref<HTMLDivElement | null>(null);
     const isInternalUpdate = ref(false);
@@ -84,11 +84,11 @@ const MonacoIDE = defineComponent({
     };
 
     watch(
-      () => themeManage.isDark.value,
+      () => themeManager.isDark.value,
       () => {
         nextTick(() => {
           monaco.editor.setTheme(
-            themeManage.isDark.value ? "dark-plus" : "light-plus"
+            themeManager.isDark.value ? "dark-plus" : "light-plus"
           );
         });
       },

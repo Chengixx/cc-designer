@@ -19,13 +19,13 @@ const CollapseButton = defineComponent({
   },
   setup(props) {
     const widgetHover = ref<boolean>(false);
-    const focusManage = inject("focusManage") as FocusManage;
+    const focusManager = inject("focusManager") as FocusManage;
 
     const onClick = () => {
-      focusManage.startFocusTimedQuery();
+      focusManager.startFocusTimedQuery();
       props.toggleMenu();
       setTimeout(() => {
-        focusManage.stopFocusTimedQuery();
+        focusManager.stopFocusTimedQuery();
       }, 350);
     };
 

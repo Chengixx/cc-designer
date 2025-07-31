@@ -17,7 +17,7 @@ import { EventInstance, EventItem } from "@cgx-designer/types";
 import { computedButtonColor } from "@cgx-designer/utils";
 
 const Button = elementController.getElementRender("button");
-const elementManage = inject("elementManage") as ElementManage;
+const elementManager = inject("elementManager") as ElementManage;
 
 const props = defineProps({
   //用于循环渲染的事件item
@@ -105,7 +105,7 @@ const getNewEvents = (type: string) => {
 };
 
 const getElementSetting = (id: string) => {
-  const key = elementManage.getElementById(id)!.key;
+  const key = elementManager.getElementById(id)!.key;
   const baseSetting = elementController.getElementConfig(key);
   return baseSetting;
 };

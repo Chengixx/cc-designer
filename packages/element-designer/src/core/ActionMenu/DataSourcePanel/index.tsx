@@ -13,7 +13,7 @@ const DataSourcePane = defineComponent({
     },
   },
   setup(props, { emit }) {
-    const sourceDataManage = inject("sourceDataManage") as SourceDataManage;
+    const sourceDataManager = inject("sourceDataManager") as SourceDataManage;
     const iconList = [
       {
         icon: EditIcon,
@@ -24,18 +24,18 @@ const DataSourcePane = defineComponent({
       {
         icon: ClearIcon,
         onClick(dataItem: SourceDataItem) {
-          sourceDataManage.removeSourceData(dataItem.name);
+          sourceDataManager.removeSourceData(dataItem.name);
         },
       },
     ];
     const renderSourceData = computed(() => {
-      return sourceDataManage.sourceData.value.filter((dataItem) => {
+      return sourceDataManager.sourceData.value.filter((dataItem) => {
         return dataItem.name.includes(props.searchValue);
       });
     });
     return () => (
       <div class="c-space-y-2 c-p-2">
-        {sourceDataManage.sourceData.value.length === 0 && (
+        {sourceDataManager.sourceData.value.length === 0 && (
           <div class="c-flex c-flex-col c-items-center c-justify-center c-py-12 c-text-gray-400 c-bg-gray-50 dark:c-bg-gray-800 c-rounded-lg c-border-2 c-border-dashed c-border-gray-200 dark:c-border-gray-700">
             <Empty />
             <p class="c-mt-2 c-text-sm">暂无数据源</p>
@@ -67,7 +67,7 @@ const DataSourcePane = defineComponent({
                         key={iconIndex}
                         onClick={() => {
                           const dataIndex =
-                            sourceDataManage.sourceData.value.findIndex(
+                            sourceDataManager.sourceData.value.findIndex(
                               (item) => item.name === dataItem.name
                             );
                           iconItem.onClick(dataItem, dataIndex);

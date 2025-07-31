@@ -14,14 +14,14 @@ const EditorElement = defineComponent({
     elementSchema: { type: Object as PropType<IElementSchema>, required: true },
   },
   setup(props) {
-    const hoverManage = inject("hoverManage") as HoverManage;
-    const elementManage = inject("elementManage") as ElementManage;
-    const focusManage = inject("focusManage") as FocusManage;
+    const hoverManager = inject("hoverManager") as HoverManage;
+    const elementManager = inject("elementManager") as ElementManage;
+    const focusManager = inject("focusManager") as FocusManage;
     const elementRef = ref<HTMLBaseElement | null>(null);
 
     // 使用共享的DOM实例逻辑
     const getComponentInstance = computed(() =>
-      getElementDomInstance(elementManage, props.elementSchema)
+      getElementDomInstance(elementManager, props.elementSchema)
     );
 
     watch(
@@ -30,21 +30,21 @@ const EditorElement = defineComponent({
         if (componentInstance) {
           useEventListener(componentInstance, "click", handleClick);
           useEventListener(componentInstance, "mouseover", (e: MouseEvent) =>
-            hoverManage.handleHover(e, props.elementSchema)
+            hoverManager.handleHover(e, props.elementSchema)
           );
           useEventListener(componentInstance, "mouseout", (e: MouseEvent) =>
-            hoverManage.handleCancelHover(e)
+            hoverManager.handleCancelHover(e)
           );
         }
       }
     );
 
     const handleClick = (e: MouseEvent) => {
-      focusManage.handleFocus(props.elementSchema, e);
+      focusManager.handleFocus(props.elementSchema, e);
     };
 
     const isFocus = computed(() => {
-      return focusManage.focusedElement.value?.id === props.elementSchema.id;
+      return focusManager.focusedElement.value?.id === props.elementSchema.id;
     });
 
     return () => (

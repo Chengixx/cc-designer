@@ -11,13 +11,13 @@ export type FunctionManage = ReturnType<typeof useFunction>;
 
 //此hook用于挂载函数 并负责调用他们
 export const useFunction = (
-  elementManage: ElementManage,
-  sourceDataManage: SourceDataManage
+  elementManager: ElementManage,
+  sourceDataManager: SourceDataManage
 ) => {
-  const { getElementInstanceById } = elementManage;
+  const { getElementInstanceById } = elementManager;
   const sourceData = computed(() => {
     //数组转对象 以他的name为key
-    return sourceDataManage.sourceData.value.reduce((acc: any, item) => {
+    return sourceDataManager.sourceData.value.reduce((acc: any, item) => {
       acc[item.name] = item.instance;
       return acc;
     }, {});
@@ -77,7 +77,7 @@ export const useFunction = (
         ...IGlobalFunction,
         get: getElementInstanceById,
         inject,
-        elementManage,
+        elementManager,
         elementController,
         ...sourceData.value,
       })();
@@ -134,7 +134,7 @@ export const useFunction = (
       if (action.type === "component") {
         const component =
           action.componentId != null &&
-          (elementManage.getElementInstanceById(
+          (elementManager.getElementInstanceById(
             action.componentId
           ) as ElementInstance);
 
