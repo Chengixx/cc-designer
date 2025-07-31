@@ -29,7 +29,7 @@ const ButtonTool = defineComponent({
 
       nextTick(() => {
         const rect = el.getBoundingClientRect();
-        position.value = rect.top < 110 ? "bottom" : "top";
+        position.value = rect.top < 120 ? "bottom" : "top";
       });
     };
 
