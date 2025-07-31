@@ -1,4 +1,12 @@
-import { computed, defineComponent, inject, nextTick, ref, watch } from "vue";
+import {
+  computed,
+  defineComponent,
+  inject,
+  nextTick,
+  Ref,
+  ref,
+  watch,
+} from "vue";
 import {
   ElementManage,
   FocusManage,
@@ -17,7 +25,7 @@ const ButtonTool = defineComponent({
     const hoverManage = inject("hoverManage") as HoverManage;
     const elementManage = inject("elementManage") as ElementManage;
     const queueManage = inject("queueManage") as QueueManage;
-
+    const editorCanvasRef = inject("editorCanvasRef") as Ref<HTMLDivElement>;
     const position = ref<"top" | "bottom">("top");
     const TOOL_HEIGHT = 28;
     const isHover = ref(false);
@@ -46,6 +54,35 @@ const ButtonTool = defineComponent({
             top: undefined,
             bottom: `-${TOOL_HEIGHT * elementTree.value.length}px`,
           };
+    });
+
+    const horizontalPosition = computed(() => {
+      const rect = focusManage.focusWidgetRect.value;
+      const container = editorCanvasRef?.value;
+      if (!rect || !container) return "c-right-1";
+
+      const estimatedToolWidth = 200;
+      const spacing = 4;
+      const containerWidth = container.offsetWidth;
+
+      // 计算右对齐时的左边界位置
+      const rightAlignedLeft =
+        rect.left + rect.width - estimatedToolWidth - spacing;
+
+      // 计算左对齐时的右边界位置
+      const leftAlignedRight = rect.left + estimatedToolWidth + spacing;
+
+      // 检查右对齐是否会超出左边界
+      const rightOverflowsLeft = rightAlignedLeft < 0;
+      // 检查左对齐是否会超出右边界
+      const leftOverflowsRight = leftAlignedRight > containerWidth;
+
+      // 如果右对齐会超出左边界，改为左对齐
+      if (rightOverflowsLeft) return "c-left-1";
+      // 如果左对齐会超出右边界，改为右对齐
+      if (leftOverflowsRight) return "c-right-1";
+      // 默认右对齐
+      return "c-right-1";
     });
 
     const handleCopy = (e: MouseEvent) => {
@@ -84,7 +121,7 @@ const ButtonTool = defineComponent({
 
     return () => (
       <div
-        class="c-absolute c-right-1 c-cursor-pointer c-flex"
+        class={`c-absolute c-cursor-pointer c-flex ${horizontalPosition.value}`}
         style={toolStyle.value}
       >
         {/* 组件信息 */}

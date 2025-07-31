@@ -1,4 +1,11 @@
-import { computed, defineComponent, inject, onMounted, ref } from "vue";
+import {
+  computed,
+  defineComponent,
+  inject,
+  onMounted,
+  provide,
+  ref,
+} from "vue";
 import Draggle from "./Draggle/index.vue";
 import PanelWidget from "./PanelWidget";
 import {
@@ -24,6 +31,7 @@ const EditorCanvas = defineComponent({
     const modeManage = inject("modeManage") as ModeManage;
     const functionManage = inject("functionManage") as FunctionManage;
     const editorCanvasRef = ref<HTMLDivElement>();
+    provide("editorCanvasRef", editorCanvasRef);
     onMounted(() => {
       focusManage.initCanvas(editorCanvasRef.value!);
       hoverManage.initCanvas(editorCanvasRef.value!);
