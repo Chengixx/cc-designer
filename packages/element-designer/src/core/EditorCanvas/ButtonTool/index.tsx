@@ -23,12 +23,14 @@ import { IElementSchema } from "@cgx-designer/types";
 const BottonToolIconSell = (props: {
   Icon: any;
   title: string;
-  onClick: (e: MouseEvent) => void;
+  clickCb: (e: MouseEvent) => void;
+  show?: boolean;
 }) => {
-  const { Icon, title, onClick } = props;
+  const { Icon, title, clickCb, show = true } = props;
+  if (!show) return null;
   return (
     <div
-      onClick={(e: MouseEvent) => onClick(e)}
+      onClick={(e: MouseEvent) => clickCb(e)}
       title={title}
       class="hover:c-bg-blue-600 c-transition-colors c-duration-300 c-w-fit c-p-1 c-flex c-justify-center c-items-center"
     >
@@ -181,26 +183,27 @@ const ButtonTool = defineComponent({
         </div>
         {/* 操作按钮 */}
         <div class="c-pointer-events-auto c-bg-blue-500 c-flex c-items-center c-overflow-hidden c-h-6">
-          {!noCopyDomList.includes(focusManage.focusedElement.value?.key!) && (
-            <BottonToolIconSell
-              Icon={CopyIcon}
-              title="复制组件"
-              onClick={handleCopy}
-            />
-          )}
-          {findHigherLevelDomList.includes(
-            focusManage.focusedElement.value?.key!
-          ) && (
-            <BottonToolIconSell
-              Icon={TopIcon}
-              title="父级元素"
-              onClick={handleTop}
-            />
-          )}
+          <BottonToolIconSell
+            Icon={CopyIcon}
+            title="复制组件"
+            clickCb={handleCopy}
+            show={
+              !noCopyDomList.includes(focusManage.focusedElement.value?.key!)
+            }
+          />
+          <BottonToolIconSell
+            Icon={TopIcon}
+            title="父级元素"
+            clickCb={handleTop}
+            show={findHigherLevelDomList.includes(
+              focusManage.focusedElement.value?.key!
+            )}
+          />
           <BottonToolIconSell
             Icon={ClearIcon}
             title="删除组件"
-            onClick={handleDelete}
+            clickCb={handleDelete}
+            show={true}
           />
         </div>
       </div>
