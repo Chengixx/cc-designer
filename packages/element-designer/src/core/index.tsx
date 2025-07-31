@@ -29,16 +29,18 @@ import { Loading } from "@cgx-designer/extensions";
 import { isMac } from "@cgx-designer/utils";
 import { initMonacoVue } from "../init";
 import { registerPrivateCompoents } from "@cgx-designer/private-materials";
+import SearchBar from "./SearchBar";
 
 //设计器
 const ElementDesigner = defineComponent({
   setup() {
     registerPrivateCompoents();
     initMonacoVue();
-    //dialog实例
+    //实例
     const previewDialogRef = ref<any>(null);
     const exportSourceCodeDialogRef = ref<any>(null);
     const importSourceCodeDialogRef = ref<any>(null);
+    const searchBarRef = ref<any>(null);
     //所有的hook实例
     const formManage = useForm();
     const elementManage = useElement();
@@ -71,7 +73,8 @@ const ElementDesigner = defineComponent({
       queueManage,
       previewDialogRef,
       exportSourceCodeDialogRef,
-      importSourceCodeDialogRef
+      importSourceCodeDialogRef,
+      searchBarRef
     );
 
     //mac是command+z，windows是ctrl+z
@@ -118,6 +121,8 @@ const ElementDesigner = defineComponent({
             {/* 导入导出dialog */}
             <ExportSourceCodeDialog ref={exportSourceCodeDialogRef} />
             <ImportSourceCodeDialog ref={importSourceCodeDialogRef} />
+            {/* 搜索控件 */}
+            <SearchBar ref={searchBarRef} />
           </>
         ) : (
           <Loading />

@@ -14,6 +14,7 @@ import {
   ImportIcon,
   PreviewIcon,
   RedoIcon,
+  SearchIcon,
   UndoIcon,
 } from "@cgx-designer/icons";
 import { BuilderSchema } from "@cgx-designer/types";
@@ -33,7 +34,8 @@ export const createOperationButtonSetting = (
   queueManage: QueueManage,
   previewDialogRef: any,
   exportSourceCodeDialogRef: any,
-  importSourceCodeDialogRef: any
+  importSourceCodeDialogRef: any,
+  searchBarRef: any
 ): Record<string, OperationButtonSetting> => {
   const ButtonMap = {
     Message: {
@@ -103,6 +105,13 @@ export const createOperationButtonSetting = (
         previewDialogRef.value.handleOpen();
       },
       icon: PreviewIcon,
+    },
+    Search: {
+      label: "搜索",
+      handler: () => {
+        searchBarRef.value.show();
+      },
+      icon: SearchIcon,
     },
   };
   console.log("操作栏按钮列表注册完成", ButtonMap);

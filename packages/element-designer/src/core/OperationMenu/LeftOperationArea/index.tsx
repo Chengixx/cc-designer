@@ -29,6 +29,7 @@ const LeftOperationArea = defineComponent({
           disabled={props.redoDisabled}
         />
         <OperationIcon config={props.buttonMap.Clear} />
+        <OperationIcon config={props.buttonMap.Search} />
         <OperationIcon config={props.buttonMap.Message} />
       </div>
     );
