@@ -12,12 +12,30 @@ import {
   FocusManage,
   HoverManage,
   QueueManage,
+  useToggle,
 } from "@cgx-designer/hooks";
 import { deepClone } from "@cgx-designer/utils";
 import { ClearIcon, CopyIcon, TopIcon } from "@cgx-designer/icons";
 import { noCopyDomList, findHigherLevelDomList } from "../../../constant/index";
 import { elementController } from "@cgx-designer/controller";
 import { IElementSchema } from "@cgx-designer/types";
+
+const BottonToolIconSell = (props: {
+  Icon: any;
+  title: string;
+  onClick: (e: MouseEvent) => void;
+}) => {
+  const { Icon, title, onClick } = props;
+  return (
+    <div
+      onClick={(e: MouseEvent) => onClick(e)}
+      title={title}
+      class="hover:c-bg-blue-600 c-transition-colors c-duration-300 c-w-fit c-p-1 c-flex c-justify-center c-items-center"
+    >
+      <Icon class="c-w-[13px] c-h-[13px] c-fill-white" />
+    </div>
+  );
+};
 
 const ButtonTool = defineComponent({
   setup() {
@@ -28,7 +46,7 @@ const ButtonTool = defineComponent({
     const editorCanvasRef = inject("editorCanvasRef") as Ref<HTMLDivElement>;
     const position = ref<"top" | "bottom">("top");
     const TOOL_HEIGHT = 28;
-    const isHover = ref(false);
+    const [isHover, setIsHover] = useToggle(false);
 
     // 更新操作条位置
     const updateToolPosition = () => {
@@ -47,42 +65,45 @@ const ButtonTool = defineComponent({
 
     watch(() => focusManage.focusWidgetRect.value, updateToolPosition);
 
-    const toolStyle = computed(() => {
-      return position.value === "top"
+    const toolStyle = computed(() =>
+      position.value === "top"
         ? { top: `-${TOOL_HEIGHT}px`, bottom: undefined }
         : {
             top: undefined,
             bottom: `-${TOOL_HEIGHT * elementTree.value.length}px`,
-          };
-    });
+          }
+    );
 
     const horizontalPosition = computed(() => {
       const rect = focusManage.focusWidgetRect.value;
       const container = editorCanvasRef?.value;
       if (!rect || !container) return "c-right-1";
 
-      const estimatedToolWidth = 200;
-      const spacing = 4;
+      const TOOL_CONFIG = {
+        width: 200,
+        spacing: 4,
+      } as const;
+
       const containerWidth = container.offsetWidth;
 
-      // 计算右对齐时的左边界位置
-      const rightAlignedLeft =
-        rect.left + rect.width - estimatedToolWidth - spacing;
+      // 计算两种对齐方式的位置
+      const positions = {
+        right: rect.left + rect.width - TOOL_CONFIG.width - TOOL_CONFIG.spacing,
+        left: rect.left + TOOL_CONFIG.width + TOOL_CONFIG.spacing,
+      };
 
-      // 计算左对齐时的右边界位置
-      const leftAlignedRight = rect.left + estimatedToolWidth + spacing;
+      // 检查溢出情况
+      const overflows = {
+        right: positions.right < 0,
+        left: positions.left > containerWidth,
+      };
 
-      // 检查右对齐是否会超出左边界
-      const rightOverflowsLeft = rightAlignedLeft < 0;
-      // 检查左对齐是否会超出右边界
-      const leftOverflowsRight = leftAlignedRight > containerWidth;
-
-      // 如果右对齐会超出左边界，改为左对齐
-      if (rightOverflowsLeft) return "c-left-1";
-      // 如果左对齐会超出右边界，改为右对齐
-      if (leftOverflowsRight) return "c-right-1";
-      // 默认右对齐
-      return "c-right-1";
+      // 智能选择对齐方式
+      return overflows.right
+        ? "c-left-1"
+        : overflows.left
+          ? "c-right-1"
+          : "c-right-1";
     });
 
     const handleCopy = (e: MouseEvent) => {
@@ -127,8 +148,8 @@ const ButtonTool = defineComponent({
         {/* 组件信息 */}
         <div
           class="c-mr-1 c-flex c-flex-col c-gap-y-1 c-items-center c-pointer-events-auto c-whitespace-nowrap"
-          onMouseenter={() => (isHover.value = true)}
-          onMouseleave={() => (isHover.value = false)}
+          onMouseenter={() => setIsHover(true)}
+          onMouseleave={() => setIsHover(false)}
         >
           {elementTree.value.length &&
             elementTree.value.reverse().map((elementSchema) => {
@@ -161,32 +182,26 @@ const ButtonTool = defineComponent({
         {/* 操作按钮 */}
         <div class="c-pointer-events-auto c-bg-blue-500 c-flex c-items-center c-overflow-hidden c-h-6">
           {!noCopyDomList.includes(focusManage.focusedElement.value?.key!) && (
-            <div
-              onClick={(e: MouseEvent) => handleCopy(e)}
+            <BottonToolIconSell
+              Icon={CopyIcon}
               title="复制组件"
-              class="hover:c-bg-blue-600 c-transition-colors c-duration-300 c-w-fit c-p-1 c-flex c-justify-center c-items-center"
-            >
-              <CopyIcon class="c-w-[13px] c-h-[13px] c-fill-white" />
-            </div>
+              onClick={handleCopy}
+            />
           )}
           {findHigherLevelDomList.includes(
             focusManage.focusedElement.value?.key!
           ) && (
-            <div
-              onClick={(e: MouseEvent) => handleTop(e)}
+            <BottonToolIconSell
+              Icon={TopIcon}
               title="父级元素"
-              class="hover:c-bg-blue-600 c-transition-colors c-duration-300 c-w-fit c-p-1 c-flex c-justify-center c-items-center"
-            >
-              <TopIcon class="c-w-[13px] c-h-[13px] c-fill-white" />
-            </div>
+              onClick={handleTop}
+            />
           )}
-          <div
-            onClick={(e: MouseEvent) => handleDelete(e)}
+          <BottonToolIconSell
+            Icon={ClearIcon}
             title="删除组件"
-            class="hover:c-bg-blue-600 c-transition-colors c-duration-300 c-w-fit c-p-1 c-flex c-justify-center c-items-center"
-          >
-            <ClearIcon class="c-w-[13px] c-h-[13px] c-fill-white" />
-          </div>
+            onClick={handleDelete}
+          />
         </div>
       </div>
     );
