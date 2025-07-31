@@ -89,7 +89,7 @@ const ButtonTool = defineComponent({
       >
         {/* 组件信息 */}
         <div
-          class="c-mr-1 c-flex c-flex-col c-gap-y-1 c-items-center c-pointer-events-auto"
+          class="c-mr-1 c-flex c-flex-col c-gap-y-1 c-items-center c-pointer-events-auto c-whitespace-nowrap"
           onMouseenter={() => (isHover.value = true)}
           onMouseleave={() => (isHover.value = false)}
         >
