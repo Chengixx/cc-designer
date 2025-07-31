@@ -26,17 +26,35 @@ export interface OperationButtonSetting {
 }
 
 export const createOperationButtonSetting = (
-  formManage: FormManage,
-  elementManage: ElementManage,
-  functionManage: FunctionManage,
-  focusManage: FocusManage,
-  sourceDataManage: SourceDataManage,
-  queueManage: QueueManage,
-  previewDialogRef: any,
-  exportSourceCodeDialogRef: any,
-  importSourceCodeDialogRef: any,
-  searchBarRef: any
+  manages: {
+    formManage: FormManage;
+    elementManage: ElementManage;
+    functionManage: FunctionManage;
+    focusManage: FocusManage;
+    sourceDataManage: SourceDataManage;
+    queueManage: QueueManage;
+  },
+  refs: {
+    previewDialogRef: any;
+    exportSourceCodeDialogRef: any;
+    importSourceCodeDialogRef: any;
+    searchBarRef: any;
+  }
 ): Record<string, OperationButtonSetting> => {
+  const {
+    formManage,
+    elementManage,
+    functionManage,
+    focusManage,
+    sourceDataManage,
+    queueManage,
+  } = manages;
+  const {
+    previewDialogRef,
+    exportSourceCodeDialogRef,
+    importSourceCodeDialogRef,
+    searchBarRef,
+  } = refs;
   const ButtonMap = {
     Message: {
       label: "查看日志",

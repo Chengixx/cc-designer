@@ -64,18 +64,23 @@ const ElementDesigner = defineComponent({
     provide("functionManage", functionManage);
     provide("queueManage", queueManage);
 
-    const buttonMap = createOperationButtonSetting(
+    const manages = {
       formManage,
       elementManage,
       functionManage,
       focusManage,
       sourceDataManage,
       queueManage,
+    };
+
+    const refs = {
       previewDialogRef,
       exportSourceCodeDialogRef,
       importSourceCodeDialogRef,
-      searchBarRef
-    );
+      searchBarRef,
+    };
+
+    const buttonMap = createOperationButtonSetting(manages, refs);
 
     //mac是command+z，windows是ctrl+z
     useKeyboard([
