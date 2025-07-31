@@ -166,6 +166,7 @@ const ButtonTool = defineComponent({
                   onClick={(e: MouseEvent) => {
                     e.stopPropagation();
                     focusManage.handleFocus(elementSchema);
+                    setIsHover(false);
                   }}
                   onMouseenter={(e: MouseEvent) => {
                     hoverManage.handleHover(e, elementSchema);
