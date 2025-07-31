@@ -105,7 +105,7 @@ export const useFocus = (
 
   //初始化dom监听实例(拿到的是实例和config)
   const { startObserver, stopObserver } = useMutationObserver(
-    document.body,
+    containerRef,
     setFocusWidgetStyle
   );
   const { startTimedQuery, stopTimedQuery } =
