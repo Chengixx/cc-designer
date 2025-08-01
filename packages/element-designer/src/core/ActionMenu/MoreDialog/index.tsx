@@ -13,9 +13,9 @@ const MoreDialog = defineComponent({
   setup(_, { expose }) {
     const Button = elementController.getElementRender("button");
     const Dialog = elementController.getElementRender("dialog");
+    const Select = elementController.getElementRender("select");
     const elementManager = inject("elementManager") as ElementManage;
     const focusManager = inject("focusManager") as FocusManage;
-    const Select = elementController.getElementRender("select");
     const lib = ref<ElementLib>(
       elementController.getCurrentElementLibraryName()!
     );

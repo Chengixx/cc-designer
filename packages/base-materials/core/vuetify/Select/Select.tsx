@@ -10,12 +10,11 @@ const Select = defineComponent({
     const renderProps = useMergeAttr(props, attrs);
     return () => {
       //向外抛出错误
-      if (!!!props.elementSchema.props!.options) {
+      if (!!!renderProps.options) {
         console.warn("[warn]:选择器没有选项，请设置选项");
       }
       //保底机制 防止为空的时候直接报错
-      const optionsList: GroupOption[] =
-        props.elementSchema.props!.options ?? [];
+      const optionsList: GroupOption[] = renderProps.options ?? [];
       return (
         <VSelect
           {...renderProps}
