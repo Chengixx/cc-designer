@@ -127,6 +127,7 @@ const ElementAttribute = defineComponent({
         return (
           <CIcon
             icon={ClipBoardIcon}
+            colorClass="c-fill-[#8f9bb3] dark:c-fill-white"
             onClick={() => {
               const v = currentFocusElement.value!.id;
               if (v !== undefined && v !== null) {
@@ -160,10 +161,15 @@ const ElementAttribute = defineComponent({
               );
             }}
             class={
-              isSourceData && "c-bg-blue-300 c-rounded-md dark:c-bg-blue-90"
+              isSourceData && "c-bg-blue-400 c-rounded-[4px] dark:c-bg-blue-90"
             }
           >
-            <BindIcon class="c-w-5 c-h-5 dark:c-fill-white c-cursor-pointer" />
+            <BindIcon
+              class={[
+                "c-w-5 c-h-5 dark:c-fill-white c-cursor-pointer",
+                isSourceData ? "c-fill-white" : "c-fill-[#8f9bb3]",
+              ]}
+            />
           </div>
         );
       }

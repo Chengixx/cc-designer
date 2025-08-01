@@ -81,7 +81,7 @@ export const SelectSourceDataDialog = defineComponent({
         {{
           default: () => (
             <div class="c-h-[70vh] c-overflow-y-auto c-flex">
-              <div class="c-w-[240px] c-border dark:c-border-darkMode">
+              <div class="c-w-[240px] c-border dark:c-border-darkMode c-h-full c-overflow-y-auto">
                 <div class="c-w-full c-h-10 c-flex c-justify-center c-items-center c-border-b dark:c-border-darkMode">
                   变量列表
                 </div>
