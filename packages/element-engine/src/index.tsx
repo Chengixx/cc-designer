@@ -16,6 +16,7 @@ import {
   reactive,
   ref,
   toRaw,
+  VNode,
   watch,
   watchEffect,
 } from "vue";
@@ -47,8 +48,8 @@ const ElementNode = defineComponent({
     const FormItem = elementController.getElementRender("formItem");
     const elementManager = inject("elementManager") as ElementManage;
     const functionManager = inject("functionManager") as FunctionManage;
-    const elementRef = ref<ElementInstance>();
     const sourceDataManager = inject("sourceDataManager") as SourceDataManage;
+    const elementRef = ref<ElementInstance>();
     const formItemRef = ref<ElementInstance>();
     const localSchema = reactive<IElementSchema>(
       deepClone(props.elementSchema)
@@ -117,8 +118,9 @@ const ElementNode = defineComponent({
         const localDefaultValue = isValueIsSourceData(
           localSchema.props.defaultValue
         )
-          ? sourceDataManager.getSourceData(localSchema.props.defaultValue.value)
-              .instance.value
+          ? sourceDataManager.getSourceData(
+              localSchema.props.defaultValue.value
+            ).instance.value
           : localSchema.props.defaultValue;
         const defaultValue = !props.isPreview
           ? localDefaultValue
@@ -273,7 +275,7 @@ const ElementNode = defineComponent({
     onUnmounted(handleRemoveElementInstance);
 
     //组件的外层
-    const ElementShell = (children: any) => (
+    const ElementShell = (children: VNode) => (
       <>
         {localSchema.formItem && !!!localSchema.noShowFormItem ? (
           <FormItem
@@ -289,36 +291,34 @@ const ElementNode = defineComponent({
         )}
       </>
     );
-    return () => {
-      //渲染出来的组件
-      const ElementRender = elementController.elementRenderMap[localSchema.key];
-      return (
-        <>
-          {ElementShell(
-            <ElementRender
-              ref={elementRef}
-              {...getElementFunction.value}
-              {...getElementModel.value}
-              {...getElementStyle.value}
-              {...getElementProps.value}
-              elementSchema={localSchema}
-            >
-              {{
-                // 这个是普通的插槽,就是给他一个个循环出来就好了不用过多的操作
-                node: (childElementSchema: IElementSchema) => (
-                  <ElementNode
-                    elementSchema={childElementSchema}
-                    isPreview={props.isPreview}
-                  />
-                ),
-                //这个是拖拽的插槽，应该要用draggle,这里会提供一个插槽 到外面如果需要拖拽的话 是用插槽穿进来的
-                editNode: () => <>{slots.editNode ? slots.editNode() : null}</>,
-              }}
-            </ElementRender>
-          )}
-        </>
-      );
-    };
+    //渲染出来的组件
+    const ElementRender = elementController.elementRenderMap[localSchema.key];
+    return () => (
+      <>
+        {ElementShell(
+          <ElementRender
+            ref={elementRef}
+            {...getElementFunction.value}
+            {...getElementModel.value}
+            {...getElementStyle.value}
+            {...getElementProps.value}
+            elementSchema={localSchema}
+          >
+            {{
+              // 这个是普通的插槽,就是给他一个个循环出来就好了不用过多的操作
+              node: (childElementSchema: IElementSchema) => (
+                <ElementNode
+                  elementSchema={childElementSchema}
+                  isPreview={props.isPreview}
+                />
+              ),
+              //这个是拖拽的插槽，应该要用draggle,这里会提供一个插槽 到外面如果需要拖拽的话 是用插槽穿进来的
+              editNode: () => <>{slots.editNode ? slots.editNode() : null}</>,
+            }}
+          </ElementRender>
+        )}
+      </>
+    );
   },
 });
 
