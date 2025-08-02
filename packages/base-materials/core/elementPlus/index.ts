@@ -1,4 +1,4 @@
-import { ElementPlugin, IElementBaseSetting } from "@cgx-designer/controller";
+import { ElementPlugin, IElementBaseSetting } from "@cgx-designer/types";
 import { elementPlusFormConfig } from "./config";
 
 //此类型标注是为了在creator中使用
