@@ -36,11 +36,9 @@ const SearchBox = defineComponent({
           single-line
         >
           {{
-            prefix: () => {
-              return (
-                <SearchIcon class="c-select-none c-w-[17px] c-h-[17px] dark:c-fill-white" />
-              );
-            },
+            prefix: () => (
+              <SearchIcon class="c-select-none c-w-[17px] c-h-[17px] dark:c-fill-white" />
+            ),
           }}
         </Input>
       </div>

@@ -56,37 +56,33 @@ const MoreDialog = defineComponent({
           }}
         >
           {{
-            default: () => {
-              return (
-                <div class="c-h-[70vh] c-overflow-y-auto">
-                  <CFormItem label="组件库" labelCol={3}>
-                    <Select
-                      v-model={lib.value}
-                      {...vuetifyConfig}
-                      options={[
-                        { label: "element-plus", value: "element-plus" },
-                        { label: "vuetify", value: "vuetify" },
-                      ]}
-                      placeholder="请选择组件库"
-                    />
-                  </CFormItem>
-                  <CFormItem label="展示样式" labelCol={3}>
-                    <Select
-                      v-model={elementController.elementListMode.value}
-                      {...vuetifyConfig}
-                      options={[
-                        { label: "盒状", value: "box" },
-                        { label: "条状", value: "bar" },
-                      ]}
-                      placeholder="请选择展示样式"
-                    />
-                  </CFormItem>
-                </div>
-              );
-            },
-            footer: () => {
-              return <Button onClick={handleClose}>关闭</Button>;
-            },
+            default: () => (
+              <div class="c-h-[70vh] c-overflow-y-auto">
+                <CFormItem label="组件库" labelCol={3}>
+                  <Select
+                    v-model={lib.value}
+                    {...vuetifyConfig}
+                    options={[
+                      { label: "element-plus", value: "element-plus" },
+                      { label: "vuetify", value: "vuetify" },
+                    ]}
+                    placeholder="请选择组件库"
+                  />
+                </CFormItem>
+                <CFormItem label="展示样式" labelCol={3}>
+                  <Select
+                    v-model={elementController.elementListMode.value}
+                    {...vuetifyConfig}
+                    options={[
+                      { label: "盒状", value: "box" },
+                      { label: "条状", value: "bar" },
+                    ]}
+                    placeholder="请选择展示样式"
+                  />
+                </CFormItem>
+              </div>
+            ),
+            footer: () => <Button onClick={handleClose}>关闭</Button>,
           }}
         </Dialog>
       </>

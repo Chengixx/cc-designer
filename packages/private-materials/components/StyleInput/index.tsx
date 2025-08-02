@@ -63,31 +63,29 @@ const StyleInput = defineComponent({
       return (
         <Input v-model={bindValue.value} type="number" {...renderProps}>
           {{
-            append: () => {
-              return (
-                <>
-                  {isVuetify.value ? (
-                    <span class="c-cursor-pointer">
-                      <div class="c-flex c-justify-center c-items-center c-gap-x-1">
-                        <span>{stylePrefix.value}</span>
-                        <div class="c-translate-y-1 c-border-4 c-border-l-transparent c-border-r-transparent c-border-t-gray-600 c-border-b-transparent"></div>
-                      </div>
-                      <SelectPanel
-                        v-model={stylePrefix.value}
-                        options={options}
-                      />
-                    </span>
-                  ) : (
-                    <Select
+            append: () => (
+              <>
+                {isVuetify.value ? (
+                  <span class="c-cursor-pointer">
+                    <div class="c-flex c-justify-center c-items-center c-gap-x-1">
+                      <span>{stylePrefix.value}</span>
+                      <div class="c-translate-y-1 c-border-4 c-border-l-transparent c-border-r-transparent c-border-t-gray-600 c-border-b-transparent"></div>
+                    </div>
+                    <SelectPanel
                       v-model={stylePrefix.value}
-                      style="width: 70px"
                       options={options}
-                      placeholder="请选择"
                     />
-                  )}
-                </>
-              );
-            },
+                  </span>
+                ) : (
+                  <Select
+                    v-model={stylePrefix.value}
+                    style="width: 70px"
+                    options={options}
+                    placeholder="请选择"
+                  />
+                )}
+              </>
+            ),
           }}
         </Input>
       );

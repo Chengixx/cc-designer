@@ -13,7 +13,10 @@ import {
   FormSetting,
   IElementSchema,
 } from "@cgx-designer/types";
-import { deepCompareAndModify, capitalizeFirstLetter } from "@cgx-designer/utils";
+import {
+  deepCompareAndModify,
+  capitalizeFirstLetter,
+} from "@cgx-designer/utils";
 import {
   SourceDataItem,
   useElement,
@@ -64,15 +67,16 @@ const ElementBuilder = defineComponent({
     const elementManager = useElement();
     const sourceDataManager = useSourceData(elementManager);
     const functionManager = useFunction(elementManager, sourceDataManager);
+    const formData = reactive(props.formData);
+    const modelValue = ref<any>(null);
+    const formRef = ref<any>();
+    //!以上正式builder逻辑，下面注入目前只是为了不报警告
     provide("elementManager", elementManager);
     provide("functionManager", functionManager);
     provide("sourceDataManager", sourceDataManager);
-    //!以下正式builder逻辑，上面注入目前只是为了不报警告
-    let formData = reactive(props.formData);
-    const modelValue = ref<any>(null);
     provide("formData", formData);
     //表单配置
-    const getFormAttrs = computed(() => {
+    const useFormAttrs = computed(() => {
       const { builderSchema, formSetting } = props;
       const formSettings = !isEmpty(builderSchema)
         ? builderSchema.formSetting
@@ -94,16 +98,12 @@ const ElementBuilder = defineComponent({
         ? props.builderSchema.sourceData
         : props.sourceData;
     });
-    //!一进来先赋值一遍
-    sourceDataManager.setSourceData(useSourceDataList.value);
-    elementManager.setElementList(useElementSchemaList.value);
-    elementManager.setMode(false);
     //脚本配置
     const useScript = computed(() => {
       return props.builderSchema.script || props.script;
     });
     //获取表单的方法 事件
-    const getFormFunction = computed(() => {
+    const useFormFunction = computed(() => {
       const formFunctionOn = !isEmpty(props.builderSchema)
         ? props.builderSchema.formSetting.on
         : props.formSetting.on;
@@ -115,6 +115,10 @@ const ElementBuilder = defineComponent({
         });
       return { ...onEvent };
     });
+    //!一进来先赋值一遍
+    sourceDataManager.setSourceData(useSourceDataList.value);
+    elementManager.setElementList(useElementSchemaList.value);
+    elementManager.setMode(false);
 
     watch(
       () => useScript.value,
@@ -124,19 +128,17 @@ const ElementBuilder = defineComponent({
       },
       { immediate: true }
     );
-    const formRef = ref<any>();
-    const setFormData = (data: any) => {
-      deepCompareAndModify(formData, data);
-    };
-    const resetFormDataToEmpty = () => {
-      deepCompareAndModify(formData, {});
-    };
+
     expose({
       formRef,
       formData,
       modelValue,
-      setFormData,
-      resetFormDataToEmpty,
+      setFormData: (data: any) => {
+        deepCompareAndModify(formData, data);
+      },
+      resetFormDataToEmpty: () => {
+        deepCompareAndModify(formData, {});
+      },
     });
     return () => (
       <>
@@ -145,8 +147,8 @@ const ElementBuilder = defineComponent({
             v-model={modelValue.value}
             ref={formRef}
             model={formData}
-            {...getFormAttrs.value}
-            {...getFormFunction.value}
+            {...useFormAttrs.value}
+            {...useFormFunction.value}
           >
             {slots.before && slots.before()}
             {useElementSchemaList.value.map((elementSchema) => (

@@ -78,51 +78,47 @@ const RuleSetting = defineComponent({
         <div class="c-mt-2">
           <CCard>
             {{
-              default: () => {
-                return (
-                  <>
-                    <CFormItem label="必填" labelCol={8} needBottom={false}>
-                      <Switch
-                        v-model={requiredRule.value.required}
+              default: () => (
+                <>
+                  <CFormItem label="必填" labelCol={8} needBottom={false}>
+                    <Switch
+                      v-model={requiredRule.value.required}
+                      {...vuetifyConfig}
+                    />
+                  </CFormItem>
+                  {requiredRule.value.required && (
+                    <CFormItem label="提示信息" class="c-mt-2" labelCol={8}>
+                      <Input
+                        v-model={requiredRule.value.message}
                         {...vuetifyConfig}
                       />
                     </CFormItem>
-                    {requiredRule.value.required && (
-                      <CFormItem label="提示信息" class="c-mt-2" labelCol={8}>
-                        <Input
-                          v-model={requiredRule.value.message}
-                          {...vuetifyConfig}
-                        />
-                      </CFormItem>
-                    )}
-                  </>
-                );
-              },
+                  )}
+                </>
+              ),
             }}
           </CCard>
           {rulesList.value?.map((rule, index) => {
             return (
               <CCard key={index}>
                 {{
-                  default: () => {
-                    return (
-                      <>
-                        <div class="c-w-full c-h-fit c-bg-[#ededed] dark:c-bg-[#1b1b1b] c-px-3 c-py-1 c-box-border c-rounded-t-md">
-                          <span class="c-text-sm c-text-gray-500 dark:c-text-gray-200">
-                            validate (value) &#123;
-                          </span>
-                        </div>
-                        <div class="c-w-full c-h-60">
-                          <MonacoIDE v-model={rule.prototype} />
-                        </div>
-                        <div class="c-w-full c-h-fit c-bg-[#ededed] dark:c-bg-[#1b1b1b] c-px-3 c-py-1 c-box-border c-rounded-b-md">
-                          <span class="c-text-sm c-text-gray-500 dark:c-text-gray-200">
-                            &#125;
-                          </span>
-                        </div>
-                      </>
-                    );
-                  },
+                  default: () => (
+                    <>
+                      <div class="c-w-full c-h-fit c-bg-[#ededed] dark:c-bg-[#1b1b1b] c-px-3 c-py-1 c-box-border c-rounded-t-md">
+                        <span class="c-text-sm c-text-gray-500 dark:c-text-gray-200">
+                          validate (value) &#123;
+                        </span>
+                      </div>
+                      <div class="c-w-full c-h-60">
+                        <MonacoIDE v-model={rule.prototype} />
+                      </div>
+                      <div class="c-w-full c-h-fit c-bg-[#ededed] dark:c-bg-[#1b1b1b] c-px-3 c-py-1 c-box-border c-rounded-b-md">
+                        <span class="c-text-sm c-text-gray-500 dark:c-text-gray-200">
+                          &#125;
+                        </span>
+                      </div>
+                    </>
+                  ),
                   footer: () => (
                     <div class="c-w-full c-flex c-justify-end">
                       <Button

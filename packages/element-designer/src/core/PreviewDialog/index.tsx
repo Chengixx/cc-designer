@@ -70,35 +70,31 @@ const PreviewDialog = defineComponent({
           }}
         >
           {{
-            default: () => {
-              return (
-                <div class="c-h-[70vh] c-overflow-y-auto">
-                  <ElementRenderer
-                    key={ElementBuilderKey.value}
-                    ref={elementBuilderRef as any}
-                    script={functionManager.javaScriptVal.value}
-                    elementSchemaList={deepClone(
-                      elementManager.elementList.value
-                    )}
-                    formSetting={formManager.formSetting}
-                    sourceData={cloneDeep(sourceDataManager.sourceData.value)}
-                  />
-                </div>
-              );
-            },
-            footer: () => {
-              return (
-                <div>
-                  <Button onClick={handleClose}>关闭</Button>
-                  <Button type="primary" onClick={handleValidFormData}>
-                    模拟校验
-                  </Button>
-                  <Button type="primary" onClick={handleGetFormData}>
-                    查看数据
-                  </Button>
-                </div>
-              );
-            },
+            default: () => (
+              <div class="c-h-[70vh] c-overflow-y-auto">
+                <ElementRenderer
+                  key={ElementBuilderKey.value}
+                  ref={elementBuilderRef as any}
+                  script={functionManager.javaScriptVal.value}
+                  elementSchemaList={deepClone(
+                    elementManager.elementList.value
+                  )}
+                  formSetting={formManager.formSetting}
+                  sourceData={cloneDeep(sourceDataManager.sourceData.value)}
+                />
+              </div>
+            ),
+            footer: () => (
+              <div>
+                <Button onClick={handleClose}>关闭</Button>
+                <Button type="primary" onClick={handleValidFormData}>
+                  模拟校验
+                </Button>
+                <Button type="primary" onClick={handleGetFormData}>
+                  查看数据
+                </Button>
+              </div>
+            ),
           }}
         </Dialog>
         <ValueDialog ref={ValueDialogRef} />

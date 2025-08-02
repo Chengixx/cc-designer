@@ -83,80 +83,76 @@ const RuleSetting = defineComponent({
         <div class="c-mt-2">
           <CCard>
             {{
-              default: () => {
-                return (
-                  <>
-                    <CFormItem label="必填" labelCol={8} needBottom={false}>
-                      <Switch
-                        v-model={requiredRule.value.required}
-                        {...vuetifyConfig}
-                      />
-                    </CFormItem>
-                    {requiredRule.value.required && (
-                      <>
-                        <CFormItem label="校验时机" class="c-mt-2" labelCol={8}>
-                          <Select
-                            v-model={requiredRule.value.trigger}
-                            {...vuetifyConfig}
-                            multiple
-                            options={triggerOptions}
-                            placeholder="请选择时机"
-                          />
-                        </CFormItem>
-                        <CFormItem label="类型" class="c-mt-2" labelCol={8}>
-                          <Select
-                            v-model={requiredRule.value.type}
-                            {...vuetifyConfig}
-                            options={typeOptions}
-                            placeholder="请选择类型"
-                          />
-                        </CFormItem>
-                        <CFormItem label="提示信息" class="c-mt-2" labelCol={8}>
-                          <Input
-                            v-model={requiredRule.value.message}
-                            {...vuetifyConfig}
-                          />
-                        </CFormItem>
-                      </>
-                    )}
-                  </>
-                );
-              },
+              default: () => (
+                <>
+                  <CFormItem label="必填" labelCol={8} needBottom={false}>
+                    <Switch
+                      v-model={requiredRule.value.required}
+                      {...vuetifyConfig}
+                    />
+                  </CFormItem>
+                  {requiredRule.value.required && (
+                    <>
+                      <CFormItem label="校验时机" class="c-mt-2" labelCol={8}>
+                        <Select
+                          v-model={requiredRule.value.trigger}
+                          {...vuetifyConfig}
+                          multiple
+                          options={triggerOptions}
+                          placeholder="请选择时机"
+                        />
+                      </CFormItem>
+                      <CFormItem label="类型" class="c-mt-2" labelCol={8}>
+                        <Select
+                          v-model={requiredRule.value.type}
+                          {...vuetifyConfig}
+                          options={typeOptions}
+                          placeholder="请选择类型"
+                        />
+                      </CFormItem>
+                      <CFormItem label="提示信息" class="c-mt-2" labelCol={8}>
+                        <Input
+                          v-model={requiredRule.value.message}
+                          {...vuetifyConfig}
+                        />
+                      </CFormItem>
+                    </>
+                  )}
+                </>
+              ),
             }}
           </CCard>
           {rulesList.value?.map((rule, index) => {
             return (
               <CCard key={index}>
                 {{
-                  default: () => {
-                    return (
-                      <>
-                        <CFormItem label="校验时机" labelCol={8}>
-                          <Select
-                            v-model={rule.trigger}
-                            {...vuetifyConfig}
-                            multiple
-                            options={triggerOptions}
-                            placeholder="请选择时机"
-                          />
-                        </CFormItem>
-                        <CFormItem label="类型" class="c-mt-2" labelCol={8}>
-                          <Select
-                            v-model={rule.type}
-                            {...vuetifyConfig}
-                            options={typeOptions}
-                            placeholder="请选择类型"
-                          />
-                        </CFormItem>
-                        <CFormItem label="正则校验" class="c-mt-2" labelCol={8}>
-                          <Input v-model={rule.pattern} {...vuetifyConfig} />
-                        </CFormItem>
-                        <CFormItem label="提示信息" class="c-mt-2" labelCol={8}>
-                          <Input v-model={rule.message} {...vuetifyConfig} />
-                        </CFormItem>
-                      </>
-                    );
-                  },
+                  default: () => (
+                    <>
+                      <CFormItem label="校验时机" labelCol={8}>
+                        <Select
+                          v-model={rule.trigger}
+                          {...vuetifyConfig}
+                          multiple
+                          options={triggerOptions}
+                          placeholder="请选择时机"
+                        />
+                      </CFormItem>
+                      <CFormItem label="类型" class="c-mt-2" labelCol={8}>
+                        <Select
+                          v-model={rule.type}
+                          {...vuetifyConfig}
+                          options={typeOptions}
+                          placeholder="请选择类型"
+                        />
+                      </CFormItem>
+                      <CFormItem label="正则校验" class="c-mt-2" labelCol={8}>
+                        <Input v-model={rule.pattern} {...vuetifyConfig} />
+                      </CFormItem>
+                      <CFormItem label="提示信息" class="c-mt-2" labelCol={8}>
+                        <Input v-model={rule.message} {...vuetifyConfig} />
+                      </CFormItem>
+                    </>
+                  ),
                   footer: () => (
                     <div class="c-w-full c-flex c-justify-end">
                       <Button

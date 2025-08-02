@@ -1,21 +1,15 @@
 import { ElInput } from "element-plus";
-import { defineComponent, ref } from "vue";
-import { exposeDom } from "@cgx-designer/utils";
+import { defineComponent } from "vue";
 import { useMergeAttr } from "@cgx-designer/hooks";
 import { createElementProps } from "@cgx-designer/utils";
 
 const Input = defineComponent({
   props: createElementProps(),
-  setup(props, { attrs, expose, slots }) {
-    const elementRef = ref<any>(null);
-    expose(exposeDom(elementRef));
+  inheritAttrs: false,
+  setup(props, { attrs, slots }) {
     const renderProps = useMergeAttr(props, attrs);
 
-    return () => (
-      <ElInput {...renderProps} ref={elementRef}>
-        {{ ...slots }}
-      </ElInput>
-    );
+    return () => <ElInput {...renderProps}>{{ ...slots }}</ElInput>;
   },
 });
 
