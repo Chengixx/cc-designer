@@ -6,13 +6,13 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
-    "../packages/core/src/**/*.{vue,js,ts,jsx,tsx}",
-    "../packages/base-materials/**/*.{vue,js,ts,jsx,tsx}",
-    "../packages/private-materials/**/*.{vue,js,ts,jsx,tsx}",
-    "../packages/extensions/src/**/*.{vue,js,ts,jsx,tsx}",
-    "../packages/element-designer/src/**/*.{vue,js,ts,jsx,tsx}",
-    "../packages/element-engine/src/**/*.{vue,js,ts,jsx,tsx}",
-    "../packages/element-renderer/src/**/*.{vue,js,ts,jsx,tsx}",
+    "../../packages/core/src/**/*.{vue,js,ts,jsx,tsx}",
+    "../../packages/base-materials/**/*.{vue,js,ts,jsx,tsx}",
+    "../../packages/private-materials/**/*.{vue,js,ts,jsx,tsx}",
+    "../../packages/extensions/src/**/*.{vue,js,ts,jsx,tsx}",
+    "../../packages/element-designer/src/**/*.{vue,js,ts,jsx,tsx}",
+    "../../packages/element-engine/src/**/*.{vue,js,ts,jsx,tsx}",
+    "../../packages/element-renderer/src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
