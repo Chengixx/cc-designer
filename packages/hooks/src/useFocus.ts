@@ -1,6 +1,6 @@
-import { computed, onUnmounted, ref } from "vue";
+import { computed, ref } from "vue";
 import { ElementManage } from "./useElement";
-import { isEqual } from "lodash-es";
+import { debounce, isEqual } from "lodash-es";
 import { useMutationObserver } from "./useMutationObserver";
 import { useTimedQuery } from "./useTimedQuery";
 import { IElementSchema } from "@cgx-designer/types";
@@ -39,8 +39,8 @@ export const useFocus = (
 
   const initCanvas = (ref: HTMLDivElement) => {
     containerRef.value = ref;
-    // useEventListener(containerRef, "scroll", setFocusWidgetStyle);
-    useEventListener(window, "resize", setFocusWidgetStyle);
+    //这里加一个防抖截流 防止频繁触发
+    useEventListener(window, "resize", debounce(setFocusWidgetStyle, 100));
     startObserver();
   };
 
@@ -51,9 +51,7 @@ export const useFocus = (
   };
 
   //初始化这个focus的物件ref
-  const setFocusWidgetRef = (el: HTMLDivElement) => {
-    focusWidgetRef.value = el;
-  };
+  const setFocusWidgetRef = (el: HTMLDivElement) => (focusWidgetRef.value = el);
 
   //修改这个focus物件的样式
   const setFocusWidgetStyle = () => {
@@ -103,7 +101,7 @@ export const useFocus = (
   };
 
   //初始化dom监听实例(拿到的是实例和config)
-  const { startObserver, stopObserver } = useMutationObserver(
+  const { startObserver } = useMutationObserver(
     containerRef,
     setFocusWidgetStyle
   );
@@ -113,25 +111,16 @@ export const useFocus = (
   const handleFocus = (focusInstanceSchema: IElementSchema, e?: MouseEvent) => {
     e?.stopPropagation();
     //比较进来的 如果已经就是当前的 就不用动了
-    if (!isEqual(focusedElement.value, focusInstanceSchema)) {
-      focusedElement.value = focusInstanceSchema;
-    }
+    if (isEqual(focusedElement.value, focusInstanceSchema)) return;
+    focusedElement.value = focusInstanceSchema;
   };
 
   const handleFocusById = (id: string) => {
     const elementSchema = elementManager.getElementById(id);
-    if (elementSchema) {
-      focusedElement.value = elementSchema;
-    }
+    focusedElement.value = elementSchema || null;
   };
 
-  const resetFocus = () => {
-    focusedElement.value = null;
-  };
-
-  onUnmounted(() => {
-    stopObserver();
-  });
+  const resetFocus = () => (focusedElement.value = null);
 
   return {
     focusedElement,
