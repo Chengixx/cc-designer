@@ -26,6 +26,7 @@ const MoreDialog = defineComponent({
     };
 
     const handleChange = (value: ElementLib) => {
+      handleClose();
       focusManager.resetFocus();
       elementManager.deleteAllElements();
       elementController.clearLibElements();

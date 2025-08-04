@@ -100,46 +100,51 @@ const ElementDesigner = defineComponent({
       },
     ]);
 
-    return () => (
-      <>
-        {elementController.isReady.value ? (
-          <>
-            <div
-              class="c-relative"
-              key={elementController.elementLibrary.value!.name || "key"}
-            >
+    return () => {
+      const DesignerShell = (children: any) => (
+        <>{elementController.isReady.value ? <>{children}</> : <Loading />}</>
+      );
+
+      const MainContent = () => (
+        <>
+          {/* 下面内容的主体 */}
+          <div class="c-w-full c-h-full c-flex c-justify-between c-bg-gray-100 dark:c-bg-black">
+            {/* 编辑器左侧菜单 */}
+            <ActionMenu />
+            {/* 中间部分 */}
+            <div class="c-h-full c-flex-1">
+              {/* 编辑器顶部操作栏 */}
+              <OperationMenu buttonMap={buttonMap} />
+              {/* 下面的画布 */}
+              <EditorCanvas />
+            </div>
+            {/* 编辑器右侧菜单 */}
+            <SettingMenu />
+          </div>
+        </>
+      );
+
+      return (
+        <>
+          {DesignerShell(
+            <>
               {/* 顶部条Logo以及部分操作栏 */}
               <CGXLogo />
-              {/* 下面内容的主体 */}
-              <div class="c-w-full c-h-full c-flex c-justify-between c-bg-gray-100 dark:c-bg-black">
-                {/* 编辑器左侧菜单 */}
-                <ActionMenu />
-                {/* 中间部分 */}
-                <div class="c-h-full c-flex-1">
-                  {/* 编辑器顶部操作栏 */}
-                  <OperationMenu buttonMap={buttonMap} />
-                  {/* 下面的画布 */}
-                  <EditorCanvas />
-                </div>
-                {/* 编辑器右侧菜单 */}
-                <SettingMenu />
-              </div>
-            </div>
-            {/* 折叠按钮小控件 */}
-            <CollapseWidget />
-            {/* 预览dialog */}
-            <PreviewDialog ref={previewDialogRef} />
-            {/* 导入导出dialog */}
-            <ExportSourceCodeDialog ref={exportSourceCodeDialogRef} />
-            <ImportSourceCodeDialog ref={importSourceCodeDialogRef} />
-            {/* 搜索控件 */}
-            <SearchBar ref={searchBarRef} />
-          </>
-        ) : (
-          <Loading />
-        )}
-      </>
-    );
+              <MainContent />
+              {/* 折叠按钮小控件 */}
+              <CollapseWidget />
+              {/* 预览dialog */}
+              <PreviewDialog ref={previewDialogRef} />
+              {/* 导入导出dialog */}
+              <ExportSourceCodeDialog ref={exportSourceCodeDialogRef} />
+              <ImportSourceCodeDialog ref={importSourceCodeDialogRef} />
+              {/* 搜索控件 */}
+              <SearchBar ref={searchBarRef} />
+            </>
+          )}
+        </>
+      );
+    };
   },
 });
 
