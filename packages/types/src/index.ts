@@ -38,6 +38,7 @@ export interface IElementBaseSetting {
   template?: any;
   formItem?: boolean;
   noPushList?: boolean;
+  isChildContainer?: boolean;
   [key: string]: any;
   config?: {
     //全部变成可选的

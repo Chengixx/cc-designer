@@ -6,6 +6,7 @@ const Tab: IElementBaseSetting = {
   icon: TabIcon,
   label: "标签页",
   group: "容器组件",
+  isChildContainer: true,
   render: () => import("./Tab"),
   template: (uuid: Function) => {
     return {

@@ -8,6 +8,7 @@ import { ElementEngine } from "@cgx-designer/element-engine";
 import DragWidget from "../DragWidget";
 import { useEventListener } from "@vueuse/core";
 import { getElementDomInstance } from "@cgx-designer/hooks";
+import { elementController } from "@cgx-designer/controller";
 
 const EditorElement = defineComponent({
   props: {
@@ -43,9 +44,9 @@ const EditorElement = defineComponent({
       focusManager.handleFocus(props.elementSchema, e);
     };
 
-    const isFocus = computed(() => {
-      return focusManager.focusedElement.value?.id === props.elementSchema.id;
-    });
+    const isFocus = computed(
+      () => focusManager.focusedElement.value?.id === props.elementSchema.id
+    );
 
     return () => (
       <>
@@ -54,8 +55,8 @@ const EditorElement = defineComponent({
           {{
             editNode: () => {
               if (
-                props.elementSchema?.key === "row" ||
-                props.elementSchema?.key === "tab"
+                elementController.getElementConfig(props.elementSchema.key)
+                  ?.isChildContainer
               ) {
                 //就返回循环的elementList啊
                 return (

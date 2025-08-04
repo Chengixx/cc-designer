@@ -3,13 +3,11 @@ import { Ripple } from "@cgx-designer/extensions";
 import draggable from "vuedraggable";
 import { computed, inject, ref } from "vue";
 import { getRandomId } from "@cgx-designer/utils";
-import {
-  IElementBaseSetting,
-  elementController,
-} from "@cgx-designer/controller";
+import { elementController } from "@cgx-designer/controller";
 import { useDrag, HoverManage, ThemeManage } from "@cgx-designer/hooks";
 import { ElementListBarItem, ElementListBoxItem } from "./ElementListItem";
 import { Collapse, CollapseItem } from "@cgx-designer/extensions";
+import { IElementBaseSetting } from "@cgx-designer/types";
 
 defineOptions({
   name: "ElementList",

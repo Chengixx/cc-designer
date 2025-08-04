@@ -6,6 +6,7 @@ const Row: IElementBaseSetting = {
   icon: RowIcon,
   label: "栅格",
   group: "容器组件",
+  isChildContainer: true,
   render: () => import("./Row"),
   template: (uuid: Function) => {
     return {
