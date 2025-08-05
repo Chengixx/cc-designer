@@ -1,5 +1,4 @@
 import { defineComponent, provide, ref } from "vue";
-import { createOperationButtonSetting } from "./OperationMenu/operationButtonSetting";
 import CGXLogo from "./CGXLogo";
 import ActionMenu from "./ActionMenu";
 import OperationMenu from "./OperationMenu";
@@ -27,15 +26,12 @@ import CollapseWidget from "./CollapseWidget";
 import { elementController } from "@cgx-designer/controller";
 import { Loading } from "@cgx-designer/extensions";
 import { isMac } from "@cgx-designer/utils";
-import { initMonacoVue } from "../init";
-import { registerPrivateCompoents } from "@cgx-designer/private-materials";
 import SearchBar from "./SearchBar";
+import { initCGXDesigner } from "./useInit";
 
 //设计器
 const ElementDesigner = defineComponent({
   setup() {
-    registerPrivateCompoents();
-    initMonacoVue();
     //实例
     const previewDialogRef = ref<any>(null);
     const exportSourceCodeDialogRef = ref<any>(null);
@@ -80,7 +76,7 @@ const ElementDesigner = defineComponent({
       searchBarRef,
     };
 
-    const buttonMap = createOperationButtonSetting(manages, refs);
+    const { buttonMap } = initCGXDesigner(manages, refs);
 
     //mac是command+z，windows是ctrl+z
     useKeyboard([
@@ -124,22 +120,30 @@ const ElementDesigner = defineComponent({
         </>
       );
 
+      const Widgets = () => (
+        <>
+          {/* 折叠按钮小控件 */}
+          <CollapseWidget />
+          {/* 预览dialog */}
+          <PreviewDialog ref={previewDialogRef} />
+          {/* 导入导出dialog */}
+          <ExportSourceCodeDialog ref={exportSourceCodeDialogRef} />
+          <ImportSourceCodeDialog ref={importSourceCodeDialogRef} />
+          {/* 搜索控件 */}
+          <SearchBar ref={searchBarRef} />
+        </>
+      );
+
       return (
         <>
           {DesignerShell(
             <>
               {/* 顶部条Logo以及部分操作栏 */}
               <CGXLogo />
+              {/* 主要内容 */}
               <MainContent />
-              {/* 折叠按钮小控件 */}
-              <CollapseWidget />
-              {/* 预览dialog */}
-              <PreviewDialog ref={previewDialogRef} />
-              {/* 导入导出dialog */}
-              <ExportSourceCodeDialog ref={exportSourceCodeDialogRef} />
-              <ImportSourceCodeDialog ref={importSourceCodeDialogRef} />
-              {/* 搜索控件 */}
-              <SearchBar ref={searchBarRef} />
+              {/* 小控件 */}
+              <Widgets />
             </>
           )}
         </>
