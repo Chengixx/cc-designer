@@ -153,3 +153,4 @@ const MonacoIDE = defineComponent({
 export default MonacoIDE;
 
 export * from "./util";
+export * from "./vue-highlight";

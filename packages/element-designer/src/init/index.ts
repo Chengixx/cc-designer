@@ -1,21 +1,14 @@
-import { shikiToMonaco } from "@shikijs/monaco";
+import { registerVueLanguage } from "@cgx-designer/extensions";
 import * as monaco from "monaco-editor";
-import { createHighlighter } from "shiki";
-import themeDark from "shiki/themes/dark-plus.mjs";
-import themeLight from "shiki/themes/light-plus.mjs";
 
 export const initMonacoVue = async () => {
-  const highlighter = await createHighlighter({
-    themes: [themeDark, themeLight, "vitesse-dark", "vitesse-light"],
-    langs: ["javascript", "typescript", "vue", "json", "css", "html"],
-  });
+  // 注册 Vue 语言支持
+  registerVueLanguage();
 
-  monaco.languages.register({ id: "vue" });
+  // 注册其他语言（Monaco 内置支持）
   monaco.languages.register({ id: "typescript" });
   monaco.languages.register({ id: "javascript" });
   monaco.languages.register({ id: "json" });
   monaco.languages.register({ id: "css" });
   monaco.languages.register({ id: "html" });
-
-  shikiToMonaco(highlighter, monaco);
 };
