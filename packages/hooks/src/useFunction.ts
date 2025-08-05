@@ -26,16 +26,14 @@ export const useFunction = (
   //让外面输入的script
   const javaScriptVal = ref<string>(
     `
-    const { inject , get , ElMessage , ElMessageBox } = this;
+    const { inject , get } = this;
 
     function fn () {
         console.log("i am yours");
-        ElMessage.success("i am yours");
     }
-    
+
     const testFn = () => {
         console.log(this);
-        test.value = "曼巴哈哈哈";
     }
 
     inject({
