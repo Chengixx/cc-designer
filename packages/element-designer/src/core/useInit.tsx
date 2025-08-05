@@ -9,7 +9,12 @@ import {
   QueueManage,
   FunctionManage,
   SourceDataManage,
+  useKeyboard,
 } from "@cgx-designer/hooks";
+import { defineComponent } from "vue";
+import { elementController } from "@cgx-designer/controller";
+import { Loading } from "@cgx-designer/extensions";
+import { isMac } from "@cgx-designer/utils";
 
 export const initMonacoVue = async () => {
   // 注册 Vue 语言支持
@@ -43,7 +48,39 @@ export const initCGXDesigner = (
   initMonacoVue();
   const buttonMap = createOperationButtonSetting(manages, refs);
 
+  //mac是command+z，windows是ctrl+z
+  useKeyboard([
+    {
+      key: isMac ? "cmd+z" : "ctrl+z",
+      handler: manages.queueManager.undo,
+    },
+    {
+      key: isMac ? "cmd+shift+z" : "ctrl+shift+z",
+      handler: manages.queueManager.redo,
+    },
+    {
+      key: isMac ? "cmd+f" : "ctrl+f",
+      handler: () => {
+        refs.searchBarRef.value.show();
+      },
+    },
+  ]);
+
   return {
     buttonMap,
   };
 };
+
+export const DesignerShell = defineComponent({
+  setup(_, { slots }) {
+    return () => (
+      <>
+        {elementController.isReady.value ? (
+          <>{slots.default?.()}</>
+        ) : (
+          <Loading />
+        )}
+      </>
+    );
+  },
+});

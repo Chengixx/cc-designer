@@ -20,14 +20,10 @@ import {
   useMode,
   useSourceData,
   useQueue,
-  useKeyboard,
 } from "@cgx-designer/hooks";
 import CollapseWidget from "./CollapseWidget";
-import { elementController } from "@cgx-designer/controller";
-import { Loading } from "@cgx-designer/extensions";
-import { isMac } from "@cgx-designer/utils";
 import SearchBar from "./SearchBar";
-import { initCGXDesigner } from "./useInit";
+import { DesignerShell, initCGXDesigner } from "./useInit";
 
 //设计器
 const ElementDesigner = defineComponent({
@@ -78,29 +74,7 @@ const ElementDesigner = defineComponent({
 
     const { buttonMap } = initCGXDesigner(manages, refs);
 
-    //mac是command+z，windows是ctrl+z
-    useKeyboard([
-      {
-        key: isMac ? "cmd+z" : "ctrl+z",
-        handler: queueManager.undo,
-      },
-      {
-        key: isMac ? "cmd+shift+z" : "ctrl+shift+z",
-        handler: queueManager.redo,
-      },
-      {
-        key: isMac ? "cmd+f" : "ctrl+f",
-        handler: () => {
-          searchBarRef.value.show();
-        },
-      },
-    ]);
-
     return () => {
-      const DesignerShell = (children: any) => (
-        <>{elementController.isReady.value ? <>{children}</> : <Loading />}</>
-      );
-
       const MainContent = () => (
         <>
           {/* 下面内容的主体 */}
@@ -135,18 +109,14 @@ const ElementDesigner = defineComponent({
       );
 
       return (
-        <>
-          {DesignerShell(
-            <>
-              {/* 顶部条Logo以及部分操作栏 */}
-              <CGXLogo />
-              {/* 主要内容 */}
-              <MainContent />
-              {/* 小控件 */}
-              <Widgets />
-            </>
-          )}
-        </>
+        <DesignerShell>
+          {/* 顶部条Logo以及部分操作栏 */}
+          <CGXLogo />
+          {/* 主要内容 */}
+          <MainContent />
+          {/* 小控件 */}
+          <Widgets />
+        </DesignerShell>
       );
     };
   },
