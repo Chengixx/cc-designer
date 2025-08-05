@@ -1,8 +1,9 @@
-import { QueueController, IQueueItem } from "@cgx-designer/controller";
+import { QueueController } from "@cgx-designer/controller";
 import { ElementManage } from "./useElement";
 import { FocusManage } from "./useFocus";
-import { deepClone, deepCompareAndModify } from "@cgx-designer/utils";
+import { deepClone } from "@cgx-designer/utils";
 import { onMounted } from "vue";
+import { IQueueItem } from "@cgx-designer/types";
 
 export type QueueManage = ReturnType<typeof useQueue>;
 
