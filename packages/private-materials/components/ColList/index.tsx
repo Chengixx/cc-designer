@@ -37,9 +37,9 @@ const ColList = defineComponent({
 
     const handleDeleteCol = (index: number) => {
       const id = bindValue.value[index].id!;
-      //Todo 深拷贝问题
       elementManager.deleteElementById(id);
-      if (bindValue.value.length === 1) {
+      //如果空了的情况下才重制选中
+      if (bindValue.value.length === 0) {
         focusManager.resetFocus();
       }
     };
