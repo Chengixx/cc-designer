@@ -14,9 +14,10 @@ const SelectOption = defineComponent({
     elementSchema: { type: Object as PropType<IElementSchema>, required: true },
     disabledFlag: { type: Boolean, default: false },
   },
-  setup({ disabledFlag }, { attrs, emit }) {
+  setup(props, { attrs, emit }) {
+    // const { disabledFlag = false } = props;
+    // const Switch = elementController.getElementRender("switch");
     const Button = elementController.getElementRender("button");
-    const Switch = elementController.getElementRender("switch");
     const Input = elementController.getElementRender("input");
     const bindValue = ref<GroupOption[]>(attrs.modelValue as GroupOption[]);
     watch(
@@ -54,13 +55,13 @@ const SelectOption = defineComponent({
                 placeholder="value"
               />
               <div class="c-flex c-items-center">
-                {disabledFlag && (
+                {/* {disabledFlag && (
                   <Switch
                     {...vuetifyConfig}
                     v-model={option.disabled}
                     class="c-ml-1"
                   />
-                )}
+                )} */}
                 <div
                   class="c-flex c-items-center c-h-full c-ml-3"
                   onClick={() => handleDeleteOption(index)}
