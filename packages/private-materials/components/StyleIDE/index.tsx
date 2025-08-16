@@ -4,7 +4,6 @@ import { CssIcon } from "@cgx-designer/icons";
 import { Message } from "@cgx-designer/extensions";
 import { elementController } from "@cgx-designer/controller";
 import { VBtnColorType } from "@cgx-designer/base-materials";
-import { javaScript } from "./../../../../play/src/data";
 
 const StyleIDE = defineComponent({
   inheritAttrs: false,

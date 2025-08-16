@@ -15,7 +15,7 @@ const MonacoIDE = defineComponent({
     },
     theme: {
       type: String,
-      default: "twilight",
+      default: "vs-light",
     },
     mode: {
       type: String,
@@ -88,7 +88,7 @@ const MonacoIDE = defineComponent({
       () => {
         nextTick(() => {
           monaco.editor.setTheme(
-            themeManager.isDark.value ? "dark-plus" : "light-plus"
+            themeManager.isDark.value ? "vs-dark" : "vs-light"
           );
         });
       },
