@@ -12,17 +12,22 @@ import {
 } from "./components";
 
 export * from "./components";
+
+// 组件注册配置
+const componentMap = {
+  selectOption: SelectOption,
+  colList: ColList,
+  ruleSetting: RuleSetting,
+  customRuleSetting: CustomRuleSetting,
+  tabList: TabList,
+  styleInput: StyleInput,
+  idInput: IdInput,
+  computedStyle: ComputedStyle,
+  styleIDE: StyleIDE,
+} as const;
+
 export const registerPrivateCompoents = () => {
-  elementController.registerElementRenderMap("selectOption", SelectOption);
-  elementController.registerElementRenderMap("colList", ColList);
-  elementController.registerElementRenderMap("ruleSetting", RuleSetting);
-  elementController.registerElementRenderMap(
-    "customRuleSetting",
-    CustomRuleSetting
-  );
-  elementController.registerElementRenderMap("tabList", TabList);
-  elementController.registerElementRenderMap("styleInput", StyleInput);
-  elementController.registerElementRenderMap("idInput", IdInput);
-  elementController.registerElementRenderMap("computedStyle", ComputedStyle);
-  elementController.registerElementRenderMap("styleIDE", StyleIDE);
+  Object.entries(componentMap).forEach(([name, component]) => {
+    elementController.registerElementRenderMap(name, component);
+  });
 };
